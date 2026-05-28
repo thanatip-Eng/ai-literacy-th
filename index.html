@@ -1,0 +1,509 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>แบบประเมิน AI Literacy — LinkedIn AI Upskilling Framework</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@500;600;700&family=IBM+Plex+Sans+Thai:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#F3EEE4;
+    --paper-2:#ECE5D7;
+    --card:#FCFAF5;
+    --ink:#211C16;
+    --muted:#736A5C;
+    --line:#DCD3C2;
+    --teal:#0E6E63;
+    --teal-deep:#0A4F47;
+    --amber:#D9852A;
+    --amber-soft:#F0E2C9;
+    --good:#0E6E63;
+    --warn:#B5642A;
+    --shadow:0 1px 0 #fff inset, 0 18px 40px -22px rgba(33,28,22,.45);
+    --r:18px;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{-webkit-text-size-adjust:100%}
+  body{
+    font-family:"IBM Plex Sans Thai",sans-serif;
+    background:var(--paper);
+    color:var(--ink);
+    line-height:1.6;
+    min-height:100vh;
+    position:relative;
+    overflow-x:hidden;
+  }
+  /* grain + warm glow */
+  body::before{
+    content:"";position:fixed;inset:0;pointer-events:none;z-index:0;
+    background:
+      radial-gradient(900px 500px at 85% -10%, rgba(217,133,42,.16), transparent 60%),
+      radial-gradient(800px 600px at -10% 110%, rgba(14,110,99,.14), transparent 55%);
+  }
+  body::after{
+    content:"";position:fixed;inset:0;pointer-events:none;z-index:0;opacity:.05;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+  .wrap{position:relative;z-index:1;max-width:680px;margin:0 auto;padding:22px 18px 64px}
+
+  /* ---------- shared ---------- */
+  .display{font-family:"Chakra Petch",sans-serif}
+  .eyebrow{
+    font-family:"Chakra Petch",sans-serif;font-weight:600;letter-spacing:.18em;
+    text-transform:uppercase;font-size:.7rem;color:var(--teal);
+  }
+  .btn{
+    font-family:"Chakra Petch",sans-serif;font-weight:600;font-size:1rem;
+    border:none;border-radius:999px;padding:15px 26px;cursor:pointer;
+    background:var(--teal);color:#fff;transition:.2s transform,.2s box-shadow,.2s background;
+    box-shadow:0 12px 26px -14px var(--teal);width:100%;
+  }
+  .btn:hover{background:var(--teal-deep);transform:translateY(-1px)}
+  .btn:active{transform:translateY(0)}
+  .btn.ghost{background:transparent;color:var(--ink);box-shadow:none;border:1.5px solid var(--line)}
+  .btn.ghost:hover{background:var(--paper-2)}
+  .screen{display:none;animation:rise .5s cubic-bezier(.2,.7,.2,1) both}
+  .screen.active{display:block}
+  @keyframes rise{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+
+  /* ---------- intro ---------- */
+  .badge{
+    display:inline-flex;align-items:center;gap:8px;background:var(--card);
+    border:1px solid var(--line);border-radius:999px;padding:7px 14px;font-size:.78rem;
+    color:var(--muted);box-shadow:var(--shadow)
+  }
+  .badge b{color:var(--teal);font-weight:600}
+  h1.title{
+    font-family:"Chakra Petch",sans-serif;font-weight:700;line-height:1.12;
+    font-size:clamp(2rem,7.5vw,3rem);margin:18px 0 8px;letter-spacing:-.01em;
+  }
+  h1.title .hl{color:var(--teal);position:relative}
+  .lead{font-size:1.05rem;color:var(--muted);max-width:54ch}
+  .levels{margin:26px 0 8px;display:grid;gap:10px}
+  .lvl-row{
+    display:grid;grid-template-columns:46px 1fr;gap:14px;align-items:center;
+    background:var(--card);border:1px solid var(--line);border-radius:14px;
+    padding:13px 15px;box-shadow:var(--shadow);
+    opacity:0;animation:rise .5s both;
+  }
+  .lvl-row .num{
+    font-family:"Chakra Petch",sans-serif;font-weight:700;font-size:1.25rem;
+    width:46px;height:46px;display:grid;place-items:center;border-radius:12px;
+    background:linear-gradient(160deg,var(--teal),var(--teal-deep));color:#fff;
+  }
+  .lvl-row .meta h3{font-family:"Chakra Petch",sans-serif;font-size:1rem;font-weight:600}
+  .lvl-row .meta p{font-size:.86rem;color:var(--muted);line-height:1.4}
+  .credit{margin-top:18px;font-size:.8rem;color:var(--muted)}
+  .cta{margin-top:24px}
+  .meta-note{margin-top:12px;font-size:.78rem;color:var(--muted);text-align:center}
+
+  /* ---------- quiz ---------- */
+  .topbar{display:flex;align-items:center;justify-content:space-between;gap:14px;margin-bottom:8px}
+  .pill{
+    font-family:"Chakra Petch",sans-serif;font-weight:600;font-size:.72rem;letter-spacing:.06em;
+    padding:6px 12px;border-radius:999px;background:var(--amber-soft);color:var(--warn)
+  }
+  .count{font-size:.82rem;color:var(--muted);font-weight:500}
+  .track{height:7px;background:var(--paper-2);border-radius:99px;overflow:hidden;border:1px solid var(--line)}
+  .bar{height:100%;width:0;background:linear-gradient(90deg,var(--teal),var(--amber));transition:width .45s cubic-bezier(.3,.7,.2,1)}
+  .qcard{
+    background:var(--card);border:1px solid var(--line);border-radius:var(--r);
+    padding:26px 22px;margin-top:20px;box-shadow:var(--shadow)
+  }
+  .lvl-tag{font-family:"Chakra Petch",sans-serif;font-weight:600;font-size:.74rem;color:var(--teal);letter-spacing:.04em;margin-bottom:10px}
+  .qtext{font-size:1.22rem;font-weight:500;line-height:1.5;min-height:2.4em}
+  .scale{display:grid;gap:10px;margin-top:22px}
+  .opt{
+    display:flex;align-items:center;gap:14px;text-align:left;width:100%;
+    border:1.5px solid var(--line);background:#fff;border-radius:14px;
+    padding:14px 16px;cursor:pointer;font-family:inherit;font-size:1rem;color:var(--ink);
+    transition:.16s border-color,.16s background,.16s transform
+  }
+  .opt:hover{border-color:var(--teal);background:#fbfdfc}
+  .opt:active{transform:scale(.99)}
+  .opt .dot{
+    flex:0 0 auto;width:30px;height:30px;border-radius:50%;border:2px solid var(--line);
+    display:grid;place-items:center;font-family:"Chakra Petch",sans-serif;font-weight:700;
+    font-size:.95rem;color:var(--muted);transition:.16s
+  }
+  .opt:hover .dot{border-color:var(--teal);color:var(--teal)}
+  .opt.sel{border-color:var(--teal);background:#eef6f4}
+  .opt.sel .dot{background:var(--teal);border-color:var(--teal);color:#fff}
+  .opt .lab{font-weight:500}
+  .opt .sub{display:block;font-size:.78rem;color:var(--muted);font-weight:400}
+  .navrow{display:flex;gap:12px;margin-top:18px}
+  .navrow .btn{flex:1}
+  .navrow .btn.back{flex:0 0 auto;width:auto;padding-left:20px;padding-right:20px}
+
+  /* ---------- result ---------- */
+  .res-hero{
+    background:linear-gradient(160deg,var(--teal),var(--teal-deep));
+    color:#fff;border-radius:var(--r);padding:28px 24px;box-shadow:0 24px 50px -26px var(--teal-deep);
+    position:relative;overflow:hidden
+  }
+  .res-hero::after{content:"";position:absolute;right:-40px;top:-40px;width:180px;height:180px;border-radius:50%;background:rgba(217,133,42,.32);filter:blur(8px)}
+  .res-hero .k{font-family:"Chakra Petch",sans-serif;letter-spacing:.16em;text-transform:uppercase;font-size:.72rem;opacity:.85;position:relative}
+  .res-hero .lvlnum{font-family:"Chakra Petch",sans-serif;font-weight:700;font-size:3.3rem;line-height:1;margin:8px 0 2px;position:relative}
+  .res-hero .lvlname{font-family:"Chakra Petch",sans-serif;font-weight:600;font-size:1.35rem;position:relative}
+  .res-hero .blurb{margin-top:10px;font-size:.96rem;opacity:.94;position:relative;max-width:46ch}
+  .section-h{font-family:"Chakra Petch",sans-serif;font-weight:600;font-size:1.1rem;margin:30px 0 12px;display:flex;align-items:center;gap:10px}
+  .section-h::before{content:"";width:18px;height:3px;border-radius:2px;background:var(--amber)}
+  .profile{display:grid;gap:13px}
+  .prow .ptop{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:5px}
+  .prow .pname{font-weight:600;font-size:.95rem}
+  .prow .pname small{color:var(--muted);font-weight:400}
+  .prow .ppct{font-family:"Chakra Petch",sans-serif;font-weight:700;font-size:.95rem}
+  .pbar{height:12px;background:var(--paper-2);border:1px solid var(--line);border-radius:99px;overflow:hidden}
+  .pfill{height:100%;width:0;border-radius:99px;transition:width .9s cubic-bezier(.2,.8,.2,1)}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:20px;box-shadow:var(--shadow);margin-top:12px}
+  .card h4{font-family:"Chakra Petch",sans-serif;font-weight:600;font-size:1rem;margin-bottom:6px;color:var(--teal-deep)}
+  .card ul{list-style:none;display:grid;gap:9px;margin-top:6px}
+  .card li{display:flex;gap:10px;font-size:.94rem}
+  .card li::before{content:"";flex:0 0 auto;width:7px;height:7px;border-radius:50%;background:var(--amber);margin-top:9px}
+  .paths{display:flex;flex-wrap:wrap;gap:8px;margin-top:6px}
+  .chip{font-size:.82rem;background:var(--amber-soft);color:var(--warn);border-radius:999px;padding:7px 13px;font-weight:500}
+  .twocol{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+  @media(max-width:480px){.twocol{grid-template-columns:1fr}}
+  .mini{font-size:.82rem;color:var(--muted);margin-top:8px}
+  .res-actions{display:grid;gap:10px;margin-top:26px}
+  @media print{
+    body::before,body::after{display:none}
+    .res-actions,.topbar{display:none}
+    .res-hero{box-shadow:none;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  }
+  .foot{text-align:center;margin-top:30px;font-size:.76rem;color:var(--muted)}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <!-- ===================== INTRO ===================== -->
+  <section id="intro" class="screen active">
+    <div class="badge">แบบประเมินตนเอง · <b>AI Literacy</b></div>
+    <h1 class="title">คุณอยู่ระดับใด<br>บนเส้นทาง <span class="hl">AI</span>?</h1>
+    <p class="lead">แบบประเมินนี้อิงจาก <b>LinkedIn AI Upskilling Framework</b> ซึ่งแบ่งทักษะ AI ออกเป็น 5 ระดับ ทำเสร็จใน 3–5 นาที แล้วรับผลวิเคราะห์พร้อมขั้นตอนพัฒนาต่อไปเป็นรายบุคคล</p>
+
+    <div class="levels" id="introLevels"></div>
+
+    <p class="credit">โครงสร้าง 5 ระดับอ้างอิงจาก LinkedIn AI Upskilling Framework · ออกแบบเป็นเครื่องมือประเมินตนเองสำหรับบริบทไทย</p>
+
+    <div class="cta"><button class="btn" onclick="start()">เริ่มทำแบบประเมิน →</button></div>
+    <p class="meta-note">20 ข้อ · ไม่มีถูกผิด · ตอบตามความเป็นจริงของคุณ</p>
+  </section>
+
+  <!-- ===================== QUIZ ===================== -->
+  <section id="quiz" class="screen">
+    <div class="topbar">
+      <span class="pill" id="qPill">ระดับ 1</span>
+      <span class="count" id="qCount">ข้อ 1 / 20</span>
+    </div>
+    <div class="track"><div class="bar" id="qBar"></div></div>
+
+    <div class="qcard">
+      <div class="lvl-tag" id="qLvlTag"></div>
+      <div class="qtext" id="qText"></div>
+      <div class="scale" id="qScale"></div>
+    </div>
+
+    <div class="navrow">
+      <button class="btn ghost back" id="backBtn" onclick="back()">← ย้อน</button>
+    </div>
+  </section>
+
+  <!-- ===================== RESULT ===================== -->
+  <section id="result" class="screen">
+    <div class="res-hero">
+      <div class="k">ระดับโดยรวมของคุณ</div>
+      <div class="lvlnum" id="rNum">—</div>
+      <div class="lvlname" id="rName"></div>
+      <p class="blurb" id="rBlurb"></p>
+    </div>
+
+    <div class="section-h">โปรไฟล์ทักษะรายระดับ</div>
+    <div class="profile" id="rProfile"></div>
+    <p class="mini">เกณฑ์: ≥ 70% ถือว่า “มั่นใจ/ทำได้” ในระดับนั้น · ระดับโดยรวมคำนวณแบบสะสม (ต้องผ่านระดับล่างก่อน)</p>
+
+    <div class="twocol">
+      <div class="card"><h4>จุดแข็ง</h4><ul id="rStrong"></ul></div>
+      <div class="card"><h4>จุดที่ควรพัฒนา</h4><ul id="rGrow"></ul></div>
+    </div>
+
+    <div class="section-h">ขั้นตอนต่อไปสำหรับคุณ</div>
+    <div class="card">
+      <h4 id="rNextH"></h4>
+      <ul id="rNext"></ul>
+      <div style="margin-top:14px">
+        <div class="lvl-tag" style="margin-bottom:8px">เส้นทางเรียนแนะนำ · LinkedIn Learning</div>
+        <div class="paths" id="rPaths"></div>
+      </div>
+    </div>
+
+    <div class="res-actions">
+      <button class="btn" onclick="copyResult()" id="copyBtn">คัดลอกสรุปผล</button>
+      <button class="btn ghost" onclick="window.print()">บันทึก / พิมพ์ผล (PDF)</button>
+      <button class="btn ghost" onclick="restart()">ทำแบบประเมินใหม่</button>
+    </div>
+    <p class="foot">อิงจาก LinkedIn AI Upskilling Framework (5 ระดับ) · เครื่องมือประเมินตนเอง</p>
+  </section>
+
+</div>
+
+<script>
+/* ---------------- DATA: 5 levels x 4 items ---------------- */
+const LEVELS = [
+  {
+    n:1, th:"เข้าใจพื้นฐาน AI", en:"Understanding",
+    short:"ความรู้พื้นฐานที่ทุกคนควรมี",
+    desc:"รู้ว่า AI คืออะไร ทำอะไรได้/ไม่ได้ และใช้อย่างมีความรับผิดชอบ",
+    color:"#0E6E63",
+    items:[
+      "ฉันอธิบายได้ว่า Generative AI คืออะไร และทำงานอย่างไรในระดับพื้นฐาน",
+      "ฉันแยกแยะได้ว่างานแบบใดที่ AI ทำได้ดี และงานแบบใดที่ AI ยังทำได้ไม่ดีหรือไม่ควรให้ทำ",
+      "ฉันเข้าใจความเสี่ยงของ AI เช่น การให้ข้อมูลผิด (hallucination) อคติ (bias) และความเป็นส่วนตัวของข้อมูล",
+      "ฉันรู้แนวปฏิบัติการใช้ AI อย่างมีความรับผิดชอบในบริบทงานหรือการเรียนของฉัน"
+    ],
+    blurb:"คุณมีพื้นฐานความเข้าใจ AI ที่ดี รู้ว่า AI ทำอะไรได้และมีข้อจำกัดอย่างไร พร้อมก้าวสู่การลงมือใช้จริง",
+    nextH:"พัฒนาสู่ระดับ 2 — นำ AI ไปใช้จริง",
+    next:[
+      "เริ่มใช้เครื่องมือ AI (ChatGPT / Claude / Copilot / Gemini) กับงานจริงสัปดาห์ละ 1–2 อย่าง",
+      "ฝึกเขียน prompt ให้ชัดเจน ระบุบริบท บทบาท และรูปแบบผลลัพธ์ที่ต้องการ",
+      "สร้างนิสัยตรวจสอบ (verify) ผลลัพธ์ของ AI ก่อนนำไปใช้ทุกครั้ง"
+    ],
+    paths:["AI Foundations","Responsible AI Foundations","Career Essentials in Generative AI"]
+  },
+  {
+    n:2, th:"นำ AI ไปใช้ในงานประจำวัน", en:"Applying",
+    short:"ใช้เครื่องมือ AI เพิ่มประสิทธิภาพงาน",
+    desc:"ใช้ AI ช่วยร่าง สรุป ระดมความคิด วิเคราะห์ และเขียน prompt ได้ดี",
+    color:"#15827A",
+    items:[
+      "ฉันใช้เครื่องมือ AI ช่วยทำงานประจำวันอย่างสม่ำเสมอ",
+      "ฉันเขียนคำสั่ง (prompt) ที่ชัดเจน และปรับแก้ซ้ำเพื่อให้ได้ผลลัพธ์ที่ดีขึ้น",
+      "ฉันใช้ AI ช่วยงานหลายประเภท เช่น ร่างเอกสาร สรุปความ ระดมความคิด หรือวิเคราะห์ข้อมูล",
+      "ฉันตรวจสอบ แก้ไข และปรับผลลัพธ์จาก AI ให้เหมาะกับบริบทก่อนนำไปใช้จริงเสมอ"
+    ],
+    blurb:"คุณใช้ AI เป็นผู้ช่วยในงานประจำวันได้คล่อง และรู้วิธีสื่อสารกับ AI ให้ได้ผลลัพธ์ที่มีคุณภาพ",
+    nextH:"พัฒนาสู่ระดับ 3 — สร้างด้วย AI",
+    next:[
+      "ลองเครื่องมือ no-code / automation (เช่น GPTs/Projects, Zapier, Make) เพื่อต่อยอดงานซ้ำ ๆ",
+      "ออกแบบ workflow ที่ผสาน AI หลายขั้นเพื่อแก้ปัญหาเฉพาะของคุณ",
+      "เรียนรู้แนวคิด API เพื่อเข้าใจว่าจะเชื่อม AI เข้ากับระบบงานได้อย่างไร"
+    ],
+    paths:["Prompt Engineering","Automating Work with AI","Building AI Workflows (No-Code)"]
+  },
+  {
+    n:3, th:"สร้างด้วย AI", en:"Building",
+    short:"สร้างโซลูชันและเวิร์กโฟลว์ที่ขับเคลื่อนด้วย AI",
+    desc:"ใช้ no-code/low-code หรือ API สร้างแอป แชตบอต หรือ workflow",
+    color:"#1E8E63",
+    items:[
+      "ฉันออกแบบขั้นตอนการทำงาน (workflow) ที่ผสาน AI เพื่อแก้ปัญหาเฉพาะอย่างได้",
+      "ฉันเคยใช้เครื่องมือ no-code/low-code หรือ automation สร้างโซลูชันที่ขับเคลื่อนด้วย AI",
+      "ฉันเข้าใจแนวคิด API และเชื่อมต่อบริการ AI เข้ากับแอปหรือระบบได้ (หรือร่วมงานกับผู้ที่ทำได้)",
+      "ฉันสร้างต้นแบบ (prototype) แอป/แชตบอต/ผู้ช่วย AI สำหรับงานจริงได้"
+    ],
+    blurb:"คุณไม่ได้แค่ใช้ AI แต่สร้างสิ่งใหม่ด้วย AI ได้ ทั้งเวิร์กโฟลว์ ต้นแบบ และการเชื่อมต่อระบบ",
+    nextH:"พัฒนาสู่ระดับ 4 — ฝึกและดูแลโมเดล",
+    next:[
+      "เรียนรู้วงจรชีวิตของ ML: การเตรียมข้อมูล การฝึก การประเมิน และการ deploy",
+      "ศึกษาการ fine-tune โมเดล และการวัดผล (accuracy, bias, robustness)",
+      "ทำความเข้าใจพื้นฐาน MLOps สำหรับการดูแลระบบ AI ที่ใช้งานจริง"
+    ],
+    paths:["Building AI Applications with APIs","Introduction to Machine Learning","LLM Application Development"]
+  },
+  {
+    n:4, th:"ฝึกและดูแลรักษาโมเดล AI", en:"Training & Maintaining Models",
+    short:"จัดการ ฝึก ปรับแต่ง และดูแลระบบ AI",
+    desc:"สำหรับวิศวกร/นักวิทยาศาสตร์ข้อมูลที่สร้างและดูแลโมเดล",
+    color:"#9A6A1F",
+    items:[
+      "ฉันเข้าใจหลักการของการฝึก (training) และการปรับแต่ง (fine-tuning) โมเดล AI",
+      "ฉันเตรียมและจัดการชุดข้อมูล (dataset) สำหรับฝึกหรือประเมินโมเดลได้",
+      "ฉันประเมินประสิทธิภาพของโมเดล (ความแม่นยำ อคติ การ deploy) และปรับปรุงได้",
+      "ฉันดูแลรักษาและตรวจสอบระบบ AI ที่ใช้งานจริงให้ทำงานต่อเนื่องได้"
+    ],
+    blurb:"คุณทำงานในระดับวิศวกรรมของ AI ได้ ทั้งการฝึก ปรับแต่ง ประเมิน และดูแลโมเดลในการใช้งานจริง",
+    nextH:"พัฒนาสู่ระดับ 5 — เชี่ยวชาญเฉพาะทาง",
+    next:[
+      "เจาะลึกสาขาเฉพาะ เช่น NLP, computer vision, deep learning หรือ AI security",
+      "ติดตามและอ่านงานวิจัยล่าสุด แล้วทดลองนำเทคนิคใหม่มาใช้",
+      "เริ่มเป็นพี่เลี้ยง/ผู้ชี้นำทิศทางเทคนิคให้ทีม"
+    ],
+    paths:["Advanced MLOps","Deep Learning Specialization","Responsible & Trustworthy AI"]
+  },
+  {
+    n:5, th:"เชี่ยวชาญเฉพาะทางขั้นสูง", en:"Deeply Specializing",
+    short:"ผู้เชี่ยวชาญ R&D และเทคนิคขั้นสูง",
+    desc:"พัฒนาสถาปัตยกรรมใหม่ ติดตามงานวิจัย และชี้นำทิศทาง AI",
+    color:"#B5642A",
+    items:[
+      "ฉันมีความเชี่ยวชาญเชิงลึกในสาขา AI เฉพาะทาง (เช่น NLP, vision, deep learning, AI security)",
+      "ฉันติดตามและอ่านงานวิจัยล่าสุดด้าน AI และนำมาประยุกต์ใช้ได้",
+      "ฉันออกแบบหรือพัฒนาสถาปัตยกรรมโมเดล/อัลกอริทึมใหม่ ๆ ได้",
+      "ฉันให้คำปรึกษาหรือชี้นำทิศทางเชิงเทคนิคด้าน AI ขั้นสูงแก่ทีมหรือองค์กรได้"
+    ],
+    blurb:"คุณอยู่แนวหน้าของสาขา AI สามารถสร้างองค์ความรู้ใหม่ และชี้นำทิศทางเชิงเทคนิคให้ผู้อื่นได้",
+    nextH:"รักษาความเป็นผู้นำ — เรียนรู้ต่อเนื่อง",
+    next:[
+      "ตีพิมพ์/แบ่งปันงาน และมีส่วนร่วมในชุมชนวิชาการและอุตสาหกรรม",
+      "ทำโปรเจกต์ R&D ที่ผลักดันขอบเขตของสาขา",
+      "สร้างคนรุ่นต่อไป — เป็นพี่เลี้ยงและออกแบบเส้นทางการเรียนรู้ให้องค์กร"
+    ],
+    paths:["AI Research & Frontier Models","Generative AI for Engineers","Leading AI Strategy"]
+  }
+];
+
+const SCALE = [
+  {v:1, lab:"ไม่จริงเลย", sub:"ยังไม่เคย / ไม่มั่นใจเลย"},
+  {v:2, lab:"จริงเล็กน้อย", sub:"พอรู้บ้าง แต่ยังไม่คล่อง"},
+  {v:3, lab:"จริงปานกลาง", sub:"ทำได้บ้างเป็นบางครั้ง"},
+  {v:4, lab:"ค่อนข้างจริง", sub:"ทำได้ดีเป็นส่วนใหญ่"},
+  {v:5, lab:"จริงที่สุด", sub:"มั่นใจ / ทำได้ประจำ"}
+];
+
+/* ---------------- build flat question list ---------------- */
+const QS = [];
+LEVELS.forEach((L,li)=> L.items.forEach((t,ii)=> QS.push({lvl:li,q:t})));
+const TOTAL = QS.length;
+let idx = 0;
+const answers = new Array(TOTAL).fill(null);
+
+/* ---------------- intro level cards ---------------- */
+(function(){
+  const box = document.getElementById('introLevels');
+  LEVELS.forEach((L,i)=>{
+    const row = document.createElement('div');
+    row.className='lvl-row';
+    row.style.animationDelay = (0.15 + i*0.08)+'s';
+    row.innerHTML = `<div class="num" style="background:linear-gradient(160deg,${L.color},${shade(L.color,-22)})">${L.n}</div>
+      <div class="meta"><h3>${L.th} <small style="color:var(--muted);font-weight:400">· ${L.en}</small></h3><p>${L.desc}</p></div>`;
+    box.appendChild(row);
+  });
+})();
+
+/* ---------------- flow ---------------- */
+function show(id){document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));document.getElementById(id).classList.add('active');window.scrollTo({top:0,behavior:'smooth'});}
+function start(){idx=0;renderQ();show('quiz');}
+function restart(){answers.fill(null);idx=0;show('intro');}
+
+function renderQ(){
+  const item = QS[idx];
+  const L = LEVELS[item.lvl];
+  document.getElementById('qPill').textContent = "ระดับ "+L.n;
+  document.getElementById('qPill').style.background = shade(L.color,38);
+  document.getElementById('qPill').style.color = shade(L.color,-25);
+  document.getElementById('qCount').textContent = `ข้อ ${idx+1} / ${TOTAL}`;
+  document.getElementById('qBar').style.width = ((idx)/(TOTAL))*100 + '%';
+  document.getElementById('qLvlTag').textContent = `${L.th} · ${L.en}`;
+  document.getElementById('qText').textContent = item.q;
+  document.getElementById('backBtn').style.visibility = idx===0 ? 'hidden':'visible';
+
+  const sc = document.getElementById('qScale'); sc.innerHTML='';
+  SCALE.forEach(s=>{
+    const b=document.createElement('button');
+    b.className='opt'+(answers[idx]===s.v?' sel':'');
+    b.innerHTML=`<span class="dot">${s.v}</span><span class="lab">${s.lab}<span class="sub">${s.sub}</span></span>`;
+    b.onclick=()=>choose(s.v);
+    sc.appendChild(b);
+  });
+}
+function choose(v){
+  answers[idx]=v;
+  // brief highlight then advance
+  renderQ();
+  setTimeout(()=>{
+    if(idx < TOTAL-1){idx++;renderQ();}
+    else finish();
+  },180);
+}
+function back(){if(idx>0){idx--;renderQ();}}
+
+/* ---------------- scoring ---------------- */
+function levelPct(li){
+  let sum=0;
+  for(let i=0;i<4;i++){sum += answers[li*4+i] || 0;}
+  return Math.round((sum/(4*5))*100);
+}
+function finish(){
+  const pcts = LEVELS.map((_,li)=>levelPct(li));
+  const THRESH=70;
+  // cumulative placement: highest unbroken chain from level 1
+  let placement=0; // 0 means pre-level-1
+  for(let i=0;i<LEVELS.length;i++){ if(pcts[i]>=THRESH) placement=i+1; else break; }
+  renderResult(pcts, placement, THRESH);
+  show('result');
+}
+
+function renderResult(pcts, placement, THRESH){
+  // hero
+  if(placement===0){
+    document.getElementById('rNum').textContent="0";
+    document.getElementById('rName').textContent="กำลังสร้างพื้นฐาน";
+    document.getElementById('rBlurb').textContent="คุณกำลังเริ่มต้นเส้นทาง AI — โฟกัสที่การสร้างความเข้าใจพื้นฐาน (ระดับ 1) ก่อน แล้วต่อยอดทีละขั้น";
+    document.getElementById('rNextH').textContent="เริ่มต้นที่ระดับ 1 — เข้าใจพื้นฐาน AI";
+    fillUl('rNext',[
+      "ทำความเข้าใจว่า Generative AI คืออะไร ทำได้ดีในเรื่องใด และมีข้อจำกัด/ความเสี่ยงอย่างไร",
+      "เรียนรู้แนวปฏิบัติการใช้ AI อย่างมีความรับผิดชอบ",
+      "ทดลองใช้เครื่องมือ AI กับงานง่าย ๆ เพื่อสร้างความคุ้นเคย"
+    ]);
+    fillChips('rPaths',["AI Foundations","Responsible AI Foundations"]);
+  } else {
+    const L=LEVELS[placement-1];
+    document.getElementById('rNum').textContent=L.n;
+    document.getElementById('rName').textContent=L.th+" · "+L.en;
+    document.getElementById('rBlurb').textContent=L.blurb;
+    document.getElementById('rNextH').textContent=L.nextH;
+    fillUl('rNext',L.next);
+    fillChips('rPaths',L.paths);
+  }
+
+  // profile bars
+  const prof=document.getElementById('rProfile'); prof.innerHTML='';
+  LEVELS.forEach((L,li)=>{
+    const p=pcts[li];
+    const row=document.createElement('div'); row.className='prow';
+    row.innerHTML=`<div class="ptop"><span class="pname">${L.n}. ${L.th} <small>· ${L.en}</small></span><span class="ppct" style="color:${L.color}">${p}%</span></div>
+      <div class="pbar"><div class="pfill" style="background:linear-gradient(90deg,${L.color},${shade(L.color,25)})"></div></div>`;
+    prof.appendChild(row);
+    const fill=row.querySelector('.pfill');
+    setTimeout(()=>fill.style.width=p+'%', 120+li*110);
+  });
+
+  // strengths / growth
+  const ranked=LEVELS.map((L,li)=>({L,p:pcts[li]}));
+  const strong=ranked.filter(x=>x.p>=70).sort((a,b)=>b.p-a.p);
+  const grow=ranked.filter(x=>x.p<70).sort((a,b)=>a.p-b.p);
+  fillUl('rStrong', strong.length? strong.slice(0,3).map(x=>`${x.L.th} (${x.p}%)`):["ยังไม่มีระดับใดถึง 70% — เริ่มสะสมจากระดับ 1"]);
+  fillUl('rGrow', grow.length? grow.slice(0,3).map(x=>`${x.L.th} (${x.p}%)`):["ครบทุกระดับแล้ว เยี่ยมมาก! เน้นเรียนรู้ต่อเนื่อง"]);
+
+  // store for copy
+  window.__res={pcts,placement};
+}
+
+function fillUl(id,arr){const ul=document.getElementById(id);ul.innerHTML='';arr.forEach(t=>{const li=document.createElement('li');li.textContent=t;ul.appendChild(li);});}
+function fillChips(id,arr){const box=document.getElementById(id);box.innerHTML='';arr.forEach(t=>{const c=document.createElement('span');c.className='chip';c.textContent=t;box.appendChild(c);});}
+
+function copyResult(){
+  const {pcts,placement}=window.__res||{};
+  let lines=["ผลประเมิน AI Literacy (อิง LinkedIn AI Upskilling Framework)",""];
+  lines.push("ระดับโดยรวม: "+(placement? "ระดับ "+placement+" — "+LEVELS[placement-1].th : "0 — กำลังสร้างพื้นฐาน"));
+  lines.push("");
+  lines.push("โปรไฟล์รายระดับ:");
+  LEVELS.forEach((L,li)=>lines.push(`  ${L.n}. ${L.th}: ${pcts[li]}%`));
+  const text=lines.join("\n");
+  navigator.clipboard.writeText(text).then(()=>{
+    const b=document.getElementById('copyBtn');const o=b.textContent;b.textContent="คัดลอกแล้ว ✓";setTimeout(()=>b.textContent=o,1800);
+  }).catch(()=>{alert(text);});
+}
+
+/* lighten/darken hex */
+function shade(hex,amt){
+  let c=hex.replace('#','');let r=parseInt(c.substr(0,2),16),g=parseInt(c.substr(2,2),16),b=parseInt(c.substr(4,2),16);
+  r=Math.max(0,Math.min(255,r+amt));g=Math.max(0,Math.min(255,g+amt));b=Math.max(0,Math.min(255,b+amt));
+  return '#'+[r,g,b].map(x=>x.toString(16).padStart(2,'0')).join('');
+}
+</script>
+</body>
+</html>
