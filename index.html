@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>แบบประเมิน AI Literacy — LinkedIn AI Upskilling Framework</title>
+<title data-i18n="documentTitle">แบบประเมิน AI Literacy — LinkedIn AI Upskilling Framework</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@500;600;700&family=IBM+Plex+Sans+Thai:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -48,6 +48,21 @@
   }
   .wrap{position:relative;z-index:1;max-width:680px;margin:0 auto;padding:22px 18px 64px}
 
+  /* ---------- language toggle ---------- */
+  .lang-toggle{
+    position:absolute;top:18px;right:18px;z-index:20;
+    display:inline-flex;align-items:center;gap:2px;
+    background:var(--card);border:1px solid var(--line);
+    border-radius:999px;padding:3px;box-shadow:var(--shadow);
+  }
+  .lang-toggle button{
+    font-family:"Chakra Petch",sans-serif;font-weight:600;font-size:.72rem;
+    letter-spacing:.06em;border:none;background:transparent;color:var(--muted);
+    padding:5px 12px;border-radius:999px;cursor:pointer;transition:.16s;
+  }
+  .lang-toggle button.active{background:var(--teal);color:#fff}
+  .lang-toggle button:hover:not(.active){color:var(--ink)}
+
   /* ---------- shared ---------- */
   .display{font-family:"Chakra Petch",sans-serif}
   .eyebrow{
@@ -72,7 +87,7 @@
   .badge{
     display:inline-flex;align-items:center;gap:8px;background:var(--card);
     border:1px solid var(--line);border-radius:999px;padding:7px 14px;font-size:.78rem;
-    color:var(--muted);box-shadow:var(--shadow)
+    color:var(--muted);box-shadow:var(--shadow);margin-top:30px;
   }
   .badge b{color:var(--teal);font-weight:600}
   h1.title{
@@ -100,7 +115,7 @@
   .meta-note{margin-top:12px;font-size:.78rem;color:var(--muted);text-align:center}
 
   /* ---------- quiz ---------- */
-  .topbar{display:flex;align-items:center;justify-content:space-between;gap:14px;margin-bottom:8px}
+  .topbar{display:flex;align-items:center;justify-content:space-between;gap:14px;margin-bottom:8px;margin-top:30px}
   .pill{
     font-family:"Chakra Petch",sans-serif;font-weight:600;font-size:.72rem;letter-spacing:.06em;
     padding:6px 12px;border-radius:999px;background:var(--amber-soft);color:var(--warn)
@@ -141,7 +156,7 @@
   .res-hero{
     background:linear-gradient(160deg,var(--teal),var(--teal-deep));
     color:#fff;border-radius:var(--r);padding:28px 24px;box-shadow:0 24px 50px -26px var(--teal-deep);
-    position:relative;overflow:hidden
+    position:relative;overflow:hidden;margin-top:30px;
   }
   .res-hero::after{content:"";position:absolute;right:-40px;top:-40px;width:180px;height:180px;border-radius:50%;background:rgba(217,133,42,.32);filter:blur(8px)}
   .res-hero .k{font-family:"Chakra Petch",sans-serif;letter-spacing:.16em;text-transform:uppercase;font-size:.72rem;opacity:.85;position:relative}
@@ -170,7 +185,7 @@
   .res-actions{display:grid;gap:10px;margin-top:26px}
   @media print{
     body::before,body::after{display:none}
-    .res-actions,.topbar{display:none}
+    .res-actions,.topbar,.lang-toggle{display:none}
     .res-hero{box-shadow:none;-webkit-print-color-adjust:exact;print-color-adjust:exact}
   }
   .foot{text-align:center;margin-top:30px;font-size:.76rem;color:var(--muted)}
@@ -179,18 +194,24 @@
 <body>
 <div class="wrap">
 
+  <!-- ===================== LANGUAGE TOGGLE ===================== -->
+  <div class="lang-toggle" role="group" aria-label="Language">
+    <button type="button" id="langTH" onclick="setLang('th')" aria-label="ภาษาไทย">TH</button>
+    <button type="button" id="langEN" onclick="setLang('en')" aria-label="English">EN</button>
+  </div>
+
   <!-- ===================== INTRO ===================== -->
   <section id="intro" class="screen active">
-    <div class="badge">แบบประเมินตนเอง · <b>AI Literacy</b></div>
-    <h1 class="title">คุณอยู่ระดับใด<br>บนเส้นทาง <span class="hl">AI</span>?</h1>
-    <p class="lead">แบบประเมินนี้อิงจาก <b>LinkedIn AI Upskilling Framework</b> ซึ่งแบ่งทักษะ AI ออกเป็น 5 ระดับ ทำเสร็จใน 3–5 นาที แล้วรับผลวิเคราะห์พร้อมขั้นตอนพัฒนาต่อไปเป็นรายบุคคล</p>
+    <div class="badge"><span data-i18n="badgeSelfTest">แบบประเมินตนเอง</span> · <b data-i18n="badgeBrand">AI Literacy</b></div>
+    <h1 class="title" data-i18n="heroTitle" data-i18n-html="true">คุณอยู่ระดับใด<br>บนเส้นทาง <span class="hl">AI</span>?</h1>
+    <p class="lead" data-i18n="lead" data-i18n-html="true">แบบประเมินนี้อิงจาก <b>LinkedIn AI Upskilling Framework</b> ซึ่งแบ่งทักษะ AI ออกเป็น 5 ระดับ ทำเสร็จใน 3–5 นาที แล้วรับผลวิเคราะห์พร้อมขั้นตอนพัฒนาต่อไปเป็นรายบุคคล</p>
 
     <div class="levels" id="introLevels"></div>
 
-    <p class="credit">โครงสร้าง 5 ระดับอ้างอิงจาก LinkedIn AI Upskilling Framework · ออกแบบเป็นเครื่องมือประเมินตนเองสำหรับบริบทไทย</p>
+    <p class="credit" data-i18n="credit">โครงสร้าง 5 ระดับอ้างอิงจาก LinkedIn AI Upskilling Framework · ออกแบบเป็นเครื่องมือประเมินตนเองสำหรับบริบทไทย</p>
 
-    <div class="cta"><button class="btn" onclick="start()">เริ่มทำแบบประเมิน →</button></div>
-    <p class="meta-note">20 ข้อ · ไม่มีถูกผิด · ตอบตามความเป็นจริงของคุณ</p>
+    <div class="cta"><button class="btn" onclick="start()" data-i18n="startBtn">เริ่มทำแบบประเมิน →</button></div>
+    <p class="meta-note" data-i18n="metaNote">20 ข้อ · ไม่มีถูกผิด · ตอบตามความเป็นจริงของคุณ</p>
   </section>
 
   <!-- ===================== QUIZ ===================== -->
@@ -208,180 +229,367 @@
     </div>
 
     <div class="navrow">
-      <button class="btn ghost back" id="backBtn" onclick="back()">← ย้อน</button>
+      <button class="btn ghost back" id="backBtn" onclick="back()" data-i18n="backBtn">← ย้อน</button>
     </div>
   </section>
 
   <!-- ===================== RESULT ===================== -->
   <section id="result" class="screen">
     <div class="res-hero">
-      <div class="k">ระดับโดยรวมของคุณ</div>
+      <div class="k" data-i18n="rHero">ระดับโดยรวมของคุณ</div>
       <div class="lvlnum" id="rNum">—</div>
       <div class="lvlname" id="rName"></div>
       <p class="blurb" id="rBlurb"></p>
     </div>
 
-    <div class="section-h">โปรไฟล์ทักษะรายระดับ</div>
+    <div class="section-h" data-i18n="profileHead">โปรไฟล์ทักษะรายระดับ</div>
     <div class="profile" id="rProfile"></div>
-    <p class="mini">เกณฑ์: ≥ 70% ถือว่า “มั่นใจ/ทำได้” ในระดับนั้น · ระดับโดยรวมคำนวณแบบสะสม (ต้องผ่านระดับล่างก่อน)</p>
+    <p class="mini" data-i18n="profileMini">เกณฑ์: ≥ 70% ถือว่า "มั่นใจ/ทำได้" ในระดับนั้น · ระดับโดยรวมคำนวณแบบสะสม (ต้องผ่านระดับล่างก่อน)</p>
 
     <div class="twocol">
-      <div class="card"><h4>จุดแข็ง</h4><ul id="rStrong"></ul></div>
-      <div class="card"><h4>จุดที่ควรพัฒนา</h4><ul id="rGrow"></ul></div>
+      <div class="card"><h4 data-i18n="strongHead">จุดแข็ง</h4><ul id="rStrong"></ul></div>
+      <div class="card"><h4 data-i18n="growHead">จุดที่ควรพัฒนา</h4><ul id="rGrow"></ul></div>
     </div>
 
-    <div class="section-h">ขั้นตอนต่อไปสำหรับคุณ</div>
+    <div class="section-h" data-i18n="nextHead">ขั้นตอนต่อไปสำหรับคุณ</div>
     <div class="card">
       <h4 id="rNextH"></h4>
       <ul id="rNext"></ul>
       <div style="margin-top:14px">
-        <div class="lvl-tag" style="margin-bottom:8px">เส้นทางเรียนแนะนำ · LinkedIn Learning</div>
+        <div class="lvl-tag" id="rPathsLabel" data-i18n="pathsLabel" style="margin-bottom:8px">เส้นทางเรียนแนะนำ · LinkedIn Learning</div>
         <div class="paths" id="rPaths"></div>
       </div>
     </div>
 
     <div class="res-actions">
-      <button class="btn" onclick="copyResult()" id="copyBtn">คัดลอกสรุปผล</button>
-      <button class="btn ghost" onclick="window.print()">บันทึก / พิมพ์ผล (PDF)</button>
-      <button class="btn ghost" onclick="restart()">ทำแบบประเมินใหม่</button>
+      <button class="btn" onclick="copyResult()" id="copyBtn" data-i18n="copyBtn">คัดลอกสรุปผล</button>
+      <button class="btn ghost" onclick="window.print()" data-i18n="printBtn">บันทึก / พิมพ์ผล (PDF)</button>
+      <button class="btn ghost" onclick="restart()" data-i18n="restartBtn">ทำแบบประเมินใหม่</button>
     </div>
-    <p class="foot">อิงจาก LinkedIn AI Upskilling Framework (5 ระดับ) · เครื่องมือประเมินตนเอง</p>
+    <p class="foot" data-i18n="foot">อิงจาก LinkedIn AI Upskilling Framework (5 ระดับ) · เครื่องมือประเมินตนเอง</p>
   </section>
 
 </div>
 
 <script>
-/* ---------------- DATA: 5 levels x 4 items ---------------- */
+/* ---------------- LANG: UI chrome strings ---------------- */
+/* NOTE: Step 1 of v3.0 — EN strings mirror TH as placeholders.
+   Step 2 will replace EN values with proper translations. */
+const LANG = {
+  th: {
+    documentTitle: "แบบประเมิน AI Literacy — LinkedIn AI Upskilling Framework",
+    badgeSelfTest: "แบบประเมินตนเอง",
+    badgeBrand: "AI Literacy",
+    heroTitle: 'คุณอยู่ระดับใด<br>บนเส้นทาง <span class="hl">AI</span>?',
+    lead: "แบบประเมินนี้อิงจาก <b>LinkedIn AI Upskilling Framework</b> ซึ่งแบ่งทักษะ AI ออกเป็น 5 ระดับ ทำเสร็จใน 3–5 นาที แล้วรับผลวิเคราะห์พร้อมขั้นตอนพัฒนาต่อไปเป็นรายบุคคล",
+    credit: "โครงสร้าง 5 ระดับอ้างอิงจาก LinkedIn AI Upskilling Framework · ออกแบบเป็นเครื่องมือประเมินตนเองสำหรับบริบทไทย",
+    startBtn: "เริ่มทำแบบประเมิน →",
+    metaNote: "20 ข้อ · ไม่มีถูกผิด · ตอบตามความเป็นจริงของคุณ",
+    backBtn: "← ย้อน",
+    qPillTpl: (n) => "ระดับ " + n,
+    qCountTpl: (n, total) => "ข้อ " + n + " / " + total,
+    rHero: "ระดับโดยรวมของคุณ",
+    profileHead: "โปรไฟล์ทักษะรายระดับ",
+    profileMini: 'เกณฑ์: ≥ 70% ถือว่า "มั่นใจ/ทำได้" ในระดับนั้น · ระดับโดยรวมคำนวณแบบสะสม (ต้องผ่านระดับล่างก่อน)',
+    strongHead: "จุดแข็ง",
+    growHead: "จุดที่ควรพัฒนา",
+    nextHead: "ขั้นตอนต่อไปสำหรับคุณ",
+    pathsLabel: "เส้นทางเรียนแนะนำ · LinkedIn Learning",
+    copyBtn: "คัดลอกสรุปผล",
+    copyDone: "คัดลอกแล้ว ✓",
+    printBtn: "บันทึก / พิมพ์ผล (PDF)",
+    restartBtn: "ทำแบบประเมินใหม่",
+    foot: "อิงจาก LinkedIn AI Upskilling Framework (5 ระดับ) · เครื่องมือประเมินตนเอง",
+    p0Name: "กำลังสร้างพื้นฐาน",
+    p0Blurb: "คุณกำลังเริ่มต้นเส้นทาง AI — โฟกัสที่การสร้างความเข้าใจพื้นฐาน (ระดับ 1) ก่อน แล้วต่อยอดทีละขั้น",
+    p0NextH: "เริ่มต้นที่ระดับ 1 — เข้าใจพื้นฐาน AI",
+    p0Next: [
+      "ทำความเข้าใจว่า Generative AI คืออะไร ทำได้ดีในเรื่องใด และมีข้อจำกัด/ความเสี่ยงอย่างไร",
+      "เรียนรู้แนวปฏิบัติการใช้ AI อย่างมีความรับผิดชอบ",
+      "ทดลองใช้เครื่องมือ AI กับงานง่าย ๆ เพื่อสร้างความคุ้นเคย"
+    ],
+    p0Paths: ["AI Foundations","Responsible AI Foundations"],
+    noStrongTpl: () => "ยังไม่มีระดับใดถึง 70% — เริ่มสะสมจากระดับ 1",
+    noGrowTpl: () => "ครบทุกระดับแล้ว เยี่ยมมาก! เน้นเรียนรู้ต่อเนื่อง",
+    rankTpl: (name, pct) => `${name} (${pct}%)`,
+    copyHeader: "ผลประเมิน AI Literacy (อิง LinkedIn AI Upskilling Framework)",
+    copyOverallTpl: (placement, name) => placement
+      ? `ระดับโดยรวม: ระดับ ${placement} — ${name}`
+      : "ระดับโดยรวม: 0 — กำลังสร้างพื้นฐาน",
+    copyProfileHead: "โปรไฟล์รายระดับ:",
+    copyRowTpl: (n, name, pct) => `  ${n}. ${name}: ${pct}%`
+  },
+  en: {
+    documentTitle: "แบบประเมิน AI Literacy — LinkedIn AI Upskilling Framework",
+    badgeSelfTest: "แบบประเมินตนเอง",
+    badgeBrand: "AI Literacy",
+    heroTitle: 'คุณอยู่ระดับใด<br>บนเส้นทาง <span class="hl">AI</span>?',
+    lead: "แบบประเมินนี้อิงจาก <b>LinkedIn AI Upskilling Framework</b> ซึ่งแบ่งทักษะ AI ออกเป็น 5 ระดับ ทำเสร็จใน 3–5 นาที แล้วรับผลวิเคราะห์พร้อมขั้นตอนพัฒนาต่อไปเป็นรายบุคคล",
+    credit: "โครงสร้าง 5 ระดับอ้างอิงจาก LinkedIn AI Upskilling Framework · ออกแบบเป็นเครื่องมือประเมินตนเองสำหรับบริบทไทย",
+    startBtn: "เริ่มทำแบบประเมิน →",
+    metaNote: "20 ข้อ · ไม่มีถูกผิด · ตอบตามความเป็นจริงของคุณ",
+    backBtn: "← ย้อน",
+    qPillTpl: (n) => "ระดับ " + n,
+    qCountTpl: (n, total) => "ข้อ " + n + " / " + total,
+    rHero: "ระดับโดยรวมของคุณ",
+    profileHead: "โปรไฟล์ทักษะรายระดับ",
+    profileMini: 'เกณฑ์: ≥ 70% ถือว่า "มั่นใจ/ทำได้" ในระดับนั้น · ระดับโดยรวมคำนวณแบบสะสม (ต้องผ่านระดับล่างก่อน)',
+    strongHead: "จุดแข็ง",
+    growHead: "จุดที่ควรพัฒนา",
+    nextHead: "ขั้นตอนต่อไปสำหรับคุณ",
+    pathsLabel: "เส้นทางเรียนแนะนำ · LinkedIn Learning",
+    copyBtn: "คัดลอกสรุปผล",
+    copyDone: "คัดลอกแล้ว ✓",
+    printBtn: "บันทึก / พิมพ์ผล (PDF)",
+    restartBtn: "ทำแบบประเมินใหม่",
+    foot: "อิงจาก LinkedIn AI Upskilling Framework (5 ระดับ) · เครื่องมือประเมินตนเอง",
+    p0Name: "กำลังสร้างพื้นฐาน",
+    p0Blurb: "คุณกำลังเริ่มต้นเส้นทาง AI — โฟกัสที่การสร้างความเข้าใจพื้นฐาน (ระดับ 1) ก่อน แล้วต่อยอดทีละขั้น",
+    p0NextH: "เริ่มต้นที่ระดับ 1 — เข้าใจพื้นฐาน AI",
+    p0Next: [
+      "ทำความเข้าใจว่า Generative AI คืออะไร ทำได้ดีในเรื่องใด และมีข้อจำกัด/ความเสี่ยงอย่างไร",
+      "เรียนรู้แนวปฏิบัติการใช้ AI อย่างมีความรับผิดชอบ",
+      "ทดลองใช้เครื่องมือ AI กับงานง่าย ๆ เพื่อสร้างความคุ้นเคย"
+    ],
+    p0Paths: ["AI Foundations","Responsible AI Foundations"],
+    noStrongTpl: () => "ยังไม่มีระดับใดถึง 70% — เริ่มสะสมจากระดับ 1",
+    noGrowTpl: () => "ครบทุกระดับแล้ว เยี่ยมมาก! เน้นเรียนรู้ต่อเนื่อง",
+    rankTpl: (name, pct) => `${name} (${pct}%)`,
+    copyHeader: "ผลประเมิน AI Literacy (อิง LinkedIn AI Upskilling Framework)",
+    copyOverallTpl: (placement, name) => placement
+      ? `ระดับโดยรวม: ระดับ ${placement} — ${name}`
+      : "ระดับโดยรวม: 0 — กำลังสร้างพื้นฐาน",
+    copyProfileHead: "โปรไฟล์รายระดับ:",
+    copyRowTpl: (n, name, pct) => `  ${n}. ${name}: ${pct}%`
+  }
+};
+
+/* ---------------- DATA: 5 levels x 4 items (bilingual; EN = TH placeholder, filled in Step 2) ---------------- */
 const LEVELS = [
   {
-    n:1, th:"เข้าใจพื้นฐาน AI", en:"Understanding",
-    short:"ความรู้พื้นฐานที่ทุกคนควรมี",
-    desc:"รู้ว่า AI คืออะไร ทำอะไรได้/ไม่ได้ และใช้อย่างมีความรับผิดชอบ",
+    n:1,
+    name: { th:"เข้าใจพื้นฐาน AI", en:"Understanding" },
+    short: { th:"ความรู้พื้นฐานที่ทุกคนควรมี", en:"ความรู้พื้นฐานที่ทุกคนควรมี" },
+    desc: { th:"รู้ว่า AI คืออะไร ทำอะไรได้/ไม่ได้ และใช้อย่างมีความรับผิดชอบ", en:"รู้ว่า AI คืออะไร ทำอะไรได้/ไม่ได้ และใช้อย่างมีความรับผิดชอบ" },
     color:"#0E6E63",
     items:[
-      "ฉันอธิบายได้ว่า Generative AI คืออะไร และทำงานอย่างไรในระดับพื้นฐาน",
-      "ฉันแยกแยะได้ว่างานแบบใดที่ AI ทำได้ดี และงานแบบใดที่ AI ยังทำได้ไม่ดีหรือไม่ควรให้ทำ",
-      "ฉันเข้าใจความเสี่ยงของ AI เช่น การให้ข้อมูลผิด (hallucination) อคติ (bias) และความเป็นส่วนตัวของข้อมูล",
-      "ฉันรู้แนวปฏิบัติการใช้ AI อย่างมีความรับผิดชอบในบริบทงานหรือการเรียนของฉัน"
+      { th:"ฉันอธิบายได้ว่า Generative AI คืออะไร และทำงานอย่างไรในระดับพื้นฐาน",
+        en:"ฉันอธิบายได้ว่า Generative AI คืออะไร และทำงานอย่างไรในระดับพื้นฐาน" },
+      { th:"ฉันแยกแยะได้ว่างานแบบใดที่ AI ทำได้ดี และงานแบบใดที่ AI ยังทำได้ไม่ดีหรือไม่ควรให้ทำ",
+        en:"ฉันแยกแยะได้ว่างานแบบใดที่ AI ทำได้ดี และงานแบบใดที่ AI ยังทำได้ไม่ดีหรือไม่ควรให้ทำ" },
+      { th:"ฉันเข้าใจความเสี่ยงของ AI เช่น การให้ข้อมูลผิด (hallucination) อคติ (bias) และความเป็นส่วนตัวของข้อมูล",
+        en:"ฉันเข้าใจความเสี่ยงของ AI เช่น การให้ข้อมูลผิด (hallucination) อคติ (bias) และความเป็นส่วนตัวของข้อมูล" },
+      { th:"ฉันรู้แนวปฏิบัติการใช้ AI อย่างมีความรับผิดชอบในบริบทงานหรือการเรียนของฉัน",
+        en:"ฉันรู้แนวปฏิบัติการใช้ AI อย่างมีความรับผิดชอบในบริบทงานหรือการเรียนของฉัน" }
     ],
-    blurb:"คุณมีพื้นฐานความเข้าใจ AI ที่ดี รู้ว่า AI ทำอะไรได้และมีข้อจำกัดอย่างไร พร้อมก้าวสู่การลงมือใช้จริง",
-    nextH:"พัฒนาสู่ระดับ 2 — นำ AI ไปใช้จริง",
+    blurb: { th:"คุณมีพื้นฐานความเข้าใจ AI ที่ดี รู้ว่า AI ทำอะไรได้และมีข้อจำกัดอย่างไร พร้อมก้าวสู่การลงมือใช้จริง",
+             en:"คุณมีพื้นฐานความเข้าใจ AI ที่ดี รู้ว่า AI ทำอะไรได้และมีข้อจำกัดอย่างไร พร้อมก้าวสู่การลงมือใช้จริง" },
+    nextH: { th:"พัฒนาสู่ระดับ 2 — นำ AI ไปใช้จริง",
+             en:"พัฒนาสู่ระดับ 2 — นำ AI ไปใช้จริง" },
     next:[
-      "เริ่มใช้เครื่องมือ AI (ChatGPT / Claude / Copilot / Gemini) กับงานจริงสัปดาห์ละ 1–2 อย่าง",
-      "ฝึกเขียน prompt ให้ชัดเจน ระบุบริบท บทบาท และรูปแบบผลลัพธ์ที่ต้องการ",
-      "สร้างนิสัยตรวจสอบ (verify) ผลลัพธ์ของ AI ก่อนนำไปใช้ทุกครั้ง"
+      { th:"เริ่มใช้เครื่องมือ AI (ChatGPT / Claude / Copilot / Gemini) กับงานจริงสัปดาห์ละ 1–2 อย่าง",
+        en:"เริ่มใช้เครื่องมือ AI (ChatGPT / Claude / Copilot / Gemini) กับงานจริงสัปดาห์ละ 1–2 อย่าง" },
+      { th:"ฝึกเขียน prompt ให้ชัดเจน ระบุบริบท บทบาท และรูปแบบผลลัพธ์ที่ต้องการ",
+        en:"ฝึกเขียน prompt ให้ชัดเจน ระบุบริบท บทบาท และรูปแบบผลลัพธ์ที่ต้องการ" },
+      { th:"สร้างนิสัยตรวจสอบ (verify) ผลลัพธ์ของ AI ก่อนนำไปใช้ทุกครั้ง",
+        en:"สร้างนิสัยตรวจสอบ (verify) ผลลัพธ์ของ AI ก่อนนำไปใช้ทุกครั้ง" }
     ],
     paths:["AI Foundations","Responsible AI Foundations","Career Essentials in Generative AI"]
   },
   {
-    n:2, th:"นำ AI ไปใช้ในงานประจำวัน", en:"Applying",
-    short:"ใช้เครื่องมือ AI เพิ่มประสิทธิภาพงาน",
-    desc:"ใช้ AI ช่วยร่าง สรุป ระดมความคิด วิเคราะห์ และเขียน prompt ได้ดี",
+    n:2,
+    name: { th:"นำ AI ไปใช้ในงานประจำวัน", en:"Applying" },
+    short: { th:"ใช้เครื่องมือ AI เพิ่มประสิทธิภาพงาน", en:"ใช้เครื่องมือ AI เพิ่มประสิทธิภาพงาน" },
+    desc: { th:"ใช้ AI ช่วยร่าง สรุป ระดมความคิด วิเคราะห์ และเขียน prompt ได้ดี", en:"ใช้ AI ช่วยร่าง สรุป ระดมความคิด วิเคราะห์ และเขียน prompt ได้ดี" },
     color:"#15827A",
     items:[
-      "ฉันใช้เครื่องมือ AI ช่วยทำงานประจำวันอย่างสม่ำเสมอ",
-      "ฉันเขียนคำสั่ง (prompt) ที่ชัดเจน และปรับแก้ซ้ำเพื่อให้ได้ผลลัพธ์ที่ดีขึ้น",
-      "ฉันใช้ AI ช่วยงานหลายประเภท เช่น ร่างเอกสาร สรุปความ ระดมความคิด หรือวิเคราะห์ข้อมูล",
-      "ฉันตรวจสอบ แก้ไข และปรับผลลัพธ์จาก AI ให้เหมาะกับบริบทก่อนนำไปใช้จริงเสมอ"
+      { th:"ฉันใช้เครื่องมือ AI ช่วยทำงานประจำวันอย่างสม่ำเสมอ",
+        en:"ฉันใช้เครื่องมือ AI ช่วยทำงานประจำวันอย่างสม่ำเสมอ" },
+      { th:"ฉันเขียนคำสั่ง (prompt) ที่ชัดเจน และปรับแก้ซ้ำเพื่อให้ได้ผลลัพธ์ที่ดีขึ้น",
+        en:"ฉันเขียนคำสั่ง (prompt) ที่ชัดเจน และปรับแก้ซ้ำเพื่อให้ได้ผลลัพธ์ที่ดีขึ้น" },
+      { th:"ฉันใช้ AI ช่วยงานหลายประเภท เช่น ร่างเอกสาร สรุปความ ระดมความคิด หรือวิเคราะห์ข้อมูล",
+        en:"ฉันใช้ AI ช่วยงานหลายประเภท เช่น ร่างเอกสาร สรุปความ ระดมความคิด หรือวิเคราะห์ข้อมูล" },
+      { th:"ฉันตรวจสอบ แก้ไข และปรับผลลัพธ์จาก AI ให้เหมาะกับบริบทก่อนนำไปใช้จริงเสมอ",
+        en:"ฉันตรวจสอบ แก้ไข และปรับผลลัพธ์จาก AI ให้เหมาะกับบริบทก่อนนำไปใช้จริงเสมอ" }
     ],
-    blurb:"คุณใช้ AI เป็นผู้ช่วยในงานประจำวันได้คล่อง และรู้วิธีสื่อสารกับ AI ให้ได้ผลลัพธ์ที่มีคุณภาพ",
-    nextH:"พัฒนาสู่ระดับ 3 — สร้างด้วย AI",
+    blurb: { th:"คุณใช้ AI เป็นผู้ช่วยในงานประจำวันได้คล่อง และรู้วิธีสื่อสารกับ AI ให้ได้ผลลัพธ์ที่มีคุณภาพ",
+             en:"คุณใช้ AI เป็นผู้ช่วยในงานประจำวันได้คล่อง และรู้วิธีสื่อสารกับ AI ให้ได้ผลลัพธ์ที่มีคุณภาพ" },
+    nextH: { th:"พัฒนาสู่ระดับ 3 — สร้างด้วย AI",
+             en:"พัฒนาสู่ระดับ 3 — สร้างด้วย AI" },
     next:[
-      "ลองเครื่องมือ no-code / automation (เช่น GPTs/Projects, Zapier, Make) เพื่อต่อยอดงานซ้ำ ๆ",
-      "ออกแบบ workflow ที่ผสาน AI หลายขั้นเพื่อแก้ปัญหาเฉพาะของคุณ",
-      "เรียนรู้แนวคิด API เพื่อเข้าใจว่าจะเชื่อม AI เข้ากับระบบงานได้อย่างไร"
+      { th:"ลองเครื่องมือ no-code / automation (เช่น GPTs/Projects, Zapier, Make) เพื่อต่อยอดงานซ้ำ ๆ",
+        en:"ลองเครื่องมือ no-code / automation (เช่น GPTs/Projects, Zapier, Make) เพื่อต่อยอดงานซ้ำ ๆ" },
+      { th:"ออกแบบ workflow ที่ผสาน AI หลายขั้นเพื่อแก้ปัญหาเฉพาะของคุณ",
+        en:"ออกแบบ workflow ที่ผสาน AI หลายขั้นเพื่อแก้ปัญหาเฉพาะของคุณ" },
+      { th:"เรียนรู้แนวคิด API เพื่อเข้าใจว่าจะเชื่อม AI เข้ากับระบบงานได้อย่างไร",
+        en:"เรียนรู้แนวคิด API เพื่อเข้าใจว่าจะเชื่อม AI เข้ากับระบบงานได้อย่างไร" }
     ],
     paths:["Prompt Engineering","Automating Work with AI","Building AI Workflows (No-Code)"]
   },
   {
-    n:3, th:"สร้างด้วย AI", en:"Building",
-    short:"สร้างโซลูชันและเวิร์กโฟลว์ที่ขับเคลื่อนด้วย AI",
-    desc:"ใช้ no-code/low-code หรือ API สร้างแอป แชตบอต หรือ workflow",
+    n:3,
+    name: { th:"สร้างด้วย AI", en:"Building" },
+    short: { th:"สร้างโซลูชันและเวิร์กโฟลว์ที่ขับเคลื่อนด้วย AI", en:"สร้างโซลูชันและเวิร์กโฟลว์ที่ขับเคลื่อนด้วย AI" },
+    desc: { th:"ใช้ no-code/low-code หรือ API สร้างแอป แชตบอต หรือ workflow", en:"ใช้ no-code/low-code หรือ API สร้างแอป แชตบอต หรือ workflow" },
     color:"#1E8E63",
     items:[
-      "ฉันออกแบบขั้นตอนการทำงาน (workflow) ที่ผสาน AI เพื่อแก้ปัญหาเฉพาะอย่างได้",
-      "ฉันเคยใช้เครื่องมือ no-code/low-code หรือ automation สร้างโซลูชันที่ขับเคลื่อนด้วย AI",
-      "ฉันเข้าใจแนวคิด API และเชื่อมต่อบริการ AI เข้ากับแอปหรือระบบได้ (หรือร่วมงานกับผู้ที่ทำได้)",
-      "ฉันสร้างต้นแบบ (prototype) แอป/แชตบอต/ผู้ช่วย AI สำหรับงานจริงได้"
+      { th:"ฉันออกแบบขั้นตอนการทำงาน (workflow) ที่ผสาน AI เพื่อแก้ปัญหาเฉพาะอย่างได้",
+        en:"ฉันออกแบบขั้นตอนการทำงาน (workflow) ที่ผสาน AI เพื่อแก้ปัญหาเฉพาะอย่างได้" },
+      { th:"ฉันเคยใช้เครื่องมือ no-code/low-code หรือ automation สร้างโซลูชันที่ขับเคลื่อนด้วย AI",
+        en:"ฉันเคยใช้เครื่องมือ no-code/low-code หรือ automation สร้างโซลูชันที่ขับเคลื่อนด้วย AI" },
+      { th:"ฉันเข้าใจแนวคิด API และเชื่อมต่อบริการ AI เข้ากับแอปหรือระบบได้ (หรือร่วมงานกับผู้ที่ทำได้)",
+        en:"ฉันเข้าใจแนวคิด API และเชื่อมต่อบริการ AI เข้ากับแอปหรือระบบได้ (หรือร่วมงานกับผู้ที่ทำได้)" },
+      { th:"ฉันสร้างต้นแบบ (prototype) แอป/แชตบอต/ผู้ช่วย AI สำหรับงานจริงได้",
+        en:"ฉันสร้างต้นแบบ (prototype) แอป/แชตบอต/ผู้ช่วย AI สำหรับงานจริงได้" }
     ],
-    blurb:"คุณไม่ได้แค่ใช้ AI แต่สร้างสิ่งใหม่ด้วย AI ได้ ทั้งเวิร์กโฟลว์ ต้นแบบ และการเชื่อมต่อระบบ",
-    nextH:"พัฒนาสู่ระดับ 4 — ฝึกและดูแลโมเดล",
+    blurb: { th:"คุณไม่ได้แค่ใช้ AI แต่สร้างสิ่งใหม่ด้วย AI ได้ ทั้งเวิร์กโฟลว์ ต้นแบบ และการเชื่อมต่อระบบ",
+             en:"คุณไม่ได้แค่ใช้ AI แต่สร้างสิ่งใหม่ด้วย AI ได้ ทั้งเวิร์กโฟลว์ ต้นแบบ และการเชื่อมต่อระบบ" },
+    nextH: { th:"พัฒนาสู่ระดับ 4 — ฝึกและดูแลโมเดล",
+             en:"พัฒนาสู่ระดับ 4 — ฝึกและดูแลโมเดล" },
     next:[
-      "เรียนรู้วงจรชีวิตของ ML: การเตรียมข้อมูล การฝึก การประเมิน และการ deploy",
-      "ศึกษาการ fine-tune โมเดล และการวัดผล (accuracy, bias, robustness)",
-      "ทำความเข้าใจพื้นฐาน MLOps สำหรับการดูแลระบบ AI ที่ใช้งานจริง"
+      { th:"เรียนรู้วงจรชีวิตของ ML: การเตรียมข้อมูล การฝึก การประเมิน และการ deploy",
+        en:"เรียนรู้วงจรชีวิตของ ML: การเตรียมข้อมูล การฝึก การประเมิน และการ deploy" },
+      { th:"ศึกษาการ fine-tune โมเดล และการวัดผล (accuracy, bias, robustness)",
+        en:"ศึกษาการ fine-tune โมเดล และการวัดผล (accuracy, bias, robustness)" },
+      { th:"ทำความเข้าใจพื้นฐาน MLOps สำหรับการดูแลระบบ AI ที่ใช้งานจริง",
+        en:"ทำความเข้าใจพื้นฐาน MLOps สำหรับการดูแลระบบ AI ที่ใช้งานจริง" }
     ],
     paths:["Building AI Applications with APIs","Introduction to Machine Learning","LLM Application Development"]
   },
   {
-    n:4, th:"ฝึกและดูแลรักษาโมเดล AI", en:"Training & Maintaining Models",
-    short:"จัดการ ฝึก ปรับแต่ง และดูแลระบบ AI",
-    desc:"สำหรับวิศวกร/นักวิทยาศาสตร์ข้อมูลที่สร้างและดูแลโมเดล",
+    n:4,
+    name: { th:"ฝึกและดูแลรักษาโมเดล AI", en:"Training & Maintaining Models" },
+    short: { th:"จัดการ ฝึก ปรับแต่ง และดูแลระบบ AI", en:"จัดการ ฝึก ปรับแต่ง และดูแลระบบ AI" },
+    desc: { th:"สำหรับวิศวกร/นักวิทยาศาสตร์ข้อมูลที่สร้างและดูแลโมเดล", en:"สำหรับวิศวกร/นักวิทยาศาสตร์ข้อมูลที่สร้างและดูแลโมเดล" },
     color:"#9A6A1F",
     items:[
-      "ฉันเข้าใจหลักการของการฝึก (training) และการปรับแต่ง (fine-tuning) โมเดล AI",
-      "ฉันเตรียมและจัดการชุดข้อมูล (dataset) สำหรับฝึกหรือประเมินโมเดลได้",
-      "ฉันประเมินประสิทธิภาพของโมเดล (ความแม่นยำ อคติ การ deploy) และปรับปรุงได้",
-      "ฉันดูแลรักษาและตรวจสอบระบบ AI ที่ใช้งานจริงให้ทำงานต่อเนื่องได้"
+      { th:"ฉันเข้าใจหลักการของการฝึก (training) และการปรับแต่ง (fine-tuning) โมเดล AI",
+        en:"ฉันเข้าใจหลักการของการฝึก (training) และการปรับแต่ง (fine-tuning) โมเดล AI" },
+      { th:"ฉันเตรียมและจัดการชุดข้อมูล (dataset) สำหรับฝึกหรือประเมินโมเดลได้",
+        en:"ฉันเตรียมและจัดการชุดข้อมูล (dataset) สำหรับฝึกหรือประเมินโมเดลได้" },
+      { th:"ฉันประเมินประสิทธิภาพของโมเดล (ความแม่นยำ อคติ การ deploy) และปรับปรุงได้",
+        en:"ฉันประเมินประสิทธิภาพของโมเดล (ความแม่นยำ อคติ การ deploy) และปรับปรุงได้" },
+      { th:"ฉันดูแลรักษาและตรวจสอบระบบ AI ที่ใช้งานจริงให้ทำงานต่อเนื่องได้",
+        en:"ฉันดูแลรักษาและตรวจสอบระบบ AI ที่ใช้งานจริงให้ทำงานต่อเนื่องได้" }
     ],
-    blurb:"คุณทำงานในระดับวิศวกรรมของ AI ได้ ทั้งการฝึก ปรับแต่ง ประเมิน และดูแลโมเดลในการใช้งานจริง",
-    nextH:"พัฒนาสู่ระดับ 5 — เชี่ยวชาญเฉพาะทาง",
+    blurb: { th:"คุณทำงานในระดับวิศวกรรมของ AI ได้ ทั้งการฝึก ปรับแต่ง ประเมิน และดูแลโมเดลในการใช้งานจริง",
+             en:"คุณทำงานในระดับวิศวกรรมของ AI ได้ ทั้งการฝึก ปรับแต่ง ประเมิน และดูแลโมเดลในการใช้งานจริง" },
+    nextH: { th:"พัฒนาสู่ระดับ 5 — เชี่ยวชาญเฉพาะทาง",
+             en:"พัฒนาสู่ระดับ 5 — เชี่ยวชาญเฉพาะทาง" },
     next:[
-      "เจาะลึกสาขาเฉพาะ เช่น NLP, computer vision, deep learning หรือ AI security",
-      "ติดตามและอ่านงานวิจัยล่าสุด แล้วทดลองนำเทคนิคใหม่มาใช้",
-      "เริ่มเป็นพี่เลี้ยง/ผู้ชี้นำทิศทางเทคนิคให้ทีม"
+      { th:"เจาะลึกสาขาเฉพาะ เช่น NLP, computer vision, deep learning หรือ AI security",
+        en:"เจาะลึกสาขาเฉพาะ เช่น NLP, computer vision, deep learning หรือ AI security" },
+      { th:"ติดตามและอ่านงานวิจัยล่าสุด แล้วทดลองนำเทคนิคใหม่มาใช้",
+        en:"ติดตามและอ่านงานวิจัยล่าสุด แล้วทดลองนำเทคนิคใหม่มาใช้" },
+      { th:"เริ่มเป็นพี่เลี้ยง/ผู้ชี้นำทิศทางเทคนิคให้ทีม",
+        en:"เริ่มเป็นพี่เลี้ยง/ผู้ชี้นำทิศทางเทคนิคให้ทีม" }
     ],
     paths:["Advanced MLOps","Deep Learning Specialization","Responsible & Trustworthy AI"]
   },
   {
-    n:5, th:"เชี่ยวชาญเฉพาะทางขั้นสูง", en:"Deeply Specializing",
-    short:"ผู้เชี่ยวชาญ R&D และเทคนิคขั้นสูง",
-    desc:"พัฒนาสถาปัตยกรรมใหม่ ติดตามงานวิจัย และชี้นำทิศทาง AI",
+    n:5,
+    name: { th:"เชี่ยวชาญเฉพาะทางขั้นสูง", en:"Deeply Specializing" },
+    short: { th:"ผู้เชี่ยวชาญ R&D และเทคนิคขั้นสูง", en:"ผู้เชี่ยวชาญ R&D และเทคนิคขั้นสูง" },
+    desc: { th:"พัฒนาสถาปัตยกรรมใหม่ ติดตามงานวิจัย และชี้นำทิศทาง AI", en:"พัฒนาสถาปัตยกรรมใหม่ ติดตามงานวิจัย และชี้นำทิศทาง AI" },
     color:"#B5642A",
     items:[
-      "ฉันมีความเชี่ยวชาญเชิงลึกในสาขา AI เฉพาะทาง (เช่น NLP, vision, deep learning, AI security)",
-      "ฉันติดตามและอ่านงานวิจัยล่าสุดด้าน AI และนำมาประยุกต์ใช้ได้",
-      "ฉันออกแบบหรือพัฒนาสถาปัตยกรรมโมเดล/อัลกอริทึมใหม่ ๆ ได้",
-      "ฉันให้คำปรึกษาหรือชี้นำทิศทางเชิงเทคนิคด้าน AI ขั้นสูงแก่ทีมหรือองค์กรได้"
+      { th:"ฉันมีความเชี่ยวชาญเชิงลึกในสาขา AI เฉพาะทาง (เช่น NLP, vision, deep learning, AI security)",
+        en:"ฉันมีความเชี่ยวชาญเชิงลึกในสาขา AI เฉพาะทาง (เช่น NLP, vision, deep learning, AI security)" },
+      { th:"ฉันติดตามและอ่านงานวิจัยล่าสุดด้าน AI และนำมาประยุกต์ใช้ได้",
+        en:"ฉันติดตามและอ่านงานวิจัยล่าสุดด้าน AI และนำมาประยุกต์ใช้ได้" },
+      { th:"ฉันออกแบบหรือพัฒนาสถาปัตยกรรมโมเดล/อัลกอริทึมใหม่ ๆ ได้",
+        en:"ฉันออกแบบหรือพัฒนาสถาปัตยกรรมโมเดล/อัลกอริทึมใหม่ ๆ ได้" },
+      { th:"ฉันให้คำปรึกษาหรือชี้นำทิศทางเชิงเทคนิคด้าน AI ขั้นสูงแก่ทีมหรือองค์กรได้",
+        en:"ฉันให้คำปรึกษาหรือชี้นำทิศทางเชิงเทคนิคด้าน AI ขั้นสูงแก่ทีมหรือองค์กรได้" }
     ],
-    blurb:"คุณอยู่แนวหน้าของสาขา AI สามารถสร้างองค์ความรู้ใหม่ และชี้นำทิศทางเชิงเทคนิคให้ผู้อื่นได้",
-    nextH:"รักษาความเป็นผู้นำ — เรียนรู้ต่อเนื่อง",
+    blurb: { th:"คุณอยู่แนวหน้าของสาขา AI สามารถสร้างองค์ความรู้ใหม่ และชี้นำทิศทางเชิงเทคนิคให้ผู้อื่นได้",
+             en:"คุณอยู่แนวหน้าของสาขา AI สามารถสร้างองค์ความรู้ใหม่ และชี้นำทิศทางเชิงเทคนิคให้ผู้อื่นได้" },
+    nextH: { th:"รักษาความเป็นผู้นำ — เรียนรู้ต่อเนื่อง",
+             en:"รักษาความเป็นผู้นำ — เรียนรู้ต่อเนื่อง" },
     next:[
-      "ตีพิมพ์/แบ่งปันงาน และมีส่วนร่วมในชุมชนวิชาการและอุตสาหกรรม",
-      "ทำโปรเจกต์ R&D ที่ผลักดันขอบเขตของสาขา",
-      "สร้างคนรุ่นต่อไป — เป็นพี่เลี้ยงและออกแบบเส้นทางการเรียนรู้ให้องค์กร"
+      { th:"ตีพิมพ์/แบ่งปันงาน และมีส่วนร่วมในชุมชนวิชาการและอุตสาหกรรม",
+        en:"ตีพิมพ์/แบ่งปันงาน และมีส่วนร่วมในชุมชนวิชาการและอุตสาหกรรม" },
+      { th:"ทำโปรเจกต์ R&D ที่ผลักดันขอบเขตของสาขา",
+        en:"ทำโปรเจกต์ R&D ที่ผลักดันขอบเขตของสาขา" },
+      { th:"สร้างคนรุ่นต่อไป — เป็นพี่เลี้ยงและออกแบบเส้นทางการเรียนรู้ให้องค์กร",
+        en:"สร้างคนรุ่นต่อไป — เป็นพี่เลี้ยงและออกแบบเส้นทางการเรียนรู้ให้องค์กร" }
     ],
     paths:["AI Research & Frontier Models","Generative AI for Engineers","Leading AI Strategy"]
   }
 ];
 
 const SCALE = [
-  {v:1, lab:"ไม่จริงเลย", sub:"ยังไม่เคย / ไม่มั่นใจเลย"},
-  {v:2, lab:"จริงเล็กน้อย", sub:"พอรู้บ้าง แต่ยังไม่คล่อง"},
-  {v:3, lab:"จริงปานกลาง", sub:"ทำได้บ้างเป็นบางครั้ง"},
-  {v:4, lab:"ค่อนข้างจริง", sub:"ทำได้ดีเป็นส่วนใหญ่"},
-  {v:5, lab:"จริงที่สุด", sub:"มั่นใจ / ทำได้ประจำ"}
+  {v:1, lab:{th:"ไม่จริงเลย",en:"ไม่จริงเลย"}, sub:{th:"ยังไม่เคย / ไม่มั่นใจเลย",en:"ยังไม่เคย / ไม่มั่นใจเลย"}},
+  {v:2, lab:{th:"จริงเล็กน้อย",en:"จริงเล็กน้อย"}, sub:{th:"พอรู้บ้าง แต่ยังไม่คล่อง",en:"พอรู้บ้าง แต่ยังไม่คล่อง"}},
+  {v:3, lab:{th:"จริงปานกลาง",en:"จริงปานกลาง"}, sub:{th:"ทำได้บ้างเป็นบางครั้ง",en:"ทำได้บ้างเป็นบางครั้ง"}},
+  {v:4, lab:{th:"ค่อนข้างจริง",en:"ค่อนข้างจริง"}, sub:{th:"ทำได้ดีเป็นส่วนใหญ่",en:"ทำได้ดีเป็นส่วนใหญ่"}},
+  {v:5, lab:{th:"จริงที่สุด",en:"จริงที่สุด"}, sub:{th:"มั่นใจ / ทำได้ประจำ",en:"มั่นใจ / ทำได้ประจำ"}}
 ];
+
+/* ---------------- i18n helpers ---------------- */
+let currentLang = 'th';
+function t(key){ return LANG[currentLang][key]; }
+function tx(field){ return field && typeof field === 'object' && 'th' in field ? field[currentLang] : field; }
+
+function setLang(lang){
+  if(lang !== 'th' && lang !== 'en') return;
+  if(lang === currentLang) { updateToggleUI(); return; }
+  currentLang = lang;
+  document.documentElement.lang = lang;
+  applyI18n();
+}
+
+function updateToggleUI(){
+  const thBtn = document.getElementById('langTH');
+  const enBtn = document.getElementById('langEN');
+  thBtn.classList.toggle('active', currentLang === 'th');
+  enBtn.classList.toggle('active', currentLang === 'en');
+  thBtn.setAttribute('aria-pressed', currentLang === 'th');
+  enBtn.setAttribute('aria-pressed', currentLang === 'en');
+}
+
+function applyI18n(){
+  // static elements via data-i18n
+  document.querySelectorAll('[data-i18n]').forEach(el => {
+    const key = el.dataset.i18n;
+    const val = LANG[currentLang][key];
+    if(val === undefined || typeof val === 'function') return;
+    if(el.dataset.i18nHtml === 'true') el.innerHTML = val;
+    else el.textContent = val;
+  });
+  document.title = t('documentTitle');
+
+  // re-render dynamic sections
+  renderIntroLevels();
+  if(document.getElementById('quiz').classList.contains('active')) renderQ();
+  if(document.getElementById('result').classList.contains('active') && window.__res){
+    renderResult(window.__res.pcts, window.__res.placement, 70);
+  }
+  updateToggleUI();
+}
 
 /* ---------------- build flat question list ---------------- */
 const QS = [];
-LEVELS.forEach((L,li)=> L.items.forEach((t,ii)=> QS.push({lvl:li,q:t})));
+LEVELS.forEach((L,li)=> L.items.forEach((it,ii)=> QS.push({lvl:li,itemIdx:ii})));
 const TOTAL = QS.length;
 let idx = 0;
 const answers = new Array(TOTAL).fill(null);
 
 /* ---------------- intro level cards ---------------- */
-(function(){
+function renderIntroLevels(){
   const box = document.getElementById('introLevels');
+  box.innerHTML = '';
   LEVELS.forEach((L,i)=>{
     const row = document.createElement('div');
     row.className='lvl-row';
     row.style.animationDelay = (0.15 + i*0.08)+'s';
+    const primary = tx(L.name);
+    const secondary = currentLang === 'th' ? L.name.en : L.name.th;
     row.innerHTML = `<div class="num" style="background:linear-gradient(160deg,${L.color},${shade(L.color,-22)})">${L.n}</div>
-      <div class="meta"><h3>${L.th} <small style="color:var(--muted);font-weight:400">· ${L.en}</small></h3><p>${L.desc}</p></div>`;
+      <div class="meta"><h3>${primary} <small style="color:var(--muted);font-weight:400">· ${secondary}</small></h3><p>${tx(L.desc)}</p></div>`;
     box.appendChild(row);
   });
-})();
+}
 
 /* ---------------- flow ---------------- */
 function show(id){document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));document.getElementById(id).classList.add('active');window.scrollTo({top:0,behavior:'smooth'});}
@@ -391,27 +599,28 @@ function restart(){answers.fill(null);idx=0;show('intro');}
 function renderQ(){
   const item = QS[idx];
   const L = LEVELS[item.lvl];
-  document.getElementById('qPill').textContent = "ระดับ "+L.n;
-  document.getElementById('qPill').style.background = shade(L.color,38);
-  document.getElementById('qPill').style.color = shade(L.color,-25);
-  document.getElementById('qCount').textContent = `ข้อ ${idx+1} / ${TOTAL}`;
+  const itemObj = L.items[item.itemIdx];
+  const pill = document.getElementById('qPill');
+  pill.textContent = LANG[currentLang].qPillTpl(L.n);
+  pill.style.background = shade(L.color,38);
+  pill.style.color = shade(L.color,-25);
+  document.getElementById('qCount').textContent = LANG[currentLang].qCountTpl(idx+1, TOTAL);
   document.getElementById('qBar').style.width = ((idx)/(TOTAL))*100 + '%';
-  document.getElementById('qLvlTag').textContent = `${L.th} · ${L.en}`;
-  document.getElementById('qText').textContent = item.q;
+  document.getElementById('qLvlTag').textContent = `${tx(L.name)} · ${currentLang === 'th' ? L.name.en : L.name.th}`;
+  document.getElementById('qText').textContent = tx(itemObj);
   document.getElementById('backBtn').style.visibility = idx===0 ? 'hidden':'visible';
 
   const sc = document.getElementById('qScale'); sc.innerHTML='';
   SCALE.forEach(s=>{
     const b=document.createElement('button');
     b.className='opt'+(answers[idx]===s.v?' sel':'');
-    b.innerHTML=`<span class="dot">${s.v}</span><span class="lab">${s.lab}<span class="sub">${s.sub}</span></span>`;
+    b.innerHTML=`<span class="dot">${s.v}</span><span class="lab">${tx(s.lab)}<span class="sub">${tx(s.sub)}</span></span>`;
     b.onclick=()=>choose(s.v);
     sc.appendChild(b);
   });
 }
 function choose(v){
   answers[idx]=v;
-  // brief highlight then advance
   renderQ();
   setTimeout(()=>{
     if(idx < TOTAL-1){idx++;renderQ();}
@@ -429,34 +638,30 @@ function levelPct(li){
 function finish(){
   const pcts = LEVELS.map((_,li)=>levelPct(li));
   const THRESH=70;
-  // cumulative placement: highest unbroken chain from level 1
-  let placement=0; // 0 means pre-level-1
+  let placement=0;
   for(let i=0;i<LEVELS.length;i++){ if(pcts[i]>=THRESH) placement=i+1; else break; }
   renderResult(pcts, placement, THRESH);
   show('result');
 }
 
 function renderResult(pcts, placement, THRESH){
-  // hero
+  window.__res={pcts,placement};
+
   if(placement===0){
     document.getElementById('rNum').textContent="0";
-    document.getElementById('rName').textContent="กำลังสร้างพื้นฐาน";
-    document.getElementById('rBlurb').textContent="คุณกำลังเริ่มต้นเส้นทาง AI — โฟกัสที่การสร้างความเข้าใจพื้นฐาน (ระดับ 1) ก่อน แล้วต่อยอดทีละขั้น";
-    document.getElementById('rNextH').textContent="เริ่มต้นที่ระดับ 1 — เข้าใจพื้นฐาน AI";
-    fillUl('rNext',[
-      "ทำความเข้าใจว่า Generative AI คืออะไร ทำได้ดีในเรื่องใด และมีข้อจำกัด/ความเสี่ยงอย่างไร",
-      "เรียนรู้แนวปฏิบัติการใช้ AI อย่างมีความรับผิดชอบ",
-      "ทดลองใช้เครื่องมือ AI กับงานง่าย ๆ เพื่อสร้างความคุ้นเคย"
-    ]);
-    fillChips('rPaths',["AI Foundations","Responsible AI Foundations"]);
+    document.getElementById('rName').textContent=t('p0Name');
+    document.getElementById('rBlurb').textContent=t('p0Blurb');
+    document.getElementById('rNextH').textContent=t('p0NextH');
+    fillUl('rNext', t('p0Next'));
+    fillChips('rPaths', t('p0Paths'));
   } else {
     const L=LEVELS[placement-1];
     document.getElementById('rNum').textContent=L.n;
-    document.getElementById('rName').textContent=L.th+" · "+L.en;
-    document.getElementById('rBlurb').textContent=L.blurb;
-    document.getElementById('rNextH').textContent=L.nextH;
-    fillUl('rNext',L.next);
-    fillChips('rPaths',L.paths);
+    document.getElementById('rName').textContent=`${tx(L.name)} · ${currentLang === 'th' ? L.name.en : L.name.th}`;
+    document.getElementById('rBlurb').textContent=tx(L.blurb);
+    document.getElementById('rNextH').textContent=tx(L.nextH);
+    fillUl('rNext', L.next.map(tx));
+    fillChips('rPaths', L.paths);
   }
 
   // profile bars
@@ -464,7 +669,9 @@ function renderResult(pcts, placement, THRESH){
   LEVELS.forEach((L,li)=>{
     const p=pcts[li];
     const row=document.createElement('div'); row.className='prow';
-    row.innerHTML=`<div class="ptop"><span class="pname">${L.n}. ${L.th} <small>· ${L.en}</small></span><span class="ppct" style="color:${L.color}">${p}%</span></div>
+    const primary = tx(L.name);
+    const secondary = currentLang === 'th' ? L.name.en : L.name.th;
+    row.innerHTML=`<div class="ptop"><span class="pname">${L.n}. ${primary} <small>· ${secondary}</small></span><span class="ppct" style="color:${L.color}">${p}%</span></div>
       <div class="pbar"><div class="pfill" style="background:linear-gradient(90deg,${L.color},${shade(L.color,25)})"></div></div>`;
     prof.appendChild(row);
     const fill=row.querySelector('.pfill');
@@ -475,11 +682,8 @@ function renderResult(pcts, placement, THRESH){
   const ranked=LEVELS.map((L,li)=>({L,p:pcts[li]}));
   const strong=ranked.filter(x=>x.p>=70).sort((a,b)=>b.p-a.p);
   const grow=ranked.filter(x=>x.p<70).sort((a,b)=>a.p-b.p);
-  fillUl('rStrong', strong.length? strong.slice(0,3).map(x=>`${x.L.th} (${x.p}%)`):["ยังไม่มีระดับใดถึง 70% — เริ่มสะสมจากระดับ 1"]);
-  fillUl('rGrow', grow.length? grow.slice(0,3).map(x=>`${x.L.th} (${x.p}%)`):["ครบทุกระดับแล้ว เยี่ยมมาก! เน้นเรียนรู้ต่อเนื่อง"]);
-
-  // store for copy
-  window.__res={pcts,placement};
+  fillUl('rStrong', strong.length? strong.slice(0,3).map(x=>LANG[currentLang].rankTpl(tx(x.L.name), x.p)):[t('noStrongTpl')()]);
+  fillUl('rGrow', grow.length? grow.slice(0,3).map(x=>LANG[currentLang].rankTpl(tx(x.L.name), x.p)):[t('noGrowTpl')()]);
 }
 
 function fillUl(id,arr){const ul=document.getElementById(id);ul.innerHTML='';arr.forEach(t=>{const li=document.createElement('li');li.textContent=t;ul.appendChild(li);});}
@@ -487,14 +691,15 @@ function fillChips(id,arr){const box=document.getElementById(id);box.innerHTML='
 
 function copyResult(){
   const {pcts,placement}=window.__res||{};
-  let lines=["ผลประเมิน AI Literacy (อิง LinkedIn AI Upskilling Framework)",""];
-  lines.push("ระดับโดยรวม: "+(placement? "ระดับ "+placement+" — "+LEVELS[placement-1].th : "0 — กำลังสร้างพื้นฐาน"));
+  const placementName = placement ? tx(LEVELS[placement-1].name) : '';
+  const lines=[t('copyHeader'),""];
+  lines.push(LANG[currentLang].copyOverallTpl(placement, placementName));
   lines.push("");
-  lines.push("โปรไฟล์รายระดับ:");
-  LEVELS.forEach((L,li)=>lines.push(`  ${L.n}. ${L.th}: ${pcts[li]}%`));
+  lines.push(t('copyProfileHead'));
+  LEVELS.forEach((L,li)=>lines.push(LANG[currentLang].copyRowTpl(L.n, tx(L.name), pcts[li])));
   const text=lines.join("\n");
   navigator.clipboard.writeText(text).then(()=>{
-    const b=document.getElementById('copyBtn');const o=b.textContent;b.textContent="คัดลอกแล้ว ✓";setTimeout(()=>b.textContent=o,1800);
+    const b=document.getElementById('copyBtn');const o=b.textContent;b.textContent=t('copyDone');setTimeout(()=>b.textContent=o,1800);
   }).catch(()=>{alert(text);});
 }
 
@@ -504,6 +709,10 @@ function shade(hex,amt){
   r=Math.max(0,Math.min(255,r+amt));g=Math.max(0,Math.min(255,g+amt));b=Math.max(0,Math.min(255,b+amt));
   return '#'+[r,g,b].map(x=>x.toString(16).padStart(2,'0')).join('');
 }
+
+/* ---------------- init ---------------- */
+renderIntroLevels();
+updateToggleUI();
 </script>
 </body>
 </html>
