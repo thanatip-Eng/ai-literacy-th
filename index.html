@@ -189,6 +189,45 @@
     .res-hero{box-shadow:none;-webkit-print-color-adjust:exact;print-color-adjust:exact}
   }
   .foot{text-align:center;margin-top:30px;font-size:.76rem;color:var(--muted)}
+
+  /* ---------- about / framework diagram ---------- */
+  .about-card{
+    margin-top:26px;background:var(--card);border:1px solid var(--line);
+    border-radius:var(--r);padding:22px 20px;box-shadow:var(--shadow);
+  }
+  .about-h{
+    font-family:"Chakra Petch",sans-serif;font-weight:700;font-size:1.05rem;
+    margin-bottom:6px;color:var(--teal-deep);
+    display:flex;align-items:center;gap:10px;
+  }
+  .about-h::before{content:"";width:18px;height:3px;border-radius:2px;background:var(--amber)}
+  .about-sub{font-size:.78rem;color:var(--muted);margin-bottom:14px}
+  .diagram{width:100%;margin:6px 0 8px;overflow:visible}
+  .diagram svg{width:100%;height:auto;display:block}
+  .diagram-labels{
+    display:grid;grid-template-columns:repeat(5,1fr);gap:6px;
+    margin-top:4px;text-align:center;color:var(--muted);font-weight:500;
+  }
+  .diagram-labels span{font-size:.72rem;line-height:1.25;display:block;padding:0 2px}
+  .diagram-labels small{display:block;font-size:.6rem;opacity:.7;font-weight:400;margin-top:2px}
+  .about-body{font-size:.92rem;color:var(--ink);line-height:1.6;margin-top:14px}
+  .about-link{margin-top:10px;font-size:.9rem}
+  .about-link a{color:var(--teal);text-decoration:none;font-weight:500}
+  .about-link a:hover{text-decoration:underline}
+  .about-credit{
+    margin-top:16px;padding-top:14px;border-top:1px dashed var(--line);
+    font-size:.82rem;color:var(--muted);line-height:1.55;
+  }
+  .about-credit p{margin-bottom:6px}
+  .about-credit b{color:var(--ink);font-weight:600}
+  .cc-line{display:flex;align-items:center;gap:6px;flex-wrap:wrap}
+  .cc-icon{width:18px;height:18px;flex:0 0 auto;color:var(--muted)}
+  .cc-line a{color:var(--muted);text-decoration:underline dotted}
+  .cc-line a:hover{color:var(--ink)}
+  @media(max-width:480px){
+    .diagram-labels span{font-size:.62rem}
+    .diagram-labels small{font-size:.52rem}
+  }
 </style>
 </head>
 <body>
@@ -208,7 +247,21 @@
 
     <div class="levels" id="introLevels"></div>
 
-    <p class="credit" data-i18n="credit">โครงสร้าง 5 ระดับอ้างอิงจาก LinkedIn AI Upskilling Framework · ออกแบบเป็นเครื่องมือประเมินตนเองสำหรับบริบทไทย</p>
+    <section class="about-card" aria-labelledby="aboutHeading">
+      <h2 class="about-h" id="aboutHeading" data-i18n="aboutHead">เกี่ยวกับ framework</h2>
+      <p class="about-sub" data-i18n="aboutSub">โครงสร้าง 5 ระดับ — ภาพรวมโดยย่อ</p>
+      <div class="diagram" id="frameworkDiagram" aria-hidden="true"></div>
+      <div class="diagram-labels" id="frameworkLabels"></div>
+      <p class="about-body" data-i18n="aboutBody" data-i18n-html="true">framework นี้จัดกลุ่มทักษะ AI ออกเป็น 5 ระดับ ตั้งแต่ความเข้าใจพื้นฐานไปจนถึงการเชี่ยวชาญเฉพาะทาง โครงสร้างปรับมาจาก <b>LinkedIn AI Upskilling Framework</b> ส่วนการแปล การปรับเป็นภาษาไทย และการพัฒนาเครื่องมือประเมินตนเองนี้เป็นของผู้พัฒนา</p>
+      <p class="about-link"><a id="linkedinLink" href="https://learning.linkedin.com/" target="_blank" rel="noopener noreferrer" data-i18n="linkedinLinkText">อ่านเกี่ยวกับ LinkedIn AI Upskilling Framework →</a></p>
+      <div class="about-credit">
+        <p data-i18n="aboutAuthor" data-i18n-html="true">© 2026 <b>ผศ.ดร.ธนาทิพย์ จันทร์คง</b><br>ภาควิชาวิศวกรรมคอมพิวเตอร์ คณะวิศวกรรมศาสตร์ มหาวิทยาลัยเชียงใหม่</p>
+        <p class="cc-line">
+          <svg class="cc-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M9.5 9.5a3 3 0 1 0 0 5"/><path d="M16 9.5a3 3 0 1 0 0 5"/></svg>
+          <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank" rel="noopener noreferrer" data-i18n="ccLink">เผยแพร่ภายใต้สัญญาอนุญาต CC BY-NC-SA 4.0</a>
+        </p>
+      </div>
+    </section>
 
     <div class="cta"><button class="btn" onclick="start()" data-i18n="startBtn">เริ่มทำแบบประเมิน →</button></div>
     <p class="meta-note" data-i18n="metaNote">20 ข้อ · ไม่มีถูกผิด · ตอบตามความเป็นจริงของคุณ</p>
@@ -281,6 +334,12 @@ const LANG = {
     heroTitle: 'คุณอยู่ระดับใด<br>บนเส้นทาง <span class="hl">AI</span>?',
     lead: "แบบประเมินนี้อิงจาก <b>LinkedIn AI Upskilling Framework</b> ซึ่งแบ่งทักษะ AI ออกเป็น 5 ระดับ ทำเสร็จใน 3–5 นาที แล้วรับผลวิเคราะห์พร้อมขั้นตอนพัฒนาต่อไปเป็นรายบุคคล",
     credit: "โครงสร้าง 5 ระดับอ้างอิงจาก LinkedIn AI Upskilling Framework · ออกแบบเป็นเครื่องมือประเมินตนเองสำหรับบริบทไทย",
+    aboutHead: "เกี่ยวกับ framework",
+    aboutSub: "โครงสร้าง 5 ระดับ — ภาพรวมโดยย่อ",
+    aboutBody: "framework นี้จัดกลุ่มทักษะ AI ออกเป็น 5 ระดับ ตั้งแต่ความเข้าใจพื้นฐานไปจนถึงการเชี่ยวชาญเฉพาะทาง โครงสร้างปรับมาจาก <b>LinkedIn AI Upskilling Framework</b> ส่วนการแปล การปรับเป็นภาษาไทย และการพัฒนาเครื่องมือประเมินตนเองนี้เป็นของผู้พัฒนา",
+    linkedinLinkText: "อ่านเกี่ยวกับ LinkedIn AI Upskilling Framework →",
+    aboutAuthor: "© 2026 <b>ผศ.ดร.ธนาทิพย์ จันทร์คง</b><br>ภาควิชาวิศวกรรมคอมพิวเตอร์ คณะวิศวกรรมศาสตร์ มหาวิทยาลัยเชียงใหม่",
+    ccLink: "เผยแพร่ภายใต้สัญญาอนุญาต CC BY-NC-SA 4.0",
     startBtn: "เริ่มทำแบบประเมิน →",
     metaNote: "20 ข้อ · ไม่มีถูกผิด · ตอบตามความเป็นจริงของคุณ",
     backBtn: "← ย้อน",
@@ -324,6 +383,12 @@ const LANG = {
     heroTitle: 'Where are you<br>on your <span class="hl">AI</span> journey?',
     lead: "This assessment is based on the <b>LinkedIn AI Upskilling Framework</b>, which groups AI skills into 5 levels. Finish in 3–5 minutes and get a personalized result with next steps.",
     credit: "Five-level structure adapted from the LinkedIn AI Upskilling Framework · designed as a self-assessment tool.",
+    aboutHead: "About the framework",
+    aboutSub: "The 5 levels — at a glance",
+    aboutBody: "This framework groups AI skills into 5 levels, from foundational understanding to deep specialization. The structure is adapted from the <b>LinkedIn AI Upskilling Framework</b>. The translation, Thai adaptation, and the assessment tool itself are by the author.",
+    linkedinLinkText: "Read about the LinkedIn AI Upskilling Framework →",
+    aboutAuthor: "© 2026 <b>Asst. Prof. Dr. Thanatip Jankhong</b><br>Department of Computer Engineering, Faculty of Engineering, Chiang Mai University",
+    ccLink: "Licensed under CC BY-NC-SA 4.0",
     startBtn: "Start the assessment →",
     metaNote: "20 questions · no right or wrong · answer honestly",
     backBtn: "← Back",
@@ -584,6 +649,7 @@ function applyI18n(){
   document.title = t('documentTitle');
 
   renderIntroLevels();
+  renderFrameworkDiagram();
   if(document.getElementById('quiz').classList.contains('active')) renderQ();
   if(document.getElementById('result').classList.contains('active') && window.__res){
     renderResult(window.__res.pcts, window.__res.placement, 70);
@@ -598,6 +664,9 @@ const TOTAL = QS.length;
 let idx = 0;
 const answers = new Array(TOTAL).fill(null);
 
+/* ---------------- escape helper for SVG / HTML text ---------------- */
+function esc(s){return String(s).replace(/[<>&"']/g, c=>({"<":"&lt;",">":"&gt;","&":"&amp;","\"":"&quot;","'":"&#39;"}[c]));}
+
 /* ---------------- intro level cards ---------------- */
 function renderIntroLevels(){
   const box = document.getElementById('introLevels');
@@ -611,6 +680,39 @@ function renderIntroLevels(){
     row.innerHTML = `<div class="num" style="background:linear-gradient(160deg,${L.color},${shade(L.color,-22)})">${L.n}</div>
       <div class="meta"><h3>${primary} <small style="color:var(--muted);font-weight:400">· ${secondary}</small></h3><p>${tx(L.desc)}</p></div>`;
     box.appendChild(row);
+  });
+}
+
+/* ---------------- framework diagram (SVG, bilingual labels) ---------------- */
+function renderFrameworkDiagram(){
+  const wrap = document.getElementById('frameworkDiagram');
+  const labels = document.getElementById('frameworkLabels');
+  if(!wrap || !labels) return;
+  const W = 600, H = 200;
+  const bw = 100, gap = 12, startX = 18;
+  const heights = [70, 100, 130, 160, 190];
+  let svg = `<svg viewBox="0 0 ${W} ${H}" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="${esc(t('aboutHead'))}"><defs>`;
+  LEVELS.forEach((L,i)=>{
+    svg += `<linearGradient id="fwg${i}" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="${L.color}"/><stop offset="1" stop-color="${shade(L.color,-22)}"/></linearGradient>`;
+  });
+  svg += `</defs><line x1="0" y1="${H-0.5}" x2="${W}" y2="${H-0.5}" stroke="#DCD3C2" stroke-width="1"/>`;
+  LEVELS.forEach((L,i)=>{
+    const h = heights[i];
+    const x = startX + i*(bw+gap);
+    const y = H - h;
+    svg += `<rect x="${x}" y="${y}" width="${bw}" height="${h}" rx="12" fill="url(#fwg${i})"/>`;
+    svg += `<text x="${x+bw/2}" y="${y + 46}" text-anchor="middle" fill="#fff" font-family="Chakra Petch,sans-serif" font-weight="700" font-size="36">${L.n}</text>`;
+  });
+  svg += '</svg>';
+  wrap.innerHTML = svg;
+
+  labels.innerHTML = '';
+  LEVELS.forEach((L)=>{
+    const primary = tx(L.name);
+    const secondary = currentLang === 'th' ? L.name.en : L.name.th;
+    const span = document.createElement('span');
+    span.innerHTML = `${esc(primary)}<small>${esc(secondary)}</small>`;
+    labels.appendChild(span);
   });
 }
 
@@ -739,6 +841,7 @@ function shade(hex,amt){
 
 /* ---------------- init ---------------- */
 renderIntroLevels();
+renderFrameworkDiagram();
 updateToggleUI();
 </script>
 </body>
