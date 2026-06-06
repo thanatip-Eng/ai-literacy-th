@@ -190,6 +190,28 @@
   }
   .foot{text-align:center;margin-top:30px;font-size:.76rem;color:var(--muted)}
 
+  /* ---------- name input screen ---------- */
+  .name-h{font-family:"Chakra Petch",sans-serif;font-weight:700;font-size:1.3rem;margin-bottom:8px;color:var(--teal-deep)}
+  .name-sub{font-size:.92rem;color:var(--muted);margin-bottom:18px;line-height:1.55}
+  .name-input{
+    width:100%;padding:14px 16px;border:1.5px solid var(--line);border-radius:14px;
+    font-family:inherit;font-size:1.05rem;background:#fff;color:var(--ink);
+    transition:.16s border-color,.16s box-shadow;
+  }
+  .name-input:focus{outline:none;border-color:var(--teal);box-shadow:0 0 0 3px rgba(14,110,99,.15)}
+  .name-privacy{margin-top:12px;font-size:.78rem;color:var(--muted);display:flex;align-items:flex-start;gap:6px}
+  .name-privacy svg{flex:0 0 auto;color:var(--teal);margin-top:2px}
+
+  /* ---------- result hero name + date ---------- */
+  .res-hero .res-meta{
+    margin-top:18px;padding-top:14px;border-top:1px solid rgba(255,255,255,.18);
+    font-size:.86rem;opacity:.95;position:relative;
+    display:flex;flex-wrap:wrap;gap:6px 14px;align-items:baseline;
+  }
+  .res-hero .res-meta .who{font-weight:600}
+  .res-hero .res-meta .when{opacity:.85}
+  .res-hero .res-meta .sep{opacity:.5}
+
   /* ---------- about / framework diagram ---------- */
   .about-card{
     margin-top:26px;background:var(--card);border:1px solid var(--line);
@@ -267,6 +289,26 @@
     <p class="meta-note" data-i18n="metaNote">20 ข้อ · ไม่มีถูกผิด · ตอบตามความเป็นจริงของคุณ</p>
   </section>
 
+  <!-- ===================== NAME ===================== -->
+  <section id="name" class="screen">
+    <div class="topbar">
+      <span class="pill" data-i18n="nameStepPill">ก่อนเริ่ม</span>
+    </div>
+    <div class="qcard">
+      <h2 class="name-h" data-i18n="nameHead">คุณชื่ออะไร? (ไม่บังคับ)</h2>
+      <p class="name-sub" data-i18n="nameSub">ใส่ชื่อเพื่อให้ผลและภาพดาวน์โหลดแสดงชื่อของคุณ ข้ามได้ถ้าไม่ต้องการ</p>
+      <input id="nameInput" class="name-input" type="text" maxlength="60" autocomplete="off" data-i18n-placeholder="namePlaceholder" placeholder="ชื่อของคุณ" aria-labelledby="nameHeading" />
+      <p class="name-privacy">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+        <span data-i18n="namePrivacy">ชื่อนี้อยู่ในเบราว์เซอร์ของคุณเท่านั้น · ไม่ส่งให้ใคร</span>
+      </p>
+      <div class="navrow" style="margin-top:18px">
+        <button class="btn ghost back" type="button" onclick="goToQuiz(true)" data-i18n="nameSkip">ข้าม</button>
+        <button class="btn" type="button" onclick="goToQuiz(false)" data-i18n="nameContinue">ถัดไป →</button>
+      </div>
+    </div>
+  </section>
+
   <!-- ===================== QUIZ ===================== -->
   <section id="quiz" class="screen">
     <div class="topbar">
@@ -293,6 +335,7 @@
       <div class="lvlnum" id="rNum">—</div>
       <div class="lvlname" id="rName"></div>
       <p class="blurb" id="rBlurb"></p>
+      <div class="res-meta" id="rMeta"></div>
     </div>
 
     <div class="section-h" data-i18n="profileHead">โปรไฟล์ทักษะรายระดับ</div>
@@ -342,6 +385,13 @@ const LANG = {
     ccLink: "เผยแพร่ภายใต้สัญญาอนุญาต CC BY-NC-SA 4.0",
     startBtn: "เริ่มทำแบบประเมิน →",
     metaNote: "20 ข้อ · ไม่มีถูกผิด · ตอบตามความเป็นจริงของคุณ",
+    nameStepPill: "ก่อนเริ่ม",
+    nameHead: "คุณชื่ออะไร? (ไม่บังคับ)",
+    nameSub: "ใส่ชื่อเพื่อให้ผลและภาพดาวน์โหลดแสดงชื่อของคุณ ข้ามได้ถ้าไม่ต้องการ",
+    namePlaceholder: "ชื่อของคุณ",
+    namePrivacy: "ชื่อนี้อยู่ในเบราว์เซอร์ของคุณเท่านั้น · ไม่ส่งให้ใคร",
+    nameSkip: "ข้าม",
+    nameContinue: "ถัดไป →",
     backBtn: "← ย้อน",
     qPillTpl: (n) => "ระดับ " + n,
     qCountTpl: (n, total) => "ข้อ " + n + " / " + total,
@@ -391,6 +441,13 @@ const LANG = {
     ccLink: "Licensed under CC BY-NC-SA 4.0",
     startBtn: "Start the assessment →",
     metaNote: "20 questions · no right or wrong · answer honestly",
+    nameStepPill: "Before we start",
+    nameHead: "What's your name? (optional)",
+    nameSub: "Add your name so the result and downloadable image show it. You can skip this if you prefer.",
+    namePlaceholder: "Your name",
+    namePrivacy: "Your name stays in your browser only · never sent anywhere",
+    nameSkip: "Skip",
+    nameContinue: "Continue →",
     backBtn: "← Back",
     qPillTpl: (n) => "Level " + n,
     qCountTpl: (n, total) => "Question " + n + " / " + total,
@@ -646,6 +703,11 @@ function applyI18n(){
     if(el.dataset.i18nHtml === 'true') el.innerHTML = val;
     else el.textContent = val;
   });
+  document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
+    const key = el.dataset.i18nPlaceholder;
+    const val = LANG[currentLang][key];
+    if(typeof val === 'string') el.setAttribute('placeholder', val);
+  });
   document.title = t('documentTitle');
 
   renderIntroLevels();
@@ -657,12 +719,26 @@ function applyI18n(){
   updateToggleUI();
 }
 
+/* ---------------- bilingual date formatter ---------------- */
+function formatDate(d, lang){
+  try{
+    if(lang === 'th'){
+      return new Intl.DateTimeFormat('th-TH-u-ca-buddhist', { dateStyle: 'long' }).format(d);
+    }
+    return new Intl.DateTimeFormat('en-US', { dateStyle: 'long' }).format(d);
+  } catch(_){
+    return d.toISOString().slice(0,10);
+  }
+}
+
 /* ---------------- build flat question list ---------------- */
 const QS = [];
 LEVELS.forEach((L,li)=> L.items.forEach((it,ii)=> QS.push({lvl:li,itemIdx:ii})));
 const TOTAL = QS.length;
 let idx = 0;
 const answers = new Array(TOTAL).fill(null);
+let userName = '';
+let finishedAt = null;
 
 /* ---------------- escape helper for SVG / HTML text ---------------- */
 function esc(s){return String(s).replace(/[<>&"']/g, c=>({"<":"&lt;",">":"&gt;","&":"&amp;","\"":"&quot;","'":"&#39;"}[c]));}
@@ -718,8 +794,32 @@ function renderFrameworkDiagram(){
 
 /* ---------------- flow ---------------- */
 function show(id){document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));document.getElementById(id).classList.add('active');window.scrollTo({top:0,behavior:'smooth'});}
-function start(){idx=0;renderQ();show('quiz');}
-function restart(){answers.fill(null);idx=0;show('intro');}
+function start(){
+  show('name');
+  const input = document.getElementById('nameInput');
+  input.value = userName;
+  setTimeout(()=>input.focus(),120);
+}
+function goToQuiz(skip){
+  if(skip){
+    userName = '';
+  } else {
+    const raw = document.getElementById('nameInput').value || '';
+    userName = raw.trim().slice(0,60);
+  }
+  idx = 0;
+  renderQ();
+  show('quiz');
+}
+function restart(){
+  answers.fill(null);
+  idx = 0;
+  userName = '';
+  finishedAt = null;
+  const input = document.getElementById('nameInput');
+  if(input) input.value = '';
+  show('intro');
+}
 
 function renderQ(){
   const item = QS[idx];
@@ -765,12 +865,40 @@ function finish(){
   const THRESH=70;
   let placement=0;
   for(let i=0;i<LEVELS.length;i++){ if(pcts[i]>=THRESH) placement=i+1; else break; }
+  finishedAt = new Date();
   renderResult(pcts, placement, THRESH);
   show('result');
 }
 
 function renderResult(pcts, placement, THRESH){
   window.__res={pcts,placement};
+
+  // hero meta: name + date
+  const meta = document.getElementById('rMeta');
+  meta.innerHTML = '';
+  const parts = [];
+  if(userName){
+    const who = document.createElement('span');
+    who.className = 'who';
+    who.textContent = userName;
+    parts.push(who);
+  }
+  if(finishedAt){
+    const when = document.createElement('span');
+    when.className = 'when';
+    when.textContent = formatDate(finishedAt, currentLang);
+    parts.push(when);
+  }
+  parts.forEach((p,i)=>{
+    if(i>0){
+      const sep = document.createElement('span');
+      sep.className = 'sep';
+      sep.textContent = '·';
+      meta.appendChild(sep);
+    }
+    meta.appendChild(p);
+  });
+  meta.style.display = parts.length ? '' : 'none';
 
   if(placement===0){
     document.getElementById('rNum').textContent="0";
@@ -819,6 +947,9 @@ function copyResult(){
   const placementName = placement ? tx(LEVELS[placement-1].name) : '';
   const workshops = placement ? LEVELS[placement-1].workshops : LEVELS[0].workshops;
   const lines=[t('copyHeader'),""];
+  if(userName) lines.push(userName);
+  if(finishedAt) lines.push(formatDate(finishedAt, currentLang));
+  if(userName || finishedAt) lines.push("");
   lines.push(LANG[currentLang].copyOverallTpl(placement, placementName));
   lines.push("");
   lines.push(t('copyProfileHead'));
