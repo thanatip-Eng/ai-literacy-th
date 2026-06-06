@@ -358,7 +358,8 @@
     </div>
 
     <div class="res-actions">
-      <button class="btn" onclick="copyResult()" id="copyBtn" data-i18n="copyBtn">คัดลอกสรุปผล</button>
+      <button class="btn" onclick="downloadResultImage()" id="downloadBtn" data-i18n="downloadBtn">ดาวน์โหลดเป็นรูปภาพ</button>
+      <button class="btn ghost" onclick="copyResult()" id="copyBtn" data-i18n="copyBtn">คัดลอกสรุปผล</button>
       <button class="btn ghost" onclick="window.print()" data-i18n="printBtn">บันทึก / พิมพ์ผล (PDF)</button>
       <button class="btn ghost" onclick="restart()" data-i18n="restartBtn">ทำแบบประเมินใหม่</button>
     </div>
@@ -424,7 +425,17 @@ const LANG = {
       : "ระดับโดยรวม: 0 — กำลังสร้างพื้นฐาน",
     copyProfileHead: "โปรไฟล์รายระดับ:",
     copyRowTpl: (n, name, pct) => `  ${n}. ${name}: ${pct}%`,
-    copyWorkshopsHead: "หัวข้อ workshop ที่ขอแนะนำ:"
+    copyWorkshopsHead: "หัวข้อ workshop ที่ขอแนะนำ:",
+    downloadBtn: "ดาวน์โหลดเป็นรูปภาพ",
+    downloading: "กำลังสร้างภาพ…",
+    imgBrand: "AI LITERACY ASSESSMENT",
+    imgOverall: "ระดับโดยรวมของคุณ",
+    imgP0Name: "กำลังสร้างพื้นฐาน",
+    imgWorkshopsHead: "หัวข้อ workshop ที่ขอแนะนำ",
+    imgAuthor: "© 2026 ผศ.ดร.ธนาทิพย์ จันทร์คง",
+    imgAffiliation: "ภาควิชาวิศวกรรมคอมพิวเตอร์ · คณะวิศวกรรมศาสตร์ ม.เชียงใหม่",
+    imgLicense: "เผยแพร่ภายใต้สัญญาอนุญาต CC BY-NC-SA 4.0",
+    imgFrameworkSource: "อิง LinkedIn AI Upskilling Framework"
   },
   en: {
     documentTitle: "AI Literacy Assessment — LinkedIn AI Upskilling Framework",
@@ -480,7 +491,17 @@ const LANG = {
       : "Overall level: 0 — Building foundations",
     copyProfileHead: "Level profile:",
     copyRowTpl: (n, name, pct) => `  ${n}. ${name}: ${pct}%`,
-    copyWorkshopsHead: "Recommended workshops:"
+    copyWorkshopsHead: "Recommended workshops:",
+    downloadBtn: "Download as image",
+    downloading: "Generating image…",
+    imgBrand: "AI LITERACY ASSESSMENT",
+    imgOverall: "YOUR OVERALL LEVEL",
+    imgP0Name: "Building foundations",
+    imgWorkshopsHead: "Recommended Workshops",
+    imgAuthor: "© 2026 Asst. Prof. Dr. Thanatip Jankhong",
+    imgAffiliation: "Dept of Computer Engineering · Faculty of Engineering · CMU",
+    imgLicense: "Licensed under CC BY-NC-SA 4.0",
+    imgFrameworkSource: "Based on the LinkedIn AI Upskilling Framework"
   }
 };
 
@@ -968,6 +989,314 @@ function shade(hex,amt){
   let c=hex.replace('#','');let r=parseInt(c.substr(0,2),16),g=parseInt(c.substr(2,2),16),b=parseInt(c.substr(4,2),16);
   r=Math.max(0,Math.min(255,r+amt));g=Math.max(0,Math.min(255,g+amt));b=Math.max(0,Math.min(255,b+amt));
   return '#'+[r,g,b].map(x=>x.toString(16).padStart(2,'0')).join('');
+}
+
+/* ================================================================
+   CANVAS IMAGE GENERATION — 1080×1920 PNG
+   Layout per spec §7.2:
+     80px  title       (Y 0–80)
+     520px hero        (Y 80–600)
+     100px name+date   (Y 600–700)
+     460px bars        (Y 700–1160)
+     480px workshops   (Y 1160–1640)
+     280px copyright   (Y 1640–1920)
+   ================================================================ */
+
+const IMG_W = 1080, IMG_H = 1920;
+let _fontsLoaded = false;
+
+async function ensureFontsLoaded(){
+  if(_fontsLoaded) return;
+  if(!document.fonts || !document.fonts.load){ _fontsLoaded = true; return; }
+  const specs = [
+    '600 28px "Chakra Petch"', '700 200px "Chakra Petch"',
+    '600 44px "Chakra Petch"', '600 32px "Chakra Petch"',
+    '700 26px "Chakra Petch"',
+    '600 36px "IBM Plex Sans Thai"', '500 30px "IBM Plex Sans Thai"',
+    '400 24px "IBM Plex Sans Thai"', '600 26px "IBM Plex Sans Thai"',
+    '500 28px "IBM Plex Sans Thai"',
+    '500 30px "IBM Plex Sans"', '600 36px "IBM Plex Sans"'
+  ];
+  try {
+    await Promise.all(specs.map(s => document.fonts.load(s)));
+    await document.fonts.ready;
+  } catch(_) {}
+  _fontsLoaded = true;
+}
+
+function roundRect(ctx, x, y, w, h, r){
+  if(w < 2*r) r = w/2;
+  if(h < 2*r) r = h/2;
+  ctx.beginPath();
+  ctx.moveTo(x+r, y);
+  ctx.arcTo(x+w, y,   x+w, y+h, r);
+  ctx.arcTo(x+w, y+h, x,   y+h, r);
+  ctx.arcTo(x,   y+h, x,   y,   r);
+  ctx.arcTo(x,   y,   x+w, y,   r);
+  ctx.closePath();
+}
+
+function truncateToWidth(ctx, text, maxWidth){
+  if(ctx.measureText(text).width <= maxWidth) return text;
+  let lo = 0, hi = text.length;
+  while(lo < hi){
+    const mid = (lo + hi + 1) >> 1;
+    if(ctx.measureText(text.slice(0, mid) + '…').width <= maxWidth) lo = mid;
+    else hi = mid - 1;
+  }
+  return text.slice(0, lo) + '…';
+}
+
+function wrapToLines(ctx, text, maxWidth, maxLines){
+  const tokens = text.split(/(\s+)/);
+  const lines = [];
+  let cur = '';
+  for(let ti = 0; ti < tokens.length; ti++){
+    const tk = tokens[ti];
+    const test = cur + tk;
+    if(ctx.measureText(test.trim()).width <= maxWidth || cur.trim() === ''){
+      cur = test;
+    } else {
+      lines.push(cur.trim());
+      cur = tk.trimStart();
+      if(lines.length === maxLines - 1){
+        const rest = (cur + tokens.slice(ti+1).join('')).trim();
+        lines.push(truncateToWidth(ctx, rest, maxWidth));
+        return lines;
+      }
+    }
+  }
+  if(cur.trim()) lines.push(cur.trim());
+  if(lines.length > maxLines){
+    const merged = lines.slice(maxLines-1).join(' ');
+    return lines.slice(0, maxLines-1).concat([truncateToWidth(ctx, merged, maxWidth)]);
+  }
+  return lines;
+}
+
+async function generateResultImage(lang){
+  await ensureFontsLoaded();
+  const L18 = LANG[lang];
+  const pcts = (window.__res && window.__res.pcts) || LEVELS.map(()=>0);
+  const placement = (window.__res && window.__res.placement) || 0;
+  const lvl = placement ? LEVELS[placement-1] : null;
+  const color = lvl ? lvl.color : '#0E6E63';
+
+  const canvas = document.createElement('canvas');
+  canvas.width = IMG_W;
+  canvas.height = IMG_H;
+  const ctx = canvas.getContext('2d');
+  ctx.textBaseline = 'alphabetic';
+
+  // ----- background paper
+  ctx.fillStyle = '#F3EEE4';
+  ctx.fillRect(0, 0, IMG_W, IMG_H);
+
+  // warm radial gradients (top-right amber, bottom-left teal)
+  const g1 = ctx.createRadialGradient(IMG_W*0.85, -100, 0, IMG_W*0.85, -100, 900);
+  g1.addColorStop(0, 'rgba(217,133,42,0.20)');
+  g1.addColorStop(1, 'rgba(217,133,42,0)');
+  ctx.fillStyle = g1; ctx.fillRect(0, 0, IMG_W, IMG_H);
+
+  const g2 = ctx.createRadialGradient(-100, IMG_H+100, 0, -100, IMG_H+100, 1100);
+  g2.addColorStop(0, 'rgba(14,110,99,0.16)');
+  g2.addColorStop(1, 'rgba(14,110,99,0)');
+  ctx.fillStyle = g2; ctx.fillRect(0, 0, IMG_W, IMG_H);
+
+  const PAD = 64;
+  const SEP = '#DCD3C2';
+
+  // ----- 1) Title (Y 0–80)
+  ctx.fillStyle = '#0E6E63';
+  ctx.font = '600 30px "Chakra Petch", sans-serif';
+  ctx.textAlign = 'center';
+  ctx.fillText(L18.imgBrand, IMG_W/2, 52);
+
+  ctx.strokeStyle = SEP; ctx.lineWidth = 1;
+  ctx.beginPath(); ctx.moveTo(PAD, 80); ctx.lineTo(IMG_W-PAD, 80); ctx.stroke();
+
+  // ----- 2) Hero (Y 80–600)
+  // eyebrow label
+  ctx.fillStyle = '#736A5C';
+  ctx.font = '600 26px "Chakra Petch", sans-serif';
+  ctx.fillText(L18.imgOverall, IMG_W/2, 170);
+
+  // big circle with level number
+  const cx = IMG_W/2, cy = 360, rad = 170;
+  const ringGrad = ctx.createLinearGradient(cx-rad, cy-rad, cx+rad, cy+rad);
+  ringGrad.addColorStop(0, color);
+  ringGrad.addColorStop(1, shade(color, -22));
+  ctx.fillStyle = ringGrad;
+  ctx.beginPath(); ctx.arc(cx, cy, rad, 0, Math.PI*2); ctx.fill();
+
+  // amber soft glow accent
+  const glow = ctx.createRadialGradient(cx+90, cy-90, 0, cx+90, cy-90, 220);
+  glow.addColorStop(0, 'rgba(217,133,42,0.45)');
+  glow.addColorStop(1, 'rgba(217,133,42,0)');
+  ctx.fillStyle = glow;
+  ctx.beginPath(); ctx.arc(cx, cy, rad, 0, Math.PI*2); ctx.fill();
+
+  // number inside
+  ctx.fillStyle = '#fff';
+  ctx.font = '700 200px "Chakra Petch", sans-serif';
+  ctx.textBaseline = 'middle';
+  ctx.fillText(String(placement || 0), cx, cy + 6);
+  ctx.textBaseline = 'alphabetic';
+
+  // level name TH + EN
+  const heroLineY = 575;
+  const primaryName = lvl ? lvl.name[lang] : L18.imgP0Name;
+  const secondaryName = lvl ? (lang === 'th' ? lvl.name.en : lvl.name.th) : '';
+  ctx.fillStyle = '#211C16';
+  ctx.font = '600 44px "Chakra Petch", sans-serif';
+  const heroLine = secondaryName ? `${primaryName} · ${secondaryName}` : primaryName;
+  ctx.fillText(truncateToWidth(ctx, heroLine, IMG_W - PAD*2), IMG_W/2, heroLineY);
+
+  // ----- 3) Name + Date (Y 600–700)
+  const dateText = formatDate(finishedAt || new Date(), lang);
+  if(userName){
+    ctx.fillStyle = '#211C16';
+    ctx.font = '600 36px "IBM Plex Sans Thai", "IBM Plex Sans", sans-serif';
+    ctx.fillText(truncateToWidth(ctx, userName, IMG_W - PAD*2), IMG_W/2, 645);
+    ctx.fillStyle = '#736A5C';
+    ctx.font = '400 26px "IBM Plex Sans Thai", "IBM Plex Sans", sans-serif';
+    ctx.fillText(dateText, IMG_W/2, 685);
+  } else {
+    ctx.fillStyle = '#736A5C';
+    ctx.font = '500 30px "IBM Plex Sans Thai", "IBM Plex Sans", sans-serif';
+    ctx.fillText(dateText, IMG_W/2, 665);
+  }
+
+  ctx.beginPath(); ctx.moveTo(PAD, 700); ctx.lineTo(IMG_W-PAD, 700); ctx.stroke();
+
+  // ----- 4) Per-level bars (Y 700–1160; 460px / 5 rows = 92px)
+  const barsTop = 720;
+  const rowH = 84;
+  const barLeft = PAD, barRight = IMG_W - PAD;
+  for(let i=0; i<LEVELS.length; i++){
+    const L = LEVELS[i];
+    const p = pcts[i] || 0;
+    const rowY = barsTop + i*rowH;
+
+    ctx.textAlign = 'left';
+    ctx.fillStyle = '#211C16';
+    ctx.font = '600 26px "IBM Plex Sans Thai", "IBM Plex Sans", sans-serif';
+    const lblMax = (barRight - barLeft) - 130;
+    ctx.fillText(truncateToWidth(ctx, `${L.n}. ${L.name[lang]}`, lblMax), barLeft, rowY + 22);
+
+    ctx.textAlign = 'right';
+    ctx.fillStyle = L.color;
+    ctx.font = '700 26px "Chakra Petch", sans-serif';
+    ctx.fillText(`${p}%`, barRight, rowY + 22);
+
+    // track
+    const trackY = rowY + 40;
+    const trackH = 18;
+    ctx.fillStyle = '#ECE5D7';
+    roundRect(ctx, barLeft, trackY, barRight - barLeft, trackH, 9); ctx.fill();
+    ctx.strokeStyle = '#DCD3C2'; ctx.lineWidth = 1;
+    roundRect(ctx, barLeft, trackY, barRight - barLeft, trackH, 9); ctx.stroke();
+
+    // fill
+    const fillW = Math.max(0, Math.min(1, p/100)) * (barRight - barLeft);
+    if(fillW > 2){
+      const bg = ctx.createLinearGradient(barLeft, trackY, barLeft + fillW, trackY);
+      bg.addColorStop(0, L.color);
+      bg.addColorStop(1, shade(L.color, 25));
+      ctx.fillStyle = bg;
+      roundRect(ctx, barLeft, trackY, fillW, trackH, 9); ctx.fill();
+    }
+    ctx.strokeStyle = SEP; ctx.lineWidth = 1;
+  }
+  ctx.textAlign = 'center';
+
+  ctx.beginPath(); ctx.moveTo(PAD, 1160); ctx.lineTo(IMG_W-PAD, 1160); ctx.stroke();
+
+  // ----- 5) Workshops (Y 1160–1640)
+  ctx.fillStyle = '#211C16';
+  ctx.font = '600 32px "Chakra Petch", sans-serif';
+  ctx.fillText(L18.imgWorkshopsHead, IMG_W/2, 1210);
+
+  const workshops = (lvl ? lvl.workshops : LEVELS[0].workshops).slice(0, 3);
+  const chipsTop = 1250;
+  const chipMaxW = IMG_W - PAD*2;
+  const chipH = 100;
+  const chipGap = 16;
+  const totalChipsBlock = workshops.length * chipH + Math.max(0, workshops.length-1) * chipGap;
+  const blockStart = chipsTop + ((1640 - chipsTop - 20) - totalChipsBlock) / 2;
+
+  ctx.font = '500 30px "IBM Plex Sans Thai", "IBM Plex Sans", sans-serif';
+  workshops.forEach((w, i) => {
+    const label = w[lang];
+    const cy0 = blockStart + i*(chipH + chipGap);
+    // chip background
+    ctx.fillStyle = '#F0E2C9';
+    roundRect(ctx, PAD, cy0, chipMaxW, chipH, 22); ctx.fill();
+    ctx.strokeStyle = '#DCD3C2'; ctx.lineWidth = 1;
+    roundRect(ctx, PAD, cy0, chipMaxW, chipH, 22); ctx.stroke();
+    // chip label (wrap up to 2 lines)
+    ctx.fillStyle = '#B5642A';
+    ctx.font = '500 30px "IBM Plex Sans Thai", "IBM Plex Sans", sans-serif';
+    const inner = chipMaxW - 60;
+    const lines = wrapToLines(ctx, label, inner, 2);
+    ctx.textBaseline = 'middle';
+    if(lines.length === 1){
+      ctx.fillText(lines[0], IMG_W/2, cy0 + chipH/2);
+    } else {
+      ctx.fillText(lines[0], IMG_W/2, cy0 + chipH/2 - 18);
+      ctx.fillText(lines[1], IMG_W/2, cy0 + chipH/2 + 18);
+    }
+    ctx.textBaseline = 'alphabetic';
+  });
+
+  ctx.beginPath(); ctx.moveTo(PAD, 1640); ctx.lineTo(IMG_W-PAD, 1640); ctx.stroke();
+
+  // ----- 6) Copyright + attribution (Y 1640–1920)
+  ctx.textAlign = 'center';
+  ctx.fillStyle = '#211C16';
+  ctx.font = '600 26px "IBM Plex Sans Thai", "IBM Plex Sans", sans-serif';
+  ctx.fillText(L18.imgAuthor, IMG_W/2, 1690);
+
+  ctx.fillStyle = '#736A5C';
+  ctx.font = '400 22px "IBM Plex Sans Thai", "IBM Plex Sans", sans-serif';
+  // affiliation may be long — wrap
+  const affLines = wrapToLines(ctx, L18.imgAffiliation, IMG_W - PAD*2, 2);
+  affLines.forEach((ln, i) => ctx.fillText(ln, IMG_W/2, 1728 + i*30));
+
+  ctx.fillStyle = '#211C16';
+  ctx.font = '500 22px "IBM Plex Sans Thai", "IBM Plex Sans", sans-serif';
+  ctx.fillText(L18.imgLicense, IMG_W/2, 1830);
+  ctx.fillStyle = '#736A5C';
+  ctx.font = '400 22px "IBM Plex Sans Thai", "IBM Plex Sans", sans-serif';
+  ctx.fillText(L18.imgFrameworkSource, IMG_W/2, 1864);
+
+  return new Promise(resolve => canvas.toBlob(b => resolve(b), 'image/png'));
+}
+
+async function downloadResultImage(){
+  const btn = document.getElementById('downloadBtn');
+  const original = btn.textContent;
+  btn.disabled = true;
+  btn.textContent = t('downloading');
+  try {
+    const blob = await generateResultImage(currentLang);
+    if(!blob) throw new Error('blob null');
+    const d = finishedAt || new Date();
+    const ymd = d.getFullYear() + '-' + String(d.getMonth()+1).padStart(2,'0') + '-' + String(d.getDate()).padStart(2,'0');
+    const placement = (window.__res && window.__res.placement) || 0;
+    const filename = `AI-Literacy-Level-${placement}-${ymd}-${currentLang}.png`;
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url; a.download = filename;
+    document.body.appendChild(a); a.click(); a.remove();
+    setTimeout(() => URL.revokeObjectURL(url), 1000);
+  } catch(e){
+    console.error('image generation failed', e);
+    alert('Image generation failed: ' + (e && e.message ? e.message : e));
+  } finally {
+    btn.disabled = false;
+    btn.textContent = original;
+  }
 }
 
 /* ---------------- init ---------------- */
