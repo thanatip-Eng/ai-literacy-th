@@ -190,6 +190,43 @@
   }
   .foot{text-align:center;margin-top:30px;font-size:.76rem;color:var(--muted)}
 
+  /* ---------- spinner inside button ---------- */
+  .spinner{
+    display:inline-block;width:14px;height:14px;
+    border:2px solid currentColor;border-top-color:transparent;
+    border-radius:50%;animation:spin .9s linear infinite;
+    vertical-align:-2px;margin-right:8px;
+  }
+  @keyframes spin{to{transform:rotate(360deg)}}
+  .btn[disabled]{opacity:.7;cursor:wait}
+
+  /* ---------- image modal (iOS Safari fallback) ---------- */
+  .img-modal{
+    position:fixed;inset:0;z-index:1000;
+    background:rgba(33,28,22,.78);
+    display:none;align-items:flex-start;justify-content:center;
+    padding:24px 16px;overflow-y:auto;-webkit-overflow-scrolling:touch;
+  }
+  .img-modal.active{display:flex}
+  .img-modal-card{
+    background:var(--paper);border:1px solid var(--line);
+    border-radius:var(--r);padding:18px;
+    max-width:480px;width:100%;margin:auto;
+    box-shadow:0 30px 60px -20px rgba(0,0,0,.5);
+  }
+  .img-modal-hint{
+    font-size:.92rem;color:var(--ink);font-weight:500;
+    text-align:center;margin-bottom:14px;line-height:1.5;
+  }
+  .img-modal img{
+    width:100%;height:auto;display:block;
+    border-radius:12px;border:1px solid var(--line);
+    background:var(--card);
+    -webkit-touch-callout:default;touch-action:manipulation;
+  }
+  .img-modal-close{margin-top:14px}
+  @media print{.img-modal{display:none !important}}
+
   /* ---------- name input screen ---------- */
   .name-h{font-family:"Chakra Petch",sans-serif;font-weight:700;font-size:1.3rem;margin-bottom:8px;color:var(--teal-deep)}
   .name-sub{font-size:.92rem;color:var(--muted);margin-bottom:18px;line-height:1.55}
@@ -366,6 +403,15 @@
     <p class="foot" data-i18n="foot">อิงจาก LinkedIn AI Upskilling Framework (5 ระดับ) · เครื่องมือประเมินตนเอง</p>
   </section>
 
+  <!-- ===================== IMAGE MODAL (iOS Safari fallback) ===================== -->
+  <div class="img-modal" id="imgModal" aria-modal="true" role="dialog" aria-labelledby="imgModalHint" aria-hidden="true">
+    <div class="img-modal-card">
+      <p class="img-modal-hint" id="imgModalHint" data-i18n="iosHint">แตะค้างที่ภาพแล้วเลือก "บันทึกในรูปภาพ" เพื่อเก็บไว้ในเครื่อง</p>
+      <img id="imgModalImg" alt="" />
+      <button class="btn ghost img-modal-close" type="button" onclick="closeImgModal()" data-i18n="modalClose">ปิด</button>
+    </div>
+  </div>
+
 </div>
 
 <script>
@@ -428,6 +474,9 @@ const LANG = {
     copyWorkshopsHead: "หัวข้อ workshop ที่ขอแนะนำ:",
     downloadBtn: "ดาวน์โหลดเป็นรูปภาพ",
     downloading: "กำลังสร้างภาพ…",
+    iosHint: 'แตะค้างที่ภาพแล้วเลือก "บันทึกในรูปภาพ" เพื่อเก็บไว้ในเครื่อง',
+    modalClose: "ปิด",
+    imgAlt: "ผลประเมิน AI Literacy ของคุณ",
     imgBrand: "AI LITERACY ASSESSMENT",
     imgOverall: "ระดับโดยรวมของคุณ",
     imgP0Name: "กำลังสร้างพื้นฐาน",
@@ -494,6 +543,9 @@ const LANG = {
     copyWorkshopsHead: "Recommended workshops:",
     downloadBtn: "Download as image",
     downloading: "Generating image…",
+    iosHint: 'Long-press the image and choose "Save to Photos" to keep it on your device',
+    modalClose: "Close",
+    imgAlt: "Your AI Literacy assessment result",
     imgBrand: "AI LITERACY ASSESSMENT",
     imgOverall: "YOUR OVERALL LEVEL",
     imgP0Name: "Building foundations",
@@ -1273,11 +1325,45 @@ async function generateResultImage(lang){
   return new Promise(resolve => canvas.toBlob(b => resolve(b), 'image/png'));
 }
 
+function isIOS(){
+  const ua = navigator.userAgent || '';
+  if(/iPad|iPhone|iPod/.test(ua)) return true;
+  // iPadOS 13+ presents as MacIntel with touch
+  if(navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1 && !window.MSStream) return true;
+  return false;
+}
+
+let _modalBlobUrl = null;
+
+function openImgModal(blobUrl){
+  const modal = document.getElementById('imgModal');
+  const img = document.getElementById('imgModalImg');
+  if(_modalBlobUrl){ try { URL.revokeObjectURL(_modalBlobUrl); } catch(_){} }
+  _modalBlobUrl = blobUrl;
+  img.src = blobUrl;
+  img.alt = t('imgAlt');
+  modal.classList.add('active');
+  modal.setAttribute('aria-hidden', 'false');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeImgModal(){
+  const modal = document.getElementById('imgModal');
+  const img = document.getElementById('imgModalImg');
+  modal.classList.remove('active');
+  modal.setAttribute('aria-hidden', 'true');
+  document.body.style.overflow = '';
+  img.removeAttribute('src');
+  if(_modalBlobUrl){
+    setTimeout(()=>{ try { URL.revokeObjectURL(_modalBlobUrl); } catch(_){} _modalBlobUrl = null; }, 500);
+  }
+}
+
 async function downloadResultImage(){
   const btn = document.getElementById('downloadBtn');
-  const original = btn.textContent;
+  const originalHTML = btn.innerHTML;
   btn.disabled = true;
-  btn.textContent = t('downloading');
+  btn.innerHTML = `<span class="spinner" aria-hidden="true"></span>${esc(t('downloading'))}`;
   try {
     const blob = await generateResultImage(currentLang);
     if(!blob) throw new Error('blob null');
@@ -1286,16 +1372,24 @@ async function downloadResultImage(){
     const placement = (window.__res && window.__res.placement) || 0;
     const filename = `AI-Literacy-Level-${placement}-${ymd}-${currentLang}.png`;
     const url = URL.createObjectURL(blob);
-    const a = document.createElement('a');
-    a.href = url; a.download = filename;
-    document.body.appendChild(a); a.click(); a.remove();
-    setTimeout(() => URL.revokeObjectURL(url), 1000);
+
+    if(isIOS()){
+      // iOS Safari ignores the `download` attribute — show modal with inline
+      // image and a long-press-to-save hint instead. Blob URL is revoked
+      // when the modal closes.
+      openImgModal(url);
+    } else {
+      const a = document.createElement('a');
+      a.href = url; a.download = filename;
+      document.body.appendChild(a); a.click(); a.remove();
+      setTimeout(()=>{ try { URL.revokeObjectURL(url); } catch(_){} }, 1500);
+    }
   } catch(e){
     console.error('image generation failed', e);
-    alert('Image generation failed: ' + (e && e.message ? e.message : e));
+    alert(t('downloading') + ' — ' + (e && e.message ? e.message : e));
   } finally {
     btn.disabled = false;
-    btn.textContent = original;
+    btn.innerHTML = originalHTML;
   }
 }
 
@@ -1303,6 +1397,14 @@ async function downloadResultImage(){
 renderIntroLevels();
 renderFrameworkDiagram();
 updateToggleUI();
+
+/* image modal dismiss handlers */
+document.getElementById('imgModal').addEventListener('click', (e)=>{
+  if(e.target.id === 'imgModal') closeImgModal();
+});
+document.addEventListener('keydown', (e)=>{
+  if(e.key === 'Escape' && document.getElementById('imgModal').classList.contains('active')) closeImgModal();
+});
 </script>
 </body>
 </html>
