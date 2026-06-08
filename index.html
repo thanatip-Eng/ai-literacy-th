@@ -190,6 +190,19 @@
   }
   .foot{text-align:center;margin-top:30px;font-size:.76rem;color:var(--muted)}
 
+  /* ---------- global footer (every screen) ---------- */
+  .global-footer{
+    margin-top:36px;padding-top:22px;
+    border-top:1px dashed var(--line);
+    text-align:center;font-size:.76rem;color:var(--muted);line-height:1.65;
+  }
+  .global-footer .row{margin-bottom:4px}
+  .global-footer a{color:var(--muted);text-decoration:underline dotted;text-underline-offset:2px}
+  .global-footer a:hover{color:var(--ink)}
+  .global-footer .ff-cc{display:inline-flex;align-items:center;gap:6px;flex-wrap:wrap;justify-content:center}
+  .global-footer .ff-cc svg{width:14px;height:14px;flex:0 0 auto;color:var(--muted)}
+  @media print{.global-footer{color:#736A5C}}
+
   /* ---------- spinner inside button ---------- */
   .spinner{
     display:inline-block;width:14px;height:14px;
@@ -400,8 +413,17 @@
       <button class="btn ghost" onclick="window.print()" data-i18n="printBtn">บันทึก / พิมพ์ผล (PDF)</button>
       <button class="btn ghost" onclick="restart()" data-i18n="restartBtn">ทำแบบประเมินใหม่</button>
     </div>
-    <p class="foot" data-i18n="foot">อิงจาก LinkedIn AI Upskilling Framework (5 ระดับ) · เครื่องมือประเมินตนเอง</p>
   </section>
+
+  <!-- ===================== GLOBAL FOOTER (every screen) ===================== -->
+  <footer class="global-footer" role="contentinfo">
+    <p class="row" data-i18n="footerCopy">© 2026 ผศ.ดร.ธนาทิพย์ จันทร์คง · ภาควิชาวิศวกรรมคอมพิวเตอร์ คณะวิศวกรรมศาสตร์ มหาวิทยาลัยเชียงใหม่</p>
+    <p class="row ff-cc">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M9.5 9.5a3 3 0 1 0 0 5"/><path d="M16 9.5a3 3 0 1 0 0 5"/></svg>
+      <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank" rel="noopener noreferrer" data-i18n="ccLink">เผยแพร่ภายใต้สัญญาอนุญาต CC BY-NC-SA 4.0</a>
+    </p>
+    <p class="row" data-i18n="footerFramework">อิง LinkedIn AI Upskilling Framework</p>
+  </footer>
 
   <!-- ===================== IMAGE MODAL (iOS Safari fallback) ===================== -->
   <div class="img-modal" id="imgModal" aria-modal="true" role="dialog" aria-labelledby="imgModalHint" aria-hidden="true">
@@ -454,6 +476,8 @@ const LANG = {
     printBtn: "บันทึก / พิมพ์ผล (PDF)",
     restartBtn: "ทำแบบประเมินใหม่",
     foot: "อิงจาก LinkedIn AI Upskilling Framework (5 ระดับ) · เครื่องมือประเมินตนเอง",
+    footerCopy: "© 2026 ผศ.ดร.ธนาทิพย์ จันทร์คง · ภาควิชาวิศวกรรมคอมพิวเตอร์ คณะวิศวกรรมศาสตร์ มหาวิทยาลัยเชียงใหม่",
+    footerFramework: "อิง LinkedIn AI Upskilling Framework",
     p0Name: "กำลังสร้างพื้นฐาน",
     p0Blurb: "คุณกำลังเริ่มต้นเส้นทาง AI — โฟกัสที่การสร้างความเข้าใจพื้นฐาน (ระดับ 1) ก่อน แล้วต่อยอดทีละขั้น",
     p0NextH: "เริ่มต้นที่ระดับ 1 — เข้าใจพื้นฐาน AI",
@@ -523,6 +547,8 @@ const LANG = {
     printBtn: "Save / Print (PDF)",
     restartBtn: "Restart assessment",
     foot: "Based on the LinkedIn AI Upskilling Framework (5 levels) · self-assessment tool",
+    footerCopy: "© 2026 Asst. Prof. Dr. Thanatip Jankhong · Department of Computer Engineering, Faculty of Engineering, Chiang Mai University",
+    footerFramework: "Based on the LinkedIn AI Upskilling Framework",
     p0Name: "Building foundations",
     p0Blurb: "You're at the start of your AI journey — focus on building a basic understanding (Level 1) first, then build up step by step.",
     p0NextH: "Start at Level 1 — Understanding AI",
