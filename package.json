@@ -1,0 +1,9 @@
+{
+  "name": "ai-literacy-th",
+  "private": true,
+  "scripts": {
+    "content:export": "node tools/export-content.js",
+    "content:apply": "node tools/apply-content.js",
+    "test": "node --test"
+  }
+}

@@ -138,6 +138,7 @@
   }
   .opt:hover{border-color:var(--teal);background:#fbfdfc}
   .opt:active{transform:scale(.99)}
+  .opt:disabled{cursor:default;opacity:.78}
   .opt .dot{
     flex:0 0 auto;width:30px;height:30px;border-radius:50%;border:2px solid var(--line);
     display:grid;place-items:center;font-family:"Chakra Petch",sans-serif;font-weight:700;
@@ -300,6 +301,83 @@
     .diagram-labels span{font-size:.62rem}
     .diagram-labels small{font-size:.52rem}
   }
+
+  /* ---------- EDIT MODE (?edit=1) ---------- */
+  .edit-fab{
+    position:fixed;bottom:16px;right:16px;z-index:9000;
+    background:var(--teal);color:#fff;border:none;border-radius:999px;
+    padding:10px 16px;font-size:.85rem;font-weight:600;cursor:pointer;
+    box-shadow:0 4px 14px rgba(0,0,0,.18);font-family:inherit;
+  }
+  .edit-fab:hover{background:var(--teal-deep)}
+  .edit-panel{
+    position:fixed;top:0;right:0;width:min(460px,100vw);height:100vh;
+    background:#FFFCF5;border-left:1px solid var(--line);
+    z-index:9001;display:flex;flex-direction:column;
+    transform:translateX(100%);transition:transform .25s ease;
+    box-shadow:-6px 0 24px rgba(0,0,0,.12);
+  }
+  .edit-panel.open{transform:translateX(0)}
+  .edit-panel header{
+    padding:14px 16px;border-bottom:1px solid var(--line);
+    display:flex;align-items:center;justify-content:space-between;
+    background:var(--paper-2);
+  }
+  .edit-panel header h2{margin:0;font-size:1rem;font-family:'Chakra Petch',sans-serif;color:var(--ink)}
+  .edit-panel .edit-close{
+    background:none;border:none;font-size:1.4rem;cursor:pointer;color:var(--muted);
+    padding:0 4px;line-height:1;
+  }
+  .edit-body{flex:1;overflow-y:auto;padding:10px 14px 80px}
+  .edit-body details{
+    border:1px solid var(--line);border-radius:8px;
+    margin-bottom:10px;background:#fff;
+  }
+  .edit-body details summary{
+    padding:10px 12px;cursor:pointer;font-weight:600;font-size:.88rem;
+    color:var(--ink);list-style:none;user-select:none;
+  }
+  .edit-body details summary::-webkit-details-marker{display:none}
+  .edit-body details summary::before{content:"▸ ";color:var(--muted)}
+  .edit-body details[open] summary::before{content:"▾ "}
+  .edit-body details[open] summary{border-bottom:1px solid var(--line)}
+  .edit-section{padding:8px 12px 12px}
+  .edit-section h4{
+    font-size:.72rem;text-transform:uppercase;letter-spacing:.06em;
+    color:var(--muted);margin:12px 0 6px;font-weight:600;
+  }
+  .edit-section h4:first-child{margin-top:4px}
+  .edit-field{margin-bottom:8px}
+  .edit-field label{
+    display:block;font-size:.7rem;color:var(--muted);margin-bottom:2px;
+  }
+  .edit-field textarea{
+    width:100%;padding:6px 8px;border:1px solid var(--line);border-radius:6px;
+    font-family:inherit;font-size:.84rem;line-height:1.5;
+    background:#FCFAF5;color:var(--ink);resize:vertical;min-height:34px;
+    box-sizing:border-box;
+  }
+  .edit-field textarea:focus{outline:1px solid var(--teal);border-color:var(--teal)}
+  .edit-pair{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+  .edit-panel footer{
+    padding:12px 14px;border-top:1px solid var(--line);
+    background:var(--paper-2);display:flex;gap:8px;flex-wrap:wrap;
+  }
+  .edit-panel footer button{
+    flex:1;padding:10px 12px;border-radius:8px;border:1px solid var(--line);
+    background:#fff;font-size:.82rem;font-weight:600;cursor:pointer;
+    font-family:inherit;color:var(--ink);
+  }
+  .edit-panel footer button.primary{
+    background:var(--teal);color:#fff;border-color:var(--teal);
+  }
+  .edit-panel footer button.primary:hover{background:var(--teal-deep)}
+  .edit-panel footer button.danger{color:#B5642A}
+  .edit-status{
+    font-size:.72rem;color:var(--muted);padding:6px 14px;
+    background:var(--paper-2);border-top:1px solid var(--line);
+  }
+  @media print{.edit-fab,.edit-panel{display:none!important}}
 </style>
 </head>
 <body>
@@ -327,7 +405,7 @@
       <p class="about-body" data-i18n="aboutBody" data-i18n-html="true">framework นี้จัดกลุ่มทักษะ AI ออกเป็น 5 ระดับ ตั้งแต่ความเข้าใจพื้นฐานไปจนถึงการเชี่ยวชาญเฉพาะทาง โครงสร้างปรับมาจาก <b>LinkedIn AI Upskilling Framework</b> ส่วนการแปล การปรับเป็นภาษาไทย และการพัฒนาเครื่องมือประเมินตนเองนี้เป็นของผู้พัฒนา</p>
       <p class="about-link"><a id="linkedinLink" href="https://learning.linkedin.com/" target="_blank" rel="noopener noreferrer" data-i18n="linkedinLinkText">อ่านเกี่ยวกับ LinkedIn AI Upskilling Framework →</a></p>
       <div class="about-credit">
-        <p data-i18n="aboutAuthor" data-i18n-html="true">© 2026 <b>ผศ.ดร.ธนาทิพย์ จันทร์คง</b><br>ภาควิชาวิศวกรรมคอมพิวเตอร์ คณะวิศวกรรมศาสตร์ มหาวิทยาลัยเชียงใหม่</p>
+        <p data-i18n="aboutAuthor" data-i18n-html="true">© 2026 <b>Student Talent Development</b><br>Faculty of Engineering, Chiang Mai University</p>
         <p class="cc-line">
           <svg class="cc-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M9.5 9.5a3 3 0 1 0 0 5"/><path d="M16 9.5a3 3 0 1 0 0 5"/></svg>
           <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank" rel="noopener noreferrer" data-i18n="ccLink">เผยแพร่ภายใต้สัญญาอนุญาต CC BY-NC-SA 4.0</a>
@@ -417,7 +495,7 @@
 
   <!-- ===================== GLOBAL FOOTER (every screen) ===================== -->
   <footer class="global-footer" role="contentinfo">
-    <p class="row" data-i18n="footerCopy">© 2026 ผศ.ดร.ธนาทิพย์ จันทร์คง · ภาควิชาวิศวกรรมคอมพิวเตอร์ คณะวิศวกรรมศาสตร์ มหาวิทยาลัยเชียงใหม่</p>
+    <p class="row" data-i18n="footerCopy">© 2026 Student Talent Development · Faculty of Engineering, Chiang Mai University</p>
     <p class="row ff-cc">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M9.5 9.5a3 3 0 1 0 0 5"/><path d="M16 9.5a3 3 0 1 0 0 5"/></svg>
       <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank" rel="noopener noreferrer" data-i18n="ccLink">เผยแพร่ภายใต้สัญญาอนุญาต CC BY-NC-SA 4.0</a>
@@ -436,341 +514,56 @@
 
 </div>
 
+<!-- ===================== EDIT MODE PANEL (?edit=1) ===================== -->
+<button type="button" class="edit-fab" id="editFab" hidden onclick="openEditPanel()">✎ Edit</button>
+<aside class="edit-panel" id="editPanel" hidden aria-label="Edit content">
+  <header>
+    <h2>Edit content</h2>
+    <button type="button" class="edit-close" onclick="closeEditPanel()" aria-label="Close">×</button>
+  </header>
+  <div class="edit-body" id="editBody"></div>
+  <p class="edit-status" id="editStatus">Edits auto-save to your browser. Export when ready.</p>
+  <footer>
+    <button type="button" class="primary" onclick="exportEditedContent()">Download content file</button>
+    <button type="button" class="danger" onclick="resetEdits()">Reset</button>
+  </footer>
+</aside>
+
+<script src="content/app-content.js"></script>
+<script src="js/assessment-core.js"></script>
 <script>
-/* ---------------- LANG: UI chrome strings (bilingual) ---------------- */
-const LANG = {
-  th: {
-    documentTitle: "แบบประเมิน AI Literacy — LinkedIn AI Upskilling Framework",
-    badgeSelfTest: "แบบประเมินตนเอง",
-    badgeBrand: "AI Literacy",
-    heroTitle: 'คุณอยู่ระดับใด<br>บนเส้นทาง <span class="hl">AI</span>?',
-    lead: "แบบประเมินนี้อิงจาก <b>LinkedIn AI Upskilling Framework</b> ซึ่งแบ่งทักษะ AI ออกเป็น 5 ระดับ ทำเสร็จใน 3–5 นาที แล้วรับผลวิเคราะห์พร้อมขั้นตอนพัฒนาต่อไปเป็นรายบุคคล",
-    credit: "โครงสร้าง 5 ระดับอ้างอิงจาก LinkedIn AI Upskilling Framework · ออกแบบเป็นเครื่องมือประเมินตนเองสำหรับบริบทไทย",
-    aboutHead: "เกี่ยวกับ framework",
-    aboutSub: "โครงสร้าง 5 ระดับ — ภาพรวมโดยย่อ",
-    aboutBody: "framework นี้จัดกลุ่มทักษะ AI ออกเป็น 5 ระดับ ตั้งแต่ความเข้าใจพื้นฐานไปจนถึงการเชี่ยวชาญเฉพาะทาง โครงสร้างปรับมาจาก <b>LinkedIn AI Upskilling Framework</b> ส่วนการแปล การปรับเป็นภาษาไทย และการพัฒนาเครื่องมือประเมินตนเองนี้เป็นของผู้พัฒนา",
-    linkedinLinkText: "อ่านเกี่ยวกับ LinkedIn AI Upskilling Framework →",
-    aboutAuthor: "© 2026 <b>ผศ.ดร.ธนาทิพย์ จันทร์คง</b><br>ภาควิชาวิศวกรรมคอมพิวเตอร์ คณะวิศวกรรมศาสตร์ มหาวิทยาลัยเชียงใหม่",
-    ccLink: "เผยแพร่ภายใต้สัญญาอนุญาต CC BY-NC-SA 4.0",
-    startBtn: "เริ่มทำแบบประเมิน →",
-    metaNote: "20 ข้อ · ไม่มีถูกผิด · ตอบตามความเป็นจริงของคุณ",
-    nameStepPill: "ก่อนเริ่ม",
-    nameHead: "คุณชื่ออะไร? (ไม่บังคับ)",
-    nameSub: "ใส่ชื่อเพื่อให้ผลและภาพดาวน์โหลดแสดงชื่อของคุณ ข้ามได้ถ้าไม่ต้องการ",
-    namePlaceholder: "ชื่อของคุณ",
-    namePrivacy: "ชื่อนี้อยู่ในเบราว์เซอร์ของคุณเท่านั้น · ไม่ส่งให้ใคร",
-    nameSkip: "ข้าม",
-    nameContinue: "ถัดไป →",
-    backBtn: "← ย้อน",
-    qPillTpl: (n) => "ระดับ " + n,
-    qCountTpl: (n, total) => "ข้อ " + n + " / " + total,
-    rHero: "ระดับโดยรวมของคุณ",
-    profileHead: "โปรไฟล์ทักษะรายระดับ",
-    profileMini: 'เกณฑ์: ≥ 70% ถือว่า "มั่นใจ/ทำได้" ในระดับนั้น · ระดับโดยรวมคำนวณแบบสะสม (ต้องผ่านระดับล่างก่อน)',
-    strongHead: "จุดแข็ง",
-    growHead: "จุดที่ควรพัฒนา",
-    nextHead: "ขั้นตอนต่อไปสำหรับคุณ",
-    workshopsLabel: "หัวข้อ workshop ที่ขอแนะนำ",
-    copyBtn: "คัดลอกสรุปผล",
-    copyDone: "คัดลอกแล้ว ✓",
-    printBtn: "บันทึก / พิมพ์ผล (PDF)",
-    restartBtn: "ทำแบบประเมินใหม่",
-    foot: "อิงจาก LinkedIn AI Upskilling Framework (5 ระดับ) · เครื่องมือประเมินตนเอง",
-    footerCopy: "© 2026 ผศ.ดร.ธนาทิพย์ จันทร์คง · ภาควิชาวิศวกรรมคอมพิวเตอร์ คณะวิศวกรรมศาสตร์ มหาวิทยาลัยเชียงใหม่",
-    footerFramework: "อิง LinkedIn AI Upskilling Framework",
-    p0Name: "กำลังสร้างพื้นฐาน",
-    p0Blurb: "คุณกำลังเริ่มต้นเส้นทาง AI — โฟกัสที่การสร้างความเข้าใจพื้นฐาน (ระดับ 1) ก่อน แล้วต่อยอดทีละขั้น",
-    p0NextH: "เริ่มต้นที่ระดับ 1 — เข้าใจพื้นฐาน AI",
-    p0Next: [
-      "ทำความเข้าใจว่า Generative AI คืออะไร ทำได้ดีในเรื่องใด และมีข้อจำกัด/ความเสี่ยงอย่างไร",
-      "เรียนรู้แนวปฏิบัติการใช้ AI อย่างมีความรับผิดชอบ",
-      "ทดลองใช้เครื่องมือ AI กับงานง่าย ๆ เพื่อสร้างความคุ้นเคย"
-    ],
-    noStrongTpl: () => "ยังไม่มีระดับใดถึง 70% — เริ่มสะสมจากระดับ 1",
-    noGrowTpl: () => "ครบทุกระดับแล้ว เยี่ยมมาก! เน้นเรียนรู้ต่อเนื่อง",
-    rankTpl: (name, pct) => `${name} (${pct}%)`,
-    copyHeader: "ผลประเมิน AI Literacy (อิง LinkedIn AI Upskilling Framework)",
-    copyOverallTpl: (placement, name) => placement
-      ? `ระดับโดยรวม: ระดับ ${placement} — ${name}`
-      : "ระดับโดยรวม: 0 — กำลังสร้างพื้นฐาน",
-    copyProfileHead: "โปรไฟล์รายระดับ:",
-    copyRowTpl: (n, name, pct) => `  ${n}. ${name}: ${pct}%`,
-    copyWorkshopsHead: "หัวข้อ workshop ที่ขอแนะนำ:",
-    downloadBtn: "ดาวน์โหลดเป็นรูปภาพ",
-    downloading: "กำลังสร้างภาพ…",
-    iosHint: 'แตะค้างที่ภาพแล้วเลือก "บันทึกในรูปภาพ" เพื่อเก็บไว้ในเครื่อง',
-    modalClose: "ปิด",
-    imgAlt: "ผลประเมิน AI Literacy ของคุณ",
-    imgBrand: "AI LITERACY ASSESSMENT",
-    imgOverall: "ระดับโดยรวมของคุณ",
-    imgP0Name: "กำลังสร้างพื้นฐาน",
-    imgWorkshopsHead: "หัวข้อ workshop ที่ขอแนะนำ",
-    imgAuthor: "© 2026 ผศ.ดร.ธนาทิพย์ จันทร์คง",
-    imgAffiliation: "ภาควิชาวิศวกรรมคอมพิวเตอร์ · คณะวิศวกรรมศาสตร์ ม.เชียงใหม่",
-    imgLicense: "เผยแพร่ภายใต้สัญญาอนุญาต CC BY-NC-SA 4.0",
-    imgFrameworkSource: "อิง LinkedIn AI Upskilling Framework"
-  },
-  en: {
-    documentTitle: "AI Literacy Assessment — LinkedIn AI Upskilling Framework",
-    badgeSelfTest: "Self-assessment",
-    badgeBrand: "AI Literacy",
-    heroTitle: 'Where are you<br>on your <span class="hl">AI</span> journey?',
-    lead: "This assessment is based on the <b>LinkedIn AI Upskilling Framework</b>, which groups AI skills into 5 levels. Finish in 3–5 minutes and get a personalized result with next steps.",
-    credit: "Five-level structure adapted from the LinkedIn AI Upskilling Framework · designed as a self-assessment tool.",
-    aboutHead: "About the framework",
-    aboutSub: "The 5 levels — at a glance",
-    aboutBody: "This framework groups AI skills into 5 levels, from foundational understanding to deep specialization. The structure is adapted from the <b>LinkedIn AI Upskilling Framework</b>. The translation, Thai adaptation, and the assessment tool itself are by the author.",
-    linkedinLinkText: "Read about the LinkedIn AI Upskilling Framework →",
-    aboutAuthor: "© 2026 <b>Asst. Prof. Dr. Thanatip Jankhong</b><br>Department of Computer Engineering, Faculty of Engineering, Chiang Mai University",
-    ccLink: "Licensed under CC BY-NC-SA 4.0",
-    startBtn: "Start the assessment →",
-    metaNote: "20 questions · no right or wrong · answer honestly",
-    nameStepPill: "Before we start",
-    nameHead: "What's your name? (optional)",
-    nameSub: "Add your name so the result and downloadable image show it. You can skip this if you prefer.",
-    namePlaceholder: "Your name",
-    namePrivacy: "Your name stays in your browser only · never sent anywhere",
-    nameSkip: "Skip",
-    nameContinue: "Continue →",
-    backBtn: "← Back",
-    qPillTpl: (n) => "Level " + n,
-    qCountTpl: (n, total) => "Question " + n + " / " + total,
-    rHero: "Your overall level",
-    profileHead: "Skill profile by level",
-    profileMini: 'Threshold: ≥ 70% counts as "confident / can do" at that level · overall placement is cumulative (you must pass each lower level first).',
-    strongHead: "Strengths",
-    growHead: "Areas to grow",
-    nextHead: "Next steps for you",
-    workshopsLabel: "Recommended workshops",
-    copyBtn: "Copy summary",
-    copyDone: "Copied ✓",
-    printBtn: "Save / Print (PDF)",
-    restartBtn: "Restart assessment",
-    foot: "Based on the LinkedIn AI Upskilling Framework (5 levels) · self-assessment tool",
-    footerCopy: "© 2026 Asst. Prof. Dr. Thanatip Jankhong · Department of Computer Engineering, Faculty of Engineering, Chiang Mai University",
-    footerFramework: "Based on the LinkedIn AI Upskilling Framework",
-    p0Name: "Building foundations",
-    p0Blurb: "You're at the start of your AI journey — focus on building a basic understanding (Level 1) first, then build up step by step.",
-    p0NextH: "Start at Level 1 — Understanding AI",
-    p0Next: [
-      "Understand what Generative AI is, where it works well, and what its limits and risks are",
-      "Learn responsible AI practices",
-      "Try AI tools on small everyday tasks to build familiarity"
-    ],
-    noStrongTpl: () => "No level has reached 70% yet — start building from Level 1",
-    noGrowTpl: () => "Every level covered — great work! Keep learning continuously",
-    rankTpl: (name, pct) => `${name} (${pct}%)`,
-    copyHeader: "AI Literacy Assessment Results (based on the LinkedIn AI Upskilling Framework)",
-    copyOverallTpl: (placement, name) => placement
-      ? `Overall level: Level ${placement} — ${name}`
-      : "Overall level: 0 — Building foundations",
-    copyProfileHead: "Level profile:",
-    copyRowTpl: (n, name, pct) => `  ${n}. ${name}: ${pct}%`,
-    copyWorkshopsHead: "Recommended workshops:",
-    downloadBtn: "Download as image",
-    downloading: "Generating image…",
-    iosHint: 'Long-press the image and choose "Save to Photos" to keep it on your device',
-    modalClose: "Close",
-    imgAlt: "Your AI Literacy assessment result",
-    imgBrand: "AI LITERACY ASSESSMENT",
-    imgOverall: "YOUR OVERALL LEVEL",
-    imgP0Name: "Building foundations",
-    imgWorkshopsHead: "Recommended Workshops",
-    imgAuthor: "© 2026 Asst. Prof. Dr. Thanatip Jankhong",
-    imgAffiliation: "Dept of Computer Engineering · Faculty of Engineering · CMU",
-    imgLicense: "Licensed under CC BY-NC-SA 4.0",
-    imgFrameworkSource: "Based on the LinkedIn AI Upskilling Framework"
-  }
-};
+const CONTENT = globalThis.AI_LITERACY_CONTENT;
+if(!CONTENT) throw new Error('Could not load content/app-content.js');
+const CORE = globalThis.AI_LITERACY_CORE;
+if(!CORE) throw new Error('Could not load js/assessment-core.js');
 
-/* ---------------- DATA: 5 levels x 4 items (bilingual) ---------------- */
-const LEVELS = [
-  {
-    n:1,
-    name: { th:"เข้าใจพื้นฐาน AI", en:"Understanding" },
-    short: { th:"ความรู้พื้นฐานที่ทุกคนควรมี", en:"Foundational knowledge everyone should have" },
-    desc: { th:"รู้ว่า AI คืออะไร ทำอะไรได้/ไม่ได้ และใช้อย่างมีความรับผิดชอบ",
-            en:"Know what AI is, what it can and can't do, and how to use it responsibly" },
-    color:"#0E6E63",
-    items:[
-      { th:"ฉันอธิบายได้ว่า Generative AI คืออะไร และทำงานอย่างไรในระดับพื้นฐาน",
-        en:"I can explain what Generative AI is and how it works at a basic level" },
-      { th:"ฉันแยกแยะได้ว่างานแบบใดที่ AI ทำได้ดี และงานแบบใดที่ AI ยังทำได้ไม่ดีหรือไม่ควรให้ทำ",
-        en:"I can tell which tasks AI does well and which it can't — or shouldn't — do" },
-      { th:"ฉันเข้าใจความเสี่ยงของ AI เช่น การให้ข้อมูลผิด (hallucination) อคติ (bias) และความเป็นส่วนตัวของข้อมูล",
-        en:"I understand AI risks like hallucination, bias, and data privacy" },
-      { th:"ฉันรู้แนวปฏิบัติการใช้ AI อย่างมีความรับผิดชอบในบริบทงานหรือการเรียนของฉัน",
-        en:"I know responsible AI practices for my work or study context" }
-    ],
-    blurb: { th:"คุณมีพื้นฐานความเข้าใจ AI ที่ดี รู้ว่า AI ทำอะไรได้และมีข้อจำกัดอย่างไร พร้อมก้าวสู่การลงมือใช้จริง",
-             en:"You have a solid foundation in AI — you know what it can do and where its limits lie, and you're ready to start applying it." },
-    nextH: { th:"พัฒนาสู่ระดับ 2 — นำ AI ไปใช้จริง",
-             en:"Grow into Level 2 — Applying AI" },
-    next:[
-      { th:"เริ่มใช้เครื่องมือ AI (ChatGPT / Claude / Copilot / Gemini) กับงานจริงสัปดาห์ละ 1–2 อย่าง",
-        en:"Start using AI tools (ChatGPT / Claude / Copilot / Gemini) on real tasks 1–2 times a week" },
-      { th:"ฝึกเขียน prompt ให้ชัดเจน ระบุบริบท บทบาท และรูปแบบผลลัพธ์ที่ต้องการ",
-        en:"Practice writing clear prompts that specify context, role, and the output format you want" },
-      { th:"สร้างนิสัยตรวจสอบ (verify) ผลลัพธ์ของ AI ก่อนนำไปใช้ทุกครั้ง",
-        en:"Build the habit of verifying AI output every time before you use it" }
-    ],
-    workshops:[
-      { th:"พื้นฐาน AI สำหรับทุกคน", en:"AI Foundations for Everyone" },
-      { th:"การใช้ AI อย่างมีความรับผิดชอบ", en:"Responsible AI Practices" },
-      { th:"Prompt พื้นฐานในชีวิตประจำวัน", en:"Everyday Prompting Basics" }
-    ]
-  },
-  {
-    n:2,
-    name: { th:"นำ AI ไปใช้ในงานประจำวัน", en:"Applying" },
-    short: { th:"ใช้เครื่องมือ AI เพิ่มประสิทธิภาพงาน", en:"Use AI tools to boost everyday work" },
-    desc: { th:"ใช้ AI ช่วยร่าง สรุป ระดมความคิด วิเคราะห์ และเขียน prompt ได้ดี",
-            en:"Use AI to draft, summarize, brainstorm, analyze, and write effective prompts" },
-    color:"#15827A",
-    items:[
-      { th:"ฉันใช้เครื่องมือ AI ช่วยทำงานประจำวันอย่างสม่ำเสมอ",
-        en:"I use AI tools to support my daily work on a regular basis" },
-      { th:"ฉันเขียนคำสั่ง (prompt) ที่ชัดเจน และปรับแก้ซ้ำเพื่อให้ได้ผลลัพธ์ที่ดีขึ้น",
-        en:"I write clear prompts and iterate on them to get better results" },
-      { th:"ฉันใช้ AI ช่วยงานหลายประเภท เช่น ร่างเอกสาร สรุปความ ระดมความคิด หรือวิเคราะห์ข้อมูล",
-        en:"I use AI for many kinds of tasks — drafting, summarizing, brainstorming, or analyzing data" },
-      { th:"ฉันตรวจสอบ แก้ไข และปรับผลลัพธ์จาก AI ให้เหมาะกับบริบทก่อนนำไปใช้จริงเสมอ",
-        en:"I always review, edit, and adapt AI output to the context before using it" }
-    ],
-    blurb: { th:"คุณใช้ AI เป็นผู้ช่วยในงานประจำวันได้คล่อง และรู้วิธีสื่อสารกับ AI ให้ได้ผลลัพธ์ที่มีคุณภาพ",
-             en:"You use AI fluently as an everyday assistant and know how to communicate with it to get quality results." },
-    nextH: { th:"พัฒนาสู่ระดับ 3 — สร้างด้วย AI",
-             en:"Grow into Level 3 — Building with AI" },
-    next:[
-      { th:"ลองเครื่องมือ no-code / automation (เช่น GPTs/Projects, Zapier, Make) เพื่อต่อยอดงานซ้ำ ๆ",
-        en:"Try no-code / automation tools (GPTs/Projects, Zapier, Make) to extend repetitive work" },
-      { th:"ออกแบบ workflow ที่ผสาน AI หลายขั้นเพื่อแก้ปัญหาเฉพาะของคุณ",
-        en:"Design multi-step workflows that combine AI to solve your specific problems" },
-      { th:"เรียนรู้แนวคิด API เพื่อเข้าใจว่าจะเชื่อม AI เข้ากับระบบงานได้อย่างไร",
-        en:"Learn the basics of APIs to understand how AI connects into systems" }
-    ],
-    workshops:[
-      { th:"Prompt Engineering ขั้นกลาง", en:"Intermediate Prompt Engineering" },
-      { th:"AI กับเวิร์กโฟลว์ในงานประจำ", en:"AI Workflows in Daily Work" },
-      { th:"No-Code Automation พื้นฐาน", en:"No-Code Automation Basics" }
-    ]
-  },
-  {
-    n:3,
-    name: { th:"สร้างด้วย AI", en:"Building" },
-    short: { th:"สร้างโซลูชันและเวิร์กโฟลว์ที่ขับเคลื่อนด้วย AI",
-             en:"Build AI-powered solutions and workflows" },
-    desc: { th:"ใช้ no-code/low-code หรือ API สร้างแอป แชตบอต หรือ workflow",
-            en:"Use no-code/low-code tools or APIs to build apps, chatbots, or workflows" },
-    color:"#1E8E63",
-    items:[
-      { th:"ฉันออกแบบขั้นตอนการทำงาน (workflow) ที่ผสาน AI เพื่อแก้ปัญหาเฉพาะอย่างได้",
-        en:"I can design workflows that integrate AI to solve specific problems" },
-      { th:"ฉันเคยใช้เครื่องมือ no-code/low-code หรือ automation สร้างโซลูชันที่ขับเคลื่อนด้วย AI",
-        en:"I've used no-code/low-code or automation tools to build AI-powered solutions" },
-      { th:"ฉันเข้าใจแนวคิด API และเชื่อมต่อบริการ AI เข้ากับแอปหรือระบบได้ (หรือร่วมงานกับผู้ที่ทำได้)",
-        en:"I understand API concepts and can connect AI services into apps or systems (or collaborate with people who can)" },
-      { th:"ฉันสร้างต้นแบบ (prototype) แอป/แชตบอต/ผู้ช่วย AI สำหรับงานจริงได้",
-        en:"I can build prototypes — apps, chatbots, or AI assistants — for real-world use" }
-    ],
-    blurb: { th:"คุณไม่ได้แค่ใช้ AI แต่สร้างสิ่งใหม่ด้วย AI ได้ ทั้งเวิร์กโฟลว์ ต้นแบบ และการเชื่อมต่อระบบ",
-             en:"You don't just use AI — you build new things with it: workflows, prototypes, and integrations." },
-    nextH: { th:"พัฒนาสู่ระดับ 4 — ฝึกและดูแลโมเดล",
-             en:"Grow into Level 4 — Training & maintaining models" },
-    next:[
-      { th:"เรียนรู้วงจรชีวิตของ ML: การเตรียมข้อมูล การฝึก การประเมิน และการ deploy",
-        en:"Learn the ML lifecycle: data prep, training, evaluation, and deployment" },
-      { th:"ศึกษาการ fine-tune โมเดล และการวัดผล (accuracy, bias, robustness)",
-        en:"Study model fine-tuning and evaluation metrics (accuracy, bias, robustness)" },
-      { th:"ทำความเข้าใจพื้นฐาน MLOps สำหรับการดูแลระบบ AI ที่ใช้งานจริง",
-        en:"Understand MLOps basics for running AI systems in production" }
-    ],
-    workshops:[
-      { th:"สร้างแอปด้วย AI API", en:"Building Apps with AI APIs" },
-      { th:"พื้นฐาน Machine Learning", en:"Introduction to Machine Learning" },
-      { th:"LLM Application Development", en:"LLM Application Development" }
-    ]
-  },
-  {
-    n:4,
-    name: { th:"ฝึกและดูแลรักษาโมเดล AI", en:"Training & Maintaining Models" },
-    short: { th:"จัดการ ฝึก ปรับแต่ง และดูแลระบบ AI",
-             en:"Manage, train, fine-tune, and maintain AI systems" },
-    desc: { th:"สำหรับวิศวกร/นักวิทยาศาสตร์ข้อมูลที่สร้างและดูแลโมเดล",
-            en:"For engineers and data scientists who build and maintain models" },
-    color:"#9A6A1F",
-    items:[
-      { th:"ฉันเข้าใจหลักการของการฝึก (training) และการปรับแต่ง (fine-tuning) โมเดล AI",
-        en:"I understand the principles of training and fine-tuning AI models" },
-      { th:"ฉันเตรียมและจัดการชุดข้อมูล (dataset) สำหรับฝึกหรือประเมินโมเดลได้",
-        en:"I can prepare and manage datasets for training or evaluating models" },
-      { th:"ฉันประเมินประสิทธิภาพของโมเดล (ความแม่นยำ อคติ การ deploy) และปรับปรุงได้",
-        en:"I can evaluate model performance (accuracy, bias, deployment) and improve it" },
-      { th:"ฉันดูแลรักษาและตรวจสอบระบบ AI ที่ใช้งานจริงให้ทำงานต่อเนื่องได้",
-        en:"I maintain and monitor production AI systems to keep them running" }
-    ],
-    blurb: { th:"คุณทำงานในระดับวิศวกรรมของ AI ได้ ทั้งการฝึก ปรับแต่ง ประเมิน และดูแลโมเดลในการใช้งานจริง",
-             en:"You work at the engineering level of AI — training, fine-tuning, evaluating, and maintaining models in production." },
-    nextH: { th:"พัฒนาสู่ระดับ 5 — เชี่ยวชาญเฉพาะทาง",
-             en:"Grow into Level 5 — Deep specialization" },
-    next:[
-      { th:"เจาะลึกสาขาเฉพาะ เช่น NLP, computer vision, deep learning หรือ AI security",
-        en:"Go deep in a specific area like NLP, computer vision, deep learning, or AI security" },
-      { th:"ติดตามและอ่านงานวิจัยล่าสุด แล้วทดลองนำเทคนิคใหม่มาใช้",
-        en:"Follow and read recent research, and experiment with new techniques" },
-      { th:"เริ่มเป็นพี่เลี้ยง/ผู้ชี้นำทิศทางเทคนิคให้ทีม",
-        en:"Start mentoring others and setting technical direction for your team" }
-    ],
-    workshops:[
-      { th:"MLOps ขั้นสูง", en:"Advanced MLOps" },
-      { th:"Deep Learning เฉพาะทาง", en:"Specialized Deep Learning" },
-      { th:"Responsible & Trustworthy AI", en:"Responsible & Trustworthy AI" }
-    ]
-  },
-  {
-    n:5,
-    name: { th:"เชี่ยวชาญเฉพาะทางขั้นสูง", en:"Deeply Specializing" },
-    short: { th:"ผู้เชี่ยวชาญ R&D และเทคนิคขั้นสูง",
-             en:"R&D experts and advanced specialists" },
-    desc: { th:"พัฒนาสถาปัตยกรรมใหม่ ติดตามงานวิจัย และชี้นำทิศทาง AI",
-            en:"Build new architectures, follow research, and set AI direction" },
-    color:"#B5642A",
-    items:[
-      { th:"ฉันมีความเชี่ยวชาญเชิงลึกในสาขา AI เฉพาะทาง (เช่น NLP, vision, deep learning, AI security)",
-        en:"I have deep expertise in a specialized area of AI (e.g., NLP, vision, deep learning, AI security)" },
-      { th:"ฉันติดตามและอ่านงานวิจัยล่าสุดด้าน AI และนำมาประยุกต์ใช้ได้",
-        en:"I follow and read the latest AI research and apply it to my work" },
-      { th:"ฉันออกแบบหรือพัฒนาสถาปัตยกรรมโมเดล/อัลกอริทึมใหม่ ๆ ได้",
-        en:"I can design or develop new model architectures or algorithms" },
-      { th:"ฉันให้คำปรึกษาหรือชี้นำทิศทางเชิงเทคนิคด้าน AI ขั้นสูงแก่ทีมหรือองค์กรได้",
-        en:"I advise or set the technical direction for advanced AI work in a team or organization" }
-    ],
-    blurb: { th:"คุณอยู่แนวหน้าของสาขา AI สามารถสร้างองค์ความรู้ใหม่ และชี้นำทิศทางเชิงเทคนิคให้ผู้อื่นได้",
-             en:"You're at the frontier of AI — creating new knowledge and setting technical direction for others." },
-    nextH: { th:"รักษาความเป็นผู้นำ — เรียนรู้ต่อเนื่อง",
-             en:"Maintain leadership — keep learning" },
-    next:[
-      { th:"ตีพิมพ์/แบ่งปันงาน และมีส่วนร่วมในชุมชนวิชาการและอุตสาหกรรม",
-        en:"Publish and share your work, and engage with academic and industry communities" },
-      { th:"ทำโปรเจกต์ R&D ที่ผลักดันขอบเขตของสาขา",
-        en:"Run R&D projects that push the boundary of the field" },
-      { th:"สร้างคนรุ่นต่อไป — เป็นพี่เลี้ยงและออกแบบเส้นทางการเรียนรู้ให้องค์กร",
-        en:"Grow the next generation — mentor people and design learning paths for the organization" }
-    ],
-    workshops:[
-      { th:"AI Research & Frontier Models", en:"AI Research & Frontier Models" },
-      { th:"AI Strategy Leadership", en:"Leading AI Strategy" }
-    ]
-  }
-];
+const LANG = CONTENT.lang;
+const LEVELS = CONTENT.levels;
+const SCALE = CONTENT.scale;
 
-const SCALE = [
-  {v:1, lab:{th:"ไม่จริงเลย",en:"Not at all true"}, sub:{th:"ยังไม่เคย / ไม่มั่นใจเลย",en:"Never tried / no confidence"}},
-  {v:2, lab:{th:"จริงเล็กน้อย",en:"Slightly true"}, sub:{th:"พอรู้บ้าง แต่ยังไม่คล่อง",en:"Some familiarity, not fluent yet"}},
-  {v:3, lab:{th:"จริงปานกลาง",en:"Somewhat true"}, sub:{th:"ทำได้บ้างเป็นบางครั้ง",en:"Can do it sometimes"}},
-  {v:4, lab:{th:"ค่อนข้างจริง",en:"Mostly true"}, sub:{th:"ทำได้ดีเป็นส่วนใหญ่",en:"Do it well most of the time"}},
-  {v:5, lab:{th:"จริงที่สุด",en:"Very true"}, sub:{th:"มั่นใจ / ทำได้ประจำ",en:"Confident / do it regularly"}}
-];
+Object.assign(LANG.th, {
+  qPillTpl: n => "ระดับ " + n,
+  qCountTpl: (n, total) => "ข้อ " + n + " / " + total,
+  noStrongTpl: () => "ยังไม่มีระดับใดถึง 70% — เริ่มสะสมจากระดับ 1",
+  noGrowTpl: () => "ครบทุกระดับแล้ว เยี่ยมมาก! เน้นเรียนรู้ต่อเนื่อง",
+  rankTpl: (name, pct) => `${name} (${pct}%)`,
+  copyOverallTpl: (placement, name) => placement
+    ? `ระดับโดยรวม: ระดับ ${placement} — ${name}`
+    : "ระดับโดยรวม: 0 — กำลังสร้างพื้นฐาน",
+  copyRowTpl: (n, name, pct) => `  ${n}. ${name}: ${pct}%`
+});
+
+Object.assign(LANG.en, {
+  qPillTpl: n => "Level " + n,
+  qCountTpl: (n, total) => "Question " + n + " / " + total,
+  noStrongTpl: () => "No level has reached 70% yet — start building from Level 1",
+  noGrowTpl: () => "Every level covered — great work! Keep learning continuously",
+  rankTpl: (name, pct) => `${name} (${pct}%)`,
+  copyOverallTpl: (placement, name) => placement
+    ? `Overall level: Level ${placement} — ${name}`
+    : "Overall level: 0 — Building foundations",
+  copyRowTpl: (n, name, pct) => `  ${n}. ${name}: ${pct}%`
+});
 
 /* ---------------- i18n helpers ---------------- */
 let currentLang = 'th';
@@ -799,7 +592,7 @@ function applyI18n(){
     const key = el.dataset.i18n;
     const val = LANG[currentLang][key];
     if(val === undefined || typeof val === 'function') return;
-    if(el.dataset.i18nHtml === 'true') el.innerHTML = val;
+    if(el.dataset.i18nHtml === 'true') setSafeRichText(el, val);
     else el.textContent = val;
   });
   document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
@@ -831,16 +624,32 @@ function formatDate(d, lang){
 }
 
 /* ---------------- build flat question list ---------------- */
-const QS = [];
-LEVELS.forEach((L,li)=> L.items.forEach((it,ii)=> QS.push({lvl:li,itemIdx:ii})));
+const QS = CORE.buildQuestionList(LEVELS);
 const TOTAL = QS.length;
 let idx = 0;
 const answers = new Array(TOTAL).fill(null);
 let userName = '';
 let finishedAt = null;
+let answerLocked = false;
+let advanceTimer = null;
 
-/* ---------------- escape helper for SVG / HTML text ---------------- */
+/* ---------------- safe text helpers ---------------- */
 function esc(s){return String(s).replace(/[<>&"']/g, c=>({"<":"&lt;",">":"&gt;","&":"&amp;","\"":"&quot;","'":"&#39;"}[c]));}
+function setSafeRichText(target, value){
+  const template = document.createElement('template');
+  template.innerHTML = String(value);
+  template.content.querySelectorAll('*').forEach(node => {
+    if(!['B', 'BR', 'SPAN'].includes(node.tagName)){
+      node.replaceWith(document.createTextNode(node.textContent));
+      return;
+    }
+    [...node.attributes].forEach(attr => {
+      const allowedHighlight = node.tagName === 'SPAN' && attr.name === 'class' && attr.value === 'hl';
+      if(!allowedHighlight) node.removeAttribute(attr.name);
+    });
+  });
+  target.replaceChildren(template.content);
+}
 
 /* ---------------- intro level cards ---------------- */
 function renderIntroLevels(){
@@ -852,8 +661,23 @@ function renderIntroLevels(){
     row.style.animationDelay = (0.15 + i*0.08)+'s';
     const primary = tx(L.name);
     const secondary = currentLang === 'th' ? L.name.en : L.name.th;
-    row.innerHTML = `<div class="num" style="background:linear-gradient(160deg,${L.color},${shade(L.color,-22)})">${L.n}</div>
-      <div class="meta"><h3>${primary} <small style="color:var(--muted);font-weight:400">· ${secondary}</small></h3><p>${tx(L.desc)}</p></div>`;
+    const num = document.createElement('div');
+    num.className = 'num';
+    num.style.background = `linear-gradient(160deg,${L.color},${shade(L.color,-22)})`;
+    num.textContent = L.n;
+    const meta = document.createElement('div');
+    meta.className = 'meta';
+    const heading = document.createElement('h3');
+    heading.append(document.createTextNode(primary + ' '));
+    const secondaryLabel = document.createElement('small');
+    secondaryLabel.style.color = 'var(--muted)';
+    secondaryLabel.style.fontWeight = '400';
+    secondaryLabel.textContent = '· ' + secondary;
+    heading.appendChild(secondaryLabel);
+    const description = document.createElement('p');
+    description.textContent = tx(L.desc);
+    meta.append(heading, description);
+    row.append(num, meta);
     box.appendChild(row);
   });
 }
@@ -911,6 +735,9 @@ function goToQuiz(skip){
   show('quiz');
 }
 function restart(){
+  if(advanceTimer) clearTimeout(advanceTimer);
+  advanceTimer = null;
+  answerLocked = false;
   answers.fill(null);
   idx = 0;
   userName = '';
@@ -922,8 +749,8 @@ function restart(){
 
 function renderQ(){
   const item = QS[idx];
-  const L = LEVELS[item.lvl];
-  const itemObj = L.items[item.itemIdx];
+  const L = LEVELS[item.levelIndex];
+  const itemObj = L.items[item.itemIndex];
   const pill = document.getElementById('qPill');
   pill.textContent = LANG[currentLang].qPillTpl(L.n);
   pill.style.background = shade(L.color,38);
@@ -938,32 +765,48 @@ function renderQ(){
   SCALE.forEach(s=>{
     const b=document.createElement('button');
     b.className='opt'+(answers[idx]===s.v?' sel':'');
-    b.innerHTML=`<span class="dot">${s.v}</span><span class="lab">${tx(s.lab)}<span class="sub">${tx(s.sub)}</span></span>`;
+    b.disabled = answerLocked;
+    const dot = document.createElement('span');
+    dot.className = 'dot';
+    dot.textContent = s.display;
+    const label = document.createElement('span');
+    label.className = 'lab';
+    label.append(document.createTextNode(tx(s.lab)));
+    const sub = document.createElement('span');
+    sub.className = 'sub';
+    sub.textContent = tx(s.sub);
+    label.appendChild(sub);
+    b.append(dot, label);
     b.onclick=()=>choose(s.v);
     sc.appendChild(b);
   });
 }
 function choose(v){
-  answers[idx]=v;
+  if(answerLocked) return;
+  const answeredIndex = idx;
+  answerLocked = true;
+  answers[answeredIndex]=v;
   renderQ();
-  setTimeout(()=>{
-    if(idx < TOTAL-1){idx++;renderQ();}
+  advanceTimer = setTimeout(()=>{
+    advanceTimer = null;
+    if(idx !== answeredIndex) return;
+    answerLocked = false;
+    if(answeredIndex < TOTAL-1){idx=answeredIndex+1;renderQ();}
     else finish();
   },180);
 }
-function back(){if(idx>0){idx--;renderQ();}}
+function back(){
+  if(advanceTimer) clearTimeout(advanceTimer);
+  advanceTimer = null;
+  answerLocked = false;
+  if(idx>0){idx--;renderQ();}
+}
 
 /* ---------------- scoring ---------------- */
-function levelPct(li){
-  let sum=0;
-  for(let i=0;i<4;i++){sum += answers[li*4+i] || 0;}
-  return Math.round((sum/(4*5))*100);
-}
 function finish(){
-  const pcts = LEVELS.map((_,li)=>levelPct(li));
+  const pcts = CORE.levelPercentages(LEVELS, answers);
   const THRESH=70;
-  let placement=0;
-  for(let i=0;i<LEVELS.length;i++){ if(pcts[i]>=THRESH) placement=i+1; else break; }
+  const placement = CORE.cumulativePlacement(pcts, THRESH);
   finishedAt = new Date();
   renderResult(pcts, placement, THRESH);
   show('result');
@@ -1023,10 +866,27 @@ function renderResult(pcts, placement, THRESH){
     const row=document.createElement('div'); row.className='prow';
     const primary = tx(L.name);
     const secondary = currentLang === 'th' ? L.name.en : L.name.th;
-    row.innerHTML=`<div class="ptop"><span class="pname">${L.n}. ${primary} <small>· ${secondary}</small></span><span class="ppct" style="color:${L.color}">${p}%</span></div>
-      <div class="pbar"><div class="pfill" style="background:linear-gradient(90deg,${L.color},${shade(L.color,25)})"></div></div>`;
+    const top = document.createElement('div');
+    top.className = 'ptop';
+    const name = document.createElement('span');
+    name.className = 'pname';
+    name.append(document.createTextNode(`${L.n}. ${primary} `));
+    const secondaryLabel = document.createElement('small');
+    secondaryLabel.textContent = `· ${secondary}`;
+    name.appendChild(secondaryLabel);
+    const pct = document.createElement('span');
+    pct.className = 'ppct';
+    pct.style.color = L.color;
+    pct.textContent = `${p}%`;
+    top.append(name, pct);
+    const bar = document.createElement('div');
+    bar.className = 'pbar';
+    const fill = document.createElement('div');
+    fill.className = 'pfill';
+    fill.style.background = `linear-gradient(90deg,${L.color},${shade(L.color,25)})`;
+    bar.appendChild(fill);
+    row.append(top, bar);
     prof.appendChild(row);
-    const fill=row.querySelector('.pfill');
     setTimeout(()=>fill.style.width=p+'%', 120+li*110);
   });
 
@@ -1431,6 +1291,274 @@ document.getElementById('imgModal').addEventListener('click', (e)=>{
 document.addEventListener('keydown', (e)=>{
   if(e.key === 'Escape' && document.getElementById('imgModal').classList.contains('active')) closeImgModal();
 });
+
+/* ---------------- EDIT MODE (?edit=1) ---------------- */
+const EDIT_STORAGE_KEY = 'aiLiteracy.edits.v1';
+const EDIT_MODE = new URLSearchParams(location.search).get('edit') === '1';
+
+function rerenderForEdit(){
+  applyI18n();
+}
+
+function saveEditsToStorage(){
+  try{
+    const langStrings = {th:{}, en:{}};
+    for(const lang of ['th','en']){
+      for(const [k,v] of Object.entries(LANG[lang])){
+        if(typeof v === 'function') continue;
+        langStrings[lang][k] = v;
+      }
+    }
+    const payload = {LEVELS, LANG: langStrings};
+    localStorage.setItem(EDIT_STORAGE_KEY, JSON.stringify(payload));
+  }catch(e){ /* storage full or disabled */ }
+}
+
+function restoreEditsFromStorage(){
+  try{
+    const raw = localStorage.getItem(EDIT_STORAGE_KEY);
+    if(!raw) return false;
+    const data = JSON.parse(raw);
+    if(data.LEVELS && Array.isArray(data.LEVELS) && data.LEVELS.length === LEVELS.length){
+      data.LEVELS.forEach((src, i) => mergeKnownShape(LEVELS[i], src));
+    }
+    if(data.LANG){
+      for(const lang of ['th','en']){
+        if(!data.LANG[lang]) continue;
+        for(const [k,v] of Object.entries(data.LANG[lang])){
+          if(typeof LANG[lang][k] === 'function') continue;
+          if(typeof LANG[lang][k] === 'string' && typeof v === 'string'){
+            LANG[lang][k] = v;
+          } else if(Array.isArray(LANG[lang][k]) && Array.isArray(v)){
+            mergeKnownShape(LANG[lang][k], v);
+          }
+        }
+      }
+    }
+    return true;
+  }catch(e){ return false; }
+}
+
+function mergeKnownShape(target, src){
+  if(!target || !src || typeof target !== 'object' || typeof src !== 'object') return;
+  for(const k of Object.keys(target)){
+    if(!Object.prototype.hasOwnProperty.call(src, k)) continue;
+    const sv = src[k], tv = target[k];
+    if(Array.isArray(sv) && Array.isArray(tv)){
+      for(let i=0;i<Math.min(sv.length, tv.length);i++){
+        if(typeof sv[i] === 'object' && sv[i] !== null && typeof tv[i] === 'object' && tv[i] !== null){
+          mergeKnownShape(tv[i], sv[i]);
+        } else if(typeof sv[i] === typeof tv[i]){
+          tv[i] = sv[i];
+        }
+      }
+    } else if(typeof sv === 'object' && sv !== null && typeof tv === 'object' && tv !== null){
+      mergeKnownShape(tv, sv);
+    } else if(typeof sv === typeof tv){
+      target[k] = sv;
+    }
+  }
+}
+
+function makeField(obj, key, label){
+  const wrap = document.createElement('div');
+  wrap.className = 'edit-field';
+  const lab = document.createElement('label');
+  lab.textContent = label;
+  const ta = document.createElement('textarea');
+  ta.rows = 1;
+  ta.value = obj[key];
+  const autoSize = () => { ta.style.height='auto'; ta.style.height = (ta.scrollHeight+2)+'px'; };
+  ta.addEventListener('input', () => {
+    obj[key] = ta.value;
+    autoSize();
+    saveEditsToStorage();
+    rerenderForEdit();
+  });
+  wrap.appendChild(lab);
+  wrap.appendChild(ta);
+  setTimeout(autoSize, 0);
+  return wrap;
+}
+
+function makeBilingualPair(obj, labelPrefix){
+  const pair = document.createElement('div');
+  pair.className = 'edit-pair';
+  pair.appendChild(makeField(obj, 'th', labelPrefix+' (TH)'));
+  pair.appendChild(makeField(obj, 'en', labelPrefix+' (EN)'));
+  return pair;
+}
+
+function buildEditUI(){
+  const body = document.getElementById('editBody');
+  body.innerHTML = '';
+
+  LEVELS.forEach((L, li) => {
+    const det = document.createElement('details');
+    if(li === 0) det.open = true;
+    const sum = document.createElement('summary');
+    sum.textContent = `Level ${L.n} — ${L.name.th} / ${L.name.en}`;
+    det.appendChild(sum);
+
+    const section = document.createElement('div');
+    section.className = 'edit-section';
+
+    section.appendChild(makeSubhead('Name'));
+    section.appendChild(makeBilingualPair(L.name, 'Name'));
+    section.appendChild(makeSubhead('Short tagline'));
+    section.appendChild(makeBilingualPair(L.short, 'Short'));
+    section.appendChild(makeSubhead('Description'));
+    section.appendChild(makeBilingualPair(L.desc, 'Desc'));
+
+    section.appendChild(makeSubhead(`Questions (${L.items.length})`));
+    L.items.forEach((it, ii) => {
+      section.appendChild(makeBilingualPair(it, `Q${ii+1}`));
+    });
+
+    section.appendChild(makeSubhead('Result blurb'));
+    section.appendChild(makeBilingualPair(L.blurb, 'Blurb'));
+    section.appendChild(makeSubhead('Next-step heading'));
+    section.appendChild(makeBilingualPair(L.nextH, 'Heading'));
+
+    section.appendChild(makeSubhead(`Next steps (${L.next.length})`));
+    L.next.forEach((n, ni) => {
+      section.appendChild(makeBilingualPair(n, `Step ${ni+1}`));
+    });
+
+    if(L.workshops){
+      section.appendChild(makeSubhead(`Workshops (${L.workshops.length})`));
+      L.workshops.forEach((w, wi) => {
+        section.appendChild(makeBilingualPair(w, `Workshop ${wi+1}`));
+      });
+    }
+
+    det.appendChild(section);
+    body.appendChild(det);
+  });
+
+  const uiDet = document.createElement('details');
+  const uiSum = document.createElement('summary');
+  uiSum.textContent = 'UI strings (chrome / labels)';
+  uiDet.appendChild(uiSum);
+  const uiSection = document.createElement('div');
+  uiSection.className = 'edit-section';
+
+  const stringKeys = Object.keys(LANG.th).filter(k =>
+    typeof LANG.th[k] === 'string' || Array.isArray(LANG.th[k])
+  );
+
+  stringKeys.forEach(k => {
+    const v = LANG.th[k];
+    if(Array.isArray(v)){
+      uiSection.appendChild(makeSubhead(`${k} (array of ${v.length})`));
+      v.forEach((_, i) => {
+        const pair = document.createElement('div');
+        pair.className = 'edit-pair';
+        pair.appendChild(makeArrayField(LANG.th[k], i, `${k}[${i}] (TH)`));
+        pair.appendChild(makeArrayField(LANG.en[k], i, `${k}[${i}] (EN)`));
+        uiSection.appendChild(pair);
+      });
+    } else {
+      uiSection.appendChild(makeSubhead(k));
+      const pair = document.createElement('div');
+      pair.className = 'edit-pair';
+      pair.appendChild(makeField(LANG.th, k, 'TH'));
+      pair.appendChild(makeField(LANG.en, k, 'EN'));
+      uiSection.appendChild(pair);
+    }
+  });
+
+  uiDet.appendChild(uiSection);
+  body.appendChild(uiDet);
+}
+
+function makeArrayField(arr, idx, label){
+  const wrap = document.createElement('div');
+  wrap.className = 'edit-field';
+  const lab = document.createElement('label');
+  lab.textContent = label;
+  const ta = document.createElement('textarea');
+  ta.rows = 1;
+  ta.value = arr[idx];
+  const autoSize = () => { ta.style.height='auto'; ta.style.height = (ta.scrollHeight+2)+'px'; };
+  ta.addEventListener('input', () => {
+    arr[idx] = ta.value;
+    autoSize();
+    saveEditsToStorage();
+    rerenderForEdit();
+  });
+  wrap.appendChild(lab);
+  wrap.appendChild(ta);
+  setTimeout(autoSize, 0);
+  return wrap;
+}
+
+function makeSubhead(text){
+  const h = document.createElement('h4');
+  h.textContent = text;
+  return h;
+}
+
+function openEditPanel(){
+  const p = document.getElementById('editPanel');
+  p.hidden = false;
+  requestAnimationFrame(() => p.classList.add('open'));
+}
+function closeEditPanel(){
+  const p = document.getElementById('editPanel');
+  p.classList.remove('open');
+  setTimeout(() => { p.hidden = true; }, 260);
+}
+
+function resetEdits(){
+  if(!confirm('Discard all local edits and reload original content?')) return;
+  localStorage.removeItem(EDIT_STORAGE_KEY);
+  location.reload();
+}
+
+function serializeEditableContent(){
+  const plainContent = JSON.parse(JSON.stringify({
+    lang: CONTENT.lang,
+    levels: LEVELS,
+    scale: SCALE
+  }));
+  return `(function(root, factory) {
+  const content = factory();
+  if (typeof module === 'object' && module.exports) module.exports = content;
+  root.AI_LITERACY_CONTENT = content;
+})(typeof globalThis !== 'undefined' ? globalThis : this, function() {
+  return ${JSON.stringify(plainContent, null, 2)};
+});
+`;
+}
+
+function exportEditedContent(){
+  const status = document.getElementById('editStatus');
+  status.textContent = 'Building file…';
+  try{
+    const blob = new Blob([serializeEditableContent()], {type:'text/javascript;charset=utf-8'});
+    const a = document.createElement('a');
+    a.href = URL.createObjectURL(blob);
+    a.download = 'app-content.js';
+    document.body.appendChild(a);
+    a.click();
+    const url = a.href;
+    a.remove();
+    setTimeout(() => URL.revokeObjectURL(url), 1000);
+    status.textContent = 'Downloaded. Replace content/app-content.js, then run the tests.';
+  }catch(err){
+    status.textContent = 'Export failed: ' + err.message;
+  }
+}
+
+if(EDIT_MODE){
+  const restored = restoreEditsFromStorage();
+  if(restored){
+    rerenderForEdit();
+  }
+  document.getElementById('editFab').hidden = false;
+  buildEditUI();
+}
 </script>
 </body>
 </html>
