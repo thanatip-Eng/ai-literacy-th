@@ -703,8 +703,8 @@
   <!-- ===================== INTRO ===================== -->
   <section id="intro" class="screen active">
     <img class="main-logo" src="assets/Mainlogo.png" alt="Main logo" />
-    <div class="badge"><span data-i18n="badgeSelfTest">แบบประเมินตนเอง</span> · <b data-i18n="badgeBrand">AI Literacy</b></div>
-    <h1 class="title" data-i18n="heroTitle" data-i18n-html="true">คุณอยู่ระดับใด<br>บนเส้นทาง <span class="hl">AI</span>?</h1>
+    <div class="badge"><span data-i18n="badgeSelfTest">AI Literacy Assessment — Skill × Partnership</span> · <b data-i18n="badgeBrand">สไตล์การใช้ AI ของคุณ</b></div>
+    <h1 class="title" data-i18n="heroTitle" data-i18n-html="true">คุณคือคนแบบไหน<br>เมื่อใช้ <span class="hl">AI</span>?</h1>
 
     <section class="dimensions-card" aria-labelledby="dimensionsHeading">
       <h2 class="about-h" id="dimensionsHeading" data-i18n="dimensionsHead">แบบประเมินมอง 3 มิติ</h2>
@@ -2125,6 +2125,7 @@ renderIntroLevels();
 renderFrameworkDiagram();
 renderQuadrantGrid('introQuadrantGrid', null);
 updateToggleUI();
+applyI18n();
 
 /* image modal dismiss handlers */
 document.getElementById('imgModal').addEventListener('click', (e)=>{

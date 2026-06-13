@@ -9,7 +9,7 @@
         documentTitle: "AI Literacy & Partnership Profile — แบบประเมินตนเอง",
         badgeSelfTest: "AI Literacy Assessment — Skill × Partnership",
         badgeBrand: "สไตล์การใช้ AI ของคุณ",
-        heroTitle: "คุณอยู่ระดับใด<br>บนเส้นทาง <span class=\"hl\">AI</span>?",
+        heroTitle: "คุณคือคนแบบไหน<br>เมื่อใช้ <span class=\"hl\">AI</span>?",
         lead: "แบบประเมินตนเองที่มอง 3 มิติพร้อมกัน — <b>บทบาทงาน · ทักษะการใช้ AI · ความสัมพันธ์ของคุณกับ AI</b> ตอบ 20 คำถาม แล้วรับผลวิเคราะห์พร้อมขั้นตอนพัฒนาต่อไปเป็นรายบุคคล",
         credit: "โครงสร้าง 5 ระดับอ้างอิงจาก LinkedIn AI Upskilling Framework · ออกแบบเป็นเครื่องมือประเมินตนเองสำหรับบริบทไทย",
         aboutHead: "เกี่ยวกับ framework",
@@ -146,7 +146,7 @@
         documentTitle: "AI Literacy & Partnership Profile — Self-Assessment",
         badgeSelfTest: "AI Literacy Assessment — Skill × Partnership",
         badgeBrand: "Your AI use style",
-        heroTitle: "Where are you<br>on your <span class=\"hl\">AI</span> journey?",
+        heroTitle: "What kind of <span class=\"hl\">AI</span><br>user are you?",
         lead: "A self-assessment that looks at three dimensions together — <b>your role, your AI skills, and how you partner with AI</b>. Answer 20 questions to get a personalized result with next steps.",
         credit: "Five-level structure adapted from the LinkedIn AI Upskilling Framework · designed as a self-assessment tool.",
         aboutHead: "About the framework",
@@ -594,7 +594,7 @@
           }
         },
         coach: {
-          name: {th: "ผู้ใช้แบบมีสติ", en: "Thoughtful Learner"},
+          name: {th: "ผู้ตั้งคำถาม", en: "Thoughtful Learner"},
           short: {th: "สไตล์การใช้ AI ดีอยู่แล้ว แค่ขยับทักษะให้คล่องขึ้น", en: "Already partnering well — just build tool fluency"},
           color: "#0E6E63",
           blurb: {
@@ -625,7 +625,7 @@
           }
         },
         autopilot: {
-          name: {th: "ผู้ใช้แบบอัตโนมัติ", en: "Auto-pilot User"},
+          name: {th: "ผู้ใช้โหมดอัตโนมัติ", en: "Auto-pilot User"},
           short: {th: "ใช้ AI คล่อง แต่บางครั้งอาจปล่อยให้ AI คิดแทน", en: "Fluent with AI, but sometimes lets AI do the thinking"},
           color: "#C8862E",
           blurb: {
@@ -657,7 +657,7 @@
           }
         },
         director: {
-          name: {th: "ผู้กำกับ AI", en: "AI Director"},
+          name: {th: "ผู้นำ AI", en: "AI Director"},
           short: {th: "ทักษะกับสไตล์การใช้งานสมดุล — เป้าหมายที่อยากไปให้ถึง", en: "Skilled and judgment-led — the destination to aim for"},
           color: "#15827A",
           blurb: {
