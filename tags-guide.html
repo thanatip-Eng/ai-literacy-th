@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>วิธีใช้แท็กสำหรับองค์กร — AI Literacy & Partnership Profile</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@500;600;700&family=IBM+Plex+Sans+Thai:wght@400;500;600;700&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#F3EEE4;
+    --paper-2:#ECE5D7;
+    --card:#FCFAF5;
+    --ink:#211C16;
+    --muted:#736A5C;
+    --line:#DCD3C2;
+    --teal:#0E6E63;
+    --teal-deep:#0A4F47;
+    --amber:#D9852A;
+    --amber-soft:#FFF1D5;
+    --warn:#B5642A;
+    --r:18px;
+    --shadow:0 14px 30px -22px rgba(33,28,22,.4);
+  }
+  *{box-sizing:border-box}
+  body{
+    margin:0;background:var(--paper);color:var(--ink);
+    font-family:"IBM Plex Sans Thai","IBM Plex Sans",sans-serif;
+    font-size:16px;line-height:1.6;min-height:100vh;
+    background-image:
+      radial-gradient(circle at 90% -10%,rgba(217,133,42,.18),transparent 55%),
+      radial-gradient(circle at -10% 110%,rgba(14,110,99,.14),transparent 50%);
+  }
+  .wrap{max-width:760px;margin:0 auto;padding:36px 22px 60px}
+  .topbar{
+    display:flex;align-items:center;justify-content:space-between;
+    margin-bottom:24px;flex-wrap:wrap;gap:12px;
+  }
+  .back-link{
+    font-family:"Chakra Petch",sans-serif;font-weight:600;font-size:.9rem;
+    color:var(--teal-deep);text-decoration:none;display:inline-flex;
+    align-items:center;gap:6px;
+  }
+  .back-link:hover{color:var(--teal)}
+  .lang-toggle{display:flex;gap:4px;background:var(--card);border:1px solid var(--line);border-radius:999px;padding:4px}
+  .lang-toggle button{
+    font-family:"Chakra Petch",sans-serif;font-weight:600;font-size:.78rem;
+    padding:5px 12px;border:none;border-radius:999px;background:transparent;
+    cursor:pointer;color:var(--muted);
+  }
+  .lang-toggle button.active{background:var(--teal);color:#fff}
+  .main-logo{display:block;margin:0 auto 14px;max-width:240px;width:auto;height:auto}
+  @media(max-width:520px){.main-logo{max-width:190px}}
+  .badge{
+    display:inline-flex;align-items:center;gap:6px;
+    font-family:"Chakra Petch",sans-serif;font-size:.78rem;
+    background:var(--card);border:1px solid var(--line);
+    padding:6px 14px;border-radius:999px;color:var(--teal-deep);
+    margin-bottom:14px;
+  }
+  h1{
+    font-family:"Chakra Petch",sans-serif;font-weight:700;font-size:2.1rem;
+    color:var(--ink);margin:0 0 10px;line-height:1.2;
+  }
+  .lead{font-size:1.05rem;color:var(--muted);max-width:60ch;margin:0 0 28px}
+  .card{
+    background:var(--card);border:1px solid var(--line);border-radius:var(--r);
+    padding:22px 24px;box-shadow:var(--shadow);margin-bottom:18px;
+  }
+  .card h2{
+    font-family:"Chakra Petch",sans-serif;font-weight:700;font-size:1.15rem;
+    color:var(--teal-deep);margin:0 0 12px;display:flex;align-items:center;gap:10px;
+  }
+  .card h2::before{content:"";width:18px;height:3px;border-radius:2px;background:var(--amber)}
+  .card p{margin:0 0 8px;font-size:.95rem;line-height:1.65}
+  .card ul{margin:0;padding-left:20px}
+  .card ul li{font-size:.92rem;line-height:1.7;margin-bottom:6px}
+  .footer{
+    text-align:center;font-size:.82rem;color:var(--muted);
+    margin-top:32px;padding-top:18px;border-top:1px solid var(--line);
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="topbar">
+    <a class="back-link" href="index.html">← <span data-i18n="backToAssessment">กลับสู่แบบประเมิน</span></a>
+    <div class="lang-toggle" role="group" aria-label="Language toggle">
+      <button id="langTH" class="active" onclick="setLang('th')" aria-pressed="true">TH</button>
+      <button id="langEN" onclick="setLang('en')" aria-pressed="false">EN</button>
+    </div>
+  </div>
+
+  <img class="main-logo" src="assets/AiStyle.png" alt="AiStyle — AI Literacy Assessment, Skill × Partnership" />
+
+  <div class="badge" data-i18n="forOrgLeaders">สำหรับ L&D / ผู้นำองค์กร</div>
+  <h1 data-i18n="orgGuideToggle">วิธีใช้แท็กสำหรับองค์กร</h1>
+  <p class="lead" data-i18n="orgGuideIntro"></p>
+
+  <section class="card">
+    <h2 data-i18n="orgGuideTagsHead">ความหมายของแท็ก</h2>
+    <ul id="tagsList"></ul>
+  </section>
+
+  <section class="card">
+    <h2 data-i18n="orgGuideCollectHead">วิธีเก็บข้อมูล</h2>
+    <p data-i18n="orgGuideCollectBody"></p>
+  </section>
+
+  <section class="card">
+    <h2 data-i18n="orgGuideColumnsHead">คอลัมน์ที่แนะนำใน spreadsheet</h2>
+    <p data-i18n="orgGuideColumnsBody"></p>
+  </section>
+
+  <section class="card">
+    <h2 data-i18n="orgGuidePatternsHead">ตัวอย่างการอ่าน pattern</h2>
+    <ul id="patternsList"></ul>
+  </section>
+
+  <p class="footer" data-i18n="footerCopy">© 2026 Student Talent Development · Faculty of Engineering, Chiang Mai University</p>
+</div>
+
+<script src="content/app-content.js"></script>
+<script>
+const CONTENT = globalThis.AI_LITERACY_CONTENT;
+const EXTRA = {
+  th: {backToAssessment: "กลับสู่แบบประเมิน", forOrgLeaders: "สำหรับ L&D / ผู้นำองค์กร"},
+  en: {backToAssessment: "Back to assessment", forOrgLeaders: "For L&D / org leaders"}
+};
+let currentLang = 'th';
+
+function t(key){
+  return (CONTENT.lang[currentLang] && CONTENT.lang[currentLang][key])
+    || EXTRA[currentLang][key]
+    || '';
+}
+
+function fillList(id, key){
+  const ul = document.getElementById(id);
+  ul.innerHTML = '';
+  const items = CONTENT.lang[currentLang][key] || [];
+  items.forEach(text => {
+    const li = document.createElement('li');
+    li.textContent = text;
+    ul.appendChild(li);
+  });
+}
+
+function applyLang(){
+  document.documentElement.lang = currentLang;
+  document.querySelectorAll('[data-i18n]').forEach(el => {
+    const key = el.dataset.i18n;
+    const val = t(key);
+    if(!val || Array.isArray(val)) return;
+    el.textContent = val;
+  });
+  fillList('tagsList', 'orgGuideTagsBody');
+  fillList('patternsList', 'orgGuidePatternsBody');
+  document.getElementById('langTH').classList.toggle('active', currentLang === 'th');
+  document.getElementById('langEN').classList.toggle('active', currentLang === 'en');
+  document.getElementById('langTH').setAttribute('aria-pressed', currentLang === 'th');
+  document.getElementById('langEN').setAttribute('aria-pressed', currentLang === 'en');
+}
+
+function setLang(lang){
+  if(lang !== 'th' && lang !== 'en') return;
+  currentLang = lang;
+  applyLang();
+}
+
+applyLang();
+</script>
+</body>
+</html>

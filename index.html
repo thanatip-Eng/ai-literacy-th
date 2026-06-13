@@ -579,12 +579,20 @@
     font-size:.85rem;line-height:1.7;white-space:pre-wrap;word-break:break-word;
     color:var(--ink);margin:0;
   }
+  .tag-guide-cta{
+    margin-top:14px;padding:14px 18px;border-radius:12px;
+    background:var(--amber-soft);color:var(--warn);
+    font-size:.92rem;line-height:1.55;font-weight:500;
+    border:1px solid #E6CFA0;
+  }
+  .tag-guide-cta a{color:var(--warn);text-decoration:underline;font-weight:700}
+  .tag-guide-cta a:hover{color:var(--teal-deep)}
 
   /* ---------- MAIN LOGO ---------- */
   .main-logo{
-    display:block;margin:0 auto 14px;max-width:200px;width:auto;height:auto;
+    display:block;margin:0 auto 10px;max-width:280px;width:auto;height:auto;
   }
-  @media(max-width:520px){.main-logo{max-width:160px}}
+  @media(max-width:520px){.main-logo{max-width:220px}}
 
   /* ---------- INTRO 3 DIMENSIONS ---------- */
   .dimensions-card{
@@ -702,7 +710,7 @@
 
   <!-- ===================== INTRO ===================== -->
   <section id="intro" class="screen active">
-    <img class="main-logo" src="assets/Mainlogo.png" alt="Main logo" />
+    <img class="main-logo" src="assets/AiStyle.png" alt="AiStyle — AI Literacy Assessment, Skill × Partnership" />
     <div class="badge"><span data-i18n="badgeSelfTest">AI Literacy Assessment — Skill × Partnership</span> · <b data-i18n="badgeBrand">สไตล์การใช้ AI ของคุณ</b></div>
     <h1 class="title" data-i18n="heroTitle" data-i18n-html="true">คุณคือคนแบบไหน<br>เมื่อใช้ <span class="hl">AI</span>?</h1>
 
@@ -905,18 +913,10 @@
     <p class="mini" data-i18n="tagBlockHint">(คัดลอกหรือถ่ายภาพไปรวมเป็นภาพรวมทีม)</p>
     <pre class="tag-block" id="rTagBlock"></pre>
 
-    <details class="org-guide" id="rOrgGuide">
-      <summary data-i18n="orgGuideToggle">วิธีใช้แท็กสำหรับองค์กร</summary>
-      <p class="org-guide-intro" data-i18n="orgGuideIntro"></p>
-      <h5 data-i18n="orgGuideTagsHead">ความหมายของแท็ก</h5>
-      <ul id="rOrgGuideTags"></ul>
-      <h5 data-i18n="orgGuideCollectHead">วิธีเก็บข้อมูล</h5>
-      <p data-i18n="orgGuideCollectBody"></p>
-      <h5 data-i18n="orgGuideColumnsHead">คอลัมน์ที่แนะนำใน spreadsheet</h5>
-      <p data-i18n="orgGuideColumnsBody"></p>
-      <h5 data-i18n="orgGuidePatternsHead">ตัวอย่างการอ่าน pattern</h5>
-      <ul id="rOrgGuidePatterns"></ul>
-    </details>
+    <p class="tag-guide-cta" data-i18n="tagGuideCTA" data-i18n-html="true">
+      อยากได้คำแนะนำการใช้แท็กสำหรับองค์กร? ลงทะเบียนได้ที่
+      <a href="https://cmu.to/AILit-Tag" target="_blank" rel="noopener noreferrer">https://cmu.to/AILit-Tag</a>
+    </p>
 
     <div class="res-actions">
       <button class="btn" onclick="downloadResultImage()" id="downloadBtn" data-i18n="downloadBtn">ดาวน์โหลดเป็นรูปภาพ</button>
@@ -1476,27 +1476,8 @@ function renderPartnership(partnership, placement, pcts){
   if(!wrap || !PARTNERSHIP || !partnership) return;
   wrap.hidden = false;
 
-  // composite
   const compositeEl = document.getElementById('rPartnershipComposite');
-  compositeEl.innerHTML = '';
-  const top = document.createElement('div');
-  top.className = 'ptop';
-  const name = document.createElement('span');
-  name.className = 'pname';
-  name.textContent = t('partnershipCompositeLabel');
-  const pct = document.createElement('span');
-  pct.className = 'ppct';
-  pct.style.color = PARTNERSHIP.color;
-  pct.textContent = `${partnership.composite}%`;
-  top.append(name, pct);
-  const bar = document.createElement('div');
-  bar.className = 'pbar';
-  const fill = document.createElement('div');
-  fill.className = 'pfill';
-  fill.style.background = `linear-gradient(90deg,${PARTNERSHIP.color},${shade(PARTNERSHIP.color,25)})`;
-  bar.appendChild(fill);
-  compositeEl.append(top, bar);
-  setTimeout(()=>fill.style.width = partnership.composite + '%', 120);
+  if(compositeEl) compositeEl.innerHTML = '';
 
   // sub-trait bars
   const bars = document.getElementById('rPartnershipBars');
