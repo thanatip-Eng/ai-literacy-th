@@ -30,5 +30,41 @@
     return placement;
   }
 
-  return {buildQuestionList, levelPercentages, cumulativePlacement};
+  function highestPassingLevel(percentages, threshold = 70) {
+    let highest = 0;
+    for (let index = 0; index < percentages.length; index++) {
+      if (percentages[index] >= threshold) highest = index + 1;
+    }
+    return highest;
+  }
+
+  function roleVerdict(percentages, role, threshold = 70) {
+    if (!role) return {kind: 'agnostic'};
+    const placement = cumulativePlacement(percentages, threshold);
+    const practiceMax = highestPassingLevel(percentages, threshold);
+    const {floor, ceiling} = role;
+    if (placement > ceiling || practiceMax > ceiling) {
+      return {
+        kind: 'above_ceiling',
+        placement,
+        practiceMax,
+        over: Math.max(placement, practiceMax) - ceiling
+      };
+    }
+    if (placement < floor) {
+      return {kind: 'below_floor', placement, practiceMax, gap: floor - placement};
+    }
+    if (placement === ceiling) {
+      return {kind: 'role_fit', placement, practiceMax};
+    }
+    return {kind: 'on_track', placement, practiceMax, toGo: ceiling - placement};
+  }
+
+  return {
+    buildQuestionList,
+    levelPercentages,
+    cumulativePlacement,
+    highestPassingLevel,
+    roleVerdict
+  };
 });

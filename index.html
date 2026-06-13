@@ -164,6 +164,19 @@
   .res-hero .lvlnum{font-family:"Chakra Petch",sans-serif;font-weight:700;font-size:3.3rem;line-height:1;margin:8px 0 2px;position:relative}
   .res-hero .lvlname{font-family:"Chakra Petch",sans-serif;font-weight:600;font-size:1.35rem;position:relative}
   .res-hero .blurb{margin-top:10px;font-size:.96rem;opacity:.94;position:relative;max-width:46ch}
+  .res-hero .placement-note{
+    margin-top:12px;padding:10px 12px;border-radius:10px;
+    background:rgba(255,255,255,.13);font-size:.86rem;line-height:1.55;
+    position:relative;max-width:58ch;
+  }
+  .res-hero .next-milestone{
+    margin-top:10px;padding:10px 14px;border-radius:10px;
+    background:rgba(217,133,42,.22);font-size:.86rem;line-height:1.55;
+    position:relative;max-width:58ch;font-weight:500;
+    display:flex;gap:8px;align-items:flex-start;
+  }
+  .res-hero .next-milestone::before{content:"→";color:#FFE2B6;font-weight:700}
+  .res-hero .lvlnum.is-p0{font-size:2.6rem;opacity:.95}
   .section-h{font-family:"Chakra Petch",sans-serif;font-weight:600;font-size:1.1rem;margin:30px 0 12px;display:flex;align-items:center;gap:10px}
   .section-h::before{content:"";width:18px;height:3px;border-radius:2px;background:var(--amber)}
   .profile{display:grid;gap:13px}
@@ -302,6 +315,56 @@
     .diagram-labels small{font-size:.52rem}
   }
 
+  /* ---------- role pick screen ---------- */
+  .role-grid{display:grid;gap:10px;margin-top:16px}
+  .role-opt{
+    display:flex;flex-direction:column;align-items:flex-start;gap:2px;
+    text-align:left;width:100%;border:1.5px solid var(--line);background:#fff;
+    border-radius:14px;padding:14px 16px;cursor:pointer;font-family:inherit;
+    font-size:1rem;color:var(--ink);transition:.16s border-color,.16s background,.16s transform;
+  }
+  .role-opt:hover{border-color:var(--teal);background:#fbfdfc}
+  .role-opt:active{transform:scale(.99)}
+  .role-opt .lab{font-weight:600;font-size:1rem;line-height:1.3}
+  .role-opt .sub{font-size:.78rem;color:var(--muted);font-weight:400;line-height:1.25}
+
+  /* ---------- role verdict + stretch ---------- */
+  .verdict-card{
+    background:var(--card);border:1px solid var(--line);border-radius:var(--r);
+    padding:18px 20px;box-shadow:var(--shadow);margin-top:12px;
+  }
+  .verdict-line{font-size:.86rem;color:var(--muted);margin-top:6px}
+  .verdict-msg{font-size:.96rem;margin-top:10px;font-weight:500;line-height:1.5}
+  .verdict-card.fit{border-left:4px solid var(--teal)}
+  .verdict-card.gap{border-left:4px solid var(--teal)}
+  .verdict-card.stretch{border-left:4px solid var(--amber)}
+  .verdict-card.ontrack{border-left:4px solid var(--teal)}
+  .verdict-card.gap .verdict-msg::before{content:"🌱 ";font-size:1.1em}
+
+  .stretch-card{
+    background:linear-gradient(160deg,#FFF6E6,#FCEFD3);
+    border:1px solid var(--amber-soft);border-radius:var(--r);
+    padding:22px 22px;box-shadow:var(--shadow);margin-top:14px;
+  }
+  .stretch-card h4{
+    font-family:"Chakra Petch",sans-serif;font-weight:700;font-size:1.1rem;
+    color:var(--warn);margin-bottom:4px;
+  }
+  .stretch-card .stretch-sub{font-size:.82rem;color:var(--muted);margin-bottom:10px}
+  .stretch-card .stretch-intro{font-size:.94rem;line-height:1.55;margin-bottom:14px}
+  .stretch-paths{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+  @media(max-width:520px){.stretch-paths{grid-template-columns:1fr}}
+  .stretch-path{
+    background:#fff;border:1px solid var(--line);border-radius:14px;
+    padding:14px 14px;display:flex;flex-direction:column;gap:6px;
+  }
+  .stretch-path h5{
+    font-family:"Chakra Petch",sans-serif;font-weight:600;font-size:.92rem;
+    color:var(--teal-deep);margin:0;
+  }
+  .stretch-path p{font-size:.9rem;line-height:1.5;color:var(--ink)}
+  .stretch-note{font-size:.8rem;color:var(--muted);margin-top:12px;text-align:center;font-style:italic}
+
   /* ---------- EDIT MODE (?edit=1) ---------- */
   .edit-fab{
     position:fixed;bottom:16px;right:16px;z-index:9000;
@@ -437,6 +500,21 @@
     </div>
   </section>
 
+  <!-- ===================== ROLE PICK ===================== -->
+  <section id="role" class="screen">
+    <div class="topbar">
+      <span class="pill" data-i18n="roleStepPill">เลือกบทบาท</span>
+    </div>
+    <div class="qcard">
+      <h2 class="name-h" data-i18n="roleHead">งานหลักของคุณคือ?</h2>
+      <p class="name-sub" data-i18n="roleSub">เลือก 1 ข้อที่ใกล้เคียงที่สุด เพื่อให้คำแนะนำตรงกับงานของคุณ ข้ามได้ถ้าไม่ต้องการ</p>
+      <div class="role-grid" id="roleGrid"></div>
+      <div class="navrow" style="margin-top:18px">
+        <button class="btn ghost" type="button" onclick="skipRole()" data-i18n="roleSkip">ข้าม / ไม่ระบุ</button>
+      </div>
+    </div>
+  </section>
+
   <!-- ===================== QUIZ ===================== -->
   <section id="quiz" class="screen">
     <div class="topbar">
@@ -459,10 +537,12 @@
   <!-- ===================== RESULT ===================== -->
   <section id="result" class="screen">
     <div class="res-hero">
-      <div class="k" data-i18n="rHero">ระดับโดยรวมของคุณ</div>
+      <div class="k" data-i18n="rHero">ระดับสะสมโดยรวมของคุณ</div>
       <div class="lvlnum" id="rNum">—</div>
       <div class="lvlname" id="rName"></div>
       <p class="blurb" id="rBlurb"></p>
+      <p class="placement-note" id="rPlacementNote"></p>
+      <p class="next-milestone" id="rNextMilestone" hidden><span id="rNextMilestoneText"></span></p>
       <div class="res-meta" id="rMeta"></div>
     </div>
 
@@ -473,6 +553,31 @@
     <div class="twocol">
       <div class="card"><h4 data-i18n="strongHead">จุดแข็ง</h4><ul id="rStrong"></ul></div>
       <div class="card"><h4 data-i18n="growHead">จุดที่ควรพัฒนา</h4><ul id="rGrow"></ul></div>
+    </div>
+
+    <div id="rVerdictWrap" hidden>
+      <div class="section-h" data-i18n="verdictHead">บทบาทกับระดับ AI ของคุณ</div>
+      <div class="verdict-card" id="rVerdict">
+        <h4 id="rVerdictHead" style="font-family:'Chakra Petch',sans-serif;font-weight:600;font-size:1rem;color:var(--teal-deep)"></h4>
+        <p class="verdict-line" id="rVerdictLine"></p>
+        <p class="verdict-msg" id="rVerdictMsg"></p>
+      </div>
+      <div class="stretch-card" id="rStretch" hidden>
+        <h4 id="rStretchHead" data-i18n="stretchHead">🚀 คุณเก่งเกินเพดานบทบาท</h4>
+        <p class="stretch-sub" id="rStretchSub"></p>
+        <p class="stretch-intro" id="rStretchIntro" data-i18n="stretchIntro">ทักษะคุณเกินที่บทบาทปัจจุบันต้องการ มีสองทางเลือกที่ทั้งคู่ดีและไม่ผิด เลือกตามเป้าหมาย</p>
+        <div class="stretch-paths">
+          <div class="stretch-path">
+            <h5 data-i18n="stretchPathAHead">ทางที่ A · เป็น AI Champion ในงานเดิม</h5>
+            <p id="rStretchA"></p>
+          </div>
+          <div class="stretch-path">
+            <h5 data-i18n="stretchPathBHead">ทางที่ B · ขยับสายงานให้ตรงสกิล</h5>
+            <p id="rStretchB"></p>
+          </div>
+        </div>
+        <p class="stretch-note" data-i18n="stretchNote">ทั้งคู่ไม่ผิด — เลือกตามเป้าหมายของคุณ</p>
+      </div>
     </div>
 
     <div class="section-h" data-i18n="nextHead">ขั้นตอนต่อไปสำหรับคุณ</div>
@@ -540,29 +645,39 @@ if(!CORE) throw new Error('Could not load js/assessment-core.js');
 const LANG = CONTENT.lang;
 const LEVELS = CONTENT.levels;
 const SCALE = CONTENT.scale;
+const ROLES = CONTENT.roles || [];
+const ROLE_STRETCH = CONTENT.roleStretch || {};
 
 Object.assign(LANG.th, {
   qPillTpl: n => "ระดับ " + n,
   qCountTpl: (n, total) => "ข้อ " + n + " / " + total,
-  noStrongTpl: () => "ยังไม่มีระดับใดถึง 70% — เริ่มสะสมจากระดับ 1",
-  noGrowTpl: () => "ครบทุกระดับแล้ว เยี่ยมมาก! เน้นเรียนรู้ต่อเนื่อง",
+  noStrongTpl: () => "เรากำลังจะค่อย ๆ สร้างจุดแข็งไปด้วยกัน เริ่มจากด้านพื้นฐานก่อน",
+  noGrowTpl: () => "ครบทุกด้านแล้ว เยี่ยมมาก! เน้นรักษาความรู้และเรียนรู้ต่อเนื่อง",
   rankTpl: (name, pct) => `${name} (${pct}%)`,
   copyOverallTpl: (placement, name) => placement
     ? `ระดับโดยรวม: ระดับ ${placement} — ${name}`
-    : "ระดับโดยรวม: 0 — กำลังสร้างพื้นฐาน",
-  copyRowTpl: (n, name, pct) => `  ${n}. ${name}: ${pct}%`
+    : "สถานะปัจจุบัน: กำลังเริ่มต้นสำรวจ AI",
+  copyRowTpl: (n, name, pct) => `  ${n}. ${name}: ${pct}%`,
+  placementBlockedTpl: (level, pct, threshold) =>
+    `ขั้นถัดไปของคุณคือ ระดับ ${level} (ตอนนี้ได้ ${pct}%) — มาเริ่มจากด้านนี้กันก่อน เพราะระบบให้ความสำคัญกับการสะสมพื้นฐานก่อน`,
+  placementCompleteTpl: threshold =>
+    `คุณรู้สึกมั่นใจในทุกด้านแล้ว — เยี่ยมมาก! รักษาความรู้และเรียนรู้ต่อเนื่อง`
 });
 
 Object.assign(LANG.en, {
   qPillTpl: n => "Level " + n,
   qCountTpl: (n, total) => "Question " + n + " / " + total,
-  noStrongTpl: () => "No level has reached 70% yet — start building from Level 1",
-  noGrowTpl: () => "Every level covered — great work! Keep learning continuously",
+  noStrongTpl: () => "We'll build up your strengths together — starting from the foundation",
+  noGrowTpl: () => "Every area covered — wonderful! Focus on keeping the knowledge alive and learning continuously",
   rankTpl: (name, pct) => `${name} (${pct}%)`,
   copyOverallTpl: (placement, name) => placement
     ? `Overall level: Level ${placement} — ${name}`
-    : "Overall level: 0 — Building foundations",
-  copyRowTpl: (n, name, pct) => `  ${n}. ${name}: ${pct}%`
+    : "Current status: just starting your AI journey",
+  copyRowTpl: (n, name, pct) => `  ${n}. ${name}: ${pct}%`,
+  placementBlockedTpl: (level, pct, threshold) =>
+    `Your next area to explore is Level ${level} (currently at ${pct}%) — let's start here, since the framework builds from the foundation upward.`,
+  placementCompleteTpl: threshold =>
+    `You feel confident across every area — wonderful! Keep the knowledge alive and keep learning.`
 });
 
 /* ---------------- i18n helpers ---------------- */
@@ -604,6 +719,7 @@ function applyI18n(){
 
   renderIntroLevels();
   renderFrameworkDiagram();
+  if(document.getElementById('role').classList.contains('active')) renderRoleOptions();
   if(document.getElementById('quiz').classList.contains('active')) renderQ();
   if(document.getElementById('result').classList.contains('active') && window.__res){
     renderResult(window.__res.pcts, window.__res.placement, 70);
@@ -629,6 +745,7 @@ const TOTAL = QS.length;
 let idx = 0;
 const answers = new Array(TOTAL).fill(null);
 let userName = '';
+let userRole = null;
 let finishedAt = null;
 let answerLocked = false;
 let advanceTimer = null;
@@ -730,6 +847,42 @@ function goToQuiz(skip){
     const raw = document.getElementById('nameInput').value || '';
     userName = raw.trim().slice(0,60);
   }
+  goToRolePick();
+}
+function goToRolePick(){
+  renderRoleOptions();
+  show('role');
+}
+function renderRoleOptions(){
+  const box = document.getElementById('roleGrid');
+  if(!box) return;
+  box.innerHTML = '';
+  ROLES.forEach(role => {
+    const btn = document.createElement('button');
+    btn.type = 'button';
+    btn.className = 'role-opt';
+    const primary = tx(role.label);
+    const secondary = currentLang === 'th' ? role.label.en : role.label.th;
+    const lab = document.createElement('span');
+    lab.className = 'lab';
+    lab.textContent = primary;
+    const sub = document.createElement('span');
+    sub.className = 'sub';
+    sub.textContent = secondary;
+    btn.append(lab, sub);
+    btn.onclick = () => pickRole(role.code);
+    box.appendChild(btn);
+  });
+}
+function pickRole(code){
+  userRole = ROLES.find(r => r.code === code) || null;
+  startQuizFlow();
+}
+function skipRole(){
+  userRole = null;
+  startQuizFlow();
+}
+function startQuizFlow(){
   idx = 0;
   renderQ();
   show('quiz');
@@ -741,6 +894,7 @@ function restart(){
   answers.fill(null);
   idx = 0;
   userName = '';
+  userRole = null;
   finishedAt = null;
   const input = document.getElementById('nameInput');
   if(input) input.value = '';
@@ -814,6 +968,17 @@ function finish(){
 
 function renderResult(pcts, placement, THRESH){
   window.__res={pcts,placement};
+  const placementNote = document.getElementById('rPlacementNote');
+  if(placement < LEVELS.length){
+    const blockedLevel = placement + 1;
+    placementNote.textContent = LANG[currentLang].placementBlockedTpl(
+      blockedLevel,
+      pcts[placement],
+      THRESH
+    );
+  } else {
+    placementNote.textContent = LANG[currentLang].placementCompleteTpl(THRESH);
+  }
 
   // hero meta: name + date
   const meta = document.getElementById('rMeta');
@@ -842,8 +1007,10 @@ function renderResult(pcts, placement, THRESH){
   });
   meta.style.display = parts.length ? '' : 'none';
 
+  const rNumEl = document.getElementById('rNum');
   if(placement===0){
-    document.getElementById('rNum').textContent="0";
+    rNumEl.textContent="✨";
+    rNumEl.classList.add('is-p0');
     document.getElementById('rName').textContent=t('p0Name');
     document.getElementById('rBlurb').textContent=t('p0Blurb');
     document.getElementById('rNextH').textContent=t('p0NextH');
@@ -851,12 +1018,27 @@ function renderResult(pcts, placement, THRESH){
     fillChips('rWorkshops', LEVELS[0].workshops.map(tx));
   } else {
     const L=LEVELS[placement-1];
-    document.getElementById('rNum').textContent=L.n;
+    rNumEl.textContent=L.n;
+    rNumEl.classList.remove('is-p0');
     document.getElementById('rName').textContent=`${tx(L.name)} · ${currentLang === 'th' ? L.name.en : L.name.th}`;
     document.getElementById('rBlurb').textContent=tx(L.blurb);
     document.getElementById('rNextH').textContent=tx(L.nextH);
     fillUl('rNext', L.next.map(tx));
     fillChips('rWorkshops', L.workshops.map(tx));
+  }
+
+  // next-milestone forward-looking line under hero
+  const milestoneEl = document.getElementById('rNextMilestone');
+  const milestoneText = document.getElementById('rNextMilestoneText');
+  if(placement < LEVELS.length){
+    const nextL = LEVELS[placement];
+    milestoneText.textContent = t('nextMilestoneTpl')
+      .replace('{n}', nextL.n)
+      .replace('{name}', tx(nextL.name));
+    milestoneEl.hidden = false;
+  } else {
+    milestoneText.textContent = t('nextMilestoneDone');
+    milestoneEl.hidden = false;
   }
 
   // profile bars
@@ -896,6 +1078,55 @@ function renderResult(pcts, placement, THRESH){
   const grow=ranked.filter(x=>x.p<70).sort((a,b)=>a.p-b.p);
   fillUl('rStrong', strong.length? strong.slice(0,3).map(x=>LANG[currentLang].rankTpl(tx(x.L.name), x.p)):[LANG[currentLang].noStrongTpl()]);
   fillUl('rGrow', grow.length? grow.slice(0,3).map(x=>LANG[currentLang].rankTpl(tx(x.L.name), x.p)):[LANG[currentLang].noGrowTpl()]);
+
+  renderRoleVerdict(pcts, THRESH);
+}
+
+function renderRoleVerdict(pcts, THRESH){
+  const wrap = document.getElementById('rVerdictWrap');
+  const stretchBox = document.getElementById('rStretch');
+  if(!wrap) return;
+  const verdict = CORE.roleVerdict(pcts, userRole, THRESH);
+  if(verdict.kind === 'agnostic'){
+    wrap.hidden = true;
+    stretchBox.hidden = true;
+    return;
+  }
+  wrap.hidden = false;
+  const card = document.getElementById('rVerdict');
+  card.classList.remove('fit','gap','stretch','ontrack');
+
+  const roleName = tx(userRole.label);
+  document.getElementById('rVerdictHead').textContent = t('verdictHead');
+  document.getElementById('rVerdictLine').textContent = t('verdictRoleLineTpl')
+    .replace('{role}', roleName).replace('{ceiling}', userRole.ceiling);
+
+  const msgEl = document.getElementById('rVerdictMsg');
+  if(verdict.kind === 'below_floor'){
+    card.classList.add('gap');
+    msgEl.textContent = t('verdictBelowFloor');
+  } else if(verdict.kind === 'on_track'){
+    card.classList.add('ontrack');
+    msgEl.textContent = t('verdictOnTrack');
+  } else if(verdict.kind === 'role_fit'){
+    card.classList.add('fit');
+    msgEl.textContent = t('verdictRoleFit');
+  } else if(verdict.kind === 'above_ceiling'){
+    card.classList.add('stretch');
+    msgEl.textContent = t('verdictAboveCeiling');
+  }
+
+  if(verdict.kind === 'above_ceiling'){
+    stretchBox.hidden = false;
+    const reached = Math.max(verdict.placement, verdict.practiceMax);
+    document.getElementById('rStretchSub').textContent = t('stretchSubTpl')
+      .replace('{ceiling}', userRole.ceiling).replace('{placement}', reached);
+    const pair = ROLE_STRETCH[userRole.code] || {};
+    document.getElementById('rStretchA').textContent = pair.champion ? tx(pair.champion) : '';
+    document.getElementById('rStretchB').textContent = pair.pivot ? tx(pair.pivot) : '';
+  } else {
+    stretchBox.hidden = true;
+  }
 }
 
 function fillUl(id,arr){const ul=document.getElementById(id);ul.innerHTML='';arr.forEach(t=>{const li=document.createElement('li');li.textContent=t;ul.appendChild(li);});}
@@ -910,6 +1141,24 @@ function copyResult(){
   if(finishedAt) lines.push(formatDate(finishedAt, currentLang));
   if(userName || finishedAt) lines.push("");
   lines.push(LANG[currentLang].copyOverallTpl(placement, placementName));
+  if(placement < LEVELS.length){
+    lines.push(LANG[currentLang].placementBlockedTpl(placement + 1, pcts[placement], 70));
+  } else {
+    lines.push(LANG[currentLang].placementCompleteTpl(70));
+  }
+  if(userRole){
+    const verdict = CORE.roleVerdict(pcts, userRole, 70);
+    const roleName = tx(userRole.label);
+    lines.push("");
+    lines.push(t('verdictRoleLineTpl').replace('{role}', roleName).replace('{ceiling}', userRole.ceiling));
+    const msgKey = {
+      below_floor: 'verdictBelowFloor',
+      on_track: 'verdictOnTrack',
+      role_fit: 'verdictRoleFit',
+      above_ceiling: 'verdictAboveCeiling'
+    }[verdict.kind];
+    if(msgKey) lines.push(t(msgKey));
+  }
   lines.push("");
   lines.push(t('copyProfileHead'));
   LEVELS.forEach((L,li)=>lines.push(LANG[currentLang].copyRowTpl(L.n, tx(L.name), pcts[li])));

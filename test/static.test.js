@@ -31,6 +31,13 @@ test('quiz guards against repeated input during auto-advance', () => {
   assert.match(html, /if\(idx !== answeredIndex\) return/);
 });
 
+test('result explains the cumulative level blocker', () => {
+  assert.match(html, /id="rPlacementNote"/);
+  assert.match(html, /placementBlockedTpl/);
+  assert.match(html, /const blockedLevel = placement \+ 1/);
+  assert.match(html, /pcts\[placement\]/);
+});
+
 test('editor draft restore only merges known keys with matching types', () => {
   assert.match(html, /function mergeKnownShape/);
   assert.match(html, /Object\.keys\(target\)/);

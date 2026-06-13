@@ -28,12 +28,12 @@
         nameSkip: "ข้าม",
         nameContinue: "ถัดไป →",
         backBtn: "← ย้อน",
-        rHero: "ระดับโดยรวมของคุณ",
-        profileHead: "โปรไฟล์ทักษะรายระดับ",
-        profileMini: "เกณฑ์: ≥ 70% ถือว่า \"มั่นใจ/ทำได้\" ในระดับนั้น · ระดับโดยรวมคำนวณแบบสะสม (ต้องผ่านระดับล่างก่อน)",
-        strongHead: "จุดแข็ง",
-        growHead: "จุดที่ควรพัฒนา",
-        nextHead: "ขั้นตอนต่อไปสำหรับคุณ",
+        rHero: "ตอนนี้คุณอยู่ตรงไหน",
+        profileHead: "ภาพรวมของคุณในแต่ละด้าน",
+        profileMini: "แถบยาวกว่า = คุณคล่องในด้านนั้นมากกว่า · ระดับโดยรวมสะสมจากด้านพื้นฐานขึ้นไปทีละขั้น",
+        strongHead: "สิ่งที่คุณทำได้ดีแล้ว",
+        growHead: "ด้านที่อยากชวนสำรวจต่อ",
+        nextHead: "เส้นทางถัดไปของคุณ",
         workshopsLabel: "หัวข้อ workshop ที่ขอแนะนำ",
         copyBtn: "คัดลอกสรุปผล",
         copyDone: "คัดลอกแล้ว ✓",
@@ -42,9 +42,9 @@
         foot: "อิงจาก LinkedIn AI Upskilling Framework (5 ระดับ) · เครื่องมือประเมินตนเอง",
         footerCopy: "© 2026 Student Talent Development · Faculty of Engineering, Chiang Mai University",
         footerFramework: "อิง LinkedIn AI Upskilling Framework",
-        p0Name: "กำลังสร้างพื้นฐาน",
-        p0Blurb: "คุณกำลังเริ่มต้นเส้นทาง AI — โฟกัสที่การสร้างความเข้าใจพื้นฐาน (ระดับ 1) ก่อน แล้วต่อยอดทีละขั้น",
-        p0NextH: "เริ่มต้นที่ระดับ 1 — เข้าใจพื้นฐาน AI",
+        p0Name: "กำลังเริ่มต้นสำรวจ AI",
+        p0Blurb: "ยินดีต้อนรับสู่เส้นทาง AI — เราจะเริ่มจากการทำความเข้าใจพื้นฐานก่อน แล้วค่อย ๆ ต่อยอดทีละขั้นไปด้วยกัน",
+        p0NextH: "ก้าวแรก — ทำความเข้าใจพื้นฐาน AI",
         p0Next: [
           "ทำความเข้าใจว่า Generative AI คืออะไร ทำได้ดีในเรื่องใด และมีข้อจำกัด/ความเสี่ยงอย่างไร",
           "เรียนรู้แนวปฏิบัติการใช้ AI อย่างมีความรับผิดชอบ",
@@ -59,13 +59,33 @@
         modalClose: "ปิด",
         imgAlt: "ผลประเมิน AI Literacy ของคุณ",
         imgBrand: "AI LITERACY ASSESSMENT",
-        imgOverall: "ระดับโดยรวมของคุณ",
-        imgP0Name: "กำลังสร้างพื้นฐาน",
+        imgOverall: "ตอนนี้คุณอยู่ตรงไหน",
+        imgP0Name: "กำลังเริ่มต้นสำรวจ AI",
         imgWorkshopsHead: "หัวข้อ workshop ที่ขอแนะนำ",
         imgAuthor: "© 2026 Student Talent Development",
         imgAffiliation: "Faculty of Engineering · Chiang Mai University",
         imgLicense: "เผยแพร่ภายใต้สัญญาอนุญาต CC BY-NC-SA 4.0",
-        imgFrameworkSource: "อิง LinkedIn AI Upskilling Framework"
+        imgFrameworkSource: "อิง LinkedIn AI Upskilling Framework",
+        roleStepPill: "เลือกบทบาท",
+        roleHead: "งานหลักของคุณคือ?",
+        roleSub: "เลือก 1 ข้อที่ใกล้เคียงที่สุด เพื่อให้คำแนะนำตรงกับงานของคุณ ข้ามได้ถ้าไม่ต้องการ",
+        roleSkip: "ข้าม / ไม่ระบุ",
+        verdictHead: "บทบาทกับสไตล์การใช้ AI ของคุณ",
+        verdictRoleLineTpl: "บทบาท: {role} · จุดหมายที่บทบาทนี้แนะนำ: ระดับ {ceiling}",
+        verdictBelowFloor: "พื้นฐานยังมีพื้นที่ให้สำรวจอีกนิด — เริ่มจากตรงนี้ก่อน เส้นทางข้างหน้าจะเดินสบายขึ้น",
+        verdictOnTrack: "อยู่ในเส้นทางที่ดีแล้ว — มีพื้นที่ขยับอีกนิดให้เข้มแข็งกว่าเดิม",
+        verdictRoleFit: "พอดีกับบทบาทของคุณ — เครื่องมือที่มีตอนนี้ครบสำหรับงานปัจจุบัน",
+        verdictAboveCeiling: "ทักษะคุณเดินไกลกว่าบทบาทแล้ว — มาดูทางต่อสนุก ๆ กัน",
+        stretchHead: "🚀 มีโอกาสน่าสนุกรออยู่",
+        stretchSubTpl: "บทบาทปัจจุบันต้องการระดับ {ceiling} · คุณไปถึงระดับ {placement} แล้ว",
+        stretchIntro: "ทักษะของคุณไปไกลกว่าบทบาทปัจจุบันแล้ว มีสองทางต่อที่ทั้งคู่น่าสนุก ลองดูว่าทางไหนตรงใจที่สุด",
+        stretchPathAHead: "ทางที่ A · เป็น AI Champion ในงานเดิม",
+        stretchPathBHead: "ทางที่ B · ขยับสายงานให้ตรงสกิล",
+        stretchNote: "ทั้งคู่ไม่ผิด — เลือกเส้นทางที่ตรงกับใจคุณได้เลย",
+        roleAgnosticNote: "คุณข้ามคำถามเรื่องบทบาท — ผลแสดงเฉพาะภาพรวมทักษะ",
+        roleSkippedShort: "ไม่ระบุบทบาท",
+        nextMilestoneTpl: "เป้าหมายถัดไป: ระดับ {n} · {name}",
+        nextMilestoneDone: "คุณเดินครบเส้นทางแล้ว — รักษาความรู้และเรียนรู้ต่อเนื่อง"
       },
       en: {
         documentTitle: "AI Literacy Assessment — LinkedIn AI Upskilling Framework",
@@ -90,12 +110,12 @@
         nameSkip: "Skip",
         nameContinue: "Continue →",
         backBtn: "← Back",
-        rHero: "Your overall level",
-        profileHead: "Skill profile by level",
-        profileMini: "Threshold: ≥ 70% counts as \"confident / can do\" at that level · overall placement is cumulative (you must pass each lower level first).",
-        strongHead: "Strengths",
-        growHead: "Areas to grow",
-        nextHead: "Next steps for you",
+        rHero: "Where you are right now",
+        profileHead: "Your comfort across each area",
+        profileMini: "Longer bars = areas you feel more fluent in · your overall stage builds up from the foundation, one step at a time.",
+        strongHead: "What you already do well",
+        growHead: "Areas to explore next",
+        nextHead: "Your next path",
         workshopsLabel: "Recommended workshops",
         copyBtn: "Copy summary",
         copyDone: "Copied ✓",
@@ -104,9 +124,9 @@
         foot: "Based on the LinkedIn AI Upskilling Framework (5 levels) · self-assessment tool",
         footerCopy: "© 2026 Student Talent Development · Faculty of Engineering, Chiang Mai University",
         footerFramework: "Based on the LinkedIn AI Upskilling Framework",
-        p0Name: "Building foundations",
-        p0Blurb: "You're at the start of your AI journey — focus on building a basic understanding (Level 1) first, then build up step by step.",
-        p0NextH: "Start at Level 1 — Understanding AI",
+        p0Name: "Just starting your AI journey",
+        p0Blurb: "Welcome to your AI journey — we'll start by building a basic understanding together, then grow step by step.",
+        p0NextH: "First step — building AI foundations",
         p0Next: [
           "Understand what Generative AI is, where it works well, and what its limits and risks are",
           "Learn responsible AI practices",
@@ -121,13 +141,33 @@
         modalClose: "Close",
         imgAlt: "Your AI Literacy assessment result",
         imgBrand: "AI LITERACY ASSESSMENT",
-        imgOverall: "YOUR OVERALL LEVEL",
-        imgP0Name: "Building foundations",
+        imgOverall: "WHERE YOU ARE TODAY",
+        imgP0Name: "JUST STARTING THE JOURNEY",
         imgWorkshopsHead: "Recommended Workshops",
         imgAuthor: "© 2026 Student Talent Development",
         imgAffiliation: "Faculty of Engineering · Chiang Mai University",
         imgLicense: "Licensed under CC BY-NC-SA 4.0",
-        imgFrameworkSource: "Based on the LinkedIn AI Upskilling Framework"
+        imgFrameworkSource: "Based on the LinkedIn AI Upskilling Framework",
+        roleStepPill: "Pick a role",
+        roleHead: "What's your primary role?",
+        roleSub: "Pick the closest match so we can tailor advice to your work. You can skip this if you prefer.",
+        roleSkip: "Skip / prefer not to say",
+        verdictHead: "How AI fits your role",
+        verdictRoleLineTpl: "Role: {role} · Where this role usually lands: Level {ceiling}",
+        verdictBelowFloor: "There's some ground to explore at the foundation — starting here makes the path ahead easier",
+        verdictOnTrack: "You're on a solid path — a little more stretch to feel fully grounded",
+        verdictRoleFit: "You're a great fit for your role — the toolkit you have covers your current work",
+        verdictAboveCeiling: "Your skills are reaching past your role — let's look at some fun directions ahead",
+        stretchHead: "🚀 An exciting opportunity ahead",
+        stretchSubTpl: "Your role usually lands at Level {ceiling} · You've reached Level {placement}",
+        stretchIntro: "Your skills have gone beyond what your current role asks for. Here are two fun directions — see which one feels right for you.",
+        stretchPathAHead: "Path A · Become an AI champion in your role",
+        stretchPathBHead: "Path B · Pivot or expand scope",
+        stretchNote: "Neither is wrong — pick the path that resonates with you",
+        roleAgnosticNote: "You skipped the role question — results show your overall skill picture only",
+        roleSkippedShort: "Role not specified",
+        nextMilestoneTpl: "Next milestone: Level {n} · {name}",
+        nextMilestoneDone: "You've walked the whole journey — keep the knowledge alive and keep learning"
       }
     },
     levels: [
@@ -262,6 +302,109 @@
       {v: 2, display: 3, lab: {th: "ตรงกับฉันปานกลาง", en: "Somewhat like me"}, sub: {th: "ทำได้บ้างเป็นบางครั้ง", en: "I do this sometimes"}},
       {v: 3, display: 4, lab: {th: "ค่อนข้างตรงกับฉัน", en: "Mostly like me"}, sub: {th: "ทำได้ดีเป็นส่วนใหญ่", en: "I do this well most of the time"}},
       {v: 4, display: 5, lab: {th: "ตรงกับฉันมากที่สุด", en: "Very much like me"}, sub: {th: "เป็นแบบนี้ประจำ", en: "This is regularly me"}}
-    ]
+    ],
+    roles: [
+      {code: "admin",    floor: 1, ceiling: 2, label: {th: "ธุรการ / สนับสนุน",                       en: "Admin / Support"}},
+      {code: "ops_cs",   floor: 1, ceiling: 2, label: {th: "ปฏิบัติการ / ลูกค้าสัมพันธ์ / เซลส์",        en: "Ops / Customer-facing / Sales"}},
+      {code: "creative", floor: 2, ceiling: 3, label: {th: "งานสร้างสรรค์ / คอนเทนต์ / การตลาด",          en: "Creative / Content / Marketing"}},
+      {code: "analyst",  floor: 2, ceiling: 3, label: {th: "นักวิเคราะห์ / วางแผน / PM",                en: "Analyst / Planner / PM"}},
+      {code: "tech",     floor: 2, ceiling: 4, label: {th: "วิศวกรซอฟต์แวร์ / ดาต้า",                   en: "Engineer / Developer / Data"}},
+      {code: "ai",       floor: 3, ceiling: 5, label: {th: "AI / ML / นักวิจัย",                       en: "AI / ML / Research"}},
+      {code: "leader",   floor: 2, ceiling: 3, label: {th: "ผู้บริหาร / หัวหน้า / ผู้ก่อตั้ง",             en: "Leader / Executive / Founder"}},
+      {code: "educator", floor: 2, ceiling: 3, label: {th: "ครู / อาจารย์ / ผู้ฝึกอบรม / L&D",          en: "Educator / Trainer / L&D"}},
+      {code: "student",  floor: 1, ceiling: 3, label: {th: "นักเรียน / นักศึกษา / เปลี่ยนสายงาน",         en: "Student / Career-change"}}
+    ],
+    roleStretch: {
+      admin: {
+        champion: {
+          th: "สร้าง template / SOP ที่ใช้ AI ให้ทั้งแผนกใช้ร่วมกัน แล้วสอนเพื่อนร่วมงานอย่างน้อย 3 คน",
+          en: "Build AI-powered templates / SOPs the whole team can use, then teach at least 3 colleagues"
+        },
+        pivot: {
+          th: "ลงมือทำ automation 1 ตัวที่ช่วยประหยัดเวลางานจริง แล้วคุยกับหัวหน้าเพื่อขอ scope งานใหม่ที่ใช้สกิลคุณได้เต็มที่",
+          en: "Ship one real automation that saves time, then propose a new role/scope to your manager that uses your skills fully"
+        }
+      },
+      ops_cs: {
+        champion: {
+          th: "สร้าง AI playbook สำหรับตอบลูกค้า/จัดการเคสที่ทีมใช้ได้ทุกคน วัดผลก่อน-หลังภายใน 1 เดือน",
+          en: "Create an AI playbook for customer responses / case handling the whole team can use; measure impact within a month"
+        },
+        pivot: {
+          th: "ใช้ AI วิเคราะห์ข้อมูลลูกค้าและเสนอ insight ที่ทีมไม่เคยเห็น เพื่อขยับเข้าสาย analyst / RevOps",
+          en: "Use AI to analyze customer data and surface insights no one had — a step toward analyst / RevOps roles"
+        }
+      },
+      creative: {
+        champion: {
+          th: "ออกแบบ AI brand guideline ของทีม แล้วนำทีมทดลอง workflow ใหม่ใน 1 แคมเปญจริง",
+          en: "Design an AI brand/style guideline for your team, then lead one real campaign with the new workflow"
+        },
+        pivot: {
+          th: "ทำ AI side-project แบบเปิดสาธารณะ (เช่น GPT/Project, custom assistant) เพื่อสร้าง portfolio สำหรับสาย AI product",
+          en: "Ship a public AI side-project (custom GPT/Project, assistant) to build a portfolio for AI product roles"
+        }
+      },
+      analyst: {
+        champion: {
+          th: "สร้าง internal AI tool / dashboard ที่ทีมใช้จริง และเสนอ PM ให้นำเข้าระบบงาน",
+          en: "Build an internal AI tool / dashboard your team actually uses; propose adoption to the PM"
+        },
+        pivot: {
+          th: "เรียน SQL + Python เพิ่ม ทำ end-to-end data project 1 ชิ้นเพื่อขยับสายเป็น data / tech",
+          en: "Add SQL + Python skills, ship one end-to-end data project to move into a data / tech role"
+        }
+      },
+      tech: {
+        champion: {
+          th: "นำทีมทำระบบที่ใช้ LLM หรือ agent ภายในองค์กร 1 ชิ้น พร้อมแนวทาง evaluation และ guardrail",
+          en: "Lead an internal LLM/agent system at work, with evaluation and guardrail practices in place"
+        },
+        pivot: {
+          th: "ลงมือ fine-tune หรือ deploy โมเดล LLM 1 ตัว และเขียน technical post เพื่อก้าวสู่สาย AI/ML",
+          en: "Fine-tune or deploy one LLM yourself and write a technical post — a path toward AI/ML roles"
+        }
+      },
+      ai: {
+        champion: {
+          th: "ดันโปรเจกต์ R&D ภายในทีมที่ผลักดันขอบเขตของสาขา และเป็นพี่เลี้ยงให้คนรุ่นถัดไป",
+          en: "Drive an internal R&D project that pushes the boundary of your area, and mentor the next generation"
+        },
+        pivot: {
+          th: "ตีพิมพ์งานหรือ open-source contribution เพื่อขยับสู่บทบาท thought leader / AI strategy ขององค์กร",
+          en: "Publish work or contribute to open source to move into a thought-leader / AI strategy role"
+        }
+      },
+      leader: {
+        champion: {
+          th: "ตั้ง AI policy + backlog ของ use case ทั้งทีม วัด ROI ภายใน 1 ไตรมาส",
+          en: "Set AI policy + a use-case backlog for the team; measure ROI within a quarter"
+        },
+        pivot: {
+          th: "นำ AI transformation 1 โปรเจกต์จริง และทำ case study เพื่อก้าวสู่บทบาท AI strategy lead",
+          en: "Lead one real AI transformation project and publish a case study — toward an AI strategy lead role"
+        }
+      },
+      educator: {
+        champion: {
+          th: "ออกแบบคอร์ส AI literacy ในองค์กร / โรงเรียน และวัดผลผู้เรียนก่อน-หลัง",
+          en: "Design an AI literacy course for your school/org and measure pre/post outcomes"
+        },
+        pivot: {
+          th: "สร้างเนื้อหา / เครื่องมือ AI ที่เผยแพร่สาธารณะ เพื่อขยับสู่สาย AI L&D หรือ EdTech",
+          en: "Publish AI content/tools publicly to move toward an AI L&D or EdTech role"
+        }
+      },
+      student: {
+        champion: {
+          th: "ทำโปรเจกต์ส่วนตัว 1 ชิ้นที่คนอื่นใช้จริง และนำเสนอในชุมชน/เพื่อน",
+          en: "Ship one personal project real people use, and present it in a community or to peers"
+        },
+        pivot: {
+          th: "สร้าง portfolio ที่โชว์ระดับจริงของคุณ และสมัครงาน/internship สาย AI ที่ตรงกับสกิล",
+          en: "Build a portfolio that reflects your real level and apply for AI-track jobs/internships that match"
+        }
+      }
+    }
   };
 });
