@@ -96,7 +96,15 @@
   }
   h1.title .hl{color:var(--teal);position:relative}
   .lead{font-size:1.05rem;color:var(--muted);max-width:54ch}
-  .levels{margin:26px 0 8px;display:grid;gap:10px}
+  .scope-banner{
+    margin-top:18px;padding:11px 14px;border-radius:12px;
+    background:var(--amber-soft);color:var(--warn);
+    font-size:.86rem;line-height:1.5;font-weight:500;
+    display:flex;gap:8px;align-items:flex-start;
+    border:1px solid #E6CFA0;
+  }
+  .scope-banner::before{content:"ℹ";font-weight:700}
+  .levels{margin:18px 0 8px;display:grid;gap:10px}
   .lvl-row{
     display:grid;grid-template-columns:46px 1fr;gap:14px;align-items:center;
     background:var(--card);border:1px solid var(--line);border-radius:14px;
@@ -458,6 +466,8 @@
     <h1 class="title" data-i18n="heroTitle" data-i18n-html="true">คุณอยู่ระดับใด<br>บนเส้นทาง <span class="hl">AI</span>?</h1>
     <p class="lead" data-i18n="lead" data-i18n-html="true">แบบประเมินนี้อิงจาก <b>LinkedIn AI Upskilling Framework</b> ซึ่งแบ่งทักษะ AI ออกเป็น 5 ระดับ ทำเสร็จใน 3–5 นาที แล้วรับผลวิเคราะห์พร้อมขั้นตอนพัฒนาต่อไปเป็นรายบุคคล</p>
 
+    <div class="scope-banner" data-i18n="assessmentScopeNote">แบบประเมินนี้ครอบคลุมระดับ 1–3 ของ framework (ระดับ 4–5 เป็นทักษะเฉพาะทาง)</div>
+
     <div class="levels" id="introLevels"></div>
 
     <section class="about-card" aria-labelledby="aboutHeading">
@@ -644,6 +654,17 @@ if(!CORE) throw new Error('Could not load js/assessment-core.js');
 
 const LANG = CONTENT.lang;
 const LEVELS = CONTENT.levels;
+const ASSESSABLE = LEVELS.filter(l => l.assessable !== false);
+const MAX_ASSESSABLE = ASSESSABLE.length;
+const DIAGRAM_LEVELS = [
+  ...ASSESSABLE,
+  {
+    n: ASSESSABLE.length + 1,
+    name: {th: "ผู้เชี่ยวชาญขั้นสูง", en: "Advanced Specialist"},
+    color: "#B5642A",
+    advanced: true
+  }
+];
 const SCALE = CONTENT.scale;
 const ROLES = CONTENT.roles || [];
 const ROLE_STRETCH = CONTENT.roleStretch || {};
@@ -740,7 +761,7 @@ function formatDate(d, lang){
 }
 
 /* ---------------- build flat question list ---------------- */
-const QS = CORE.buildQuestionList(LEVELS);
+const QS = CORE.buildQuestionList(ASSESSABLE);
 const TOTAL = QS.length;
 let idx = 0;
 const answers = new Array(TOTAL).fill(null);
@@ -772,7 +793,7 @@ function setSafeRichText(target, value){
 function renderIntroLevels(){
   const box = document.getElementById('introLevels');
   box.innerHTML = '';
-  LEVELS.forEach((L,i)=>{
+  ASSESSABLE.forEach((L,i)=>{
     const row = document.createElement('div');
     row.className='lvl-row';
     row.style.animationDelay = (0.15 + i*0.08)+'s';
@@ -805,28 +826,34 @@ function renderFrameworkDiagram(){
   const labels = document.getElementById('frameworkLabels');
   if(!wrap || !labels) return;
   const W = 600, H = 200;
-  const bw = 100, gap = 12, startX = 18;
-  const heights = [70, 100, 130, 160, 190];
+  const N = DIAGRAM_LEVELS.length;
+  const gap = 14;
+  const startX = 18;
+  const bw = Math.floor((W - startX*2 - gap*(N-1)) / N);
+  const heights = N === 4 ? [70, 110, 150, 190] : DIAGRAM_LEVELS.map((_,i)=>70 + i*((190-70)/Math.max(1,N-1)));
   let svg = `<svg viewBox="0 0 ${W} ${H}" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="${esc(t('aboutHead'))}"><defs>`;
-  LEVELS.forEach((L,i)=>{
+  DIAGRAM_LEVELS.forEach((L,i)=>{
     svg += `<linearGradient id="fwg${i}" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="${L.color}"/><stop offset="1" stop-color="${shade(L.color,-22)}"/></linearGradient>`;
   });
   svg += `</defs><line x1="0" y1="${H-0.5}" x2="${W}" y2="${H-0.5}" stroke="#DCD3C2" stroke-width="1"/>`;
-  LEVELS.forEach((L,i)=>{
+  DIAGRAM_LEVELS.forEach((L,i)=>{
     const h = heights[i];
     const x = startX + i*(bw+gap);
     const y = H - h;
-    svg += `<rect x="${x}" y="${y}" width="${bw}" height="${h}" rx="12" fill="url(#fwg${i})"/>`;
+    const stroke = L.advanced ? ' stroke="#FFF6E6" stroke-width="2" stroke-dasharray="4 4"' : '';
+    svg += `<rect x="${x}" y="${y}" width="${bw}" height="${h}" rx="12" fill="url(#fwg${i})"${stroke}/>`;
     svg += `<text x="${x+bw/2}" y="${y + 46}" text-anchor="middle" fill="#fff" font-family="Chakra Petch,sans-serif" font-weight="700" font-size="36">${L.n}</text>`;
   });
   svg += '</svg>';
   wrap.innerHTML = svg;
 
+  labels.style.gridTemplateColumns = `repeat(${N},1fr)`;
   labels.innerHTML = '';
-  LEVELS.forEach((L)=>{
+  DIAGRAM_LEVELS.forEach((L)=>{
     const primary = tx(L.name);
     const secondary = currentLang === 'th' ? L.name.en : L.name.th;
     const span = document.createElement('span');
+    if(L.advanced) span.style.opacity = '.75';
     span.innerHTML = `${esc(primary)}<small>${esc(secondary)}</small>`;
     labels.appendChild(span);
   });
@@ -903,7 +930,7 @@ function restart(){
 
 function renderQ(){
   const item = QS[idx];
-  const L = LEVELS[item.levelIndex];
+  const L = ASSESSABLE[item.levelIndex];
   const itemObj = L.items[item.itemIndex];
   const pill = document.getElementById('qPill');
   pill.textContent = LANG[currentLang].qPillTpl(L.n);
@@ -958,7 +985,7 @@ function back(){
 
 /* ---------------- scoring ---------------- */
 function finish(){
-  const pcts = CORE.levelPercentages(LEVELS, answers);
+  const pcts = CORE.levelPercentages(ASSESSABLE, answers);
   const THRESH=70;
   const placement = CORE.cumulativePlacement(pcts, THRESH);
   finishedAt = new Date();
@@ -969,7 +996,7 @@ function finish(){
 function renderResult(pcts, placement, THRESH){
   window.__res={pcts,placement};
   const placementNote = document.getElementById('rPlacementNote');
-  if(placement < LEVELS.length){
+  if(placement < MAX_ASSESSABLE){
     const blockedLevel = placement + 1;
     placementNote.textContent = LANG[currentLang].placementBlockedTpl(
       blockedLevel,
@@ -1015,9 +1042,9 @@ function renderResult(pcts, placement, THRESH){
     document.getElementById('rBlurb').textContent=t('p0Blurb');
     document.getElementById('rNextH').textContent=t('p0NextH');
     fillUl('rNext', t('p0Next'));
-    fillChips('rWorkshops', LEVELS[0].workshops.map(tx));
+    fillChips('rWorkshops', ASSESSABLE[0].workshops.map(tx));
   } else {
-    const L=LEVELS[placement-1];
+    const L=ASSESSABLE[placement-1];
     rNumEl.textContent=L.n;
     rNumEl.classList.remove('is-p0');
     document.getElementById('rName').textContent=`${tx(L.name)} · ${currentLang === 'th' ? L.name.en : L.name.th}`;
@@ -1030,8 +1057,8 @@ function renderResult(pcts, placement, THRESH){
   // next-milestone forward-looking line under hero
   const milestoneEl = document.getElementById('rNextMilestone');
   const milestoneText = document.getElementById('rNextMilestoneText');
-  if(placement < LEVELS.length){
-    const nextL = LEVELS[placement];
+  if(placement < MAX_ASSESSABLE){
+    const nextL = ASSESSABLE[placement];
     milestoneText.textContent = t('nextMilestoneTpl')
       .replace('{n}', nextL.n)
       .replace('{name}', tx(nextL.name));
@@ -1043,7 +1070,7 @@ function renderResult(pcts, placement, THRESH){
 
   // profile bars
   const prof=document.getElementById('rProfile'); prof.innerHTML='';
-  LEVELS.forEach((L,li)=>{
+  ASSESSABLE.forEach((L,li)=>{
     const p=pcts[li];
     const row=document.createElement('div'); row.className='prow';
     const primary = tx(L.name);
@@ -1073,7 +1100,7 @@ function renderResult(pcts, placement, THRESH){
   });
 
   // strengths / growth
-  const ranked=LEVELS.map((L,li)=>({L,p:pcts[li]}));
+  const ranked=ASSESSABLE.map((L,li)=>({L,p:pcts[li]}));
   const strong=ranked.filter(x=>x.p>=70).sort((a,b)=>b.p-a.p);
   const grow=ranked.filter(x=>x.p<70).sort((a,b)=>a.p-b.p);
   fillUl('rStrong', strong.length? strong.slice(0,3).map(x=>LANG[currentLang].rankTpl(tx(x.L.name), x.p)):[LANG[currentLang].noStrongTpl()]);
@@ -1114,6 +1141,9 @@ function renderRoleVerdict(pcts, THRESH){
   } else if(verdict.kind === 'above_ceiling'){
     card.classList.add('stretch');
     msgEl.textContent = t('verdictAboveCeiling');
+  } else if(verdict.kind === 'at_cap'){
+    card.classList.add('fit');
+    msgEl.textContent = t('verdictAtCapTpl').replace('{target}', verdict.targetCeiling);
   }
 
   if(verdict.kind === 'above_ceiling'){
@@ -1134,14 +1164,14 @@ function fillChips(id,arr){const box=document.getElementById(id);box.innerHTML='
 
 function copyResult(){
   const {pcts,placement}=window.__res||{};
-  const placementName = placement ? tx(LEVELS[placement-1].name) : '';
-  const workshops = placement ? LEVELS[placement-1].workshops : LEVELS[0].workshops;
+  const placementName = placement ? tx(ASSESSABLE[placement-1].name) : '';
+  const workshops = placement ? ASSESSABLE[placement-1].workshops : ASSESSABLE[0].workshops;
   const lines=[t('copyHeader'),""];
   if(userName) lines.push(userName);
   if(finishedAt) lines.push(formatDate(finishedAt, currentLang));
   if(userName || finishedAt) lines.push("");
   lines.push(LANG[currentLang].copyOverallTpl(placement, placementName));
-  if(placement < LEVELS.length){
+  if(placement < MAX_ASSESSABLE){
     lines.push(LANG[currentLang].placementBlockedTpl(placement + 1, pcts[placement], 70));
   } else {
     lines.push(LANG[currentLang].placementCompleteTpl(70));
@@ -1158,10 +1188,13 @@ function copyResult(){
       above_ceiling: 'verdictAboveCeiling'
     }[verdict.kind];
     if(msgKey) lines.push(t(msgKey));
+    if(verdict.kind === 'at_cap'){
+      lines.push(t('verdictAtCapTpl').replace('{target}', verdict.targetCeiling));
+    }
   }
   lines.push("");
   lines.push(t('copyProfileHead'));
-  LEVELS.forEach((L,li)=>lines.push(LANG[currentLang].copyRowTpl(L.n, tx(L.name), pcts[li])));
+  ASSESSABLE.forEach((L,li)=>lines.push(LANG[currentLang].copyRowTpl(L.n, tx(L.name), pcts[li])));
   lines.push("");
   lines.push(t('copyWorkshopsHead'));
   workshops.forEach(w=>lines.push("  · " + tx(w)));
@@ -1264,9 +1297,9 @@ function wrapToLines(ctx, text, maxWidth, maxLines){
 async function generateResultImage(lang){
   await ensureFontsLoaded();
   const L18 = LANG[lang];
-  const pcts = (window.__res && window.__res.pcts) || LEVELS.map(()=>0);
+  const pcts = (window.__res && window.__res.pcts) || ASSESSABLE.map(()=>0);
   const placement = (window.__res && window.__res.placement) || 0;
-  const lvl = placement ? LEVELS[placement-1] : null;
+  const lvl = placement ? ASSESSABLE[placement-1] : null;
   const color = lvl ? lvl.color : '#0E6E63';
 
   const canvas = document.createElement('canvas');
@@ -1356,12 +1389,12 @@ async function generateResultImage(lang){
 
   ctx.beginPath(); ctx.moveTo(PAD, 700); ctx.lineTo(IMG_W-PAD, 700); ctx.stroke();
 
-  // ----- 4) Per-level bars (Y 700–1160; 460px / 5 rows = 92px)
+  // ----- 4) Per-level bars (Y 700–1160; bars iterate assessable levels only)
   const barsTop = 720;
   const rowH = 84;
   const barLeft = PAD, barRight = IMG_W - PAD;
-  for(let i=0; i<LEVELS.length; i++){
-    const L = LEVELS[i];
+  for(let i=0; i<ASSESSABLE.length; i++){
+    const L = ASSESSABLE[i];
     const p = pcts[i] || 0;
     const rowY = barsTop + i*rowH;
 
@@ -1404,7 +1437,7 @@ async function generateResultImage(lang){
   ctx.font = '600 32px "Chakra Petch", sans-serif';
   ctx.fillText(L18.imgWorkshopsHead, IMG_W/2, 1210);
 
-  const workshops = (lvl ? lvl.workshops : LEVELS[0].workshops).slice(0, 3);
+  const workshops = (lvl ? lvl.workshops : ASSESSABLE[0].workshops).slice(0, 3);
   const chipsTop = 1250;
   const chipMaxW = IMG_W - PAD*2;
   const chipH = 100;

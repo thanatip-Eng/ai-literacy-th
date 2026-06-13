@@ -42,22 +42,33 @@
     if (!role) return {kind: 'agnostic'};
     const placement = cumulativePlacement(percentages, threshold);
     const practiceMax = highestPassingLevel(percentages, threshold);
+    const maxLevel = percentages.length;
     const {floor, ceiling} = role;
-    if (placement > ceiling || practiceMax > ceiling) {
+    if (ceiling > maxLevel && placement >= maxLevel) {
+      return {
+        kind: 'at_cap',
+        placement,
+        practiceMax,
+        targetCeiling: ceiling,
+        capLevel: maxLevel
+      };
+    }
+    const effectiveCeiling = Math.min(ceiling, maxLevel);
+    if (placement > effectiveCeiling || practiceMax > effectiveCeiling) {
       return {
         kind: 'above_ceiling',
         placement,
         practiceMax,
-        over: Math.max(placement, practiceMax) - ceiling
+        over: Math.max(placement, practiceMax) - effectiveCeiling
       };
     }
     if (placement < floor) {
       return {kind: 'below_floor', placement, practiceMax, gap: floor - placement};
     }
-    if (placement === ceiling) {
+    if (placement === effectiveCeiling) {
       return {kind: 'role_fit', placement, practiceMax};
     }
-    return {kind: 'on_track', placement, practiceMax, toGo: ceiling - placement};
+    return {kind: 'on_track', placement, practiceMax, toGo: effectiveCeiling - placement};
   }
 
   return {

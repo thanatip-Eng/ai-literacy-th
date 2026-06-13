@@ -78,3 +78,20 @@ test('role verdict flags above_ceiling when practiceMax exceeds ceiling even wit
   assert.equal(v.placement, 1);
   assert.equal(v.over, 1);
 });
+
+test('role verdict flags at_cap when role ceiling exceeds assessable range', () => {
+  const role = {floor: 2, ceiling: 4};
+  const v = core.roleVerdict([80, 80, 80], role);
+  assert.equal(v.kind, 'at_cap');
+  assert.equal(v.placement, 3);
+  assert.equal(v.targetCeiling, 4);
+  assert.equal(v.capLevel, 3);
+});
+
+test('role verdict clamps ceiling to assessable range for non-cap cases', () => {
+  const role = {floor: 2, ceiling: 5};
+  const v = core.roleVerdict([80, 80, 60], role);
+  assert.equal(v.kind, 'on_track');
+  assert.equal(v.placement, 2);
+  assert.equal(v.toGo, 1);
+});
