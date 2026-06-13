@@ -10,10 +10,30 @@ const {serializeContent, validateContent} = require('../tools/content-lib');
 test('canonical content is complete and bilingual', () => {
   assert.deepEqual(validateContent(content), []);
   assert.equal(content.levels.length, 5);
-  assert.equal(content.levels.reduce((sum, level) => sum + level.items.length, 0), 20);
-  assert.deepEqual(content.levels.map(level => level.items.length), [5, 5, 5, 3, 2]);
+  assert.equal(content.levels.reduce((sum, level) => sum + level.items.length, 0), 17);
+  assert.deepEqual(content.levels.map(level => level.items.length), [4, 4, 4, 3, 2]);
   assert.deepEqual(content.scale.map(choice => choice.v), [0, 1, 2, 3, 4]);
   assert.deepEqual(content.scale.map(choice => choice.display), [1, 2, 3, 4, 5]);
+});
+
+test('partnership block has four subtraits with two items each', () => {
+  const p = content.partnership;
+  assert.ok(p, 'partnership block is required');
+  assert.equal(p.subtraits.length, 4);
+  assert.deepEqual(p.subtraits.map(sub => sub.key), ['verify', 'restraint', 'human_lead', 'direction']);
+  for (const sub of p.subtraits) {
+    assert.equal(sub.items.length, 2, `subtrait ${sub.key} must have exactly 2 items`);
+  }
+  const totalItems = p.subtraits.reduce((sum, sub) => sum + sub.items.length, 0);
+  assert.equal(totalItems, 8);
+  assert.deepEqual(Object.keys(p.quadrants), ['novice', 'coach', 'autopilot', 'director']);
+});
+
+test('partnership has exactly one reverse-scored item', () => {
+  const reversed = content.partnership.subtraits.flatMap(sub =>
+    sub.items.filter(item => item.reverse)
+  );
+  assert.equal(reversed.length, 1);
 });
 
 test('content module serialization round-trips', () => {

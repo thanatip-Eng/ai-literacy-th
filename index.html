@@ -185,6 +185,178 @@
   }
   .res-hero .next-milestone::before{content:"→";color:#FFE2B6;font-weight:700}
   .res-hero .lvlnum.is-p0{font-size:2.6rem;opacity:.95}
+
+  /* Quadrant hero variant — gradient comes from JS based on quadrant color */
+  .quadrant-hero .quadrant-hero-name{
+    font-family:"Chakra Petch",sans-serif;font-weight:700;font-size:2rem;line-height:1.15;
+    margin:10px 0 6px;position:relative;
+  }
+  .quadrant-hero .quadrant-hero-axes{
+    font-family:"Chakra Petch",sans-serif;font-weight:600;font-size:.92rem;
+    letter-spacing:.04em;opacity:.92;position:relative;
+  }
+  .quadrant-hero .quadrant-hero-short{
+    font-size:.88rem;opacity:.88;margin-top:8px;position:relative;font-style:italic;
+  }
+  .quadrant-hero .quadrant-hero-blurb{
+    margin-top:14px;font-size:1rem;line-height:1.6;opacity:.96;position:relative;max-width:54ch;
+  }
+  .quadrant-hero .quadrant-hero-nudge{
+    margin-top:14px;padding:12px 14px;border-radius:10px;
+    background:rgba(255,255,255,.16);font-size:.92rem;line-height:1.55;
+    position:relative;max-width:58ch;font-weight:500;
+    border-left:3px solid rgba(255,226,182,.85);
+  }
+
+  /* Skill summary chip (replaces big hero number) */
+  .skill-summary{margin-top:4px}
+  .skill-summary-chip{
+    display:inline-flex;align-items:center;gap:12px;
+    background:var(--card);border:1px solid var(--line);border-radius:999px;
+    padding:8px 18px 8px 8px;margin-bottom:10px;box-shadow:var(--shadow);
+  }
+  .skill-summary-chip .lvlnum-mini{
+    width:38px;height:38px;border-radius:50%;
+    background:linear-gradient(160deg,var(--teal),var(--teal-deep));
+    color:#fff;font-family:"Chakra Petch",sans-serif;font-weight:700;font-size:1.2rem;
+    display:flex;align-items:center;justify-content:center;
+  }
+  .skill-summary-chip .lvlname-mini{
+    font-family:"Chakra Petch",sans-serif;font-weight:600;font-size:1rem;color:var(--ink);
+  }
+  .skill-summary .blurb{font-size:.95rem;line-height:1.6;color:var(--ink);max-width:54ch;margin-top:8px}
+  .skill-summary .placement-note{
+    margin-top:10px;padding:10px 12px;border-radius:10px;
+    background:var(--paper-2);font-size:.86rem;line-height:1.55;max-width:58ch;
+  }
+  .skill-summary .next-milestone{
+    margin-top:8px;padding:10px 14px;border-radius:10px;
+    background:var(--amber-soft);font-size:.86rem;line-height:1.55;
+    font-weight:500;max-width:58ch;color:var(--warn);
+    display:flex;gap:8px;align-items:flex-start;
+  }
+  .skill-summary .next-milestone::before{content:"→";color:var(--amber);font-weight:700}
+
+  /* Org guide details */
+  .org-guide{
+    margin-top:14px;background:var(--card);border:1px solid var(--line);
+    border-radius:var(--r);padding:0;overflow:hidden;
+  }
+  .org-guide > summary{
+    list-style:none;cursor:pointer;padding:14px 18px;
+    font-family:"Chakra Petch",sans-serif;font-weight:600;font-size:.95rem;
+    color:var(--teal-deep);display:flex;align-items:center;gap:10px;
+    user-select:none;
+  }
+  .org-guide > summary::-webkit-details-marker{display:none}
+  .org-guide > summary::before{
+    content:"▸";color:var(--amber);font-weight:700;transition:transform .15s;
+  }
+  .org-guide[open] > summary::before{transform:rotate(90deg)}
+  .org-guide > *:not(summary){padding:0 18px}
+  .org-guide > *:last-child{padding-bottom:18px}
+  .org-guide h5{
+    font-family:"Chakra Petch",sans-serif;font-weight:600;font-size:.92rem;
+    color:var(--teal-deep);margin:14px 0 6px;
+  }
+  .org-guide p{font-size:.9rem;line-height:1.6;margin:0 0 6px}
+  .org-guide p.org-guide-intro{font-style:italic;color:var(--muted);margin-top:6px;margin-bottom:6px}
+  .org-guide ul{margin:0 0 6px;padding-left:20px}
+  .org-guide ul li{font-size:.88rem;line-height:1.65;margin-bottom:4px}
+
+  /* ---------- 4 QUADRANTS EXPLAINED ---------- */
+  .quadrants-card{margin-top:18px}
+  .quadrant-grid{
+    display:grid;grid-template-columns:repeat(2,1fr);gap:14px;margin-top:14px;
+  }
+  @media(max-width:540px){.quadrant-grid{grid-template-columns:1fr}}
+  .quadrant-persona{
+    background:var(--card);border:1px solid var(--line);border-radius:14px;
+    padding:16px 16px 18px;display:flex;flex-direction:column;gap:8px;
+    box-shadow:var(--shadow);position:relative;overflow:hidden;
+  }
+  .quadrant-persona::before{
+    content:"";position:absolute;left:0;top:0;width:5px;height:100%;
+    background:var(--persona-color, var(--teal));
+  }
+  .quadrant-persona.is-current{outline:2px solid var(--persona-color, var(--teal));outline-offset:-1px}
+  .quadrant-persona .current-tag{
+    position:absolute;top:10px;right:10px;font-size:.7rem;font-weight:600;
+    padding:3px 8px;border-radius:999px;background:var(--persona-color);color:#fff;
+    font-family:"Chakra Petch",sans-serif;letter-spacing:.04em;
+  }
+  .quadrant-persona-head{
+    display:flex;align-items:center;gap:12px;margin-bottom:4px;
+  }
+  .quadrant-persona-icon{
+    width:76px;height:76px;flex-shrink:0;border-radius:50%;overflow:hidden;
+  }
+  .quadrant-persona-icon img{
+    width:100%;height:100%;object-fit:cover;display:block;
+  }
+  .quadrant-persona-name{
+    font-family:"Chakra Petch",sans-serif;font-weight:700;font-size:1.05rem;
+    color:var(--persona-color, var(--teal));line-height:1.2;
+  }
+  .quadrant-persona-name small{display:block;font-weight:500;font-size:.78rem;color:var(--muted);margin-top:2px}
+  .quadrant-persona h6{
+    font-family:"Chakra Petch",sans-serif;font-weight:600;font-size:.78rem;
+    color:var(--teal-deep);letter-spacing:.04em;text-transform:uppercase;
+    margin:6px 0 4px;
+  }
+  .quadrant-persona p{font-size:.88rem;line-height:1.55;margin:0}
+  .quadrant-persona ul{margin:0;padding-left:18px}
+  .quadrant-persona ul li{font-size:.85rem;line-height:1.55;margin-bottom:3px}
+  .quadrants-note{font-size:.82rem;color:var(--muted);font-style:italic}
+  .quadrants-details{
+    margin-top:14px;background:var(--card);border:1px solid var(--line);
+    border-radius:var(--r);padding:0;overflow:hidden;
+  }
+  .quadrants-details > summary{
+    list-style:none;cursor:pointer;padding:14px 18px;
+    font-family:"Chakra Petch",sans-serif;font-weight:600;font-size:.95rem;
+    color:var(--teal-deep);display:flex;align-items:center;gap:10px;user-select:none;
+  }
+  .quadrants-details > summary::-webkit-details-marker{display:none}
+  .quadrants-details > summary::before{content:"▸";color:var(--amber);font-weight:700;transition:transform .15s}
+  .quadrants-details[open] > summary::before{transform:rotate(90deg)}
+  .quadrants-details > .quadrant-grid{margin:0 14px 16px}
+
+  /* Hero avatar + section logo + bridge line */
+  .quadrant-hero-body{
+    display:flex;align-items:center;gap:18px;margin-top:10px;position:relative;
+  }
+  .quadrant-hero-avatar{
+    width:96px;height:96px;border-radius:50%;flex-shrink:0;
+    background:rgba(255,255,255,.18);border:2px solid rgba(255,255,255,.45);
+    object-fit:cover;display:block;
+  }
+  .quadrant-hero-text{flex:1;min-width:0}
+  .quadrant-hero-text .quadrant-hero-name{margin-top:0}
+  .section-h.with-logo{align-items:center;gap:8px}
+  .section-h.with-logo::before{display:none}
+  .section-logo{
+    display:inline-flex;align-items:center;justify-content:center;
+    width:32px;height:32px;border-radius:8px;
+    background:var(--amber-soft);color:var(--warn);flex-shrink:0;
+  }
+  .section-logo svg{width:18px;height:18px}
+  .bridge-line{margin-top:18px;text-align:center;color:var(--muted);font-size:.85rem}
+  .next-card .role-line{
+    font-size:.86rem;color:var(--muted);
+    padding:8px 12px;border-radius:8px;background:var(--paper-2);
+    margin:0 0 12px;line-height:1.55;
+  }
+  .next-card .placement-note.inline{
+    margin-top:10px;padding:8px 12px;border-radius:8px;
+    background:var(--paper-2);font-size:.85rem;line-height:1.55;color:var(--muted);
+  }
+  .next-card .next-milestone.inline{
+    margin-top:8px;padding:8px 12px;border-radius:8px;
+    background:var(--amber-soft);color:var(--warn);font-size:.85rem;
+    line-height:1.55;font-weight:500;display:flex;gap:8px;align-items:flex-start;
+  }
+  .next-card .next-milestone.inline::before{content:"→";color:var(--amber);font-weight:700}
   .section-h{font-family:"Chakra Petch",sans-serif;font-weight:600;font-size:1.1rem;margin:30px 0 12px;display:flex;align-items:center;gap:10px}
   .section-h::before{content:"";width:18px;height:3px;border-radius:2px;background:var(--amber)}
   .profile{display:grid;gap:13px}
@@ -373,6 +545,74 @@
   .stretch-path p{font-size:.9rem;line-height:1.5;color:var(--ink)}
   .stretch-note{font-size:.8rem;color:var(--muted);margin-top:12px;text-align:center;font-style:italic}
 
+  /* ---------- PARTNERSHIP & QUADRANT ---------- */
+  .partnership-subs{margin-top:8px}
+  .partnership-subs .prow .pname{font-size:.88rem}
+  .partnership-subs .prow .ppct{font-size:.88rem}
+  .quadrant-card{
+    background:var(--card);border:1px solid var(--line);border-radius:var(--r);
+    border-left:5px solid var(--amber);
+    padding:18px 20px;box-shadow:var(--shadow);margin-top:12px;
+  }
+  .quadrant-card .quadrant-head{
+    display:flex;flex-wrap:wrap;align-items:baseline;gap:10px;
+    justify-content:space-between;margin-bottom:8px;
+  }
+  .quadrant-card .quadrant-name{
+    font-family:"Chakra Petch",sans-serif;font-weight:700;font-size:1.1rem;
+    color:var(--teal-deep);
+  }
+  .quadrant-card .quadrant-sub{
+    font-size:.78rem;color:var(--muted);font-family:"Chakra Petch",sans-serif;
+  }
+  .quadrant-card .quadrant-short{
+    font-size:.86rem;color:var(--muted);margin:0 0 10px;font-style:italic;
+  }
+  .quadrant-card .quadrant-blurb{font-size:.95rem;line-height:1.6;margin:0 0 10px}
+  .quadrant-card .quadrant-nudge{
+    font-size:.9rem;line-height:1.55;color:var(--teal-deep);font-weight:500;
+    border-top:1px dashed var(--line);padding-top:10px;margin:0;
+  }
+  .tag-block{
+    background:#FFFCF5;border:1px solid var(--line);border-radius:12px;
+    padding:14px 16px;font-family:ui-monospace,SFMono-Regular,Menlo,monospace;
+    font-size:.85rem;line-height:1.7;white-space:pre-wrap;word-break:break-word;
+    color:var(--ink);margin:0;
+  }
+
+  /* ---------- MAIN LOGO ---------- */
+  .main-logo{
+    display:block;margin:0 auto 14px;max-width:200px;width:auto;height:auto;
+  }
+  @media(max-width:520px){.main-logo{max-width:160px}}
+
+  /* ---------- INTRO 3 DIMENSIONS ---------- */
+  .dimensions-card{
+    background:var(--card);border:1px solid var(--line);border-radius:var(--r);
+    padding:22px 22px 18px;box-shadow:var(--shadow);margin-top:18px;
+  }
+  .dimensions-grid{
+    display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:14px;
+  }
+  @media(max-width:640px){.dimensions-grid{grid-template-columns:1fr}}
+  .dim{
+    display:flex;flex-direction:column;gap:6px;padding:14px;
+    background:var(--paper-2);border-radius:12px;border:1px solid var(--line);
+  }
+  .dim-icon{
+    width:36px;height:36px;border-radius:10px;background:var(--amber-soft);
+    color:var(--warn);display:inline-flex;align-items:center;justify-content:center;
+  }
+  .dim-icon svg{width:22px;height:22px}
+  .dim h3{
+    font-family:"Chakra Petch",sans-serif;font-weight:700;font-size:1rem;
+    color:var(--teal-deep);margin:4px 0 0;
+  }
+  .dim p{font-size:.86rem;line-height:1.55;color:var(--ink);margin:0}
+  .dimensions-note{
+    margin-top:14px;font-size:.82rem;color:var(--muted);text-align:center;font-style:italic;
+  }
+
   /* ---------- EDIT MODE (?edit=1) ---------- */
   .edit-fab{
     position:fixed;bottom:16px;right:16px;z-index:9000;
@@ -462,32 +702,57 @@
 
   <!-- ===================== INTRO ===================== -->
   <section id="intro" class="screen active">
+    <img class="main-logo" src="assets/Mainlogo.png" alt="Main logo" />
     <div class="badge"><span data-i18n="badgeSelfTest">แบบประเมินตนเอง</span> · <b data-i18n="badgeBrand">AI Literacy</b></div>
     <h1 class="title" data-i18n="heroTitle" data-i18n-html="true">คุณอยู่ระดับใด<br>บนเส้นทาง <span class="hl">AI</span>?</h1>
-    <p class="lead" data-i18n="lead" data-i18n-html="true">แบบประเมินนี้อิงจาก <b>LinkedIn AI Upskilling Framework</b> ซึ่งแบ่งทักษะ AI ออกเป็น 5 ระดับ ทำเสร็จใน 3–5 นาที แล้วรับผลวิเคราะห์พร้อมขั้นตอนพัฒนาต่อไปเป็นรายบุคคล</p>
 
-    <div class="scope-banner" data-i18n="assessmentScopeNote">แบบประเมินนี้ครอบคลุมระดับ 1–3 ของ framework (ระดับ 4–5 เป็นทักษะเฉพาะทาง)</div>
-
-    <div class="levels" id="introLevels"></div>
-
-    <section class="about-card" aria-labelledby="aboutHeading">
-      <h2 class="about-h" id="aboutHeading" data-i18n="aboutHead">เกี่ยวกับ framework</h2>
-      <p class="about-sub" data-i18n="aboutSub">โครงสร้าง 5 ระดับ — ภาพรวมโดยย่อ</p>
-      <div class="diagram" id="frameworkDiagram" aria-hidden="true"></div>
-      <div class="diagram-labels" id="frameworkLabels"></div>
-      <p class="about-body" data-i18n="aboutBody" data-i18n-html="true">framework นี้จัดกลุ่มทักษะ AI ออกเป็น 5 ระดับ ตั้งแต่ความเข้าใจพื้นฐานไปจนถึงการเชี่ยวชาญเฉพาะทาง โครงสร้างปรับมาจาก <b>LinkedIn AI Upskilling Framework</b> ส่วนการแปล การปรับเป็นภาษาไทย และการพัฒนาเครื่องมือประเมินตนเองนี้เป็นของผู้พัฒนา</p>
-      <p class="about-link"><a id="linkedinLink" href="https://learning.linkedin.com/" target="_blank" rel="noopener noreferrer" data-i18n="linkedinLinkText">อ่านเกี่ยวกับ LinkedIn AI Upskilling Framework →</a></p>
-      <div class="about-credit">
-        <p data-i18n="aboutAuthor" data-i18n-html="true">© 2026 <b>Student Talent Development</b><br>Faculty of Engineering, Chiang Mai University</p>
-        <p class="cc-line">
-          <svg class="cc-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M9.5 9.5a3 3 0 1 0 0 5"/><path d="M16 9.5a3 3 0 1 0 0 5"/></svg>
-          <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank" rel="noopener noreferrer" data-i18n="ccLink">เผยแพร่ภายใต้สัญญาอนุญาต CC BY-NC-SA 4.0</a>
-        </p>
+    <section class="dimensions-card" aria-labelledby="dimensionsHeading">
+      <h2 class="about-h" id="dimensionsHeading" data-i18n="dimensionsHead">แบบประเมินมอง 3 มิติ</h2>
+      <div class="dimensions-grid">
+        <div class="dim">
+          <span class="dim-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="8" r="4"/>
+              <path d="M4 21v-1.5a6 6 0 0 1 6-6h4a6 6 0 0 1 6 6V21"/>
+            </svg>
+          </span>
+          <h3 data-i18n="dimRoleName">บทบาทงาน</h3>
+          <p data-i18n="dimRoleDesc">เลือก 1 จาก 9 บทบาท เพื่อรับคำแนะนำตรงงาน</p>
+        </div>
+        <div class="dim">
+          <span class="dim-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="3" y="14" width="4" height="7" rx="1"/>
+              <rect x="10" y="9" width="4" height="12" rx="1"/>
+              <rect x="17" y="4" width="4" height="17" rx="1"/>
+            </svg>
+          </span>
+          <h3 data-i18n="dimSkillName">ทักษะการใช้ AI</h3>
+          <p data-i18n="dimSkillDesc">3 ระดับ: เข้าใจ → ใช้ → สร้าง</p>
+        </div>
+        <div class="dim">
+          <span class="dim-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="7" cy="8" r="3"/>
+              <path d="M2.5 21v-1.5a4 4 0 0 1 4-4h1a4 4 0 0 1 4 4V21"/>
+              <circle cx="17" cy="8" r="3"/>
+              <path d="M12.5 21v-1.5a4 4 0 0 1 4-4h1a4 4 0 0 1 4 4V21"/>
+            </svg>
+          </span>
+          <h3 data-i18n="dimPartnershipName">ความสัมพันธ์กับ AI</h3>
+          <p data-i18n="dimPartnershipDesc">4 มิติ Human-in-the-Loop: ตรวจสอบ · เลือกใช้ · ทักษะมนุษย์ · นำ AI</p>
+        </div>
       </div>
+      <p class="dimensions-note" data-i18n="dimensionsNote">ผลลัพธ์รวมเป็น 1 ใน 4 รูปแบบการใช้ AI (ดูด้านล่าง)</p>
+    </section>
+
+    <section class="about-card quadrants-card" aria-labelledby="quadrantsExplainedHeading">
+      <h2 class="about-h" id="quadrantsExplainedHeading" data-i18n="quadrantsExplainedHead">4 รูปแบบการใช้ AI</h2>
+      <p class="about-sub" data-i18n="quadrantsExplainedSub">เกิดจากการตัดกันของ "ทักษะ AI" และ "ความสัมพันธ์กับ AI"</p>
+      <div class="quadrant-grid" id="introQuadrantGrid"></div>
     </section>
 
     <div class="cta"><button class="btn" onclick="start()" data-i18n="startBtn">เริ่มทำแบบประเมิน →</button></div>
-    <p class="meta-note" data-i18n="metaNote">20 ข้อ · ไม่มีถูกผิด · ตอบตามความเป็นจริงของคุณ</p>
   </section>
 
   <!-- ===================== NAME ===================== -->
@@ -546,64 +811,115 @@
 
   <!-- ===================== RESULT ===================== -->
   <section id="result" class="screen">
-    <div class="res-hero">
-      <div class="k" data-i18n="rHero">ระดับสะสมโดยรวมของคุณ</div>
-      <div class="lvlnum" id="rNum">—</div>
-      <div class="lvlname" id="rName"></div>
-      <p class="blurb" id="rBlurb"></p>
-      <p class="placement-note" id="rPlacementNote"></p>
-      <p class="next-milestone" id="rNextMilestone" hidden><span id="rNextMilestoneText"></span></p>
+    <div class="res-hero quadrant-hero" id="rQuadrantHero">
+      <div class="k" data-i18n="rHeroQuadrant">รูปแบบการใช้ AI ของคุณ</div>
+      <div class="quadrant-hero-body">
+        <img class="quadrant-hero-avatar" id="rQuadrantHeroAvatar" alt="" />
+        <div class="quadrant-hero-text">
+          <div class="quadrant-hero-name" id="rQuadrantHeroName">—</div>
+          <div class="quadrant-hero-axes" id="rQuadrantHeroAxes"></div>
+          <p class="quadrant-hero-short" id="rQuadrantHeroShort"></p>
+        </div>
+      </div>
+      <p class="quadrant-hero-blurb" id="rQuadrantHeroBlurb"></p>
+      <p class="quadrant-hero-nudge" id="rQuadrantHeroNudge"></p>
       <div class="res-meta" id="rMeta"></div>
     </div>
 
-    <div class="section-h" data-i18n="profileHead">โปรไฟล์ทักษะรายระดับ</div>
+    <details class="quadrants-details">
+      <summary data-i18n="quadrantsExplainedResultToggle">เปรียบเทียบทั้ง 4 รูปแบบ</summary>
+      <div class="quadrant-grid" id="resultQuadrantGrid"></div>
+    </details>
+
+    <p class="mini bridge-line" data-i18n="partnershipSub">ทักษะ = "คุณใช้ AI ทำอะไรได้" · ความสัมพันธ์ = "คุณใช้ AI ยังไง"</p>
+
+    <div class="section-h with-logo">
+      <span class="section-logo" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="3" y="14" width="4" height="7" rx="1"/>
+          <rect x="10" y="9" width="4" height="12" rx="1"/>
+          <rect x="17" y="4" width="4" height="17" rx="1"/>
+        </svg>
+      </span>
+      <span data-i18n="profileHead">ทักษะการใช้ AI ของคุณ</span>
+    </div>
     <div class="profile" id="rProfile"></div>
-    <p class="mini" data-i18n="profileMini">เกณฑ์: ≥ 70% ถือว่า "มั่นใจ/ทำได้" ในระดับนั้น · ระดับโดยรวมคำนวณแบบสะสม (ต้องผ่านระดับล่างก่อน)</p>
+
+    <div id="rPartnershipWrap" hidden>
+      <div class="section-h with-logo">
+        <span class="section-logo" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="7" cy="8" r="3"/>
+            <path d="M2.5 21v-1.5a4 4 0 0 1 4-4h1a4 4 0 0 1 4 4V21"/>
+            <circle cx="17" cy="8" r="3"/>
+            <path d="M12.5 21v-1.5a4 4 0 0 1 4-4h1a4 4 0 0 1 4 4V21"/>
+          </svg>
+        </span>
+        <span data-i18n="partnershipHead">ภาพรวมความสัมพันธ์ของคุณกับ AI</span>
+      </div>
+      <div class="profile" id="rPartnershipComposite"></div>
+      <div class="profile partnership-subs" id="rPartnershipBars"></div>
+    </div>
 
     <div class="twocol">
       <div class="card"><h4 data-i18n="strongHead">จุดแข็ง</h4><ul id="rStrong"></ul></div>
       <div class="card"><h4 data-i18n="growHead">จุดที่ควรพัฒนา</h4><ul id="rGrow"></ul></div>
     </div>
 
-    <div id="rVerdictWrap" hidden>
-      <div class="section-h" data-i18n="verdictHead">บทบาทกับระดับ AI ของคุณ</div>
-      <div class="verdict-card" id="rVerdict">
-        <h4 id="rVerdictHead" style="font-family:'Chakra Petch',sans-serif;font-weight:600;font-size:1rem;color:var(--teal-deep)"></h4>
-        <p class="verdict-line" id="rVerdictLine"></p>
-        <p class="verdict-msg" id="rVerdictMsg"></p>
-      </div>
-      <div class="stretch-card" id="rStretch" hidden>
-        <h4 id="rStretchHead" data-i18n="stretchHead">🚀 คุณเก่งเกินเพดานบทบาท</h4>
-        <p class="stretch-sub" id="rStretchSub"></p>
-        <p class="stretch-intro" id="rStretchIntro" data-i18n="stretchIntro">ทักษะคุณเกินที่บทบาทปัจจุบันต้องการ มีสองทางเลือกที่ทั้งคู่ดีและไม่ผิด เลือกตามเป้าหมาย</p>
-        <div class="stretch-paths">
-          <div class="stretch-path">
-            <h5 data-i18n="stretchPathAHead">ทางที่ A · เป็น AI Champion ในงานเดิม</h5>
-            <p id="rStretchA"></p>
-          </div>
-          <div class="stretch-path">
-            <h5 data-i18n="stretchPathBHead">ทางที่ B · ขยับสายงานให้ตรงสกิล</h5>
-            <p id="rStretchB"></p>
-          </div>
-        </div>
-        <p class="stretch-note" data-i18n="stretchNote">ทั้งคู่ไม่ผิด — เลือกตามเป้าหมายของคุณ</p>
-      </div>
-    </div>
-
     <div class="section-h" data-i18n="nextHead">ขั้นตอนต่อไปสำหรับคุณ</div>
-    <div class="card">
+    <div class="card next-card" id="rNextCard">
+      <p class="role-line" id="rRoleLine" hidden></p>
       <h4 id="rNextH"></h4>
       <ul id="rNext"></ul>
+      <p class="placement-note inline" id="rPlacementNote"></p>
+      <p class="next-milestone inline" id="rNextMilestone" hidden><span id="rNextMilestoneText"></span></p>
       <div style="margin-top:14px">
         <div class="lvl-tag" id="rWorkshopsLabel" data-i18n="workshopsLabel" style="margin-bottom:8px">หัวข้อ workshop ที่ขอแนะนำ</div>
         <div class="paths" id="rWorkshops"></div>
       </div>
     </div>
 
+    <div class="stretch-card" id="rStretch" hidden>
+      <h4 id="rStretchHead" data-i18n="stretchHead">🚀 คุณเก่งเกินเพดานบทบาท</h4>
+      <p class="stretch-sub" id="rStretchSub"></p>
+      <p class="stretch-intro" id="rStretchIntro" data-i18n="stretchIntro">ทักษะคุณเกินที่บทบาทปัจจุบันต้องการ มีสองทางเลือกที่ทั้งคู่ดีและไม่ผิด เลือกตามเป้าหมาย</p>
+      <div class="stretch-paths">
+        <div class="stretch-path">
+          <h5 data-i18n="stretchPathAHead">ทางที่ A · เป็น AI Champion ในงานเดิม</h5>
+          <p id="rStretchA"></p>
+        </div>
+        <div class="stretch-path">
+          <h5 data-i18n="stretchPathBHead">ทางที่ B · ขยับสายงานให้ตรงสกิล</h5>
+          <p id="rStretchB"></p>
+        </div>
+      </div>
+      <p class="stretch-note" data-i18n="stretchNote">ทั้งคู่ไม่ผิด — เลือกตามเป้าหมายของคุณ</p>
+    </div>
+
+    <!-- Hidden — kept for legacy reference, populated for image generation -->
+    <span hidden id="rNum">—</span>
+    <span hidden id="rName"></span>
+    <span hidden id="rBlurb"></span>
+
+    <div class="section-h" data-i18n="tagBlockHead">แท็กสรุปสำหรับองค์กร</div>
+    <p class="mini" data-i18n="tagBlockHint">(คัดลอกหรือถ่ายภาพไปรวมเป็นภาพรวมทีม)</p>
+    <pre class="tag-block" id="rTagBlock"></pre>
+
+    <details class="org-guide" id="rOrgGuide">
+      <summary data-i18n="orgGuideToggle">วิธีใช้แท็กสำหรับองค์กร</summary>
+      <p class="org-guide-intro" data-i18n="orgGuideIntro"></p>
+      <h5 data-i18n="orgGuideTagsHead">ความหมายของแท็ก</h5>
+      <ul id="rOrgGuideTags"></ul>
+      <h5 data-i18n="orgGuideCollectHead">วิธีเก็บข้อมูล</h5>
+      <p data-i18n="orgGuideCollectBody"></p>
+      <h5 data-i18n="orgGuideColumnsHead">คอลัมน์ที่แนะนำใน spreadsheet</h5>
+      <p data-i18n="orgGuideColumnsBody"></p>
+      <h5 data-i18n="orgGuidePatternsHead">ตัวอย่างการอ่าน pattern</h5>
+      <ul id="rOrgGuidePatterns"></ul>
+    </details>
+
     <div class="res-actions">
       <button class="btn" onclick="downloadResultImage()" id="downloadBtn" data-i18n="downloadBtn">ดาวน์โหลดเป็นรูปภาพ</button>
-      <button class="btn ghost" onclick="copyResult()" id="copyBtn" data-i18n="copyBtn">คัดลอกสรุปผล</button>
-      <button class="btn ghost" onclick="window.print()" data-i18n="printBtn">บันทึก / พิมพ์ผล (PDF)</button>
       <button class="btn ghost" onclick="restart()" data-i18n="restartBtn">ทำแบบประเมินใหม่</button>
     </div>
   </section>
@@ -615,7 +931,6 @@
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M9.5 9.5a3 3 0 1 0 0 5"/><path d="M16 9.5a3 3 0 1 0 0 5"/></svg>
       <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank" rel="noopener noreferrer" data-i18n="ccLink">เผยแพร่ภายใต้สัญญาอนุญาต CC BY-NC-SA 4.0</a>
     </p>
-    <p class="row" data-i18n="footerFramework">อิง LinkedIn AI Upskilling Framework</p>
   </footer>
 
   <!-- ===================== IMAGE MODAL (iOS Safari fallback) ===================== -->
@@ -668,9 +983,12 @@ const DIAGRAM_LEVELS = [
 const SCALE = CONTENT.scale;
 const ROLES = CONTENT.roles || [];
 const ROLE_STRETCH = CONTENT.roleStretch || {};
+const PARTNERSHIP = CONTENT.partnership;
+const PARTNERSHIP_CUT = (PARTNERSHIP && typeof PARTNERSHIP.threshold === 'number') ? PARTNERSHIP.threshold : 60;
 
 Object.assign(LANG.th, {
   qPillTpl: n => "ระดับ " + n,
+  qPartnershipPillTpl: subName => "ความสัมพันธ์ · " + subName,
   qCountTpl: (n, total) => "ข้อ " + n + " / " + total,
   noStrongTpl: () => "เรากำลังจะค่อย ๆ สร้างจุดแข็งไปด้วยกัน เริ่มจากด้านพื้นฐานก่อน",
   noGrowTpl: () => "ครบทุกด้านแล้ว เยี่ยมมาก! เน้นรักษาความรู้และเรียนรู้ต่อเนื่อง",
@@ -679,14 +997,18 @@ Object.assign(LANG.th, {
     ? `ระดับโดยรวม: ระดับ ${placement} — ${name}`
     : "สถานะปัจจุบัน: กำลังเริ่มต้นสำรวจ AI",
   copyRowTpl: (n, name, pct) => `  ${n}. ${name}: ${pct}%`,
+  copyPartnershipTpl: (pct, qName) => `ความสัมพันธ์กับ AI: ${pct}% · รูปแบบ: ${qName}`,
+  copySubtraitRowTpl: (name, pct) => `  · ${name}: ${pct}%`,
   placementBlockedTpl: (level, pct, threshold) =>
     `ขั้นถัดไปของคุณคือ ระดับ ${level} (ตอนนี้ได้ ${pct}%) — มาเริ่มจากด้านนี้กันก่อน เพราะระบบให้ความสำคัญกับการสะสมพื้นฐานก่อน`,
   placementCompleteTpl: threshold =>
-    `คุณรู้สึกมั่นใจในทุกด้านแล้ว — เยี่ยมมาก! รักษาความรู้และเรียนรู้ต่อเนื่อง`
+    `คุณรู้สึกมั่นใจในทุกด้านแล้ว — เยี่ยมมาก! รักษาความรู้และเรียนรู้ต่อเนื่อง`,
+  partnershipCompositeTpl: pct => `Partnership composite: ${pct}%`
 });
 
 Object.assign(LANG.en, {
   qPillTpl: n => "Level " + n,
+  qPartnershipPillTpl: subName => "Partnership · " + subName,
   qCountTpl: (n, total) => "Question " + n + " / " + total,
   noStrongTpl: () => "We'll build up your strengths together — starting from the foundation",
   noGrowTpl: () => "Every area covered — wonderful! Focus on keeping the knowledge alive and learning continuously",
@@ -695,10 +1017,13 @@ Object.assign(LANG.en, {
     ? `Overall level: Level ${placement} — ${name}`
     : "Current status: just starting your AI journey",
   copyRowTpl: (n, name, pct) => `  ${n}. ${name}: ${pct}%`,
+  copyPartnershipTpl: (pct, qName) => `AI Partnership: ${pct}% · Pattern: ${qName}`,
+  copySubtraitRowTpl: (name, pct) => `  · ${name}: ${pct}%`,
   placementBlockedTpl: (level, pct, threshold) =>
     `Your next area to explore is Level ${level} (currently at ${pct}%) — let's start here, since the framework builds from the foundation upward.`,
   placementCompleteTpl: threshold =>
-    `You feel confident across every area — wonderful! Keep the knowledge alive and keep learning.`
+    `You feel confident across every area — wonderful! Keep the knowledge alive and keep learning.`,
+  partnershipCompositeTpl: pct => `Partnership composite: ${pct}%`
 });
 
 /* ---------------- i18n helpers ---------------- */
@@ -727,7 +1052,7 @@ function applyI18n(){
   document.querySelectorAll('[data-i18n]').forEach(el => {
     const key = el.dataset.i18n;
     const val = LANG[currentLang][key];
-    if(val === undefined || typeof val === 'function') return;
+    if(val === undefined || typeof val === 'function' || Array.isArray(val)) return;
     if(el.dataset.i18nHtml === 'true') setSafeRichText(el, val);
     else el.textContent = val;
   });
@@ -740,10 +1065,11 @@ function applyI18n(){
 
   renderIntroLevels();
   renderFrameworkDiagram();
+  renderQuadrantGrid('introQuadrantGrid', null);
   if(document.getElementById('role').classList.contains('active')) renderRoleOptions();
   if(document.getElementById('quiz').classList.contains('active')) renderQ();
   if(document.getElementById('result').classList.contains('active') && window.__res){
-    renderResult(window.__res.pcts, window.__res.placement, 70);
+    renderResult(window.__res.pcts, window.__res.placement, 70, window.__res.partnership);
   }
   updateToggleUI();
 }
@@ -761,7 +1087,12 @@ function formatDate(d, lang){
 }
 
 /* ---------------- build flat question list ---------------- */
-const QS = CORE.buildQuestionList(ASSESSABLE);
+const SKILL_QS = CORE.buildQuestionList(ASSESSABLE).map(q => ({...q, kind: 'skill'}));
+const PARTNERSHIP_QS = PARTNERSHIP
+  ? CORE.buildPartnershipQuestionList(PARTNERSHIP).map(q => ({...q, kind: 'partnership'}))
+  : [];
+const QS = SKILL_QS.concat(PARTNERSHIP_QS);
+const SKILL_COUNT = SKILL_QS.length;
 const TOTAL = QS.length;
 let idx = 0;
 const answers = new Array(TOTAL).fill(null);
@@ -792,6 +1123,7 @@ function setSafeRichText(target, value){
 /* ---------------- intro level cards ---------------- */
 function renderIntroLevels(){
   const box = document.getElementById('introLevels');
+  if(!box) return;
   box.innerHTML = '';
   ASSESSABLE.forEach((L,i)=>{
     const row = document.createElement('div');
@@ -930,16 +1262,30 @@ function restart(){
 
 function renderQ(){
   const item = QS[idx];
-  const L = ASSESSABLE[item.levelIndex];
-  const itemObj = L.items[item.itemIndex];
   const pill = document.getElementById('qPill');
-  pill.textContent = LANG[currentLang].qPillTpl(L.n);
-  pill.style.background = shade(L.color,38);
-  pill.style.color = shade(L.color,-25);
+  let pillText, pillColor, lvlTagText, qText;
+  if(item.kind === 'partnership'){
+    const sub = PARTNERSHIP.subtraits[item.subtraitIndex];
+    const itemObj = sub.items[item.itemIndex];
+    pillText = LANG[currentLang].qPartnershipPillTpl(tx(sub.name));
+    pillColor = PARTNERSHIP.color;
+    lvlTagText = `${tx(sub.name)} · ${currentLang === 'th' ? sub.name.en : sub.name.th}`;
+    qText = tx(itemObj);
+  } else {
+    const L = ASSESSABLE[item.levelIndex];
+    const itemObj = L.items[item.itemIndex];
+    pillText = LANG[currentLang].qPillTpl(L.n);
+    pillColor = L.color;
+    lvlTagText = `${tx(L.name)} · ${currentLang === 'th' ? L.name.en : L.name.th}`;
+    qText = tx(itemObj);
+  }
+  pill.textContent = pillText;
+  pill.style.background = shade(pillColor, 38);
+  pill.style.color = shade(pillColor, -25);
   document.getElementById('qCount').textContent = LANG[currentLang].qCountTpl(idx+1, TOTAL);
   document.getElementById('qBar').style.width = ((idx)/(TOTAL))*100 + '%';
-  document.getElementById('qLvlTag').textContent = `${tx(L.name)} · ${currentLang === 'th' ? L.name.en : L.name.th}`;
-  document.getElementById('qText').textContent = tx(itemObj);
+  document.getElementById('qLvlTag').textContent = lvlTagText;
+  document.getElementById('qText').textContent = qText;
   document.getElementById('backBtn').style.visibility = idx===0 ? 'hidden':'visible';
 
   const sc = document.getElementById('qScale'); sc.innerHTML='';
@@ -985,16 +1331,27 @@ function back(){
 
 /* ---------------- scoring ---------------- */
 function finish(){
-  const pcts = CORE.levelPercentages(ASSESSABLE, answers);
-  const THRESH=70;
+  const skillAnswers = answers.slice(0, SKILL_COUNT);
+  const partnershipAnswers = answers.slice(SKILL_COUNT);
+  const pcts = CORE.levelPercentages(ASSESSABLE, skillAnswers);
+  const THRESH = 70;
   const placement = CORE.cumulativePlacement(pcts, THRESH);
+  const partnershipScores = CORE.partnershipSubtraitScores(PARTNERSHIP, partnershipAnswers);
+  const partnershipComposite = CORE.partnershipComposite(partnershipScores);
+  const quadrantKey = CORE.quadrantPlacement(placement, partnershipComposite, {
+    partnershipCut: PARTNERSHIP_CUT
+  });
   finishedAt = new Date();
-  renderResult(pcts, placement, THRESH);
+  renderResult(pcts, placement, THRESH, {
+    subtraitScores: partnershipScores,
+    composite: partnershipComposite,
+    quadrant: quadrantKey
+  });
   show('result');
 }
 
-function renderResult(pcts, placement, THRESH){
-  window.__res={pcts,placement};
+function renderResult(pcts, placement, THRESH, partnership){
+  window.__res={pcts, placement, partnership};
   const placementNote = document.getElementById('rPlacementNote');
   if(placement < MAX_ASSESSABLE){
     const blockedLevel = placement + 1;
@@ -1106,47 +1463,159 @@ function renderResult(pcts, placement, THRESH){
   fillUl('rStrong', strong.length? strong.slice(0,3).map(x=>LANG[currentLang].rankTpl(tx(x.L.name), x.p)):[LANG[currentLang].noStrongTpl()]);
   fillUl('rGrow', grow.length? grow.slice(0,3).map(x=>LANG[currentLang].rankTpl(tx(x.L.name), x.p)):[LANG[currentLang].noGrowTpl()]);
 
+  renderHero(partnership, placement);
+  renderPartnership(partnership, placement, pcts);
+  renderQuadrantGrid('resultQuadrantGrid', partnership ? partnership.quadrant : null);
   renderRoleVerdict(pcts, THRESH);
+  renderTags(pcts, placement, partnership);
+  renderOrgGuide();
+}
+
+function renderPartnership(partnership, placement, pcts){
+  const wrap = document.getElementById('rPartnershipWrap');
+  if(!wrap || !PARTNERSHIP || !partnership) return;
+  wrap.hidden = false;
+
+  // composite
+  const compositeEl = document.getElementById('rPartnershipComposite');
+  compositeEl.innerHTML = '';
+  const top = document.createElement('div');
+  top.className = 'ptop';
+  const name = document.createElement('span');
+  name.className = 'pname';
+  name.textContent = t('partnershipCompositeLabel');
+  const pct = document.createElement('span');
+  pct.className = 'ppct';
+  pct.style.color = PARTNERSHIP.color;
+  pct.textContent = `${partnership.composite}%`;
+  top.append(name, pct);
+  const bar = document.createElement('div');
+  bar.className = 'pbar';
+  const fill = document.createElement('div');
+  fill.className = 'pfill';
+  fill.style.background = `linear-gradient(90deg,${PARTNERSHIP.color},${shade(PARTNERSHIP.color,25)})`;
+  bar.appendChild(fill);
+  compositeEl.append(top, bar);
+  setTimeout(()=>fill.style.width = partnership.composite + '%', 120);
+
+  // sub-trait bars
+  const bars = document.getElementById('rPartnershipBars');
+  bars.innerHTML = '';
+  PARTNERSHIP.subtraits.forEach((sub, i) => {
+    const p = partnership.subtraitScores[i] || 0;
+    const row = document.createElement('div'); row.className = 'prow';
+    const primary = tx(sub.name);
+    const secondary = currentLang === 'th' ? sub.name.en : sub.name.th;
+    const stop = document.createElement('div'); stop.className = 'ptop';
+    const sname = document.createElement('span'); sname.className = 'pname';
+    sname.append(document.createTextNode(primary + ' '));
+    const secLabel = document.createElement('small');
+    secLabel.textContent = `· ${secondary}`;
+    sname.appendChild(secLabel);
+    const spct = document.createElement('span'); spct.className = 'ppct';
+    spct.style.color = PARTNERSHIP.color;
+    spct.textContent = `${p}%`;
+    stop.append(sname, spct);
+    const sbar = document.createElement('div'); sbar.className = 'pbar';
+    const sfill = document.createElement('div'); sfill.className = 'pfill';
+    sfill.style.background = `linear-gradient(90deg,${PARTNERSHIP.color},${shade(PARTNERSHIP.color,25)})`;
+    sbar.appendChild(sfill);
+    row.append(stop, sbar);
+    bars.appendChild(row);
+    setTimeout(()=>sfill.style.width = p + '%', 200 + i*110);
+  });
+}
+
+function renderHero(partnership, placement){
+  const hero = document.getElementById('rQuadrantHero');
+  if(!hero) return;
+  if(!PARTNERSHIP || !partnership){
+    hero.style.background = '';
+    document.getElementById('rQuadrantHeroName').textContent = '';
+    return;
+  }
+  const q = PARTNERSHIP.quadrants[partnership.quadrant];
+  const dark = shade(q.color, -22);
+  hero.style.background = `linear-gradient(160deg, ${q.color}, ${dark})`;
+  hero.style.boxShadow = `0 24px 50px -26px ${dark}`;
+  const avatar = document.getElementById('rQuadrantHeroAvatar');
+  if(avatar) avatar.src = `assets/quadrant-${partnership.quadrant}.png`;
+  document.getElementById('rQuadrantHeroName').textContent =
+    `${tx(q.name)} · ${currentLang === 'th' ? q.name.en : q.name.th}`;
+  const skillLabel = placement > 0
+    ? t('skillLevelTpl').replace('{n}', placement)
+    : t('skillLevelP0');
+  document.getElementById('rQuadrantHeroAxes').textContent = t('quadrantSubTpl')
+    .replace('{skill}', skillLabel)
+    .replace('{p}', partnership.composite);
+  document.getElementById('rQuadrantHeroShort').textContent = tx(q.short);
+  document.getElementById('rQuadrantHeroBlurb').textContent = tx(q.blurb);
+  document.getElementById('rQuadrantHeroNudge').textContent = tx(q.nudge);
+}
+
+function renderOrgGuide(){
+  const tagsUl = document.getElementById('rOrgGuideTags');
+  const patternsUl = document.getElementById('rOrgGuidePatterns');
+  if(tagsUl){
+    const items = LANG[currentLang].orgGuideTagsBody || [];
+    tagsUl.innerHTML = '';
+    items.forEach(text => {
+      const li = document.createElement('li');
+      li.textContent = text;
+      tagsUl.appendChild(li);
+    });
+  }
+  if(patternsUl){
+    const items = LANG[currentLang].orgGuidePatternsBody || [];
+    patternsUl.innerHTML = '';
+    items.forEach(text => {
+      const li = document.createElement('li');
+      li.textContent = text;
+      patternsUl.appendChild(li);
+    });
+  }
+}
+
+function renderTags(pcts, placement, partnership){
+  const block = document.getElementById('rTagBlock');
+  if(!block) return;
+  if(!partnership){ block.textContent = ''; return; }
+  const tags = [];
+  const placementLabel = placement > 0
+    ? `L${placement}-${ASSESSABLE[placement-1].name.en.replace(/\s+/g, '')}`
+    : `L0-Starting`;
+  tags.push(`#${placementLabel}`);
+  tags.push(`#P${partnership.composite}`);
+  tags.push(`#Q-${partnership.quadrant}`);
+  if(userRole) tags.push(`#role-${userRole.code}`);
+  PARTNERSHIP.subtraits.forEach((sub, i) => {
+    if((partnership.subtraitScores[i] || 0) < 50) tags.push(`#weak:${sub.key}`);
+  });
+  block.textContent = tags.join(' ');
 }
 
 function renderRoleVerdict(pcts, THRESH){
-  const wrap = document.getElementById('rVerdictWrap');
+  const roleLineEl = document.getElementById('rRoleLine');
   const stretchBox = document.getElementById('rStretch');
-  if(!wrap) return;
+  if(!roleLineEl) return;
   const verdict = CORE.roleVerdict(pcts, userRole, THRESH);
   if(verdict.kind === 'agnostic'){
-    wrap.hidden = true;
-    stretchBox.hidden = true;
+    roleLineEl.hidden = true;
+    if(stretchBox) stretchBox.hidden = true;
     return;
   }
-  wrap.hidden = false;
-  const card = document.getElementById('rVerdict');
-  card.classList.remove('fit','gap','stretch','ontrack');
+  let msg = '';
+  if(verdict.kind === 'below_floor') msg = t('verdictBelowFloor');
+  else if(verdict.kind === 'on_track') msg = t('verdictOnTrack');
+  else if(verdict.kind === 'role_fit') msg = t('verdictRoleFit');
+  else if(verdict.kind === 'above_ceiling') msg = t('verdictAboveCeiling');
+  else if(verdict.kind === 'at_cap') msg = t('verdictAtCapTpl').replace('{target}', verdict.targetCeiling);
 
   const roleName = tx(userRole.label);
-  document.getElementById('rVerdictHead').textContent = t('verdictHead');
-  document.getElementById('rVerdictLine').textContent = t('verdictRoleLineTpl')
-    .replace('{role}', roleName).replace('{ceiling}', userRole.ceiling);
+  roleLineEl.textContent = t('roleLineTpl').replace('{role}', roleName).replace('{msg}', msg);
+  roleLineEl.hidden = false;
 
-  const msgEl = document.getElementById('rVerdictMsg');
-  if(verdict.kind === 'below_floor'){
-    card.classList.add('gap');
-    msgEl.textContent = t('verdictBelowFloor');
-  } else if(verdict.kind === 'on_track'){
-    card.classList.add('ontrack');
-    msgEl.textContent = t('verdictOnTrack');
-  } else if(verdict.kind === 'role_fit'){
-    card.classList.add('fit');
-    msgEl.textContent = t('verdictRoleFit');
-  } else if(verdict.kind === 'above_ceiling'){
-    card.classList.add('stretch');
-    msgEl.textContent = t('verdictAboveCeiling');
-  } else if(verdict.kind === 'at_cap'){
-    card.classList.add('fit');
-    msgEl.textContent = t('verdictAtCapTpl').replace('{target}', verdict.targetCeiling);
-  }
-
-  if(verdict.kind === 'above_ceiling'){
+  if(verdict.kind === 'above_ceiling' && stretchBox){
     stretchBox.hidden = false;
     const reached = Math.max(verdict.placement, verdict.practiceMax);
     document.getElementById('rStretchSub').textContent = t('stretchSubTpl')
@@ -1154,7 +1623,7 @@ function renderRoleVerdict(pcts, THRESH){
     const pair = ROLE_STRETCH[userRole.code] || {};
     document.getElementById('rStretchA').textContent = pair.champion ? tx(pair.champion) : '';
     document.getElementById('rStretchB').textContent = pair.pivot ? tx(pair.pivot) : '';
-  } else {
+  } else if(stretchBox){
     stretchBox.hidden = true;
   }
 }
@@ -1163,7 +1632,7 @@ function fillUl(id,arr){const ul=document.getElementById(id);ul.innerHTML='';arr
 function fillChips(id,arr){const box=document.getElementById(id);box.innerHTML='';arr.forEach(t=>{const c=document.createElement('span');c.className='chip';c.textContent=t;box.appendChild(c);});}
 
 function copyResult(){
-  const {pcts,placement}=window.__res||{};
+  const {pcts,placement,partnership}=window.__res||{};
   const placementName = placement ? tx(ASSESSABLE[placement-1].name) : '';
   const workshops = placement ? ASSESSABLE[placement-1].workshops : ASSESSABLE[0].workshops;
   const lines=[t('copyHeader'),""];
@@ -1175,6 +1644,11 @@ function copyResult(){
     lines.push(LANG[currentLang].placementBlockedTpl(placement + 1, pcts[placement], 70));
   } else {
     lines.push(LANG[currentLang].placementCompleteTpl(70));
+  }
+  if(partnership && PARTNERSHIP){
+    const q = PARTNERSHIP.quadrants[partnership.quadrant];
+    lines.push("");
+    lines.push(LANG[currentLang].copyPartnershipTpl(partnership.composite, tx(q.name)));
   }
   if(userRole){
     const verdict = CORE.roleVerdict(pcts, userRole, 70);
@@ -1195,13 +1669,98 @@ function copyResult(){
   lines.push("");
   lines.push(t('copyProfileHead'));
   ASSESSABLE.forEach((L,li)=>lines.push(LANG[currentLang].copyRowTpl(L.n, tx(L.name), pcts[li])));
+  if(partnership && PARTNERSHIP){
+    lines.push("");
+    lines.push(t('partnershipHead') + ':');
+    PARTNERSHIP.subtraits.forEach((sub, i) => {
+      lines.push(LANG[currentLang].copySubtraitRowTpl(tx(sub.name), partnership.subtraitScores[i] || 0));
+    });
+  }
   lines.push("");
   lines.push(t('copyWorkshopsHead'));
   workshops.forEach(w=>lines.push("  · " + tx(w)));
+  const tagEl = document.getElementById('rTagBlock');
+  if(tagEl && tagEl.textContent.trim()){
+    lines.push("");
+    lines.push(t('tagBlockHead') + ':');
+    lines.push(tagEl.textContent);
+  }
   const text=lines.join("\n");
   navigator.clipboard.writeText(text).then(()=>{
     const b=document.getElementById('copyBtn');const o=b.textContent;b.textContent=t('copyDone');setTimeout(()=>b.textContent=o,1800);
   }).catch(()=>{alert(text);});
+}
+
+/* ---------------- quadrant persona icons ----------------
+   Illustrated character avatars from assets/. Drop replacement files
+   into assets/ with matching filenames to swap art. */
+const QUADRANT_ICONS = {
+  novice: () => `<img src="assets/quadrant-novice.png" alt="" loading="lazy">`,
+  coach: () => `<img src="assets/quadrant-coach.png" alt="" loading="lazy">`,
+  autopilot: () => `<img src="assets/quadrant-autopilot.png" alt="" loading="lazy">`,
+  director: () => `<img src="assets/quadrant-director.png" alt="" loading="lazy">`
+};
+
+function renderQuadrantGrid(containerId, currentKey){
+  const box = document.getElementById(containerId);
+  if(!box || !PARTNERSHIP) return;
+  box.innerHTML = '';
+  ['novice', 'coach', 'autopilot', 'director'].forEach(key => {
+    const q = PARTNERSHIP.quadrants[key];
+    if(!q) return;
+    const persona = q.persona || {};
+    const card = document.createElement('div');
+    card.className = 'quadrant-persona';
+    if(key === currentKey) card.classList.add('is-current');
+    card.style.setProperty('--persona-color', q.color);
+
+    if(key === currentKey){
+      const tag = document.createElement('span');
+      tag.className = 'current-tag';
+      tag.textContent = currentLang === 'th' ? 'คุณอยู่นี่' : 'You are here';
+      card.appendChild(tag);
+    }
+
+    const head = document.createElement('div');
+    head.className = 'quadrant-persona-head';
+    const iconWrap = document.createElement('div');
+    iconWrap.className = 'quadrant-persona-icon';
+    iconWrap.innerHTML = (QUADRANT_ICONS[key] || (() => ''))(q.color);
+    const nameEl = document.createElement('div');
+    nameEl.className = 'quadrant-persona-name';
+    const primary = tx(q.name);
+    const secondary = currentLang === 'th' ? q.name.en : q.name.th;
+    nameEl.append(document.createTextNode(primary));
+    const small = document.createElement('small');
+    small.textContent = secondary;
+    nameEl.appendChild(small);
+    head.append(iconWrap, nameEl);
+    card.appendChild(head);
+
+    if(persona.who){
+      const h = document.createElement('h6'); h.textContent = t('quadrantPersonaWhoHead'); card.appendChild(h);
+      const p = document.createElement('p'); p.textContent = tx(persona.who); card.appendChild(p);
+    }
+    if(Array.isArray(persona.strengths) && persona.strengths.length){
+      const h = document.createElement('h6'); h.textContent = t('quadrantStrengthsHead'); card.appendChild(h);
+      const ul = document.createElement('ul');
+      persona.strengths.forEach(s => { const li = document.createElement('li'); li.textContent = tx(s); ul.appendChild(li); });
+      card.appendChild(ul);
+    }
+    if(Array.isArray(persona.watchouts) && persona.watchouts.length){
+      const h = document.createElement('h6'); h.textContent = t('quadrantWatchoutsHead'); card.appendChild(h);
+      const ul = document.createElement('ul');
+      persona.watchouts.forEach(s => { const li = document.createElement('li'); li.textContent = tx(s); ul.appendChild(li); });
+      card.appendChild(ul);
+    }
+    if(Array.isArray(persona.workshops) && persona.workshops.length){
+      const h = document.createElement('h6'); h.textContent = t('quadrantWorkshopsHead'); card.appendChild(h);
+      const ul = document.createElement('ul');
+      persona.workshops.forEach(s => { const li = document.createElement('li'); li.textContent = tx(s); ul.appendChild(li); });
+      card.appendChild(ul);
+    }
+    box.appendChild(card);
+  });
 }
 
 /* lighten/darken hex */
@@ -1564,6 +2123,7 @@ async function downloadResultImage(){
 /* ---------------- init ---------------- */
 renderIntroLevels();
 renderFrameworkDiagram();
+renderQuadrantGrid('introQuadrantGrid', null);
 updateToggleUI();
 
 /* image modal dismiss handlers */

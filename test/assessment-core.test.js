@@ -95,3 +95,52 @@ test('role verdict clamps ceiling to assessable range for non-cap cases', () => 
   assert.equal(v.placement, 2);
   assert.equal(v.toGo, 1);
 });
+
+test('buildPartnershipQuestionList flattens subtrait items with reverse flag', () => {
+  const partnership = {
+    subtraits: [
+      {key: 'a', items: [{reverse: false}, {reverse: true}]},
+      {key: 'b', items: [{reverse: false}]}
+    ]
+  };
+  const qs = core.buildPartnershipQuestionList(partnership);
+  assert.equal(qs.length, 3);
+  assert.deepEqual(qs[0], {subtraitIndex: 0, itemIndex: 0, reverse: false});
+  assert.deepEqual(qs[1], {subtraitIndex: 0, itemIndex: 1, reverse: true});
+  assert.deepEqual(qs[2], {subtraitIndex: 1, itemIndex: 0, reverse: false});
+});
+
+test('partnershipSubtraitScores inverts reverse-scored answers', () => {
+  const partnership = {
+    subtraits: [
+      {key: 'a', items: [{reverse: false}, {reverse: true}]},
+      {key: 'b', items: [{reverse: false}, {reverse: false}]}
+    ]
+  };
+  const scores = core.partnershipSubtraitScores(partnership, [4, 0, 4, 4]);
+  assert.deepEqual(scores, [100, 100]);
+  const mixed = core.partnershipSubtraitScores(partnership, [4, 4, 2, 2]);
+  assert.deepEqual(mixed, [50, 50]);
+});
+
+test('partnershipComposite averages subtrait scores', () => {
+  assert.equal(core.partnershipComposite([100, 50, 25, 25]), 50);
+  assert.equal(core.partnershipComposite([60, 60, 60, 60]), 60);
+  assert.equal(core.partnershipComposite([]), 0);
+});
+
+test('quadrantPlacement assigns four quadrants from skill and partnership', () => {
+  assert.equal(core.quadrantPlacement(0, 30), 'novice');
+  assert.equal(core.quadrantPlacement(1, 30), 'novice');
+  assert.equal(core.quadrantPlacement(0, 80), 'coach');
+  assert.equal(core.quadrantPlacement(1, 80), 'coach');
+  assert.equal(core.quadrantPlacement(2, 30), 'autopilot');
+  assert.equal(core.quadrantPlacement(3, 30), 'autopilot');
+  assert.equal(core.quadrantPlacement(2, 80), 'director');
+  assert.equal(core.quadrantPlacement(3, 80), 'director');
+});
+
+test('quadrantPlacement respects custom cuts', () => {
+  assert.equal(core.quadrantPlacement(1, 50, {skillCut: 1, partnershipCut: 50}), 'director');
+  assert.equal(core.quadrantPlacement(1, 49, {skillCut: 1, partnershipCut: 50}), 'autopilot');
+});

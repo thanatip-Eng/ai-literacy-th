@@ -70,6 +70,60 @@ function validateContent(content) {
     });
   }
 
+  if (content.partnership) {
+    const p = content.partnership;
+    for (const key of ['name', 'desc']) {
+      assertBilingual(p[key], `partnership.${key}`, errors);
+    }
+    if (!/^#[0-9A-Fa-f]{6}$/.test(p.color || '')) {
+      errors.push('partnership.color must be a hex color');
+    }
+    if (typeof p.threshold !== 'number' || p.threshold < 0 || p.threshold > 100) {
+      errors.push('partnership.threshold must be a number between 0 and 100');
+    }
+    if (!Array.isArray(p.subtraits) || !p.subtraits.length) {
+      errors.push('partnership.subtraits must be a non-empty array');
+    } else {
+      p.subtraits.forEach((sub, index) => {
+        const label = `partnership.subtraits[${index}]`;
+        if (typeof sub.key !== 'string' || !sub.key.trim()) {
+          errors.push(`${label}.key must be a non-empty string`);
+        }
+        for (const key of ['name', 'desc']) {
+          assertBilingual(sub[key], `${label}.${key}`, errors);
+        }
+        if (!Array.isArray(sub.items) || !sub.items.length) {
+          errors.push(`${label}.items must be a non-empty array`);
+          return;
+        }
+        sub.items.forEach((item, itemIndex) => {
+          assertBilingual(item, `${label}.items[${itemIndex}]`, errors);
+          if (item && typeof item.reverse !== 'boolean') {
+            errors.push(`${label}.items[${itemIndex}].reverse must be a boolean`);
+          }
+        });
+      });
+    }
+    if (!p.quadrants || typeof p.quadrants !== 'object') {
+      errors.push('partnership.quadrants must be an object');
+    } else {
+      for (const qKey of ['novice', 'coach', 'autopilot', 'director']) {
+        const q = p.quadrants[qKey];
+        const label = `partnership.quadrants.${qKey}`;
+        if (!q) {
+          errors.push(`${label} is required`);
+          continue;
+        }
+        for (const key of ['name', 'short', 'blurb', 'nudge']) {
+          assertBilingual(q[key], `${label}.${key}`, errors);
+        }
+        if (!/^#[0-9A-Fa-f]{6}$/.test(q.color || '')) {
+          errors.push(`${label}.color must be a hex color`);
+        }
+      }
+    }
+  }
+
   if (!Array.isArray(content.scale) || content.scale.length !== 5) {
     errors.push('scale must contain exactly five choices');
   } else {
