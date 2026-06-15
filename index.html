@@ -4,6 +4,9 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title data-i18n="documentTitle">แบบประเมิน AI Literacy — LinkedIn AI Upskilling Framework</title>
+<link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="assets/favicon-16.png">
+<link rel="apple-touch-icon" sizes="180x180" href="assets/favicon-180.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@500;600;700&family=IBM+Plex+Sans+Thai:wght@300;400;500;600;700&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -1686,7 +1689,9 @@ function renderQuadrantGrid(containerId, currentKey){
   const box = document.getElementById(containerId);
   if(!box || !PARTNERSHIP) return;
   box.innerHTML = '';
-  ['novice', 'coach', 'autopilot', 'director'].forEach(key => {
+  // 2×2 grid order: top-left autopilot, top-right director,
+  // bottom-left novice, bottom-right coach (skill→ X axis, partnership→ Y axis)
+  ['autopilot', 'director', 'novice', 'coach'].forEach(key => {
     const q = PARTNERSHIP.quadrants[key];
     if(!q) return;
     const persona = q.persona || {};
@@ -1834,13 +1839,29 @@ function wrapToLines(ctx, text, maxWidth, maxLines){
   return lines;
 }
 
+function loadImage(src){
+  return new Promise((resolve, reject) => {
+    const img = new Image();
+    img.onload = () => resolve(img);
+    img.onerror = () => reject(new Error('image load failed: ' + src));
+    img.src = src;
+  });
+}
+
 async function generateResultImage(lang){
   await ensureFontsLoaded();
   const L18 = LANG[lang];
-  const pcts = (window.__res && window.__res.pcts) || ASSESSABLE.map(()=>0);
   const placement = (window.__res && window.__res.placement) || 0;
-  const lvl = placement ? ASSESSABLE[placement-1] : null;
-  const color = lvl ? lvl.color : '#0E6E63';
+  const partnership = (window.__res && window.__res.partnership) || null;
+  const quadKey = partnership ? partnership.quadrant : null;
+  const q = quadKey && PARTNERSHIP ? PARTNERSHIP.quadrants[quadKey] : null;
+  const color = q ? q.color : '#0E6E63';
+
+  let avatarImg = null;
+  if(quadKey){
+    try { avatarImg = await loadImage(`assets/quadrant-${quadKey}.png`); }
+    catch(_){ avatarImg = null; }
+  }
 
   const canvas = document.createElement('canvas');
   canvas.width = IMG_W;
@@ -1848,11 +1869,10 @@ async function generateResultImage(lang){
   const ctx = canvas.getContext('2d');
   ctx.textBaseline = 'alphabetic';
 
-  // ----- background paper
+  // ----- paper background
   ctx.fillStyle = '#F3EEE4';
   ctx.fillRect(0, 0, IMG_W, IMG_H);
 
-  // warm radial gradients (top-right amber, bottom-left teal)
   const g1 = ctx.createRadialGradient(IMG_W*0.85, -100, 0, IMG_W*0.85, -100, 900);
   g1.addColorStop(0, 'rgba(217,133,42,0.20)');
   g1.addColorStop(1, 'rgba(217,133,42,0)');
@@ -1865,170 +1885,237 @@ async function generateResultImage(lang){
 
   const PAD = 64;
   const SEP = '#DCD3C2';
+  const TEXT = '#211C16';
+  const MUTED = '#736A5C';
+  const AMBER = '#B5642A';
 
-  // ----- 1) Title (Y 0–80)
+  // ----- 1) Title (0–80)
   ctx.fillStyle = '#0E6E63';
-  ctx.font = '600 30px "Chakra Petch", sans-serif';
+  ctx.font = '600 28px "Chakra Petch", sans-serif';
   ctx.textAlign = 'center';
   ctx.fillText(L18.imgBrand, IMG_W/2, 52);
-
   ctx.strokeStyle = SEP; ctx.lineWidth = 1;
   ctx.beginPath(); ctx.moveTo(PAD, 80); ctx.lineTo(IMG_W-PAD, 80); ctx.stroke();
 
-  // ----- 2) Hero (Y 80–600)
-  // eyebrow label
-  ctx.fillStyle = '#736A5C';
-  ctx.font = '600 26px "Chakra Petch", sans-serif';
-  ctx.fillText(L18.imgOverall, IMG_W/2, 170);
+  // ----- 2) Quadrant hero (80–760)
+  ctx.fillStyle = MUTED;
+  ctx.font = '600 24px "Chakra Petch", sans-serif';
+  ctx.fillText(L18.imgOverall, IMG_W/2, 130);
 
-  // big circle with level number
-  const cx = IMG_W/2, cy = 360, rad = 170;
-  const ringGrad = ctx.createLinearGradient(cx-rad, cy-rad, cx+rad, cy+rad);
-  ringGrad.addColorStop(0, color);
-  ringGrad.addColorStop(1, shade(color, -22));
-  ctx.fillStyle = ringGrad;
-  ctx.beginPath(); ctx.arc(cx, cy, rad, 0, Math.PI*2); ctx.fill();
+  // soft tinted halo behind avatar
+  const avatarSize = 240;
+  const avatarCy = 290;
+  ctx.fillStyle = color;
+  ctx.globalAlpha = 0.10;
+  ctx.beginPath();
+  ctx.arc(IMG_W/2, avatarCy, avatarSize/2 + 22, 0, Math.PI*2);
+  ctx.fill();
+  ctx.globalAlpha = 1.0;
 
-  // amber soft glow accent
-  const glow = ctx.createRadialGradient(cx+90, cy-90, 0, cx+90, cy-90, 220);
-  glow.addColorStop(0, 'rgba(217,133,42,0.45)');
-  glow.addColorStop(1, 'rgba(217,133,42,0)');
-  ctx.fillStyle = glow;
-  ctx.beginPath(); ctx.arc(cx, cy, rad, 0, Math.PI*2); ctx.fill();
-
-  // number inside
-  ctx.fillStyle = '#fff';
-  ctx.font = '700 200px "Chakra Petch", sans-serif';
-  ctx.textBaseline = 'middle';
-  ctx.fillText(String(placement || 0), cx, cy + 6);
-  ctx.textBaseline = 'alphabetic';
-
-  // level name TH + EN
-  const heroLineY = 575;
-  const primaryName = lvl ? lvl.name[lang] : L18.imgP0Name;
-  const secondaryName = lvl ? (lang === 'th' ? lvl.name.en : lvl.name.th) : '';
-  ctx.fillStyle = '#211C16';
-  ctx.font = '600 44px "Chakra Petch", sans-serif';
-  const heroLine = secondaryName ? `${primaryName} · ${secondaryName}` : primaryName;
-  ctx.fillText(truncateToWidth(ctx, heroLine, IMG_W - PAD*2), IMG_W/2, heroLineY);
-
-  // ----- 3) Name + Date (Y 600–700)
-  const dateText = formatDate(finishedAt || new Date(), lang);
-  if(userName){
-    ctx.fillStyle = '#211C16';
-    ctx.font = '600 36px "IBM Plex Sans Thai", "IBM Plex Sans", sans-serif';
-    ctx.fillText(truncateToWidth(ctx, userName, IMG_W - PAD*2), IMG_W/2, 645);
-    ctx.fillStyle = '#736A5C';
-    ctx.font = '400 26px "IBM Plex Sans Thai", "IBM Plex Sans", sans-serif';
-    ctx.fillText(dateText, IMG_W/2, 685);
+  if(avatarImg){
+    const iw = avatarImg.naturalWidth || avatarImg.width;
+    const ih = avatarImg.naturalHeight || avatarImg.height;
+    const ratio = Math.min(avatarSize/iw, avatarSize/ih);
+    const dw = iw*ratio, dh = ih*ratio;
+    ctx.drawImage(avatarImg, IMG_W/2 - dw/2, avatarCy - dh/2, dw, dh);
   } else {
-    ctx.fillStyle = '#736A5C';
-    ctx.font = '500 30px "IBM Plex Sans Thai", "IBM Plex Sans", sans-serif';
-    ctx.fillText(dateText, IMG_W/2, 665);
-  }
-
-  ctx.beginPath(); ctx.moveTo(PAD, 700); ctx.lineTo(IMG_W-PAD, 700); ctx.stroke();
-
-  // ----- 4) Per-level bars (Y 700–1160; bars iterate assessable levels only)
-  const barsTop = 720;
-  const rowH = 84;
-  const barLeft = PAD, barRight = IMG_W - PAD;
-  for(let i=0; i<ASSESSABLE.length; i++){
-    const L = ASSESSABLE[i];
-    const p = pcts[i] || 0;
-    const rowY = barsTop + i*rowH;
-
-    ctx.textAlign = 'left';
-    ctx.fillStyle = '#211C16';
-    ctx.font = '600 26px "IBM Plex Sans Thai", "IBM Plex Sans", sans-serif';
-    const lblMax = (barRight - barLeft) - 130;
-    ctx.fillText(truncateToWidth(ctx, `${L.n}. ${L.name[lang]}`, lblMax), barLeft, rowY + 22);
-
-    ctx.textAlign = 'right';
-    ctx.fillStyle = L.color;
-    ctx.font = '700 26px "Chakra Petch", sans-serif';
-    ctx.fillText(`${p}%`, barRight, rowY + 22);
-
-    // track
-    const trackY = rowY + 40;
-    const trackH = 18;
-    ctx.fillStyle = '#ECE5D7';
-    roundRect(ctx, barLeft, trackY, barRight - barLeft, trackH, 9); ctx.fill();
-    ctx.strokeStyle = '#DCD3C2'; ctx.lineWidth = 1;
-    roundRect(ctx, barLeft, trackY, barRight - barLeft, trackH, 9); ctx.stroke();
-
-    // fill
-    const fillW = Math.max(0, Math.min(1, p/100)) * (barRight - barLeft);
-    if(fillW > 2){
-      const bg = ctx.createLinearGradient(barLeft, trackY, barLeft + fillW, trackY);
-      bg.addColorStop(0, L.color);
-      bg.addColorStop(1, shade(L.color, 25));
-      ctx.fillStyle = bg;
-      roundRect(ctx, barLeft, trackY, fillW, trackH, 9); ctx.fill();
-    }
-    ctx.strokeStyle = SEP; ctx.lineWidth = 1;
-  }
-  ctx.textAlign = 'center';
-
-  ctx.beginPath(); ctx.moveTo(PAD, 1160); ctx.lineTo(IMG_W-PAD, 1160); ctx.stroke();
-
-  // ----- 5) Workshops (Y 1160–1640)
-  ctx.fillStyle = '#211C16';
-  ctx.font = '600 32px "Chakra Petch", sans-serif';
-  ctx.fillText(L18.imgWorkshopsHead, IMG_W/2, 1210);
-
-  const workshops = (lvl ? lvl.workshops : ASSESSABLE[0].workshops).slice(0, 3);
-  const chipsTop = 1250;
-  const chipMaxW = IMG_W - PAD*2;
-  const chipH = 100;
-  const chipGap = 16;
-  const totalChipsBlock = workshops.length * chipH + Math.max(0, workshops.length-1) * chipGap;
-  const blockStart = chipsTop + ((1640 - chipsTop - 20) - totalChipsBlock) / 2;
-
-  ctx.font = '500 30px "IBM Plex Sans Thai", "IBM Plex Sans", sans-serif';
-  workshops.forEach((w, i) => {
-    const label = w[lang];
-    const cy0 = blockStart + i*(chipH + chipGap);
-    // chip background
-    ctx.fillStyle = '#F0E2C9';
-    roundRect(ctx, PAD, cy0, chipMaxW, chipH, 22); ctx.fill();
-    ctx.strokeStyle = '#DCD3C2'; ctx.lineWidth = 1;
-    roundRect(ctx, PAD, cy0, chipMaxW, chipH, 22); ctx.stroke();
-    // chip label (wrap up to 2 lines)
-    ctx.fillStyle = '#B5642A';
-    ctx.font = '500 30px "IBM Plex Sans Thai", "IBM Plex Sans", sans-serif';
-    const inner = chipMaxW - 60;
-    const lines = wrapToLines(ctx, label, inner, 2);
+    ctx.fillStyle = color;
+    ctx.beginPath();
+    ctx.arc(IMG_W/2, avatarCy, avatarSize/2 - 4, 0, Math.PI*2); ctx.fill();
+    ctx.fillStyle = '#fff';
+    ctx.font = '700 140px "Chakra Petch", sans-serif';
     ctx.textBaseline = 'middle';
-    if(lines.length === 1){
-      ctx.fillText(lines[0], IMG_W/2, cy0 + chipH/2);
-    } else {
-      ctx.fillText(lines[0], IMG_W/2, cy0 + chipH/2 - 18);
-      ctx.fillText(lines[1], IMG_W/2, cy0 + chipH/2 + 18);
-    }
+    ctx.fillText(String(placement || '?'), IMG_W/2, avatarCy);
     ctx.textBaseline = 'alphabetic';
-  });
+  }
 
-  ctx.beginPath(); ctx.moveTo(PAD, 1640); ctx.lineTo(IMG_W-PAD, 1640); ctx.stroke();
+  // quadrant name TH (or current lang) + secondary
+  const primaryName = q ? q.name[lang] : L18.imgP0Name;
+  const secondaryName = q ? (lang === 'th' ? q.name.en : q.name.th) : '';
 
-  // ----- 6) Copyright + attribution (Y 1640–1920)
-  ctx.textAlign = 'center';
-  ctx.fillStyle = '#211C16';
+  ctx.fillStyle = TEXT;
+  ctx.font = '600 46px "Chakra Petch", sans-serif';
+  ctx.fillText(truncateToWidth(ctx, primaryName, IMG_W - PAD*2), IMG_W/2, 470);
+
+  if(secondaryName){
+    ctx.fillStyle = MUTED;
+    ctx.font = '500 26px "Chakra Petch", sans-serif';
+    ctx.fillText(truncateToWidth(ctx, secondaryName, IMG_W - PAD*2), IMG_W/2, 508);
+  }
+
+  // axes line "Skill: Level 2 · Partnership: 65%"
+  const skillLabel = placement > 0
+    ? L18.skillLevelTpl.replace('{n}', placement)
+    : L18.skillLevelP0;
+  const pPct = partnership ? partnership.composite : 0;
+  const axesLine = L18.quadrantSubTpl
+    .replace('{skill}', skillLabel)
+    .replace('{p}', pPct);
+  ctx.fillStyle = color;
   ctx.font = '600 26px "IBM Plex Sans Thai", "IBM Plex Sans", sans-serif';
-  ctx.fillText(L18.imgAuthor, IMG_W/2, 1690);
+  ctx.fillText(truncateToWidth(ctx, axesLine, IMG_W - PAD*2), IMG_W/2, 555);
 
-  ctx.fillStyle = '#736A5C';
+  // short tagline + nudge
+  if(q){
+    ctx.fillStyle = TEXT;
+    ctx.font = '500 26px "IBM Plex Sans Thai", "IBM Plex Sans", sans-serif';
+    const shortLines = wrapToLines(ctx, q.short[lang], IMG_W - PAD*2, 2);
+    shortLines.forEach((ln, i) => ctx.fillText(ln, IMG_W/2, 605 + i*36));
+
+    ctx.fillStyle = MUTED;
+    ctx.font = '400 24px "IBM Plex Sans Thai", "IBM Plex Sans", sans-serif';
+    const nudgeLines = wrapToLines(ctx, q.nudge[lang], IMG_W - PAD*2, 3);
+    nudgeLines.forEach((ln, i) => ctx.fillText(ln, IMG_W/2, 690 + i*30));
+  }
+
+  ctx.strokeStyle = SEP; ctx.lineWidth = 1;
+  ctx.beginPath(); ctx.moveTo(PAD, 780); ctx.lineTo(IMG_W-PAD, 780); ctx.stroke();
+
+  // ----- 3) Name + Date + Tags (780–960)
+  const dateText = formatDate(finishedAt || new Date(), lang);
+  let cursorY = 818;
+  if(userName){
+    ctx.fillStyle = TEXT;
+    ctx.font = '600 32px "IBM Plex Sans Thai", "IBM Plex Sans", sans-serif';
+    ctx.fillText(truncateToWidth(ctx, userName, IMG_W - PAD*2), IMG_W/2, cursorY);
+    cursorY += 34;
+    ctx.fillStyle = MUTED;
+    ctx.font = '400 22px "IBM Plex Sans Thai", "IBM Plex Sans", sans-serif';
+    ctx.fillText(dateText, IMG_W/2, cursorY);
+    cursorY += 38;
+  } else {
+    ctx.fillStyle = MUTED;
+    ctx.font = '500 26px "IBM Plex Sans Thai", "IBM Plex Sans", sans-serif';
+    ctx.fillText(dateText, IMG_W/2, cursorY);
+    cursorY += 46;
+  }
+
+  // tag block
+  if(partnership && PARTNERSHIP){
+    const tags = [];
+    const placementLabel = placement > 0
+      ? `L${placement}-${ASSESSABLE[placement-1].name.en.replace(/\s+/g, '')}`
+      : `L0-Starting`;
+    tags.push(`#${placementLabel}`);
+    tags.push(`#P${partnership.composite}`);
+    tags.push(`#Q-${partnership.quadrant}`);
+    if(userRole) tags.push(`#role-${userRole.code}`);
+    PARTNERSHIP.subtraits.forEach((sub, i) => {
+      if((partnership.subtraitScores[i] || 0) < 50) tags.push(`#weak:${sub.key}`);
+    });
+    ctx.fillStyle = AMBER;
+    ctx.font = '500 22px "IBM Plex Sans", "Chakra Petch", sans-serif';
+    const tagLines = wrapToLines(ctx, tags.join('  '), IMG_W - PAD*2, 2);
+    tagLines.forEach((ln, i) => ctx.fillText(ln, IMG_W/2, cursorY + i*28));
+  }
+
+  ctx.beginPath(); ctx.moveTo(PAD, 960); ctx.lineTo(IMG_W-PAD, 960); ctx.stroke();
+
+  // ----- 4) Partnership subtraits (960–1340)
+  ctx.textAlign = 'left';
+  ctx.fillStyle = TEXT;
+  ctx.font = '600 30px "Chakra Petch", sans-serif';
+  ctx.fillText(L18.imgPartnershipHead, PAD, 1002);
+
+  ctx.textAlign = 'right';
+  ctx.fillStyle = AMBER;
+  ctx.font = '700 26px "Chakra Petch", sans-serif';
+  ctx.fillText(L18.imgPartnershipCompositeTpl.replace('{p}', pPct), IMG_W - PAD, 1002);
+
+  if(partnership && PARTNERSHIP){
+    const subs = PARTNERSHIP.subtraits;
+    const barsTop = 1040;
+    const rowH = 70;
+    const barLeft = PAD, barRight = IMG_W - PAD;
+    subs.forEach((sub, i) => {
+      const p = partnership.subtraitScores[i] || 0;
+      const rowY = barsTop + i*rowH;
+
+      ctx.textAlign = 'left';
+      ctx.fillStyle = TEXT;
+      ctx.font = '500 24px "IBM Plex Sans Thai", "IBM Plex Sans", sans-serif';
+      ctx.fillText(truncateToWidth(ctx, sub.name[lang], barRight - barLeft - 100), barLeft, rowY + 18);
+
+      ctx.textAlign = 'right';
+      ctx.fillStyle = AMBER;
+      ctx.font = '700 24px "Chakra Petch", sans-serif';
+      ctx.fillText(`${p}%`, barRight, rowY + 18);
+
+      const trackY = rowY + 34;
+      const trackH = 14;
+      ctx.fillStyle = '#ECE5D7';
+      roundRect(ctx, barLeft, trackY, barRight - barLeft, trackH, 7); ctx.fill();
+      ctx.strokeStyle = '#DCD3C2'; ctx.lineWidth = 1;
+      roundRect(ctx, barLeft, trackY, barRight - barLeft, trackH, 7); ctx.stroke();
+
+      const fillW = Math.max(0, Math.min(1, p/100)) * (barRight - barLeft);
+      if(fillW > 2){
+        const bg = ctx.createLinearGradient(barLeft, trackY, barLeft + fillW, trackY);
+        bg.addColorStop(0, AMBER);
+        bg.addColorStop(1, shade(AMBER, 30));
+        ctx.fillStyle = bg;
+        roundRect(ctx, barLeft, trackY, fillW, trackH, 7); ctx.fill();
+      }
+    });
+  }
+  ctx.textAlign = 'center';
+  ctx.strokeStyle = SEP; ctx.lineWidth = 1;
+  ctx.beginPath(); ctx.moveTo(PAD, 1340); ctx.lineTo(IMG_W-PAD, 1340); ctx.stroke();
+
+  // ----- 5) Workshops (1340–1660)
+  ctx.fillStyle = TEXT;
+  ctx.font = '600 30px "Chakra Petch", sans-serif';
+  ctx.fillText(L18.imgWorkshopsHead, IMG_W/2, 1384);
+
+  const persona = q && q.persona ? q.persona : null;
+  const workshops = (persona && Array.isArray(persona.workshops) ? persona.workshops : []).slice(0, 3);
+  if(workshops.length){
+    const chipH = 70;
+    const chipGap = 14;
+    const blockH = workshops.length * chipH + Math.max(0, workshops.length - 1) * chipGap;
+    const avail = 1660 - 1410;
+    const chipStart = 1410 + (avail - blockH) / 2;
+    const chipMaxW = IMG_W - PAD*2;
+    workshops.forEach((w, i) => {
+      const label = w[lang];
+      const cy0 = chipStart + i*(chipH + chipGap);
+      ctx.fillStyle = '#F0E2C9';
+      roundRect(ctx, PAD, cy0, chipMaxW, chipH, 18); ctx.fill();
+      ctx.strokeStyle = '#DCD3C2'; ctx.lineWidth = 1;
+      roundRect(ctx, PAD, cy0, chipMaxW, chipH, 18); ctx.stroke();
+      ctx.fillStyle = AMBER;
+      ctx.font = '500 26px "IBM Plex Sans Thai", "IBM Plex Sans", sans-serif';
+      const inner = chipMaxW - 48;
+      const lines = wrapToLines(ctx, label, inner, 2);
+      ctx.textBaseline = 'middle';
+      if(lines.length === 1){
+        ctx.fillText(lines[0], IMG_W/2, cy0 + chipH/2);
+      } else {
+        ctx.fillText(lines[0], IMG_W/2, cy0 + chipH/2 - 16);
+        ctx.fillText(lines[1], IMG_W/2, cy0 + chipH/2 + 16);
+      }
+      ctx.textBaseline = 'alphabetic';
+    });
+  }
+  ctx.strokeStyle = SEP; ctx.lineWidth = 1;
+  ctx.beginPath(); ctx.moveTo(PAD, 1660); ctx.lineTo(IMG_W-PAD, 1660); ctx.stroke();
+
+  // ----- 6) Footer (1660–1920)
+  ctx.fillStyle = TEXT;
+  ctx.font = '600 24px "IBM Plex Sans Thai", "IBM Plex Sans", sans-serif';
+  ctx.fillText(L18.imgAuthor, IMG_W/2, 1712);
+
+  ctx.fillStyle = MUTED;
   ctx.font = '400 22px "IBM Plex Sans Thai", "IBM Plex Sans", sans-serif';
-  // affiliation may be long — wrap
   const affLines = wrapToLines(ctx, L18.imgAffiliation, IMG_W - PAD*2, 2);
-  affLines.forEach((ln, i) => ctx.fillText(ln, IMG_W/2, 1728 + i*30));
+  affLines.forEach((ln, i) => ctx.fillText(ln, IMG_W/2, 1750 + i*28));
 
-  ctx.fillStyle = '#211C16';
+  ctx.fillStyle = TEXT;
   ctx.font = '500 22px "IBM Plex Sans Thai", "IBM Plex Sans", sans-serif';
-  ctx.fillText(L18.imgLicense, IMG_W/2, 1830);
-  ctx.fillStyle = '#736A5C';
+  ctx.fillText(L18.imgLicense, IMG_W/2, 1832);
+  ctx.fillStyle = MUTED;
   ctx.font = '400 22px "IBM Plex Sans Thai", "IBM Plex Sans", sans-serif';
-  ctx.fillText(L18.imgFrameworkSource, IMG_W/2, 1864);
+  ctx.fillText(L18.imgFrameworkSource, IMG_W/2, 1868);
 
   return new Promise(resolve => canvas.toBlob(b => resolve(b), 'image/png'));
 }
@@ -2078,7 +2165,9 @@ async function downloadResultImage(){
     const d = finishedAt || new Date();
     const ymd = d.getFullYear() + '-' + String(d.getMonth()+1).padStart(2,'0') + '-' + String(d.getDate()).padStart(2,'0');
     const placement = (window.__res && window.__res.placement) || 0;
-    const filename = `AI-Literacy-Level-${placement}-${ymd}-${currentLang}.png`;
+    const partnership = (window.__res && window.__res.partnership) || null;
+    const quadKey = partnership ? partnership.quadrant : 'p0';
+    const filename = `AI-Profile-${quadKey}-L${placement}-${ymd}-${currentLang}.png`;
     const url = URL.createObjectURL(blob);
 
     if(isIOS()){
