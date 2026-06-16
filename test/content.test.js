@@ -70,7 +70,7 @@ test('text export includes editable answer scale labels', () => {
   const exported = fs.readFileSync(path.join(dir, 'content.txt'), 'utf8');
   assert.match(exported, /=== ANSWER SCALE ===/);
   assert.match(exported, /opt1\.th: ไม่ตรงกับฉันเลย/);
-  assert.match(exported, /opt5sub\.en: This is regularly me/);
+  assert.match(exported, /opt5sub\.en: I can do this consistently/);
 });
 
 test('malformed text is rejected without changing content', () => {

@@ -309,7 +309,7 @@
         desc: {th: "รู้ว่า AI คืออะไร ทำอะไรได้/ไม่ได้ และใช้อย่างมีความรับผิดชอบ", en: "Know what AI is, what it can and can't do, and how to use it responsibly"},
         color: "#0E6E63",
         items: [
-          {th: "เมื่อมีคนถามว่า AI อย่าง ChatGPT ทำงานยังไง ฉันมักอธิบายให้เขาเข้าใจง่าย ๆ ได้ในระดับพื้นฐาน", en: "When someone asks how an AI like ChatGPT works, I can usually give them a simple, basic explanation"},
+          {th: "เมื่อมีคนถามว่า AI อย่าง ChatGPT ทำงานอย่างไร ฉันมักอธิบายหลักการทำงานพื้นฐานให้เขาเข้าใจได้", en: "When someone asks how an AI like ChatGPT works, I can usually explain its basic principles in a way they understand"},
           {th: "เมื่อมีงานเข้ามา ฉันมักเลือกได้ว่างานไหนลองให้ AI ช่วยน่าจะได้ผลดี และงานไหนควรทำเอง", en: "When a task comes up, I can usually tell which ones to try with AI and which to handle myself"},
           {th: "เมื่อ AI ให้ข้อมูลที่สำคัญ ฉันมักตรวจสอบซ้ำก่อนเชื่อ เพราะมันอาจผิดหรือกุข้อมูลขึ้นมาได้ (hallucination)", en: "When AI gives me important information, I tend to double-check it before trusting it, since it can be wrong or made up (hallucination)"},
           {th: "ก่อนจะวางข้อมูลงานหรือข้อมูลส่วนตัวลงในแชต AI ฉันมักหยุดคิดก่อนว่าอะไรแชร์ได้หรือไม่ได้", en: "Before pasting work or personal information into an AI chat, I tend to pause and consider what is and isn't OK to share"}
@@ -338,7 +338,7 @@
           {th: "เมื่อคำตอบแรกจาก AI ยังไม่ตรงใจ ฉันมักปรับ prompt (เพิ่มบริบท บทบาท ตัวอย่าง) แล้วลองใหม่จนได้ผลดีขึ้น", en: "When AI's first answer isn't quite right, I usually adjust my prompt (add context, role, examples) and try again until it improves"},
           {th: "ในเดือนที่ผ่านมา ฉันใช้ AI ช่วยงานหลายแบบ เช่น ร่างอีเมล สรุปเอกสารยาว ๆ ระดมไอเดีย หรือช่วยวิเคราะห์ข้อมูล", en: "In the past month, I've used AI for several different things — drafting emails, summarizing long documents, brainstorming, or analyzing data"},
           {th: "เมื่อได้คำตอบจาก AI ฉันมักอ่าน ตรวจ และปรับแก้ให้เข้ากับงานก่อนนำไปใช้", en: "When I get an answer from AI, I usually read, check, and adapt it to the task before using it"},
-          {th: "ฉันเริ่มเก็บ prompt ที่ใช้ได้ผลไว้ใช้ซ้ำ หรือเลือกเครื่องมือ AI ให้เหมาะกับงานแต่ละแบบ ไม่ได้ใช้ตัวเดียวกับทุกอย่าง", en: "I've started saving prompts that work to reuse them, or I pick the right AI tool for each kind of task instead of using one for everything"}
+          {th: "ฉันเลือกใช้เครื่องมือ AI ให้เหมาะกับงานแต่ละประเภท แทนที่จะใช้เครื่องมือเดียวสำหรับทุกงาน", en: "I pick the right AI tool for each kind of task instead of using one tool for everything"}
         ],
         blurb: {th: "คุณใช้ AI เป็นผู้ช่วยในงานประจำวันได้คล่อง และรู้วิธีสื่อสารกับ AI ให้ได้ผลลัพธ์ที่มีคุณภาพ", en: "You use AI fluently as an everyday assistant and know how to communicate with it to get quality results."},
         nextH: {th: "พัฒนาสู่ระดับ 3 — สร้างด้วย AI", en: "Grow into Level 3 — Building with AI"},
@@ -362,9 +362,9 @@
         color: "#1E8E63",
         items: [
           {th: "เมื่อเจอปัญหางานซ้ำ ๆ ฉันมักวางแผนได้ว่าจะออกแบบ workflow ที่ให้ AI ทำงานหลายขั้นต่อเนื่องเพื่อแก้ปัญหานั้นอย่างไร", en: "When I hit a repetitive problem, I can usually map out a multi-step workflow where AI handles several stages to solve it"},
-          {th: "เมื่อต้องเชื่อม AI เข้ากับแอปหรือระบบ ฉันลงมือต่อ API เองได้ หรือคุยกับนักพัฒนาเรื่องการเชื่อมต่อได้อย่างเข้าใจ", en: "When AI needs to connect into an app or system, I can wire up the API myself or discuss the integration with a developer effectively"},
-          {th: "เมื่อมีไอเดียแอป/แชตบอต/ผู้ช่วย AI สำหรับงานจริง ฉันลงมือสร้างต้นแบบที่ใช้งานได้ออกมาให้คนอื่นลองได้", en: "When I have an idea for an app, chatbot, or AI assistant for real use, I build a working prototype that others can try"},
-          {th: "มีของที่ฉันสร้างด้วย AI แล้วมีคนอื่นนอกจากตัวฉันได้ใช้งานจริง (เช่น เพื่อนร่วมงาน เพื่อน หรือผู้ใช้กลุ่มเล็ก ๆ)", en: "Something I built with AI has actually been used by people other than me — colleagues, friends, or a small group of users"}
+          {th: "ฉันสามารถเชื่อมต่อ AI เข้ากับแอปหรือระบบผ่าน API ได้ด้วยตนเอง", en: "I can connect AI to an app or system via API on my own"},
+          {th: "ฉันสามารถใช้ AI ช่วยวางแผน เขียนโค้ด หรือใช้ no-code/low-code สร้างต้นแบบของแอปหรือระบบที่ใช้งานได้", en: "I can use AI to help plan, code, or use no-code/low-code tools to build a working prototype of an app or system"},
+          {th: "ฉันเคยใช้ AI เป็นส่วนหนึ่งของการพัฒนาผลงานหรือระบบที่มีผู้อื่นได้ทดลองหรือใช้งานจริง (เช่น เพื่อน เพื่อนร่วมงาน หรือลูกค้ากลุ่มเล็ก ๆ)", en: "I've used AI as part of building something that other people — friends, colleagues, or a small group of users — have actually tried or used"}
         ],
         blurb: {th: "คุณไม่ได้แค่ใช้ AI แต่สร้างสิ่งใหม่ด้วย AI ได้ ทั้งเวิร์กโฟลว์ ต้นแบบ และการเชื่อมต่อระบบ", en: "You don't just use AI — you build new things with it: workflows, prototypes, and integrations."},
         nextH: {th: "พัฒนาสู่ระดับ 4 — ฝึกและดูแลโมเดล", en: "Grow into Level 4 — Training & maintaining models"},
@@ -429,11 +429,11 @@
       }
     ],
     scale: [
-      {v: 0, display: 1, lab: {th: "ไม่ตรงกับฉันเลย", en: "Not me at all"}, sub: {th: "ยังไม่เคย / ไม่ใช่ฉัน", en: "Never done it / not me"}},
-      {v: 1, display: 2, lab: {th: "ตรงกับฉันเล็กน้อย", en: "A little like me"}, sub: {th: "พอมีบ้าง แต่ยังไม่คล่อง", en: "A bit, but not fluent yet"}},
-      {v: 2, display: 3, lab: {th: "ตรงกับฉันปานกลาง", en: "Somewhat like me"}, sub: {th: "ทำได้บ้างเป็นบางครั้ง", en: "I do this sometimes"}},
+      {v: 0, display: 1, lab: {th: "ไม่ตรงกับฉันเลย", en: "Not me at all"}, sub: {th: "ยังไม่เคยทำหรือทำไม่ได้", en: "Never done it or can't do it"}},
+      {v: 1, display: 2, lab: {th: "ตรงกับฉันเล็กน้อย", en: "A little like me"}, sub: {th: "พอทำได้แต่ยังไม่คล่อง", en: "I can do it a bit, but not fluent"}},
+      {v: 2, display: 3, lab: {th: "ตรงกับฉันปานกลาง", en: "Somewhat like me"}, sub: {th: "ทำได้ในบางสถานการณ์", en: "I can do it in some situations"}},
       {v: 3, display: 4, lab: {th: "ค่อนข้างตรงกับฉัน", en: "Mostly like me"}, sub: {th: "ทำได้ดีเป็นส่วนใหญ่", en: "I do this well most of the time"}},
-      {v: 4, display: 5, lab: {th: "ตรงกับฉันมากที่สุด", en: "Very much like me"}, sub: {th: "เป็นแบบนี้ประจำ", en: "This is regularly me"}}
+      {v: 4, display: 5, lab: {th: "ตรงกับฉันมากที่สุด", en: "Very much like me"}, sub: {th: "ทำได้อย่างสม่ำเสมอ", en: "I can do this consistently"}}
     ],
     roles: [
       {code: "admin",    floor: 1, ceiling: 2, label: {th: "ธุรการ / สนับสนุน",                       en: "Admin / Support"}},
