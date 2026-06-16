@@ -360,6 +360,9 @@
     line-height:1.55;font-weight:500;display:flex;gap:8px;align-items:flex-start;
   }
   .next-card .next-milestone.inline::before{content:"→";color:var(--amber);font-weight:700}
+  .next-card .next-sub + .next-sub{margin-top:14px;padding-top:14px;border-top:1px dashed var(--line)}
+  .next-card .next-sub-label{margin-bottom:8px}
+  .next-card .next-sub h4{margin-top:4px}
   .section-h{font-family:"Chakra Petch",sans-serif;font-weight:600;font-size:1.1rem;margin:30px 0 12px;display:flex;align-items:center;gap:10px}
   .section-h::before{content:"";width:18px;height:3px;border-radius:2px;background:var(--amber)}
   .profile{display:grid;gap:13px}
@@ -552,6 +555,20 @@
   .partnership-subs{margin-top:8px}
   .partnership-subs .prow .pname{font-size:.88rem}
   .partnership-subs .prow .ppct{font-size:.88rem}
+  .partnership-highlights{
+    display:grid;gap:8px;margin-top:14px;padding:12px 14px;
+    background:var(--paper-2);border:1px solid var(--line);border-radius:10px;
+  }
+  .partnership-highlights .ph-row{display:flex;align-items:baseline;gap:10px;font-size:.92rem}
+  .partnership-highlights .ph-label{font-weight:600;min-width:72px}
+  .partnership-highlights .ph-strong .ph-label{color:var(--teal)}
+  .partnership-highlights .ph-gap .ph-label{color:var(--warn)}
+  .partnership-highlights .ph-name{flex:1;color:var(--ink)}
+  .partnership-highlights .ph-pct{font-family:"Chakra Petch",sans-serif;font-weight:700;color:var(--ink)}
+  .partnership-highlights .ph-note{
+    font-size:.82rem;color:var(--muted);font-style:italic;margin:4px 0 0;
+    border-top:1px dashed var(--line);padding-top:8px;line-height:1.5;
+  }
   .quadrant-card{
     background:var(--card);border:1px solid var(--line);border-radius:var(--r);
     border-left:5px solid var(--amber);
@@ -870,6 +887,19 @@
       </div>
       <div class="profile" id="rPartnershipComposite"></div>
       <div class="profile partnership-subs" id="rPartnershipBars"></div>
+      <div class="partnership-highlights" id="rPartnershipHighlights" hidden>
+        <div class="ph-row ph-strong">
+          <span class="ph-label" data-i18n="partnershipStrengthLabel">จุดแข็ง</span>
+          <span class="ph-name" id="rPHStrongName">—</span>
+          <span class="ph-pct" id="rPHStrongPct">—</span>
+        </div>
+        <div class="ph-row ph-gap">
+          <span class="ph-label" data-i18n="partnershipGapLabel">ตัวฉุด</span>
+          <span class="ph-name" id="rPHGapName">—</span>
+          <span class="ph-pct" id="rPHGapPct">—</span>
+        </div>
+        <p class="ph-note" id="rPHVarianceNote" hidden></p>
+      </div>
     </div>
 
     <div class="twocol">
@@ -880,8 +910,16 @@
     <div class="section-h" data-i18n="nextHead">ขั้นตอนต่อไปสำหรับคุณ</div>
     <div class="card next-card" id="rNextCard">
       <p class="role-line" id="rRoleLine" hidden></p>
-      <h4 id="rNextH"></h4>
-      <ul id="rNext"></ul>
+      <div class="next-sub" id="rNextSkillSub">
+        <div class="lvl-tag next-sub-label" data-i18n="nextSubSkillLabel">พัฒนาทักษะ AI</div>
+        <h4 id="rNextH"></h4>
+        <ul id="rNext"></ul>
+      </div>
+      <div class="next-sub" id="rNextPartnershipSub" hidden>
+        <div class="lvl-tag next-sub-label" data-i18n="nextSubPartnershipLabel">พัฒนาสไตล์การใช้ AI</div>
+        <h4 id="rPartnerNextH"></h4>
+        <ul id="rPartnerNext"></ul>
+      </div>
       <p class="placement-note inline" id="rPlacementNote"></p>
       <p class="next-milestone inline" id="rNextMilestone" hidden><span id="rNextMilestoneText"></span></p>
       <div style="margin-top:14px">
@@ -1402,7 +1440,7 @@ function renderResult(pcts, placement, THRESH, partnership){
     document.getElementById('rBlurb').textContent=t('p0Blurb');
     document.getElementById('rNextH').textContent=t('p0NextH');
     fillUl('rNext', t('p0Next'));
-    fillChips('rWorkshops', ASSESSABLE[0].workshops.map(tx));
+    fillChips('rWorkshops', resolveResultWorkshops(placement, partnership).map(tx));
   } else {
     const L=ASSESSABLE[placement-1];
     rNumEl.textContent=L.n;
@@ -1411,8 +1449,9 @@ function renderResult(pcts, placement, THRESH, partnership){
     document.getElementById('rBlurb').textContent=tx(L.blurb);
     document.getElementById('rNextH').textContent=tx(L.nextH);
     fillUl('rNext', L.next.map(tx));
-    fillChips('rWorkshops', L.workshops.map(tx));
+    fillChips('rWorkshops', resolveResultWorkshops(placement, partnership).map(tx));
   }
+  renderPartnershipNext(partnership);
 
   // next-milestone forward-looking line under hero
   const milestoneEl = document.getElementById('rNextMilestone');
@@ -1508,6 +1547,36 @@ function renderPartnership(partnership, placement, pcts){
     bars.appendChild(row);
     setTimeout(()=>sfill.style.width = p + '%', 200 + i*110);
   });
+
+  renderPartnershipHighlights(partnership);
+}
+
+function renderPartnershipHighlights(partnership){
+  const wrap = document.getElementById('rPartnershipHighlights');
+  if(!wrap || !PARTNERSHIP) return;
+  const scores = partnership && partnership.subtraitScores ? partnership.subtraitScores : [];
+  if(!scores.length){ wrap.hidden = true; return; }
+  let maxIdx = 0, minIdx = 0;
+  scores.forEach((s, i) => {
+    if(s > scores[maxIdx]) maxIdx = i;
+    if(s < scores[minIdx]) minIdx = i;
+  });
+  // identical subtraits (e.g. all zero) → no insight to surface
+  if(maxIdx === minIdx){ wrap.hidden = true; return; }
+  wrap.hidden = false;
+  const subs = PARTNERSHIP.subtraits;
+  document.getElementById('rPHStrongName').textContent = tx(subs[maxIdx].name);
+  document.getElementById('rPHStrongPct').textContent = `${scores[maxIdx]}%`;
+  document.getElementById('rPHGapName').textContent = tx(subs[minIdx].name);
+  document.getElementById('rPHGapPct').textContent = `${scores[minIdx]}%`;
+  const variance = scores[maxIdx] - scores[minIdx];
+  const noteEl = document.getElementById('rPHVarianceNote');
+  if(variance > 40){
+    noteEl.hidden = false;
+    noteEl.textContent = t('partnershipVarianceHigh');
+  } else {
+    noteEl.hidden = true;
+  }
 }
 
 function renderHero(partnership, placement){
@@ -1615,10 +1684,45 @@ function renderRoleVerdict(pcts, THRESH){
 function fillUl(id,arr){const ul=document.getElementById(id);ul.innerHTML='';arr.forEach(t=>{const li=document.createElement('li');li.textContent=t;ul.appendChild(li);});}
 function fillChips(id,arr){const box=document.getElementById(id);box.innerHTML='';arr.forEach(t=>{const c=document.createElement('span');c.className='chip';c.textContent=t;box.appendChild(c);});}
 
+// Result workshops are quadrant-driven (persona.workshops). Fallback to the
+// skill-level workshops only when partnership data or persona is missing —
+// keeps the on-page chips and the downloaded image in sync.
+function resolveResultWorkshops(placement, partnership){
+  if(partnership && PARTNERSHIP){
+    const q = PARTNERSHIP.quadrants[partnership.quadrant];
+    if(q && q.persona && Array.isArray(q.persona.workshops) && q.persona.workshops.length){
+      return q.persona.workshops;
+    }
+  }
+  if(placement && ASSESSABLE[placement-1]) return ASSESSABLE[placement-1].workshops;
+  return ASSESSABLE[0].workshops;
+}
+
+function renderPartnershipNext(partnership){
+  const sub = document.getElementById('rNextPartnershipSub');
+  const headEl = document.getElementById('rPartnerNextH');
+  const ul = document.getElementById('rPartnerNext');
+  if(!sub || !headEl || !ul) return;
+  const q = partnership && PARTNERSHIP ? PARTNERSHIP.quadrants[partnership.quadrant] : null;
+  const items = q && Array.isArray(q.partnershipNext) ? q.partnershipNext : null;
+  if(!q || !items || !items.length){
+    sub.hidden = true;
+    return;
+  }
+  sub.hidden = false;
+  headEl.textContent = tx(q.partnershipNextH);
+  ul.innerHTML = '';
+  items.forEach(item => {
+    const li = document.createElement('li');
+    li.textContent = tx(item);
+    ul.appendChild(li);
+  });
+}
+
 function copyResult(){
   const {pcts,placement,partnership}=window.__res||{};
   const placementName = placement ? tx(ASSESSABLE[placement-1].name) : '';
-  const workshops = placement ? ASSESSABLE[placement-1].workshops : ASSESSABLE[0].workshops;
+  const workshops = resolveResultWorkshops(placement, partnership);
   const lines=[t('copyHeader'),""];
   if(userName) lines.push(userName);
   if(finishedAt) lines.push(formatDate(finishedAt, currentLang));
@@ -1659,6 +1763,24 @@ function copyResult(){
     PARTNERSHIP.subtraits.forEach((sub, i) => {
       lines.push(LANG[currentLang].copySubtraitRowTpl(tx(sub.name), partnership.subtraitScores[i] || 0));
     });
+    const scores = partnership.subtraitScores || [];
+    if(scores.length){
+      let maxI = 0, minI = 0;
+      scores.forEach((s, i) => { if(s > scores[maxI]) maxI = i; if(s < scores[minI]) minI = i; });
+      if(maxI !== minI){
+        lines.push(`  · ${t('partnershipStrengthLabel')}: ${tx(PARTNERSHIP.subtraits[maxI].name)} ${scores[maxI]}%`);
+        lines.push(`  · ${t('partnershipGapLabel')}: ${tx(PARTNERSHIP.subtraits[minI].name)} ${scores[minI]}%`);
+        if(scores[maxI] - scores[minI] > 40){
+          lines.push(`    (${t('partnershipVarianceHigh')})`);
+        }
+      }
+    }
+    const q = PARTNERSHIP.quadrants[partnership.quadrant];
+    if(q && Array.isArray(q.partnershipNext) && q.partnershipNext.length){
+      lines.push("");
+      lines.push(tx(q.partnershipNextH) + ":");
+      q.partnershipNext.forEach(item => lines.push("  · " + tx(item)));
+    }
   }
   lines.push("");
   lines.push(t('copyWorkshopsHead'));
@@ -1971,93 +2093,109 @@ async function generateResultImage(lang){
   ctx.strokeStyle = SEP; ctx.lineWidth = 1;
   ctx.beginPath(); ctx.moveTo(PAD, 780); ctx.lineTo(IMG_W-PAD, 780); ctx.stroke();
 
-  // ----- 3) Name + Date + Tags (780–960)
+  // ----- 3) Name + Date (780–870)
   const dateText = formatDate(finishedAt || new Date(), lang);
-  let cursorY = 818;
+  ctx.textAlign = 'center';
   if(userName){
     ctx.fillStyle = TEXT;
-    ctx.font = '600 32px "IBM Plex Sans Thai", "IBM Plex Sans", sans-serif';
-    ctx.fillText(truncateToWidth(ctx, userName, IMG_W - PAD*2), IMG_W/2, cursorY);
-    cursorY += 34;
+    ctx.font = '600 30px "IBM Plex Sans Thai", "IBM Plex Sans", sans-serif';
+    ctx.fillText(truncateToWidth(ctx, userName, IMG_W - PAD*2), IMG_W/2, 815);
     ctx.fillStyle = MUTED;
     ctx.font = '400 22px "IBM Plex Sans Thai", "IBM Plex Sans", sans-serif';
-    ctx.fillText(dateText, IMG_W/2, cursorY);
-    cursorY += 38;
+    ctx.fillText(dateText, IMG_W/2, 848);
   } else {
     ctx.fillStyle = MUTED;
     ctx.font = '500 26px "IBM Plex Sans Thai", "IBM Plex Sans", sans-serif';
-    ctx.fillText(dateText, IMG_W/2, cursorY);
-    cursorY += 46;
+    ctx.fillText(dateText, IMG_W/2, 830);
   }
+  ctx.strokeStyle = SEP; ctx.lineWidth = 1;
+  ctx.beginPath(); ctx.moveTo(PAD, 870); ctx.lineTo(IMG_W-PAD, 870); ctx.stroke();
 
-  // tag block
-  if(partnership && PARTNERSHIP){
-    const tags = [];
-    const placementLabel = placement > 0
-      ? `L${placement}-${ASSESSABLE[placement-1].name.en.replace(/\s+/g, '')}`
-      : `L0-Starting`;
-    tags.push(`#${placementLabel}`);
-    tags.push(`#P${partnership.composite}`);
-    tags.push(`#Q-${partnership.quadrant}`);
-    if(userRole) tags.push(`#role-${userRole.code}`);
-    PARTNERSHIP.subtraits.forEach((sub, i) => {
-      if((partnership.subtraitScores[i] || 0) < 50) tags.push(`#weak:${sub.key}`);
-    });
-    ctx.fillStyle = AMBER;
-    ctx.font = '500 22px "IBM Plex Sans", "Chakra Petch", sans-serif';
-    const tagLines = wrapToLines(ctx, tags.join('  '), IMG_W - PAD*2, 2);
-    tagLines.forEach((ln, i) => ctx.fillText(ln, IMG_W/2, cursorY + i*28));
-  }
+  // ----- 4) Dual vertical bar chart — skill (left) | partnership (right) (870–1340)
+  const colGap = 28;
+  const leftColL = PAD;
+  const leftColR = IMG_W/2 - colGap/2;
+  const rightColL = IMG_W/2 + colGap/2;
+  const rightColR = IMG_W - PAD;
+  const chartTop = 970;
+  const chartBottom = 1290;
+  const labelY = 1318;
+  const maxBarH = chartBottom - chartTop;
 
-  ctx.beginPath(); ctx.moveTo(PAD, 960); ctx.lineTo(IMG_W-PAD, 960); ctx.stroke();
-
-  // ----- 4) Partnership subtraits (960–1340)
-  ctx.textAlign = 'left';
+  // column titles
   ctx.fillStyle = TEXT;
-  ctx.font = '600 30px "Chakra Petch", sans-serif';
-  ctx.fillText(L18.imgPartnershipHead, PAD, 1002);
+  ctx.font = '600 28px "Chakra Petch", sans-serif';
+  ctx.fillText(L18.imgChartSkillHead, (leftColL + leftColR)/2, 920);
+  ctx.fillText(L18.imgChartPartnershipHead, (rightColL + rightColR)/2, 920);
 
-  ctx.textAlign = 'right';
-  ctx.fillStyle = AMBER;
-  ctx.font = '700 26px "Chakra Petch", sans-serif';
-  ctx.fillText(L18.imgPartnershipCompositeTpl.replace('{p}', pPct), IMG_W - PAD, 1002);
+  // x-axes
+  ctx.strokeStyle = '#C8BBA3'; ctx.lineWidth = 1.5;
+  ctx.beginPath(); ctx.moveTo(leftColL, chartBottom + 0.5); ctx.lineTo(leftColR, chartBottom + 0.5); ctx.stroke();
+  ctx.beginPath(); ctx.moveTo(rightColL, chartBottom + 0.5); ctx.lineTo(rightColR, chartBottom + 0.5); ctx.stroke();
 
-  if(partnership && PARTNERSHIP){
-    const subs = PARTNERSHIP.subtraits;
-    const barsTop = 1040;
-    const rowH = 70;
-    const barLeft = PAD, barRight = IMG_W - PAD;
-    subs.forEach((sub, i) => {
-      const p = partnership.subtraitScores[i] || 0;
-      const rowY = barsTop + i*rowH;
+  // helper: draw vertical bars inside a column
+  function drawVBars(xL, xR, items, scoreFn, colorFn, labelFn){
+    const n = items.length;
+    if(!n) return;
+    const colW = xR - xL;
+    const slot = colW / n;
+    items.forEach((item, i) => {
+      const score = Math.max(0, Math.min(100, scoreFn(item, i)));
+      const color = colorFn(item, i);
+      const barW = Math.min(slot * 0.6, 96);
+      const cx = xL + slot * (i + 0.5);
+      const x = cx - barW/2;
+      const h = (score/100) * maxBarH;
+      const y = chartBottom - h;
 
-      ctx.textAlign = 'left';
-      ctx.fillStyle = TEXT;
-      ctx.font = '500 24px "IBM Plex Sans Thai", "IBM Plex Sans", sans-serif';
-      ctx.fillText(truncateToWidth(ctx, sub.name[lang], barRight - barLeft - 100), barLeft, rowY + 18);
-
-      ctx.textAlign = 'right';
-      ctx.fillStyle = AMBER;
-      ctx.font = '700 24px "Chakra Petch", sans-serif';
-      ctx.fillText(`${p}%`, barRight, rowY + 18);
-
-      const trackY = rowY + 34;
-      const trackH = 14;
-      ctx.fillStyle = '#ECE5D7';
-      roundRect(ctx, barLeft, trackY, barRight - barLeft, trackH, 7); ctx.fill();
-      ctx.strokeStyle = '#DCD3C2'; ctx.lineWidth = 1;
-      roundRect(ctx, barLeft, trackY, barRight - barLeft, trackH, 7); ctx.stroke();
-
-      const fillW = Math.max(0, Math.min(1, p/100)) * (barRight - barLeft);
-      if(fillW > 2){
-        const bg = ctx.createLinearGradient(barLeft, trackY, barLeft + fillW, trackY);
-        bg.addColorStop(0, AMBER);
-        bg.addColorStop(1, shade(AMBER, 30));
-        ctx.fillStyle = bg;
-        roundRect(ctx, barLeft, trackY, fillW, trackH, 7); ctx.fill();
+      // bar fill
+      if(h >= 2){
+        const grad = ctx.createLinearGradient(0, y, 0, chartBottom);
+        grad.addColorStop(0, color);
+        grad.addColorStop(1, shade(color, -22));
+        ctx.fillStyle = grad;
+        roundRect(ctx, x, y, barW, h, 6); ctx.fill();
+      } else {
+        ctx.fillStyle = '#E6DDC7';
+        ctx.fillRect(x, chartBottom - 2, barW, 2);
       }
+
+      // pct above bar
+      ctx.fillStyle = color;
+      ctx.font = '700 22px "Chakra Petch", sans-serif';
+      ctx.textAlign = 'center';
+      ctx.fillText(`${score}%`, cx, y - 10);
+
+      // x-axis label
+      ctx.fillStyle = TEXT;
+      ctx.font = '500 22px "IBM Plex Sans Thai", "IBM Plex Sans", sans-serif';
+      ctx.fillText(truncateToWidth(ctx, labelFn(item, i), slot - 8), cx, labelY);
     });
   }
+
+  // skill column (left)
+  const skillPcts = (window.__res && window.__res.pcts) || ASSESSABLE.map(()=>0);
+  drawVBars(leftColL, leftColR, ASSESSABLE,
+    (L, i) => skillPcts[i] || 0,
+    L => L.color,
+    L => `L${L.n}`
+  );
+
+  // partnership column (right)
+  const TRAIT_LABEL = {
+    verify: {th: "ตรวจสอบ", en: "Verify"},
+    restraint: {th: "เลือกใช้", en: "Restraint"},
+    human_lead: {th: "ทักษะคน", en: "Lead"},
+    direction: {th: "นำ AI", en: "Direct"}
+  };
+  if(partnership && PARTNERSHIP){
+    drawVBars(rightColL, rightColR, PARTNERSHIP.subtraits,
+      (s, i) => partnership.subtraitScores[i] || 0,
+      () => AMBER,
+      s => (TRAIT_LABEL[s.key] && TRAIT_LABEL[s.key][lang]) || s.name.en
+    );
+  }
+
   ctx.textAlign = 'center';
   ctx.strokeStyle = SEP; ctx.lineWidth = 1;
   ctx.beginPath(); ctx.moveTo(PAD, 1340); ctx.lineTo(IMG_W-PAD, 1340); ctx.stroke();
@@ -2067,8 +2205,7 @@ async function generateResultImage(lang){
   ctx.font = '600 30px "Chakra Petch", sans-serif';
   ctx.fillText(L18.imgWorkshopsHead, IMG_W/2, 1384);
 
-  const persona = q && q.persona ? q.persona : null;
-  const workshops = (persona && Array.isArray(persona.workshops) ? persona.workshops : []).slice(0, 3);
+  const workshops = resolveResultWorkshops(placement, partnership).slice(0, 3);
   if(workshops.length){
     const chipH = 70;
     const chipGap = 14;

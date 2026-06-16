@@ -34,6 +34,8 @@
         strongHead: "สิ่งที่คุณทำได้ดีแล้ว",
         growHead: "ด้านที่อยากชวนสำรวจต่อ",
         nextHead: "เส้นทางถัดไปของคุณ",
+        nextSubSkillLabel: "พัฒนาทักษะ AI",
+        nextSubPartnershipLabel: "พัฒนาสไตล์การใช้ AI",
         workshopsLabel: "หัวข้อ workshop ที่ขอแนะนำ",
         copyBtn: "คัดลอกสรุปผล",
         copyDone: "คัดลอกแล้ว ✓",
@@ -62,6 +64,8 @@
         imgP0Name: "กำลังเริ่มต้นสำรวจ AI",
         imgPartnershipHead: "ภาพรวมความสัมพันธ์กับ AI",
         imgPartnershipCompositeTpl: "คะแนนรวม: {p}%",
+        imgChartSkillHead: "ทักษะ AI",
+        imgChartPartnershipHead: "ความสัมพันธ์กับ AI",
         imgWorkshopsHead: "หัวข้อ workshop ที่ขอแนะนำ",
         imgAuthor: "© 2026 Student Talent Development",
         imgAffiliation: "Faculty of Engineering · Chiang Mai University",
@@ -94,6 +98,9 @@
         partnershipIntroBanner: "แบบประเมินมี 2 ส่วน · ส่วนที่ 1 ทักษะ (12 ข้อ) · ส่วนที่ 2 ความสัมพันธ์กับ AI (8 ข้อ)",
         partnershipHead: "ภาพรวมความสัมพันธ์ของคุณกับ AI",
         partnershipSub: "ทักษะ = \"คุณใช้ AI ทำอะไรได้\" · ความสัมพันธ์ = \"คุณใช้ AI ยังไง\"",
+        partnershipStrengthLabel: "จุดแข็ง",
+        partnershipGapLabel: "ตัวฉุด",
+        partnershipVarianceHigh: "คุณมีจุดเด่นและจุดอ่อนชัดเจน — โฟกัสตัวฉุดก่อนจะทำให้ภาพรวมขยับเร็วที่สุด",
         partnershipCompositeLabel: "คะแนนรวม Partnership",
         partnershipMini: "แถบยาวกว่า = คุณตรวจสอบ ตั้งคำถาม และนำ AI ได้ดีกว่า · เป้าหมาย: สมดุลกับทักษะ",
         quadrantHead: "รูปแบบการใช้ AI ของคุณ",
@@ -174,6 +181,8 @@
         strongHead: "What you already do well",
         growHead: "Areas to explore next",
         nextHead: "Your next path",
+        nextSubSkillLabel: "Grow your AI skill",
+        nextSubPartnershipLabel: "Grow your AI partnership style",
         workshopsLabel: "Recommended workshops",
         copyBtn: "Copy summary",
         copyDone: "Copied ✓",
@@ -202,6 +211,8 @@
         imgP0Name: "JUST STARTING THE JOURNEY",
         imgPartnershipHead: "Your AI partnership profile",
         imgPartnershipCompositeTpl: "Overall: {p}%",
+        imgChartSkillHead: "AI Skill",
+        imgChartPartnershipHead: "AI Partnership",
         imgWorkshopsHead: "Recommended Workshops",
         imgAuthor: "© 2026 Student Talent Development",
         imgAffiliation: "Faculty of Engineering · Chiang Mai University",
@@ -234,6 +245,9 @@
         partnershipIntroBanner: "Assessment has 2 parts · Part 1 Skill (12 questions) · Part 2 AI Partnership (8 questions)",
         partnershipHead: "Your AI partnership profile",
         partnershipSub: "Skill = \"what you can do with AI\" · Partnership = \"how you use AI\"",
+        partnershipStrengthLabel: "Strength",
+        partnershipGapLabel: "Gap",
+        partnershipVarianceHigh: "Your profile is uneven — focusing on the gap first will lift the overall pattern fastest",
         partnershipCompositeLabel: "Partnership composite",
         partnershipMini: "Longer bars = stronger at verifying, questioning, and leading AI · aim for balance with skill",
         quadrantHead: "Your AI partnership pattern",
@@ -580,6 +594,12 @@
             th: "เริ่มจากรู้จัก AI และฝึกถาม 'ทำไม' กับคำตอบที่ AI ให้ทุกครั้ง",
             en: "Start by getting to know AI, and practice asking 'why' every time AI gives you an answer"
           },
+          partnershipNextH: {th: "ขยับสไตล์การใช้ AI", en: "Grow your AI partnership style"},
+          partnershipNext: [
+            {th: "ทุกครั้งที่ AI ตอบ ฝึกถาม 'ทำไม' และหาแหล่งยืนยันอย่างน้อย 1 แหล่ง", en: "Every time AI answers, practice asking 'why' and verify with at least one other source"},
+            {th: "ก่อนเปิด AI ลองคิดคำตอบของตัวเองก่อน 1 นาที — สร้างนิสัยคิดเองก่อน", en: "Before opening AI, try your own answer for 1 minute — build the habit of thinking first"},
+            {th: "เริ่มใช้ AI ในงานเล็ก ๆ ก่อน อย่ารีบใช้กับงานสำคัญ", en: "Start with small tasks before using AI on critical work"}
+          ],
           persona: {
             who: {
               th: "คนที่เพิ่งเริ่มทำความรู้จัก AI — อาจเป็นนักเรียน นิสิต หรือคนทำงานที่ยังไม่ได้ใช้ AI จริงจัง รู้จักแต่ยังไม่มั่นใจ / ยังไม่รู้จะเริ่มยังไง",
@@ -595,7 +615,8 @@
             ],
             workshops: [
               {th: "พื้นฐาน AI สำหรับทุกคน", en: "AI Foundations for Everyone"},
-              {th: "การใช้ AI อย่างมีความรับผิดชอบ", en: "Responsible AI Practices"}
+              {th: "การใช้ AI อย่างมีความรับผิดชอบ", en: "Responsible AI Practices"},
+              {th: "Prompt พื้นฐานในชีวิตประจำวัน", en: "Everyday Prompting Basics"}
             ]
           }
         },
@@ -611,6 +632,12 @@
             th: "ลองเครื่องมือ AI ใหม่ ๆ ในงานประจำสัปดาห์ละ 1–2 ครั้ง สไตล์ดี ๆ ของคุณพร้อมรับการขยับทักษะแล้ว",
             en: "Try new AI tools on real tasks 1–2 times a week — your thoughtful style is ready for tool fluency"
           },
+          partnershipNextH: {th: "รักษาสไตล์ดี ๆ และต่อยอด", en: "Keep your style and extend it"},
+          partnershipNext: [
+            {th: "รักษานิสัยตรวจสอบและตั้งคำถาม — สไตล์นี้คือเกราะป้องกันคุณตอนใช้ AI มากขึ้น", en: "Keep verifying and questioning — that style protects you as your AI usage grows"},
+            {th: "แบ่งปันวิธีคิดของคุณให้คนรอบข้าง — คุณเป็น role model ได้", en: "Share your thinking style with people around you — you can be a role model"},
+            {th: "ก้าวออกจาก comfort zone ลองใช้ AI ในงานที่ท้าทายมากขึ้น", en: "Step out of your comfort zone — try AI on more challenging work"}
+          ],
           persona: {
             who: {
               th: "คนที่เพิ่งเริ่มใช้ AI แต่มีสติ — ตรวจสอบ ตั้งคำถาม และใช้ความคิดของตัวเองเป็นแกน ทักษะยังไม่คล่อง แต่ mindset ดีอยู่แล้ว",
@@ -626,7 +653,8 @@
             ],
             workshops: [
               {th: "Prompt Engineering ขั้นกลาง", en: "Intermediate Prompt Engineering"},
-              {th: "AI กับเวิร์กโฟลว์ในงานประจำ", en: "AI Workflows in Daily Work"}
+              {th: "AI กับเวิร์กโฟลว์ในงานประจำ", en: "AI Workflows in Daily Work"},
+              {th: "AI Mindfulness — รู้จักเลือกใช้และไม่ใช้", en: "AI Mindfulness — choosing when to use vs. not"}
             ]
           }
         },
@@ -642,6 +670,12 @@
             th: "ลองคิดคำตอบของตัวเองก่อนเปิด AI สัก 1–2 นาที และตรวจสอบคำตอบ AI ทุกครั้งในงานสำคัญ คุณคือคนขับ ไม่ใช่ผู้โดยสาร",
             en: "Try thinking your own answer for 1–2 minutes before opening AI, and verify AI outputs on important work. You're the driver, not the passenger."
           },
+          partnershipNextH: {th: "ดึงตัวเองกลับมาเป็นผู้ขับ", en: "Take the driver's seat back"},
+          partnershipNext: [
+            {th: "ก่อนเปิด AI ลองคิดคำตอบของตัวเองก่อน 1–2 นาทีทุกครั้ง", en: "Before opening AI, try your own answer for 1–2 minutes every time"},
+            {th: "งานสำคัญ ตรวจสอบผลของ AI กับแหล่งอื่นอย่างน้อย 1 แหล่ง", en: "For important work, verify AI output against at least one other source"},
+            {th: "เก็บงานบางอย่างไว้ทำเอง — รักษาทักษะคิดวิเคราะห์และความสร้างสรรค์", en: "Keep some tasks AI-free — preserve your critical thinking and creativity"}
+          ],
           persona: {
             who: {
               th: "คนที่ใช้ AI ได้คล่องแล้วในชีวิตประจำวัน แต่บางครั้งใช้แบบ 'ทำตาม AI' โดยไม่ตรวจสอบ ปล่อยให้ AI คิดแทน อาจสังเกตว่าตัวเองคิดเองน้อยลงเรื่อย ๆ",
@@ -658,7 +692,8 @@
             ],
             workshops: [
               {th: "Critical AI Use & Verification", en: "Critical AI Use & Verification"},
-              {th: "AI Mindfulness — รู้จักเลือกใช้และไม่ใช้", en: "AI Mindfulness — choosing when to use vs. not"}
+              {th: "AI Mindfulness — รู้จักเลือกใช้และไม่ใช้", en: "AI Mindfulness — choosing when to use vs. not"},
+              {th: "Prompt Engineering ขั้นกลาง", en: "Intermediate Prompt Engineering"}
             ]
           }
         },
@@ -674,6 +709,12 @@
             th: "แบ่งปันสไตล์การใช้ AI ของคุณให้ทีม / คนรอบข้าง — เป็น AI champion ที่ช่วยให้คนอื่นใช้ AI ได้ดีขึ้น",
             en: "Share your AI partnership style with your team — become a champion who helps others use AI better"
           },
+          partnershipNextH: {th: "ส่งต่อสไตล์ดี ๆ ให้คนรอบข้าง", en: "Pass your style on to others"},
+          partnershipNext: [
+            {th: "เป็น AI champion ในทีม โค้ชคนรอบข้างให้ใช้ AI อย่างมีสติ", en: "Be an AI champion on your team — coach others to use AI mindfully"},
+            {th: "ทบทวนสไตล์ของตัวเองสม่ำเสมอ — อย่าคิดว่า 'จบแล้ว' เพราะ AI เปลี่ยนเร็ว", en: "Review your own style regularly — don't assume you're 'done'; AI evolves fast"},
+            {th: "ลองใช้ AI ในรูปแบบใหม่ ๆ ที่ยังไม่เคยทำ — ขยายสไตล์การใช้งาน", en: "Try AI in new ways you haven't used before — keep evolving your style"}
+          ],
           persona: {
             who: {
               th: "คนที่ใช้ AI ได้คล่องและนำ AI ได้ดี — ตรวจสอบ ตั้งคำถาม และใช้ความคิดของตัวเองเป็นแกน ทักษะกับสไตล์การใช้งานสมดุล เป็นต้นแบบของการใช้ AI อย่างมีคุณภาพ",
@@ -690,7 +731,8 @@
             ],
             workshops: [
               {th: "AI Champion Coaching", en: "AI Champion Coaching"},
-              {th: "Leading AI Adoption ในทีม / องค์กร", en: "Leading AI Adoption in teams"}
+              {th: "Leading AI Adoption ในทีม / องค์กร", en: "Leading AI Adoption in teams"},
+              {th: "AI กับเวิร์กโฟลว์ในงานประจำ", en: "AI Workflows in Daily Work"}
             ]
           }
         }
