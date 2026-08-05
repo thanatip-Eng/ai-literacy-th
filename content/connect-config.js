@@ -17,28 +17,22 @@
   root.AI_LITERACY_CONNECT = config;
 })(typeof globalThis !== 'undefined' ? globalThis : this, function() {
   return {
-    enabled: false,
-    mode: "lti",
-    formUrl: "", // https://docs.google.com/forms/d/e/XXXX/formResponse
-    fields: {
-      name: "",
-      studentId: "",
-      email: "",
-      role: "",
-      lang: "",
-      placement: "",
-      l1: "",
-      l2: "",
-      l3: "",
-      partnershipComposite: "",
-      verify: "",
-      restraint: "",
-      humanLead: "",
-      direction: "",
-      quadrant: "",
-      weakTags: "",
-      rawAnswers: "",
-      date: ""
-    }
+    enabled: true,
+mode: "lti",           // หรือ "form" ถ้าไม่ใช้ Canvas
+formUrl: "https://docs.google.com/forms/d/e/1FAIpQLSdesg67G-mbJng9f9PwkUbbiDiuuPIyA7CnhSfiGPe3uj0h6A/formResponse",
+                       // นำมาจากลิงก์ฟอร์ม เปลี่ยน /viewform เป็น /formResponse
+fields: {
+  name: "entry.638643263",
+  studentid: "entry.537559243",
+  email: "entry.370642560",
+  level_cumulative: "entry.1254065153",
+  score_skill: "entry.2031091558",
+  score_partnership: "entry.721553404",
+  score_subtrait: "entry.1286433031",
+  quadrant: "entry.1221995085",
+  weakTags: "entry.36105660",
+  rawAnswers: "entry.425412520",
+  date: "entry.370420129"
+}
   };
 });
