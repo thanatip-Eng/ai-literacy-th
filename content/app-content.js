@@ -154,7 +154,18 @@
           "L0/L1 เยอะ → workshop พื้นฐาน AI literacy + responsible AI use",
           "ค่าเฉลี่ยคะแนนรายด้านของกลุ่ม (เช่น verify เฉลี่ย < 60) → จัด workshop ด้านนั้นได้เลย แม้ยังไม่มีใครติด #weak — ใช้คะแนนละเอียดจัดลำดับความสำคัญและวัดผลก่อน-หลังการอบรม",
           "L2% สูงแต่ L3% ต่ำทั้งกลุ่ม → กลุ่มพร้อมยกระดับจาก 'ผู้ใช้' เป็น 'ผู้สร้าง' — จัด workshop no-code automation / AI API"
-        ]
+        ],
+        connectBanner: "โหมดเชื่อมต่อ: เมื่อทำแบบประเมินเสร็จ ผลของคุณจะถูกส่งให้ผู้สอน/องค์กรโดยอัตโนมัติ",
+        connectSignedInTpl: "· เข้าสู่ระบบผ่าน Canvas: {email}",
+        gatePill: "เข้าผ่าน Canvas",
+        gateHead: "กรุณาเข้าผ่าน Canvas",
+        gateBody: "แบบประเมินรอบนี้เปิดเฉพาะผู้ที่ได้รับสิทธิ์ในรายวิชา กรุณาเปิดลิงก์แบบประเมินจากหน้ารายวิชาใน Canvas เพื่อยืนยันตัวตนก่อนเริ่มทำ",
+        studentIdLabel: "รหัสนักศึกษา (ใช้ส่งผลให้ผู้สอน)",
+        studentIdPlaceholder: "รหัสนักศึกษา",
+        sendStatusSending: "กำลังส่งผลให้ผู้สอน…",
+        sendStatusDone: "ส่งผลให้ผู้สอนเรียบร้อยแล้ว ✓",
+        sendStatusFail: "ส่งผลไม่สำเร็จ — ตรวจสอบอินเทอร์เน็ตแล้วลองส่งอีกครั้ง",
+        sendRetryBtn: "ส่งอีกครั้ง"
       },
       en: {
         documentTitle: "AI Literacy & Partnership Profile — Self-Assessment",
@@ -305,7 +316,18 @@
           "Many L0/L1 → workshop on AI literacy foundations + responsible AI use",
           "Group averages per dimension (e.g. mean verify < 60) → run that workshop even before anyone hits #weak — use the detailed scores to prioritize and to measure pre/post training impact",
           "High L2% but low L3% across the group → the group is ready to move from 'user' to 'builder' — run no-code automation / AI API workshops"
-        ]
+        ],
+        connectBanner: "Connected mode: when you finish, your results are sent to your instructor / organization automatically",
+        connectSignedInTpl: "· Signed in via Canvas: {email}",
+        gatePill: "Canvas access",
+        gateHead: "Please open this from Canvas",
+        gateBody: "This assessment is open to authorized course members only. Please open the assessment link from your Canvas course page to verify your identity first.",
+        studentIdLabel: "Student ID (used to submit your results to your instructor)",
+        studentIdPlaceholder: "Student ID",
+        sendStatusSending: "Sending your results to your instructor…",
+        sendStatusDone: "Results sent to your instructor ✓",
+        sendStatusFail: "Sending failed — check your connection and try again",
+        sendRetryBtn: "Send again"
       }
     },
     levels: [
