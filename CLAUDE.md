@@ -33,8 +33,9 @@ partnership.
   `short`, `desc`, `color`, `items[]` (4 statements for assessable levels),
   `blurb`, `nextH`, `next[]`, `workshops[]`
 - **`partnership`** — 4 `subtraits` (keys `verify`, `restraint`,
-  `human_lead`, `direction`), 2 items each; items may set `reverse: true`
-  (currently exactly one reverse item — a test enforces the count).
+  `human_lead`, `direction`), 2 items each; the second item of every
+  subtrait is reverse-scored (`reverse: true` — a test enforces exactly
+  one reverse item per subtrait, in second position).
   `threshold` (60) is the quadrant partnership cut. `quadrants` holds the 4
   personas (`novice`, `coach`, `autopilot`, `director`) with `blurb`,
   `nudge`, `partnershipNext[]`, `persona{who,strengths,watchouts,workshops}`

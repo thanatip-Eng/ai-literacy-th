@@ -393,7 +393,7 @@
         items: [
           {th: "เมื่อเจอปัญหางานซ้ำ ๆ ฉันมักวางแผนได้ว่าจะออกแบบ workflow ที่ให้ AI ทำงานหลายขั้นต่อเนื่องเพื่อแก้ปัญหานั้นอย่างไร", en: "When I hit a repetitive problem, I can usually map out a multi-step workflow where AI handles several stages to solve it"},
           {th: "ฉันสามารถเชื่อมต่อ AI เข้ากับแอปหรือระบบผ่าน API ได้ด้วยตนเอง", en: "I can connect AI to an app or system via API on my own"},
-          {th: "ฉันสามารถใช้ AI ช่วยวางแผน เขียนโค้ด หรือใช้ no-code/low-code สร้างต้นแบบของแอปหรือระบบที่ใช้งานได้", en: "I can use AI to help plan, code, or use no-code/low-code tools to build a working prototype of an app or system"},
+          {th: "ฉันสามารถสร้างต้นแบบของแอปหรือระบบที่ใช้งานได้จริง ด้วยวิธีใดวิธีหนึ่ง — ให้ AI ช่วยวางแผน/เขียนโค้ด หรือใช้เครื่องมือ no-code/low-code", en: "I can build a working prototype of an app or system in at least one way — using AI to help plan or code, or with no-code/low-code tools"},
           {th: "ฉันเคยใช้ AI เป็นส่วนหนึ่งของการพัฒนาผลงานหรือระบบที่มีผู้อื่นได้ทดลองหรือใช้งานจริง (เช่น เพื่อน เพื่อนร่วมงาน หรือลูกค้ากลุ่มเล็ก ๆ)", en: "I've used AI as part of building something that other people — friends, colleagues, or a small group of users — have actually tried or used"}
         ],
         blurb: {th: "คุณไม่ได้แค่ใช้ AI แต่สร้างสิ่งใหม่ด้วย AI ได้ ทั้งเวิร์กโฟลว์ ต้นแบบ และการเชื่อมต่อระบบ", en: "You don't just use AI — you build new things with it: workflows, prototypes, and integrations."},
@@ -589,7 +589,7 @@
           desc: {th: "รู้ว่าเมื่อใดควรใช้ AI และเมื่อใดควรลงมือเอง", en: "Know when to use AI and when to do it yourself"},
           items: [
             {th: "มีบางงานที่ฉันเลือกทำเองโดยไม่เปิด AI เพราะอยากให้ออกมาเป็นแบบที่ฉันคิดจริง ๆ", en: "There are tasks I choose to do without AI because I want the result to truly reflect my own thinking", reverse: false},
-            {th: "ก่อนเปิด AI ฉันมักลองคิดคำตอบของตัวเองก่อนสัก 1–2 นาที", en: "Before opening AI, I usually try my own answer first for a minute or two", reverse: false}
+            {th: "ช่วงหลัง ๆ แทบทุกงานฉันจะเปิด AI ก่อนเป็นอย่างแรก แม้แต่งานที่ฉันทำเองได้เร็วกว่า", en: "Lately I open AI first for almost every task — even ones I could do faster myself", reverse: true}
           ]
         },
         {
@@ -597,8 +597,8 @@
           name: {th: "ใช้ทักษะมนุษย์เป็นแกน", en: "Human-skill lead"},
           desc: {th: "ใช้ empathy ความคิดสร้างสรรค์ และวิจารณญาณของตัวเองเป็นแกน AI เป็นตัวช่วย", en: "Lead with empathy, creativity, and judgment — AI assists"},
           items: [
-            {th: "เวลาคุยกับลูกค้า/เพื่อนร่วมงาน/ผู้ใช้ ฉันใช้การฟัง/สังเกตของตัวเองเป็นหลัก แล้วใช้ AI ช่วยเรียบเรียงทีหลัง", en: "When talking with customers/colleagues/users, I lead with my own listening and observation, then use AI to polish afterward", reverse: false},
-            {th: "ในงานที่ต้องใช้ความคิดของฉัน ไอเดียหลักมาจากฉัน AI ช่วยขยาย/ลับคม", en: "In work that requires my own thinking, the core idea comes from me — AI just expands or sharpens it", reverse: false}
+            {th: "เวลาคุยกับลูกค้า/เพื่อนร่วมงาน/ผู้ใช้ ฉันใช้การฟังและการสังเกตของตัวเองเป็นหลักในการทำความเข้าใจ ไม่ใช่ให้ AI สรุปแทน", en: "When talking with customers/colleagues/users, I rely on my own listening and observation to understand them — not on AI summaries", reverse: false},
+            {th: "หลายครั้งงานที่ฉันส่งออกไป แนวคิดหลักมาจาก AI มากกว่ามาจากตัวฉันเอง", en: "Often, the core ideas in work I hand in come more from AI than from me", reverse: true}
           ]
         },
         {
@@ -607,7 +607,7 @@
           desc: {th: "คุณนำ AI ไม่ใช่ AI นำคุณ", en: "You steer AI, not AI steers you"},
           items: [
             {th: "ก่อนพิมพ์ prompt ฉันมักรู้แล้วว่าผลลัพธ์ที่อยากได้หน้าตาเป็นยังไง", en: "Before typing a prompt, I usually already know what the result should look like", reverse: false},
-            {th: "เวลา AI เสนอแนวทาง ฉันเลือกรับหรือปฏิเสธตามวิจารณญาณของฉัน ไม่ทำตามทันที", en: "When AI proposes a direction, I accept or reject based on my own judgment, not just follow it", reverse: false}
+            {th: "ฉันมักพิมพ์ถาม AI ก่อน แล้วค่อยคิดตามแนวทางที่มันเสนอมา", en: "I usually ask AI first, then shape my thinking around whatever it suggests", reverse: true}
           ]
         }
       ],
