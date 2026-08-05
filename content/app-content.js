@@ -135,13 +135,15 @@
           "#L{n}-{name} = ระดับทักษะสะสม (L0 = เริ่มต้น, L1–L3 = ระดับที่ผ่านแล้ว)",
           "#P{n} = คะแนน Partnership composite 0–100",
           "#Q-{key} = quadrant: novice / coach / autopilot / director",
+          "#L{n}:{pct} = คะแนนรายระดับทักษะ 0–100 (เช่น #L1:85 #L2:70 #L3:40)",
+          "#{key}:{pct} = คะแนนราย subtrait 0–100 (verify / restraint / human_lead / direction)",
           "#weak:{key} = subtrait ที่ได้ < 50% (verify / restraint / human_lead / direction)",
           "#role-{code} = บทบาทที่ผู้เข้าอบรมเลือก (ถ้าไม่ข้าม)"
         ],
         orgGuideCollectHead: "วิธีเก็บข้อมูล",
         orgGuideCollectBody: "ขอให้ผู้เข้าอบรมคัดลอกหรือถ่าย screenshot บล็อกแท็ก แล้วส่งเข้า Google Sheet / Excel ของทีม — ใช้รหัสนามแฝงแทนชื่อจริงได้เพื่อรักษาความเป็นส่วนตัว",
         orgGuideColumnsHead: "คอลัมน์ที่แนะนำใน spreadsheet",
-        orgGuideColumnsBody: "ผู้เข้าอบรม · ระดับทักษะ · Partnership % · Quadrant · weak1 · weak2 · บทบาท",
+        orgGuideColumnsBody: "ผู้เข้าอบรม · ระดับทักษะ · L1% · L2% · L3% · Partnership % · verify% · restraint% · human_lead% · direction% · Quadrant · weak1 · weak2 · บทบาท",
         orgGuidePatternsHead: "ตัวอย่างการอ่าน pattern ของทีม",
         orgGuidePatternsBody: [
           "Q-autopilot เยอะ → workshop เรื่อง critical AI use + verification (ทีมใช้ AI คล่องแต่ขาดสติ)",
@@ -149,7 +151,9 @@
           "#weak:human_lead เยอะ → workshop empathy / creative thinking / human-centered design",
           "#weak:restraint เยอะ → workshop AI mindfulness / รู้จักเลือกใช้ AI",
           "#weak:direction เยอะ → workshop prompt engineering / นำ AI",
-          "L0/L1 เยอะ → workshop พื้นฐาน AI literacy + responsible AI use"
+          "L0/L1 เยอะ → workshop พื้นฐาน AI literacy + responsible AI use",
+          "ค่าเฉลี่ยคะแนนรายด้านของกลุ่ม (เช่น verify เฉลี่ย < 60) → จัด workshop ด้านนั้นได้เลย แม้ยังไม่มีใครติด #weak — ใช้คะแนนละเอียดจัดลำดับความสำคัญและวัดผลก่อน-หลังการอบรม",
+          "L2% สูงแต่ L3% ต่ำทั้งกลุ่ม → กลุ่มพร้อมยกระดับจาก 'ผู้ใช้' เป็น 'ผู้สร้าง' — จัด workshop no-code automation / AI API"
         ]
       },
       en: {
@@ -282,13 +286,15 @@
           "#L{n}-{name} = cumulative skill level (L0 = starting, L1–L3 = passed levels)",
           "#P{n} = Partnership composite score 0–100",
           "#Q-{key} = quadrant: novice / coach / autopilot / director",
+          "#L{n}:{pct} = per-level skill score 0–100 (e.g. #L1:85 #L2:70 #L3:40)",
+          "#{key}:{pct} = per-subtrait score 0–100 (verify / restraint / human_lead / direction)",
           "#weak:{key} = subtrait scoring < 50% (verify / restraint / human_lead / direction)",
           "#role-{code} = the role the participant selected (if not skipped)"
         ],
         orgGuideCollectHead: "How to collect the data",
         orgGuideCollectBody: "Ask participants to copy or screenshot the tag block and submit it to a shared Google Sheet / Excel — pseudonyms can be used to preserve privacy.",
         orgGuideColumnsHead: "Suggested spreadsheet columns",
-        orgGuideColumnsBody: "Participant · Skill level · Partnership % · Quadrant · weak1 · weak2 · Role",
+        orgGuideColumnsBody: "Participant · Skill level · L1% · L2% · L3% · Partnership % · verify% · restraint% · human_lead% · direction% · Quadrant · weak1 · weak2 · Role",
         orgGuidePatternsHead: "Reading team-level patterns",
         orgGuidePatternsBody: [
           "Many Q-autopilot → workshop on critical AI use + verification (team uses AI fluently but lacks judgment)",
@@ -296,7 +302,9 @@
           "Many #weak:human_lead → workshop on empathy / creative thinking / human-centered design",
           "Many #weak:restraint → workshop on AI mindfulness / knowing when not to use AI",
           "Many #weak:direction → workshop on prompt engineering / leading AI",
-          "Many L0/L1 → workshop on AI literacy foundations + responsible AI use"
+          "Many L0/L1 → workshop on AI literacy foundations + responsible AI use",
+          "Group averages per dimension (e.g. mean verify < 60) → run that workshop even before anyone hits #weak — use the detailed scores to prioritize and to measure pre/post training impact",
+          "High L2% but low L3% across the group → the group is ready to move from 'user' to 'builder' — run no-code automation / AI API workshops"
         ]
       }
     },

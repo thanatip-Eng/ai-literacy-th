@@ -38,6 +38,12 @@ test('result explains the cumulative level blocker', () => {
   assert.match(html, /pcts\[placement\]/);
 });
 
+test('org tag block includes per-dimension score tags', () => {
+  assert.match(html, /`#L\$\{L\.n\}:\$\{pcts\[i\] \|\| 0\}`/);
+  assert.match(html, /`#\$\{sub\.key\}:\$\{partnership\.subtraitScores\[i\] \|\| 0\}`/);
+  assert.match(html, /lines\.join\('\\n'\)/);
+});
+
 test('editor draft restore only merges known keys with matching types', () => {
   assert.match(html, /function mergeKnownShape/);
   assert.match(html, /Object\.keys\(target\)/);
