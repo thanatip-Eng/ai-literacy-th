@@ -135,13 +135,15 @@
           "#L{n}-{name} = ระดับทักษะสะสม (L0 = เริ่มต้น, L1–L3 = ระดับที่ผ่านแล้ว)",
           "#P{n} = คะแนน Partnership composite 0–100",
           "#Q-{key} = quadrant: novice / coach / autopilot / director",
+          "#L{n}:{pct} = คะแนนรายระดับทักษะ 0–100 (เช่น #L1:85 #L2:70 #L3:40)",
+          "#{key}:{pct} = คะแนนราย subtrait 0–100 (verify / restraint / human_lead / direction)",
           "#weak:{key} = subtrait ที่ได้ < 50% (verify / restraint / human_lead / direction)",
           "#role-{code} = บทบาทที่ผู้เข้าอบรมเลือก (ถ้าไม่ข้าม)"
         ],
         orgGuideCollectHead: "วิธีเก็บข้อมูล",
         orgGuideCollectBody: "ขอให้ผู้เข้าอบรมคัดลอกหรือถ่าย screenshot บล็อกแท็ก แล้วส่งเข้า Google Sheet / Excel ของทีม — ใช้รหัสนามแฝงแทนชื่อจริงได้เพื่อรักษาความเป็นส่วนตัว",
         orgGuideColumnsHead: "คอลัมน์ที่แนะนำใน spreadsheet",
-        orgGuideColumnsBody: "ผู้เข้าอบรม · ระดับทักษะ · Partnership % · Quadrant · weak1 · weak2 · บทบาท",
+        orgGuideColumnsBody: "ผู้เข้าอบรม · ระดับทักษะ · L1% · L2% · L3% · Partnership % · verify% · restraint% · human_lead% · direction% · Quadrant · weak1 · weak2 · บทบาท",
         orgGuidePatternsHead: "ตัวอย่างการอ่าน pattern ของทีม",
         orgGuidePatternsBody: [
           "Q-autopilot เยอะ → workshop เรื่อง critical AI use + verification (ทีมใช้ AI คล่องแต่ขาดสติ)",
@@ -149,8 +151,21 @@
           "#weak:human_lead เยอะ → workshop empathy / creative thinking / human-centered design",
           "#weak:restraint เยอะ → workshop AI mindfulness / รู้จักเลือกใช้ AI",
           "#weak:direction เยอะ → workshop prompt engineering / นำ AI",
-          "L0/L1 เยอะ → workshop พื้นฐาน AI literacy + responsible AI use"
-        ]
+          "L0/L1 เยอะ → workshop พื้นฐาน AI literacy + responsible AI use",
+          "ค่าเฉลี่ยคะแนนรายด้านของกลุ่ม (เช่น verify เฉลี่ย < 60) → จัด workshop ด้านนั้นได้เลย แม้ยังไม่มีใครติด #weak — ใช้คะแนนละเอียดจัดลำดับความสำคัญและวัดผลก่อน-หลังการอบรม",
+          "L2% สูงแต่ L3% ต่ำทั้งกลุ่ม → กลุ่มพร้อมยกระดับจาก 'ผู้ใช้' เป็น 'ผู้สร้าง' — จัด workshop no-code automation / AI API"
+        ],
+        connectBanner: "โหมดเชื่อมต่อ: เมื่อทำแบบประเมินเสร็จ ผลของคุณจะถูกส่งให้ผู้สอน/องค์กรโดยอัตโนมัติ",
+        connectSignedInTpl: "· เข้าสู่ระบบผ่าน Canvas: {email}",
+        gatePill: "เข้าผ่าน Canvas",
+        gateHead: "กรุณาเข้าผ่าน Canvas",
+        gateBody: "แบบประเมินรอบนี้เปิดเฉพาะผู้ที่ได้รับสิทธิ์ในรายวิชา กรุณาเปิดลิงก์แบบประเมินจากหน้ารายวิชาใน Canvas เพื่อยืนยันตัวตนก่อนเริ่มทำ",
+        studentIdLabel: "รหัสนักศึกษา (ใช้ส่งผลให้ผู้สอน)",
+        studentIdPlaceholder: "รหัสนักศึกษา",
+        sendStatusSending: "กำลังส่งผลให้ผู้สอน…",
+        sendStatusDone: "ส่งผลให้ผู้สอนเรียบร้อยแล้ว ✓",
+        sendStatusFail: "ส่งผลไม่สำเร็จ — ตรวจสอบอินเทอร์เน็ตแล้วลองส่งอีกครั้ง",
+        sendRetryBtn: "ส่งอีกครั้ง"
       },
       en: {
         documentTitle: "AI Literacy & Partnership Profile — Self-Assessment",
@@ -282,13 +297,15 @@
           "#L{n}-{name} = cumulative skill level (L0 = starting, L1–L3 = passed levels)",
           "#P{n} = Partnership composite score 0–100",
           "#Q-{key} = quadrant: novice / coach / autopilot / director",
+          "#L{n}:{pct} = per-level skill score 0–100 (e.g. #L1:85 #L2:70 #L3:40)",
+          "#{key}:{pct} = per-subtrait score 0–100 (verify / restraint / human_lead / direction)",
           "#weak:{key} = subtrait scoring < 50% (verify / restraint / human_lead / direction)",
           "#role-{code} = the role the participant selected (if not skipped)"
         ],
         orgGuideCollectHead: "How to collect the data",
         orgGuideCollectBody: "Ask participants to copy or screenshot the tag block and submit it to a shared Google Sheet / Excel — pseudonyms can be used to preserve privacy.",
         orgGuideColumnsHead: "Suggested spreadsheet columns",
-        orgGuideColumnsBody: "Participant · Skill level · Partnership % · Quadrant · weak1 · weak2 · Role",
+        orgGuideColumnsBody: "Participant · Skill level · L1% · L2% · L3% · Partnership % · verify% · restraint% · human_lead% · direction% · Quadrant · weak1 · weak2 · Role",
         orgGuidePatternsHead: "Reading team-level patterns",
         orgGuidePatternsBody: [
           "Many Q-autopilot → workshop on critical AI use + verification (team uses AI fluently but lacks judgment)",
@@ -296,8 +313,21 @@
           "Many #weak:human_lead → workshop on empathy / creative thinking / human-centered design",
           "Many #weak:restraint → workshop on AI mindfulness / knowing when not to use AI",
           "Many #weak:direction → workshop on prompt engineering / leading AI",
-          "Many L0/L1 → workshop on AI literacy foundations + responsible AI use"
-        ]
+          "Many L0/L1 → workshop on AI literacy foundations + responsible AI use",
+          "Group averages per dimension (e.g. mean verify < 60) → run that workshop even before anyone hits #weak — use the detailed scores to prioritize and to measure pre/post training impact",
+          "High L2% but low L3% across the group → the group is ready to move from 'user' to 'builder' — run no-code automation / AI API workshops"
+        ],
+        connectBanner: "Connected mode: when you finish, your results are sent to your instructor / organization automatically",
+        connectSignedInTpl: "· Signed in via Canvas: {email}",
+        gatePill: "Canvas access",
+        gateHead: "Please open this from Canvas",
+        gateBody: "This assessment is open to authorized course members only. Please open the assessment link from your Canvas course page to verify your identity first.",
+        studentIdLabel: "Student ID (used to submit your results to your instructor)",
+        studentIdPlaceholder: "Student ID",
+        sendStatusSending: "Sending your results to your instructor…",
+        sendStatusDone: "Results sent to your instructor ✓",
+        sendStatusFail: "Sending failed — check your connection and try again",
+        sendRetryBtn: "Send again"
       }
     },
     levels: [
@@ -363,7 +393,7 @@
         items: [
           {th: "เมื่อเจอปัญหางานซ้ำ ๆ ฉันมักวางแผนได้ว่าจะออกแบบ workflow ที่ให้ AI ทำงานหลายขั้นต่อเนื่องเพื่อแก้ปัญหานั้นอย่างไร", en: "When I hit a repetitive problem, I can usually map out a multi-step workflow where AI handles several stages to solve it"},
           {th: "ฉันสามารถเชื่อมต่อ AI เข้ากับแอปหรือระบบผ่าน API ได้ด้วยตนเอง", en: "I can connect AI to an app or system via API on my own"},
-          {th: "ฉันสามารถใช้ AI ช่วยวางแผน เขียนโค้ด หรือใช้ no-code/low-code สร้างต้นแบบของแอปหรือระบบที่ใช้งานได้", en: "I can use AI to help plan, code, or use no-code/low-code tools to build a working prototype of an app or system"},
+          {th: "ฉันสามารถสร้างต้นแบบของแอปหรือระบบที่ใช้งานได้จริง ด้วยวิธีใดวิธีหนึ่ง — ให้ AI ช่วยวางแผน/เขียนโค้ด หรือใช้เครื่องมือ no-code/low-code", en: "I can build a working prototype of an app or system in at least one way — using AI to help plan or code, or with no-code/low-code tools"},
           {th: "ฉันเคยใช้ AI เป็นส่วนหนึ่งของการพัฒนาผลงานหรือระบบที่มีผู้อื่นได้ทดลองหรือใช้งานจริง (เช่น เพื่อน เพื่อนร่วมงาน หรือลูกค้ากลุ่มเล็ก ๆ)", en: "I've used AI as part of building something that other people — friends, colleagues, or a small group of users — have actually tried or used"}
         ],
         blurb: {th: "คุณไม่ได้แค่ใช้ AI แต่สร้างสิ่งใหม่ด้วย AI ได้ ทั้งเวิร์กโฟลว์ ต้นแบบ และการเชื่อมต่อระบบ", en: "You don't just use AI — you build new things with it: workflows, prototypes, and integrations."},
@@ -559,7 +589,7 @@
           desc: {th: "รู้ว่าเมื่อใดควรใช้ AI และเมื่อใดควรลงมือเอง", en: "Know when to use AI and when to do it yourself"},
           items: [
             {th: "มีบางงานที่ฉันเลือกทำเองโดยไม่เปิด AI เพราะอยากให้ออกมาเป็นแบบที่ฉันคิดจริง ๆ", en: "There are tasks I choose to do without AI because I want the result to truly reflect my own thinking", reverse: false},
-            {th: "ก่อนเปิด AI ฉันมักลองคิดคำตอบของตัวเองก่อนสัก 1–2 นาที", en: "Before opening AI, I usually try my own answer first for a minute or two", reverse: false}
+            {th: "ช่วงหลัง ๆ แทบทุกงานฉันจะเปิด AI ก่อนเป็นอย่างแรก แม้แต่งานที่ฉันทำเองได้เร็วกว่า", en: "Lately I open AI first for almost every task — even ones I could do faster myself", reverse: true}
           ]
         },
         {
@@ -567,8 +597,8 @@
           name: {th: "ใช้ทักษะมนุษย์เป็นแกน", en: "Human-skill lead"},
           desc: {th: "ใช้ empathy ความคิดสร้างสรรค์ และวิจารณญาณของตัวเองเป็นแกน AI เป็นตัวช่วย", en: "Lead with empathy, creativity, and judgment — AI assists"},
           items: [
-            {th: "เวลาคุยกับลูกค้า/เพื่อนร่วมงาน/ผู้ใช้ ฉันใช้การฟัง/สังเกตของตัวเองเป็นหลัก แล้วใช้ AI ช่วยเรียบเรียงทีหลัง", en: "When talking with customers/colleagues/users, I lead with my own listening and observation, then use AI to polish afterward", reverse: false},
-            {th: "ในงานที่ต้องใช้ความคิดของฉัน ไอเดียหลักมาจากฉัน AI ช่วยขยาย/ลับคม", en: "In work that requires my own thinking, the core idea comes from me — AI just expands or sharpens it", reverse: false}
+            {th: "เวลาคุยกับลูกค้า/เพื่อนร่วมงาน/ผู้ใช้ ฉันใช้การฟังและการสังเกตของตัวเองเป็นหลักในการทำความเข้าใจ ไม่ใช่ให้ AI สรุปแทน", en: "When talking with customers/colleagues/users, I rely on my own listening and observation to understand them — not on AI summaries", reverse: false},
+            {th: "หลายครั้งงานที่ฉันส่งออกไป แนวคิดหลักมาจาก AI มากกว่ามาจากตัวฉันเอง", en: "Often, the core ideas in work I hand in come more from AI than from me", reverse: true}
           ]
         },
         {
@@ -577,7 +607,7 @@
           desc: {th: "คุณนำ AI ไม่ใช่ AI นำคุณ", en: "You steer AI, not AI steers you"},
           items: [
             {th: "ก่อนพิมพ์ prompt ฉันมักรู้แล้วว่าผลลัพธ์ที่อยากได้หน้าตาเป็นยังไง", en: "Before typing a prompt, I usually already know what the result should look like", reverse: false},
-            {th: "เวลา AI เสนอแนวทาง ฉันเลือกรับหรือปฏิเสธตามวิจารณญาณของฉัน ไม่ทำตามทันที", en: "When AI proposes a direction, I accept or reject based on my own judgment, not just follow it", reverse: false}
+            {th: "ฉันมักพิมพ์ถาม AI ก่อน แล้วค่อยคิดตามแนวทางที่มันเสนอมา", en: "I usually ask AI first, then shape my thinking around whatever it suggests", reverse: true}
           ]
         }
       ],

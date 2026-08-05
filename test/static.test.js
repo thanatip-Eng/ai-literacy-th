@@ -38,6 +38,20 @@ test('result explains the cumulative level blocker', () => {
   assert.match(html, /pcts\[placement\]/);
 });
 
+test('org tag block includes per-dimension score tags', () => {
+  assert.match(html, /`#L\$\{L\.n\}:\$\{pcts\[i\] \|\| 0\}`/);
+  assert.match(html, /`#\$\{sub\.key\}:\$\{partnership\.subtraitScores\[i\] \|\| 0\}`/);
+  assert.match(html, /lines\.join\('\\n'\)/);
+});
+
+test('connect mode is wired in but defaults to the public zero-data path', () => {
+  assert.match(html, /src="content\/connect-config\.js"/);
+  assert.match(html, /c\.enabled\) \? c : null/);
+  assert.match(html, /if\(!CONNECT_MODE \|\| !connectPayload\) return/);
+  assert.match(html, /credentials: 'same-origin'/);
+  assert.match(html, /id="gate"/);
+});
+
 test('editor draft restore only merges known keys with matching types', () => {
   assert.match(html, /function mergeKnownShape/);
   assert.match(html, /Object\.keys\(target\)/);

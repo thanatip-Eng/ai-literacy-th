@@ -593,6 +593,19 @@
     font-size:.9rem;line-height:1.55;color:var(--teal-deep);font-weight:500;
     border-top:1px dashed var(--line);padding-top:10px;margin:0;
   }
+  .connect-banner{
+    display:flex;align-items:center;gap:8px;flex-wrap:wrap;
+    background:var(--amber-soft);border:1px solid var(--line);border-radius:12px;
+    padding:10px 14px;font-size:.85rem;color:var(--teal-deep);margin-bottom:16px;
+  }
+  .connect-banner #connectWhoami{color:var(--muted)}
+  .send-status{
+    display:flex;align-items:center;gap:10px;justify-content:center;flex-wrap:wrap;
+    background:var(--card);border:1px dashed var(--line);border-radius:12px;
+    padding:10px 14px;font-size:.88rem;color:var(--teal-deep);margin-top:20px;
+  }
+  .send-status .btn{margin:0;padding:8px 14px;font-size:.82rem}
+  @media print{.connect-banner,.send-status{display:none!important}}
   .tag-block{
     background:#FFFCF5;border:1px solid var(--line);border-radius:12px;
     padding:14px 16px;font-family:ui-monospace,SFMono-Regular,Menlo,monospace;
@@ -728,6 +741,13 @@
     <button type="button" id="langEN" onclick="setLang('en')" aria-label="English">EN</button>
   </div>
 
+  <!-- ===================== CONNECT-MODE BANNER (hidden in public mode) ===================== -->
+  <div class="connect-banner" id="connectBanner" hidden>
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 2 11 13"/><path d="M22 2 15 22l-4-9-9-4Z"/></svg>
+    <span data-i18n="connectBanner">โหมดเชื่อมต่อ: เมื่อทำแบบประเมินเสร็จ ผลของคุณจะถูกส่งให้ผู้สอน/องค์กรโดยอัตโนมัติ</span>
+    <span id="connectWhoami" hidden></span>
+  </div>
+
   <!-- ===================== INTRO ===================== -->
   <section id="intro" class="screen active">
     <img class="main-logo" src="assets/AiStyle.png" alt="AiStyle — AI Literacy Assessment, Skill × Partnership" />
@@ -783,6 +803,17 @@
     <div class="cta"><button class="btn" onclick="start()" data-i18n="startBtn">เริ่มทำแบบประเมิน →</button></div>
   </section>
 
+  <!-- ===================== CANVAS GATE (LTI mode only) ===================== -->
+  <section id="gate" class="screen">
+    <div class="topbar">
+      <span class="pill" data-i18n="gatePill">เข้าผ่าน Canvas</span>
+    </div>
+    <div class="qcard">
+      <h2 class="name-h" data-i18n="gateHead">กรุณาเข้าผ่าน Canvas</h2>
+      <p class="name-sub" data-i18n="gateBody">แบบประเมินรอบนี้เปิดเฉพาะผู้ที่ได้รับสิทธิ์ในรายวิชา กรุณาเปิดลิงก์แบบประเมินจากหน้ารายวิชาใน Canvas เพื่อยืนยันตัวตนก่อนเริ่มทำ</p>
+    </div>
+  </section>
+
   <!-- ===================== NAME ===================== -->
   <section id="name" class="screen">
     <div class="topbar">
@@ -792,6 +823,10 @@
       <h2 class="name-h" data-i18n="nameHead">คุณชื่ออะไร? (ไม่บังคับ)</h2>
       <p class="name-sub" data-i18n="nameSub">ใส่ชื่อเพื่อให้ผลและภาพดาวน์โหลดแสดงชื่อของคุณ ข้ามได้ถ้าไม่ต้องการ</p>
       <input id="nameInput" class="name-input" type="text" maxlength="60" autocomplete="off" data-i18n-placeholder="namePlaceholder" placeholder="ชื่อของคุณ" aria-labelledby="nameHeading" />
+      <div id="studentIdWrap" hidden>
+        <p class="name-sub" style="margin:14px 0 8px" data-i18n="studentIdLabel">รหัสนักศึกษา (ใช้ส่งผลให้ผู้สอน)</p>
+        <input id="studentIdInput" class="name-input" type="text" maxlength="20" autocomplete="off" data-i18n-placeholder="studentIdPlaceholder" placeholder="รหัสนักศึกษา" />
+      </div>
       <p class="name-privacy">
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
         <span data-i18n="namePrivacy">ชื่อนี้อยู่ในเบราว์เซอร์ของคุณเท่านั้น · ไม่ส่งให้ใคร</span>
@@ -959,6 +994,11 @@
       <a href="https://cmu.to/AILit-Tag" target="_blank" rel="noopener noreferrer">https://cmu.to/AILit-Tag</a>
     </p>
 
+    <div class="send-status" id="connectStatus" hidden>
+      <span id="connectStatusText"></span>
+      <button class="btn ghost" id="connectRetryBtn" type="button" onclick="retryConnectSubmit()" data-i18n="sendRetryBtn" hidden>ส่งอีกครั้ง</button>
+    </div>
+
     <div class="res-actions">
       <button class="btn" onclick="downloadResultImage()" id="downloadBtn" data-i18n="downloadBtn">ดาวน์โหลดเป็นรูปภาพ</button>
       <button class="btn ghost" onclick="restart()" data-i18n="restartBtn">ทำแบบประเมินใหม่</button>
@@ -1001,6 +1041,7 @@
 </aside>
 
 <script src="content/app-content.js"></script>
+<script src="content/connect-config.js"></script>
 <script src="js/assessment-core.js"></script>
 <script>
 const CONTENT = globalThis.AI_LITERACY_CONTENT;
@@ -1078,6 +1119,8 @@ function setLang(lang){
   currentLang = lang;
   document.documentElement.lang = lang;
   applyI18n();
+  renderConnectStatus();
+  renderConnectWhoami();
 }
 
 function updateToggleUI(){
@@ -1140,6 +1183,17 @@ const answers = new Array(TOTAL).fill(null);
 let userName = '';
 let userRole = null;
 let finishedAt = null;
+
+/* connect-mode state (Canvas LTI / Google Form) */
+const CONNECT = (function(){
+  const c = globalThis.AI_LITERACY_CONNECT;
+  return (c && typeof c === 'object' && c.enabled) ? c : null;
+})();
+const CONNECT_MODE = CONNECT ? (CONNECT.mode === 'form' ? 'form' : 'lti') : null;
+let connectIdentity = null;   // {email, name} verified via /api/me (LTI mode)
+let connectStudentId = '';
+let connectPayload = null;
+let connectStatusKey = null;
 let answerLocked = false;
 let advanceTimer = null;
 
@@ -1235,9 +1289,10 @@ function renderFrameworkDiagram(){
 /* ---------------- flow ---------------- */
 function show(id){document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));document.getElementById(id).classList.add('active');window.scrollTo({top:0,behavior:'smooth'});}
 function start(){
+  if(CONNECT_MODE === 'lti' && !connectIdentity){ show('gate'); return; }
   show('name');
   const input = document.getElementById('nameInput');
-  input.value = userName;
+  input.value = userName || (connectIdentity && connectIdentity.name) || '';
   setTimeout(()=>input.focus(),120);
 }
 function goToQuiz(skip){
@@ -1247,6 +1302,8 @@ function goToQuiz(skip){
     const raw = document.getElementById('nameInput').value || '';
     userName = raw.trim().slice(0,60);
   }
+  const idInput = document.getElementById('studentIdInput');
+  connectStudentId = idInput ? idInput.value.trim().slice(0,20) : '';
   goToRolePick();
 }
 function goToRolePick(){
@@ -1296,6 +1353,9 @@ function restart(){
   userName = '';
   userRole = null;
   finishedAt = null;
+  connectPayload = null;
+  connectStatusKey = null;
+  renderConnectStatus();
   const input = document.getElementById('nameInput');
   if(input) input.value = '';
   show('intro');
@@ -1383,12 +1443,130 @@ function finish(){
     partnershipCut: PARTNERSHIP_CUT
   });
   finishedAt = new Date();
-  renderResult(pcts, placement, THRESH, {
+  const partnership = {
     subtraitScores: partnershipScores,
     composite: partnershipComposite,
     quadrant: quadrantKey
-  });
+  };
+  renderResult(pcts, placement, THRESH, partnership);
   show('result');
+  if(CONNECT_MODE){
+    connectPayload = buildConnectPayload(pcts, placement, partnership);
+    submitConnectResult();
+  }
+}
+
+/* ---------------- connect mode (Canvas LTI / Google Form) ----------------
+   Active only when content/connect-config.js sets enabled: true.
+   Public deployments keep the zero-data behavior: no requests, no fields. */
+function buildConnectPayload(pcts, placement, partnership){
+  const subs = {};
+  PARTNERSHIP.subtraits.forEach((sub, i) => { subs[sub.key] = partnership.subtraitScores[i] || 0; });
+  const weakTags = PARTNERSHIP.subtraits
+    .filter((sub, i) => (partnership.subtraitScores[i] || 0) < 50)
+    .map(sub => sub.key)
+    .join(',');
+  return {
+    name: userName || (connectIdentity && connectIdentity.name) || '',
+    studentId: connectStudentId,
+    email: (connectIdentity && connectIdentity.email) || '',
+    role: userRole ? userRole.code : '',
+    lang: currentLang,
+    placement: placement,
+    l1: pcts[0] || 0,
+    l2: pcts[1] || 0,
+    l3: pcts[2] || 0,
+    partnershipComposite: partnership.composite,
+    verify: subs.verify || 0,
+    restraint: subs.restraint || 0,
+    humanLead: subs.human_lead || 0,
+    direction: subs.direction || 0,
+    quadrant: partnership.quadrant,
+    weakTags: weakTags,
+    rawAnswers: answers.join(','),
+    date: new Date().toISOString()
+  };
+}
+
+function renderConnectStatus(){
+  const box = document.getElementById('connectStatus');
+  if(!box) return;
+  if(!connectStatusKey){ box.hidden = true; return; }
+  box.hidden = false;
+  document.getElementById('connectStatusText').textContent = t(connectStatusKey);
+  document.getElementById('connectRetryBtn').hidden = connectStatusKey !== 'sendStatusFail';
+}
+
+function renderConnectWhoami(){
+  const who = document.getElementById('connectWhoami');
+  if(!who) return;
+  if(connectIdentity && connectIdentity.email){
+    who.textContent = t('connectSignedInTpl').replace('{email}', connectIdentity.email);
+    who.hidden = false;
+  } else {
+    who.hidden = true;
+  }
+}
+
+async function submitConnectResult(){
+  if(!CONNECT_MODE || !connectPayload) return;
+  connectStatusKey = 'sendStatusSending';
+  renderConnectStatus();
+  try{
+    if(CONNECT_MODE === 'lti'){
+      const r = await fetch('/api/submit', {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        credentials: 'same-origin',
+        body: JSON.stringify(connectPayload)
+      });
+      const j = await r.json().catch(() => ({}));
+      if(!r.ok || !j.ok) throw new Error('submit failed');
+    } else {
+      if(!CONNECT.formUrl) throw new Error('no form url');
+      const form = new FormData();
+      Object.entries(CONNECT.fields || {}).forEach(([field, entryId]) => {
+        if(typeof entryId !== 'string' || !entryId.startsWith('entry.')) return;
+        const value = connectPayload[field];
+        if(value === undefined || value === null || value === '') return;
+        form.append(entryId, String(value));
+      });
+      await fetch(CONNECT.formUrl, {method: 'POST', mode: 'no-cors', body: form});
+    }
+    connectStatusKey = 'sendStatusDone';
+  }catch{
+    connectStatusKey = 'sendStatusFail';
+  }
+  renderConnectStatus();
+}
+function retryConnectSubmit(){ submitConnectResult(); }
+
+async function initLtiGate(){
+  try{
+    const r = await fetch('/api/me', {credentials: 'same-origin'});
+    const j = await r.json();
+    if(j && j.authenticated){
+      connectIdentity = {email: j.email || '', name: j.name || ''};
+      renderConnectWhoami();
+    } else {
+      show('gate');
+    }
+  }catch{
+    show('gate');
+  }
+}
+
+function initConnectMode(){
+  if(!CONNECT_MODE) return;
+  document.getElementById('connectBanner').hidden = false;
+  // The default privacy note promises "never sent anywhere" — not true here.
+  const privacyNote = document.querySelector('#name .name-privacy');
+  if(privacyNote) privacyNote.hidden = true;
+  if(CONNECT_MODE === 'form'){
+    document.getElementById('studentIdWrap').hidden = false;
+  } else {
+    initLtiGate();
+  }
 }
 
 function renderResult(pcts, placement, THRESH, partnership){
@@ -1633,18 +1811,22 @@ function renderTags(pcts, placement, partnership){
   const block = document.getElementById('rTagBlock');
   if(!block) return;
   if(!partnership){ block.textContent = ''; return; }
-  const tags = [];
+  const summary = [];
   const placementLabel = placement > 0
     ? `L${placement}-${ASSESSABLE[placement-1].name.en.replace(/\s+/g, '')}`
     : `L0-Starting`;
-  tags.push(`#${placementLabel}`);
-  tags.push(`#P${partnership.composite}`);
-  tags.push(`#Q-${partnership.quadrant}`);
-  if(userRole) tags.push(`#role-${userRole.code}`);
-  PARTNERSHIP.subtraits.forEach((sub, i) => {
-    if((partnership.subtraitScores[i] || 0) < 50) tags.push(`#weak:${sub.key}`);
-  });
-  block.textContent = tags.join(' ');
+  summary.push(`#${placementLabel}`);
+  summary.push(`#P${partnership.composite}`);
+  summary.push(`#Q-${partnership.quadrant}`);
+  if(userRole) summary.push(`#role-${userRole.code}`);
+  const scoreTags = ASSESSABLE.map((L, i) => `#L${L.n}:${pcts[i] || 0}`)
+    .concat(PARTNERSHIP.subtraits.map((sub, i) => `#${sub.key}:${partnership.subtraitScores[i] || 0}`));
+  const weakTags = PARTNERSHIP.subtraits
+    .filter((sub, i) => (partnership.subtraitScores[i] || 0) < 50)
+    .map(sub => `#weak:${sub.key}`);
+  const lines = [summary.join(' '), scoreTags.join(' ')];
+  if(weakTags.length) lines.push(weakTags.join(' '));
+  block.textContent = lines.join('\n');
 }
 
 function renderRoleVerdict(pcts, THRESH){
@@ -2333,6 +2515,7 @@ renderFrameworkDiagram();
 renderQuadrantGrid('introQuadrantGrid', null);
 updateToggleUI();
 applyI18n();
+initConnectMode();
 
 /* image modal dismiss handlers */
 document.getElementById('imgModal').addEventListener('click', (e)=>{

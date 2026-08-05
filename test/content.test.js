@@ -29,11 +29,12 @@ test('partnership block has four subtraits with two items each', () => {
   assert.deepEqual(Object.keys(p.quadrants), ['novice', 'coach', 'autopilot', 'director']);
 });
 
-test('partnership has exactly one reverse-scored item', () => {
-  const reversed = content.partnership.subtraits.flatMap(sub =>
-    sub.items.filter(item => item.reverse)
-  );
-  assert.equal(reversed.length, 1);
+test('every partnership subtrait has exactly one reverse-scored item, in second position', () => {
+  for (const sub of content.partnership.subtraits) {
+    const reversed = sub.items.filter(item => item.reverse);
+    assert.equal(reversed.length, 1, `subtrait ${sub.key} must have exactly 1 reverse item`);
+    assert.equal(!!sub.items[1].reverse, true, `subtrait ${sub.key} reverse item must be the second item`);
+  }
 });
 
 test('content module serialization round-trips', () => {
