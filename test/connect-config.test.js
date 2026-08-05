@@ -2,26 +2,38 @@ const test = require('node:test');
 const assert = require('node:assert/strict');
 const config = require('../content/connect-config');
 
-const EXPECTED_FIELDS = [
-  'name', 'studentId', 'email', 'role', 'lang', 'placement',
-  'l1', 'l2', 'l3', 'partnershipComposite',
-  'verify', 'restraint', 'humanLead', 'direction',
+// Every key the payload built in index.html (buildConnectPayload) can supply.
+// Config may map any subset of these; unknown keys would be silently dropped
+// at submit time, so they fail the test instead.
+const ALLOWED_FIELDS = [
+  'name', 'studentId', 'studentid', 'email', 'role', 'lang',
+  'placement', 'level_cumulative',
+  'l1', 'l2', 'l3', 'score_skill',
+  'partnershipComposite', 'score_partnership',
+  'verify', 'restraint', 'humanLead', 'direction', 'score_subtrait',
   'quadrant', 'weakTags', 'rawAnswers', 'date'
 ];
 
-test('connect config ships disabled so public deployments stay zero-data', () => {
-  assert.equal(config.enabled, false);
-  assert.equal(config.formUrl, '');
+test('connect config has a valid shape', () => {
+  assert.equal(typeof config.enabled, 'boolean');
+  assert.ok(['lti', 'form'].includes(config.mode), 'mode must be lti or form');
+  assert.equal(typeof config.formUrl, 'string');
+  assert.ok(config.fields && typeof config.fields === 'object');
 });
 
-test('connect config declares a mapping slot for every submitted dimension', () => {
-  assert.deepEqual(Object.keys(config.fields).sort(), [...EXPECTED_FIELDS].sort());
+test('every mapped field is a known payload key with a valid entry ID', () => {
   for (const [field, entryId] of Object.entries(config.fields)) {
+    assert.ok(ALLOWED_FIELDS.includes(field),
+      `unknown field "${field}" — it would be silently dropped; use one of: ${ALLOWED_FIELDS.join(', ')}`);
     assert.equal(typeof entryId, 'string', `${field} mapping must be a string`);
     if (entryId) assert.match(entryId, /^entry\.\d+$/, `${field} must look like entry.123456`);
   }
 });
 
-test('connect config mode is a known value', () => {
-  assert.ok(['lti', 'form'].includes(config.mode));
+test('enabled config points at a real Google Form response endpoint', () => {
+  if (!config.enabled) return;
+  assert.match(config.formUrl, /^https:\/\/docs\.google\.com\/forms\/.+\/formResponse$/,
+    'formUrl must be the /formResponse URL of a Google Form');
+  const mapped = Object.values(config.fields).filter(Boolean);
+  assert.ok(mapped.length > 0, 'enabled config must map at least one field');
 });

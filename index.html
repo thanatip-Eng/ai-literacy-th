@@ -1466,21 +1466,28 @@ function buildConnectPayload(pcts, placement, partnership){
     .filter((sub, i) => (partnership.subtraitScores[i] || 0) < 50)
     .map(sub => sub.key)
     .join(',');
+  const scoreSkill = ASSESSABLE.map((L, i) => `L${L.n}:${pcts[i] || 0}`).join(' ');
+  const scoreSubtrait = PARTNERSHIP.subtraits.map(sub => `${sub.key}:${subs[sub.key] || 0}`).join(' ');
   return {
     name: userName || (connectIdentity && connectIdentity.name) || '',
     studentId: connectStudentId,
+    studentid: connectStudentId,
     email: (connectIdentity && connectIdentity.email) || '',
     role: userRole ? userRole.code : '',
     lang: currentLang,
     placement: placement,
+    level_cumulative: placement,
     l1: pcts[0] || 0,
     l2: pcts[1] || 0,
     l3: pcts[2] || 0,
+    score_skill: scoreSkill,
     partnershipComposite: partnership.composite,
+    score_partnership: partnership.composite,
     verify: subs.verify || 0,
     restraint: subs.restraint || 0,
     humanLead: subs.human_lead || 0,
     direction: subs.direction || 0,
+    score_subtrait: scoreSubtrait,
     quadrant: partnership.quadrant,
     weakTags: weakTags,
     rawAnswers: answers.join(','),

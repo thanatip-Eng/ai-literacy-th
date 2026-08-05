@@ -19,18 +19,23 @@
    | Field | ความหมาย |
    |---|---|
    | name | ชื่อผู้ทำ |
-   | studentId | รหัสนักศึกษา (โหมด form) |
+   | studentId (หรือ studentid) | รหัสนักศึกษา (โหมด form) |
    | email | อีเมลที่ยืนยันจาก Canvas (โหมด lti) |
    | role | รหัสบทบาท (admin / student / …) |
    | lang | ภาษาที่ใช้ทำ (th / en) |
-   | placement | ระดับทักษะสะสม 0–3 |
-   | l1, l2, l3 | คะแนนรายระดับทักษะ 0–100 |
-   | partnershipComposite | คะแนนรวม Partnership 0–100 |
-   | verify, restraint, humanLead, direction | คะแนนราย subtrait 0–100 |
+   | placement (หรือ level_cumulative) | ระดับทักษะสะสม 0–3 |
+   | l1, l2, l3 | คะแนนรายระดับทักษะ 0–100 (3 ช่องแยก) |
+   | score_skill | คะแนนทักษะรวมช่องเดียว เช่น `L1:100 L2:75 L3:25` |
+   | partnershipComposite (หรือ score_partnership) | คะแนนรวม Partnership 0–100 |
+   | verify, restraint, humanLead, direction | คะแนนราย subtrait 0–100 (4 ช่องแยก) |
+   | score_subtrait | คะแนน subtrait รวมช่องเดียว เช่น `verify:13 restraint:75 human_lead:100 direction:75` |
    | quadrant | novice / coach / autopilot / director |
    | weakTags | subtrait ที่ < 50% (คั่นด้วย comma) |
    | rawAnswers | คำตอบดิบ 20 ข้อ (0–4 คั่นด้วย comma) — ใช้วิเคราะห์รายข้อ |
    | date | เวลาที่ทำเสร็จ (ISO) |
+
+   ใช้ชุดช่องแยก (l1/l2/l3, verify/…) หรือชุดรวมช่องเดียว (score_skill, score_subtrait)
+   อย่างใดอย่างหนึ่งก็ได้ตามการออกแบบฟอร์ม — ระบบส่งให้ทั้งสองแบบ map เฉพาะที่ฟอร์มมี
 
 2. ใน Form ตั้ง **Settings → Responses → Limit to 1 response = OFF** (ระบบส่งแทนผู้ใช้ การบังคับ login Google จะทำให้ส่งไม่ได้) และกด **Link to Sheets** เพื่อให้ผลไหลเข้า Google Sheet
 
