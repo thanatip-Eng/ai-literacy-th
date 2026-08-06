@@ -592,6 +592,23 @@
   .receipt-hint{font-size:.88rem;color:var(--warn);font-weight:600;margin:0}
   .receipt-dl-btn{width:100%;margin-top:12px;padding:10px 14px;font-size:.9rem}
   @media print{.submit-cta{display:none!important}}
+  .survey-overlay{
+    position:fixed;inset:0;z-index:90;background:var(--paper);
+    display:flex;flex-direction:column;
+  }
+  .survey-topbar{
+    display:flex;align-items:center;justify-content:space-between;gap:10px;
+    padding:10px 14px;background:var(--card);border-bottom:1px solid var(--line);
+    flex-wrap:wrap;
+  }
+  .survey-title{
+    font-family:"Chakra Petch",sans-serif;font-weight:700;font-size:.95rem;
+    color:var(--teal-deep);
+  }
+  .survey-actions{display:flex;align-items:center;gap:14px}
+  .survey-newtab{font-size:.82rem;color:var(--muted);text-decoration:underline}
+  .survey-back{margin:0;padding:9px 16px;font-size:.88rem;width:auto}
+  #surveyFrame{flex:1;width:100%;border:0;background:#fff}
   .feedback-modal-head{
     font-family:"Chakra Petch",sans-serif;font-weight:700;font-size:1.15rem;
     color:var(--teal-deep);margin:0 0 8px;
@@ -1075,6 +1092,20 @@
     </p>
   </footer>
 
+  <!-- ===================== SURVEY OVERLAY (embedded feedback form — stays in-app,
+       critical for the Canvas mobile webview where a "new tab" replaces the page
+       and back navigation loses the result state) ===================== -->
+  <div class="survey-overlay" id="surveyOverlay" hidden>
+    <div class="survey-topbar">
+      <span class="survey-title" data-i18n="feedbackBtn">ทำแบบประเมินความพึงพอใจ →</span>
+      <div class="survey-actions">
+        <a class="survey-newtab" id="surveyNewTabLink" href="#" target="_blank" rel="noopener noreferrer" data-i18n="surveyOpenNewTab">เปิดในแท็บใหม่ ↗</a>
+        <button class="btn survey-back" type="button" onclick="closeSurveyOverlay()" data-i18n="surveyBackBtn">✓ เสร็จแล้ว กลับไปหน้าผล</button>
+      </div>
+    </div>
+    <iframe id="surveyFrame" title="Satisfaction survey"></iframe>
+  </div>
+
   <!-- ===================== FEEDBACK MODAL (connect mode, after successful submit) ===================== -->
   <div class="img-modal" id="feedbackModal" aria-modal="true" role="dialog" aria-labelledby="feedbackModalHead" aria-hidden="true">
     <div class="img-modal-card">
@@ -1438,6 +1469,7 @@ function restart(){
   if(submitBox) submitBox.hidden = true;
   const receiptBox = document.getElementById('connectReceipt');
   if(receiptBox) receiptBox.hidden = true;
+  closeSurveyOverlay();
   const input = document.getElementById('nameInput');
   if(input) input.value = '';
   show('intro');
@@ -1779,10 +1811,11 @@ function goFeedbackFromModal(){
   openFeedbackForm();
 }
 
-function openFeedbackForm(){
+function buildFeedbackUrl(embedded){
   const fb = CONNECT && CONNECT.feedback;
-  if(!fb || !fb.url) return;
+  if(!fb || !fb.url) return null;
   const params = new URLSearchParams({usp: 'pp_url'});
+  if(embedded) params.set('embedded', 'true');
   Object.entries(fb.params || {}).forEach(([field, entryId]) => {
     if(typeof entryId !== 'string' || !entryId.startsWith('entry.')) return;
     const value = connectPayload ? connectPayload[field] : null;
@@ -1790,7 +1823,25 @@ function openFeedbackForm(){
     params.append(entryId, String(value));
   });
   const sep = fb.url.includes('?') ? '&' : '?';
-  window.open(fb.url + sep + params.toString(), '_blank', 'noopener');
+  return fb.url + sep + params.toString();
+}
+
+// Open the survey as an in-page overlay (embedded Google Form) instead of a
+// new tab: inside the Canvas mobile app a "new tab" replaces the webview and
+// back navigation exits to Canvas, losing the in-memory result state.
+function openFeedbackForm(){
+  const embedUrl = buildFeedbackUrl(true);
+  if(!embedUrl) return;
+  const overlay = document.getElementById('surveyOverlay');
+  const frame = document.getElementById('surveyFrame');
+  if(frame.src !== embedUrl) frame.src = embedUrl;
+  document.getElementById('surveyNewTabLink').href = buildFeedbackUrl(false);
+  overlay.hidden = false;
+  document.body.style.overflow = 'hidden';
+}
+function closeSurveyOverlay(){
+  document.getElementById('surveyOverlay').hidden = true;
+  document.body.style.overflow = '';
 }
 
 function renderFeedbackButton(){
