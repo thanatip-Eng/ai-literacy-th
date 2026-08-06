@@ -78,6 +78,11 @@ test('successful submit invites the user to the feedback survey once', () => {
   assert.match(html, /feedbackModalShown = false/);
 });
 
+test('the org tag section is hidden for connect-mode audiences', () => {
+  assert.match(html, /id="orgTagSection"/);
+  assert.match(html, /document\.getElementById\('orgTagSection'\)\.hidden = true/);
+});
+
 test('results are submitted manually and produce a screenshot-able receipt', () => {
   assert.doesNotMatch(html, /show\('result'\);\s*if\(CONNECT_MODE\)\{\s*connectPayload = buildConnectPayload\(pcts, placement, partnership\);\s*submitConnectResult\(\);/);
   assert.match(html, /id="connectSubmitBox"/);

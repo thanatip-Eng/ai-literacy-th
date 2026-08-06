@@ -1024,14 +1024,18 @@
     <span hidden id="rName"></span>
     <span hidden id="rBlurb"></span>
 
-    <div class="section-h" data-i18n="tagBlockHead">แท็กสรุปสำหรับองค์กร</div>
-    <p class="mini" data-i18n="tagBlockHint">(คัดลอกหรือถ่ายภาพไปรวมเป็นภาพรวมทีม)</p>
-    <pre class="tag-block" id="rTagBlock"></pre>
+    <!-- org tag section: hidden in connect mode (students submit results
+         directly, so the L&D tag workflow is irrelevant to them) -->
+    <div id="orgTagSection">
+      <div class="section-h" data-i18n="tagBlockHead">แท็กสรุปสำหรับองค์กร</div>
+      <p class="mini" data-i18n="tagBlockHint">(คัดลอกหรือถ่ายภาพไปรวมเป็นภาพรวมทีม)</p>
+      <pre class="tag-block" id="rTagBlock"></pre>
 
-    <p class="tag-guide-cta" data-i18n="tagGuideCTA" data-i18n-html="true">
-      อยากได้คำแนะนำการใช้แท็กสำหรับองค์กร? ลงทะเบียนได้ที่
-      <a href="https://cmu.to/AILit-Tag" target="_blank" rel="noopener noreferrer">https://cmu.to/AILit-Tag</a>
-    </p>
+      <p class="tag-guide-cta" data-i18n="tagGuideCTA" data-i18n-html="true">
+        อยากได้คำแนะนำการใช้แท็กสำหรับองค์กร? ลงทะเบียนได้ที่
+        <a href="https://cmu.to/AILit-Tag" target="_blank" rel="noopener noreferrer">https://cmu.to/AILit-Tag</a>
+      </p>
+    </div>
 
     <div class="submit-cta" id="connectSubmitBox" hidden>
       <p class="submit-cta-hint" data-i18n="submitCtaHint">ขั้นตอนสำคัญ: ดูผลเสร็จแล้ว กดปุ่มนี้เพื่อส่งผลให้ผู้สอน</p>
@@ -1719,6 +1723,7 @@ function applyConnectCopyOverrides(){
 function initConnectMode(){
   if(!CONNECT_MODE) return;
   document.getElementById('connectBanner').hidden = false;
+  document.getElementById('orgTagSection').hidden = true;
   applyConnectCopyOverrides();
   applyI18n();
   renderFeedbackButton();
