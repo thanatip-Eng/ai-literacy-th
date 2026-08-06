@@ -46,7 +46,7 @@ test('org tag block includes per-dimension score tags', () => {
 
 test('connect mode is wired in but defaults to the public zero-data path', () => {
   assert.match(html, /src="content\/connect-config\.js"/);
-  assert.match(html, /c\.enabled\) \? c : null/);
+  assert.match(html, /if\(!c \|\| typeof c !== 'object' \|\| !c\.enabled\) return null;/);
   assert.match(html, /if\(!CONNECT_MODE \|\| !connectPayload\) return/);
   assert.match(html, /credentials: 'same-origin'/);
   assert.match(html, /id="gate"/);
@@ -56,6 +56,23 @@ test('feedback button opens the configured form with prefill in a new tab', () =
   assert.match(html, /id="feedbackBtn"/);
   assert.match(html, /usp: 'pp_url'/);
   assert.match(html, /window\.open\(fb\.url \+ sep \+ params\.toString\(\), '_blank', 'noopener'\)/);
+});
+
+test('connect mode is scoped to connectHosts so other domains stay public', () => {
+  assert.match(html, /c\.connectHosts\.includes\(location\.hostname\)/);
+  assert.match(html, /function applyConnectCopyOverrides/);
+});
+
+test('balanced partnership profile shows a message instead of empty dashes', () => {
+  assert.match(html, /id="rPHBalanced"/);
+  assert.match(html, /\.partnership-highlights\[hidden\]\{display:none\}/);
+  assert.match(html, /partnershipBalancedTpl/);
+});
+
+test('successful submit invites the user to the feedback survey once', () => {
+  assert.match(html, /id="feedbackModal"/);
+  assert.match(html, /maybeShowFeedbackModal\(\)/);
+  assert.match(html, /feedbackModalShown = false/);
 });
 
 test('editor draft restore only merges known keys with matching types', () => {

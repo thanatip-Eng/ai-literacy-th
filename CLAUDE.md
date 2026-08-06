@@ -80,7 +80,11 @@ L&D guidance live in `orgGuide*` strings (both langs) and are reused by
 
 ## Connect mode (opt-in; default off)
 
-Three deployment modes — see `docs/connect-setup.md`:
+Three deployment modes — see `docs/connect-setup.md`. One deployment can
+serve both audiences: connect mode activates only on hostnames listed in
+`connect-config.js → connectHosts`; every other domain of the project is
+public/zero-data. `copyOverrides` (th/en, validated keys) swaps selected
+strings for a concise Canvas-facing tone without touching the public copy.
 - **public** (default): zero-data — no storage, no network after load
 - **form**: browser posts all scores straight to a Google Form
   (`connect-config.js` enabled, `mode: "form"`); adds a student-ID field

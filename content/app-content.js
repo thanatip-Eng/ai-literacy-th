@@ -166,7 +166,12 @@
         sendStatusDone: "ส่งผลให้ผู้สอนเรียบร้อยแล้ว ✓",
         sendStatusFail: "ส่งผลไม่สำเร็จ — ตรวจสอบอินเทอร์เน็ตแล้วลองส่งอีกครั้ง",
         sendRetryBtn: "ส่งอีกครั้ง",
-        feedbackBtn: "ทำแบบประเมินความพึงพอใจ →"
+        feedbackBtn: "ทำแบบประเมินความพึงพอใจ →",
+        feedbackModalHead: "ส่งผลเรียบร้อย! เหลือขั้นตอนสุดท้าย 🎉",
+        feedbackModalBody: "ช่วยตอบแบบประเมินความพึงพอใจสั้น ๆ ประมาณ 2 นาที เพื่อให้เราพัฒนาแบบประเมินนี้ให้ดีขึ้น",
+        feedbackModalGo: "ทำแบบประเมินความพึงพอใจ →",
+        feedbackModalLater: "ขอดูผลก่อน",
+        partnershipBalancedTpl: "โปรไฟล์ของคุณสมดุลทุกด้าน — ทั้ง 4 ด้านได้ {p}% เท่ากัน รักษาสมดุลนี้ไว้แล้วยกระดับทุกด้านไปพร้อมกัน"
       },
       en: {
         documentTitle: "AI Literacy & Partnership Profile — Self-Assessment",
@@ -329,7 +334,12 @@
         sendStatusDone: "Results sent to your instructor ✓",
         sendStatusFail: "Sending failed — check your connection and try again",
         sendRetryBtn: "Send again",
-        feedbackBtn: "Give feedback →"
+        feedbackBtn: "Give feedback →",
+        feedbackModalHead: "Results sent! One last step 🎉",
+        feedbackModalBody: "Please answer a short 2-minute satisfaction survey to help us improve this assessment",
+        feedbackModalGo: "Take the survey →",
+        feedbackModalLater: "Let me see my results first",
+        partnershipBalancedTpl: "Your profile is balanced — all 4 dimensions scored {p}%. Keep the balance and grow them together"
       }
     },
     levels: [

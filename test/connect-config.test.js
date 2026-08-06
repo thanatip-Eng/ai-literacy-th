@@ -1,6 +1,7 @@
 const test = require('node:test');
 const assert = require('node:assert/strict');
 const config = require('../content/connect-config');
+const content = require('../content/app-content');
 
 // Every key the payload built in index.html (buildConnectPayload) can supply.
 // Config may map any subset of these; unknown keys would be silently dropped
@@ -28,6 +29,31 @@ test('every mapped field is a known payload key with a valid entry ID', () => {
     assert.equal(typeof entryId, 'string', `${field} mapping must be a string`);
     if (entryId) assert.match(entryId, /^entry\.\d+$/, `${field} must look like entry.123456`);
   }
+});
+
+test('connectHosts, when present, is a non-empty list of hostnames', () => {
+  if (config.connectHosts === undefined) return;
+  assert.ok(Array.isArray(config.connectHosts) && config.connectHosts.length > 0);
+  for (const host of config.connectHosts) {
+    assert.equal(typeof host, 'string');
+    assert.ok(host.trim() && !host.includes('/') && !host.includes(':'),
+      `connectHosts entry "${host}" must be a bare hostname (no scheme/path/port)`);
+  }
+});
+
+test('copyOverrides only override existing string keys, in both languages', () => {
+  if (config.copyOverrides === undefined) return;
+  for (const lang of ['th', 'en']) {
+    const overrides = config.copyOverrides[lang] || {};
+    for (const [key, value] of Object.entries(overrides)) {
+      assert.equal(typeof value, 'string', `copyOverrides.${lang}.${key} must be a string`);
+      assert.equal(typeof content.lang[lang][key], 'string',
+        `copyOverrides.${lang}.${key} has no matching string in app-content lang.${lang}`);
+    }
+  }
+  const thKeys = Object.keys(config.copyOverrides.th || {}).sort();
+  const enKeys = Object.keys(config.copyOverrides.en || {}).sort();
+  assert.deepEqual(thKeys, enKeys, 'copyOverrides th/en must override the same keys');
 });
 
 test('feedback block, when present, is a valid prefillable form link', () => {
