@@ -65,8 +65,11 @@ test('connect mode is scoped to connectHosts so other domains stay public', () =
 
 test('balanced partnership profile shows a message instead of empty dashes', () => {
   assert.match(html, /id="rPHBalanced"/);
-  assert.match(html, /\.partnership-highlights\[hidden\]\{display:none\}/);
   assert.match(html, /partnershipBalancedTpl/);
+});
+
+test('the hidden attribute always beats display rules', () => {
+  assert.match(html, /\[hidden\]\{display:none !important\}/);
 });
 
 test('successful submit invites the user to the feedback survey once', () => {

@@ -28,6 +28,8 @@
     --r:18px;
   }
   *{box-sizing:border-box;margin:0;padding:0}
+  /* the hidden attribute must always win, even over display:flex/grid rules */
+  [hidden]{display:none !important}
   html{-webkit-text-size-adjust:100%}
   body{
     font-family:"IBM Plex Sans Thai","IBM Plex Sans",sans-serif;
