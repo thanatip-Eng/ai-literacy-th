@@ -108,7 +108,28 @@ fields: {
 
 - นศ. กดลิงก์ใน Canvas → Canvas ส่ง launch ที่เซ็นลายเซ็นมา → server ตรวจลายเซ็น + กัน replay + เช็ค allowlist → ออก session cookie → เข้าแบบประเมิน
 - คนที่เปิด URL ตรง ๆ (ไม่ผ่าน Canvas) จะเจอหน้า "กรุณาเข้าผ่าน Canvas" และ `/api/submit` ปฏิเสธทุกคำขอที่ไม่มี session (default-deny)
-- เมื่อทำเสร็จ ระบบส่งคะแนนทุกด้าน + อีเมลที่ Canvas ยืนยันแล้ว เข้า Google Form → Google Sheet โดยอัตโนมัติ พร้อมแสดงสถานะและปุ่ม "ส่งอีกครั้ง" ถ้าล้มเหลว
+- เมื่อทำเสร็จ นศ. ดูผลก่อน แล้ว**กดปุ่ม "ส่งผลให้ผู้สอน" เอง** → ระบบส่งคะแนนทุกด้าน + อีเมลที่ Canvas ยืนยันแล้ว เข้า Google Form → Google Sheet (มีปุ่ม "ส่งอีกครั้ง" ถ้าล้มเหลว)
+
+### 3.4 ใบยืนยันการส่ง (submission receipt)
+
+เมื่อส่งสำเร็จ นศ. จะเห็น**กล่องยืนยันสีเขียว** แสดงชื่อ/อีเมล เวลา และ**รหัสยืนยัน 8 หลัก**
+พร้อมคำแนะนำให้แคปหน้าจอเก็บไว้เป็นหลักฐาน — รหัสนี้ server คำนวณจาก
+`HMAC-SHA256(SESSION_SECRET, "อีเมล|เวลา ISO")` (ตัด 8 ตัวแรก ตัวพิมพ์ใหญ่)
+ปลอมไม่ได้ถ้าไม่รู้ secret
+
+**วิธีตรวจสอบรหัสจาก screenshot ของ นศ.** (กรณีแถวหายจาก Sheet):
+
+```bash
+SESSION_SECRET=ค่าจริง node -e "
+const c = require('crypto');
+const [email, stamp] = ['somchai@cmu.ac.th', '2026-08-06T03:00:00.000Z']; // จาก screenshot
+console.log(c.createHmac('sha256', process.env.SESSION_SECRET)
+  .update(email + '|' + stamp).digest('hex').slice(0, 8).toUpperCase());
+"
+```
+
+ถ้าผลตรงกับรหัสในภาพ = ส่งจริง · แนะนำเพิ่มคำถาม "receipt" ใน Google Form แล้ว map
+`receipt: "entry.NNN"` ใน config ด้วย — รหัสจะถูกบันทึกลง Sheet คู่กับข้อมูล ทำให้ค้นเจอทันที
 
 ---
 

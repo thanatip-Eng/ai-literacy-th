@@ -78,6 +78,13 @@ test('successful submit invites the user to the feedback survey once', () => {
   assert.match(html, /feedbackModalShown = false/);
 });
 
+test('results are submitted manually and produce a screenshot-able receipt', () => {
+  assert.doesNotMatch(html, /show\('result'\);\s*if\(CONNECT_MODE\)\{\s*connectPayload = buildConnectPayload\(pcts, placement, partnership\);\s*submitConnectResult\(\);/);
+  assert.match(html, /id="connectSubmitBox"/);
+  assert.match(html, /id="connectReceipt"/);
+  assert.match(html, /function renderReceipt/);
+});
+
 test('editor draft restore only merges known keys with matching types', () => {
   assert.match(html, /function mergeKnownShape/);
   assert.match(html, /Object\.keys\(target\)/);

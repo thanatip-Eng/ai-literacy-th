@@ -195,6 +195,16 @@ test('submit: default-denies without a session', async () => {
   assert.equal(JSON.parse(res.body).ok, false);
 });
 
+test('submission receipts are deterministic, short, and secret-bound', () => {
+  const {makeReceipt} = require('../api/_lib/receipt');
+  const a = makeReceipt('secret-1', 'a@b.c', '2026-08-06T03:00:00.000Z');
+  assert.match(a, /^[0-9A-F]{8}$/);
+  assert.equal(a, makeReceipt('secret-1', 'a@b.c', '2026-08-06T03:00:00.000Z'));
+  assert.notEqual(a, makeReceipt('secret-2', 'a@b.c', '2026-08-06T03:00:00.000Z'));
+  assert.notEqual(a, makeReceipt('secret-1', 'x@b.c', '2026-08-06T03:00:00.000Z'));
+  assert.notEqual(a, makeReceipt('secret-1', 'a@b.c', '2026-08-06T03:00:01.000Z'));
+});
+
 test('readSession pulls a session out of the cookie header', () => {
   const token = signSession({email: 'x@y.z'}, SESSION_SECRET);
   const session = readSession({headers: {cookie: `other=1; ${COOKIE_NAME}=${token}`}}, SESSION_SECRET);
