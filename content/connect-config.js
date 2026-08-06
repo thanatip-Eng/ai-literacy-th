@@ -33,6 +33,15 @@ fields: {
   weakTags: "entry.36105660",
   rawAnswers: "entry.425412520",
   date: "entry.370420129"
+},
+// ปุ่ม "ทำแบบประเมินความพึงพอใจ" บนหน้าผล — เปิดฟอร์มใน tab ใหม่
+// params: prefill จากข้อมูลผู้ทำ (key = ชื่อ field ใน payload, ค่า = entry ID)
+feedback: {
+  url: "https://docs.google.com/forms/d/e/1FAIpQLSdufO_eon5oOSCQKHIdpDRTK4cVWtBsoSZuGB4qz4CiHDhWkw/viewform",
+  params: {
+    studentid: "entry.1095727791",
+    email: "entry.1860979212"
+  }
 }
   };
 });

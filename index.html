@@ -1001,6 +1001,7 @@
 
     <div class="res-actions">
       <button class="btn" onclick="downloadResultImage()" id="downloadBtn" data-i18n="downloadBtn">ดาวน์โหลดเป็นรูปภาพ</button>
+      <button class="btn ghost" id="feedbackBtn" type="button" onclick="openFeedbackForm()" data-i18n="feedbackBtn" hidden>ทำแบบประเมินความพึงพอใจ →</button>
       <button class="btn ghost" onclick="restart()" data-i18n="restartBtn">ทำแบบประเมินใหม่</button>
     </div>
   </section>
@@ -1548,6 +1549,26 @@ async function submitConnectResult(){
 }
 function retryConnectSubmit(){ submitConnectResult(); }
 
+function openFeedbackForm(){
+  const fb = CONNECT && CONNECT.feedback;
+  if(!fb || !fb.url) return;
+  const params = new URLSearchParams({usp: 'pp_url'});
+  Object.entries(fb.params || {}).forEach(([field, entryId]) => {
+    if(typeof entryId !== 'string' || !entryId.startsWith('entry.')) return;
+    const value = connectPayload ? connectPayload[field] : null;
+    if(value === undefined || value === null || value === '') return;
+    params.append(entryId, String(value));
+  });
+  const sep = fb.url.includes('?') ? '&' : '?';
+  window.open(fb.url + sep + params.toString(), '_blank', 'noopener');
+}
+
+function renderFeedbackButton(){
+  const btn = document.getElementById('feedbackBtn');
+  if(!btn) return;
+  btn.hidden = !(CONNECT_MODE && CONNECT.feedback && CONNECT.feedback.url);
+}
+
 async function initLtiGate(){
   try{
     const r = await fetch('/api/me', {credentials: 'same-origin'});
@@ -1566,6 +1587,7 @@ async function initLtiGate(){
 function initConnectMode(){
   if(!CONNECT_MODE) return;
   document.getElementById('connectBanner').hidden = false;
+  renderFeedbackButton();
   // The default privacy note promises "never sent anywhere" — not true here.
   const privacyNote = document.querySelector('#name .name-privacy');
   if(privacyNote) privacyNote.hidden = true;

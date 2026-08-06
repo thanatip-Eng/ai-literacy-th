@@ -165,7 +165,8 @@
         sendStatusSending: "กำลังส่งผลให้ผู้สอน…",
         sendStatusDone: "ส่งผลให้ผู้สอนเรียบร้อยแล้ว ✓",
         sendStatusFail: "ส่งผลไม่สำเร็จ — ตรวจสอบอินเทอร์เน็ตแล้วลองส่งอีกครั้ง",
-        sendRetryBtn: "ส่งอีกครั้ง"
+        sendRetryBtn: "ส่งอีกครั้ง",
+        feedbackBtn: "ทำแบบประเมินความพึงพอใจ →"
       },
       en: {
         documentTitle: "AI Literacy & Partnership Profile — Self-Assessment",
@@ -327,7 +328,8 @@
         sendStatusSending: "Sending your results to your instructor…",
         sendStatusDone: "Results sent to your instructor ✓",
         sendStatusFail: "Sending failed — check your connection and try again",
-        sendRetryBtn: "Send again"
+        sendRetryBtn: "Send again",
+        feedbackBtn: "Give feedback →"
       }
     },
     levels: [
