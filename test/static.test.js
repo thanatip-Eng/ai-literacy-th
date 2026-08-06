@@ -52,6 +52,12 @@ test('connect mode is wired in but defaults to the public zero-data path', () =>
   assert.match(html, /id="gate"/);
 });
 
+test('feedback button opens the configured form with prefill in a new tab', () => {
+  assert.match(html, /id="feedbackBtn"/);
+  assert.match(html, /usp: 'pp_url'/);
+  assert.match(html, /window\.open\(fb\.url \+ sep \+ params\.toString\(\), '_blank', 'noopener'\)/);
+});
+
 test('editor draft restore only merges known keys with matching types', () => {
   assert.match(html, /function mergeKnownShape/);
   assert.match(html, /Object\.keys\(target\)/);

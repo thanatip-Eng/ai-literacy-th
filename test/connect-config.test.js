@@ -30,6 +30,17 @@ test('every mapped field is a known payload key with a valid entry ID', () => {
   }
 });
 
+test('feedback block, when present, is a valid prefillable form link', () => {
+  if (!config.feedback) return;
+  assert.match(config.feedback.url, /^https:\/\/docs\.google\.com\/forms\/.+\/viewform$/,
+    'feedback.url must be the /viewform URL of a Google Form');
+  for (const [field, entryId] of Object.entries(config.feedback.params || {})) {
+    assert.ok(ALLOWED_FIELDS.includes(field),
+      `unknown feedback prefill field "${field}" — use one of: ${ALLOWED_FIELDS.join(', ')}`);
+    assert.match(entryId, /^entry\.\d+$/, `${field} must look like entry.123456`);
+  }
+});
+
 test('enabled config points at a real Google Form response endpoint', () => {
   if (!config.enabled) return;
   assert.match(config.formUrl, /^https:\/\/docs\.google\.com\/forms\/.+\/formResponse$/,
