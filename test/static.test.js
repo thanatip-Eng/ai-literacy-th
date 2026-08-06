@@ -90,6 +90,12 @@ test('results are submitted manually and produce a screenshot-able receipt', () 
   assert.match(html, /function renderReceipt/);
 });
 
+test('the receipt box offers a downloadable image of itself', () => {
+  assert.match(html, /id="receiptDownloadBtn"/);
+  assert.match(html, /function generateReceiptImage/);
+  assert.match(html, /AiStyle-Receipt-\$\{code\}-\$\{ymd\}\.png/);
+});
+
 test('editor draft restore only merges known keys with matching types', () => {
   assert.match(html, /function mergeKnownShape/);
   assert.match(html, /Object\.keys\(target\)/);
