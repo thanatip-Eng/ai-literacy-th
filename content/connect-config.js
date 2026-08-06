@@ -36,7 +36,8 @@ fields: {
   quadrant: "entry.1221995085",
   weakTags: "entry.36105660",
   rawAnswers: "entry.425412520",
-  date: "entry.370420129"
+  date: "entry.370420129",
+  receipt: "entry.1083670918"
 },
 // ปุ่ม "ทำแบบประเมินความพึงพอใจ" บนหน้าผล — เปิดฟอร์มใน tab ใหม่
 // params: prefill จากข้อมูลผู้ทำ (key = ชื่อ field ใน payload, ค่า = entry ID)
