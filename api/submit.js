@@ -4,6 +4,7 @@
 // The verified email from the session overrides whatever the client sent.
 const {readSession} = require('./_lib/session');
 const {readJsonBody} = require('./_lib/body');
+const {makeReceipt} = require('./_lib/receipt');
 const connectConfig = require('../content/connect-config.js');
 
 function json(res, status, payload) {
@@ -37,10 +38,15 @@ module.exports = async (req, res) => {
     return;
   }
 
+  // Signed submission receipt: shown to the student as proof and, when a
+  // "receipt" field is mapped in connect-config, stored in the Sheet too.
+  const stamp = new Date().toISOString();
+  const receipt = makeReceipt(sessionSecret, session.email, stamp);
   const values = {
     ...data,
     email: session.email,
-    name: (typeof data.name === 'string' && data.name.trim()) || session.name || ''
+    name: (typeof data.name === 'string' && data.name.trim()) || session.name || '',
+    receipt: receipt
   };
   const form = new URLSearchParams();
   for (const [field, entryId] of Object.entries(connectConfig.fields)) {
@@ -67,7 +73,9 @@ module.exports = async (req, res) => {
       console.log(`submit: Google Form rejected the entry with HTTP ${resp.status} ` +
         '(common causes: form not published, requires sign-in, or a required question is unmapped)');
     }
-    json(res, ok ? 200 : 502, {ok, error: ok ? undefined : 'form_rejected', formStatus: resp.status});
+    json(res, ok ? 200 : 502, ok
+      ? {ok, receipt, stamp, email: session.email}
+      : {ok, error: 'form_rejected', formStatus: resp.status});
   } catch (err) {
     console.log('submit: Google Form unreachable:', err && err.message);
     json(res, 502, {ok: false, error: 'form_unreachable'});

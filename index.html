@@ -563,6 +563,34 @@
   }
   .partnership-highlights[hidden]{display:none}
   .partnership-highlights .ph-balanced{margin:0;font-size:.92rem;color:var(--teal-deep)}
+  .submit-cta{
+    text-align:center;background:var(--amber-soft);border:2px solid var(--amber);
+    border-radius:14px;padding:18px 16px;margin-top:24px;
+  }
+  .submit-cta-hint{font-size:.95rem;font-weight:600;color:var(--warn);margin:0 0 12px}
+  .submit-cta-btn{
+    width:100%;font-size:1.15rem;padding:16px 20px;
+    box-shadow:0 6px 18px -8px rgba(14,110,99,.55);
+  }
+  .receipt-box{
+    background:#EDF5EF;border:2px solid var(--teal);border-radius:14px;
+    padding:16px 18px;margin-top:24px;
+  }
+  .receipt-head{
+    font-family:"Chakra Petch",sans-serif;font-weight:700;font-size:1.05rem;
+    color:var(--teal-deep);margin:0 0 10px;
+  }
+  .receipt-grid{
+    display:grid;grid-template-columns:auto 1fr;gap:6px 14px;
+    font-size:.92rem;margin-bottom:10px;
+  }
+  .receipt-label{color:var(--muted);font-weight:600}
+  .receipt-code{
+    font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-weight:700;
+    font-size:1.05rem;letter-spacing:2px;color:var(--teal-deep);
+  }
+  .receipt-hint{font-size:.88rem;color:var(--warn);font-weight:600;margin:0}
+  @media print{.submit-cta{display:none!important}}
   .feedback-modal-head{
     font-family:"Chakra Petch",sans-serif;font-weight:700;font-size:1.15rem;
     color:var(--teal-deep);margin:0 0 8px;
@@ -1005,9 +1033,24 @@
       <a href="https://cmu.to/AILit-Tag" target="_blank" rel="noopener noreferrer">https://cmu.to/AILit-Tag</a>
     </p>
 
+    <div class="submit-cta" id="connectSubmitBox" hidden>
+      <p class="submit-cta-hint" data-i18n="submitCtaHint">ขั้นตอนสำคัญ: ดูผลเสร็จแล้ว กดปุ่มนี้เพื่อส่งผลให้ผู้สอน</p>
+      <button class="btn submit-cta-btn" id="connectSubmitBtn" type="button" onclick="submitConnectResult()" data-i18n="submitCtaBtn">📤 ส่งผลให้ผู้สอน</button>
+    </div>
+
     <div class="send-status" id="connectStatus" hidden>
       <span id="connectStatusText"></span>
       <button class="btn ghost" id="connectRetryBtn" type="button" onclick="retryConnectSubmit()" data-i18n="sendRetryBtn" hidden>ส่งอีกครั้ง</button>
+    </div>
+
+    <div class="receipt-box" id="connectReceipt" hidden>
+      <p class="receipt-head" data-i18n="receiptHead">✅ ส่งผลให้ผู้สอนเรียบร้อยแล้ว</p>
+      <div class="receipt-grid">
+        <span class="receipt-label" data-i18n="receiptWhoLabel">ผู้ส่ง</span><span id="receiptWho">—</span>
+        <span class="receipt-label" data-i18n="receiptTimeLabel">เวลา</span><span id="receiptTime">—</span>
+        <span class="receipt-label" data-i18n="receiptCodeLabel">รหัสยืนยัน</span><span class="receipt-code" id="receiptCode">—</span>
+      </div>
+      <p class="receipt-hint" data-i18n="receiptHint">📸 แคปหน้าจอกล่องนี้เก็บไว้เป็นหลักฐานการส่งของคุณ</p>
     </div>
 
     <div class="res-actions">
@@ -1384,6 +1427,10 @@ function restart(){
   connectStatusKey = null;
   feedbackModalShown = false;
   renderConnectStatus();
+  const submitBox = document.getElementById('connectSubmitBox');
+  if(submitBox) submitBox.hidden = true;
+  const receiptBox = document.getElementById('connectReceipt');
+  if(receiptBox) receiptBox.hidden = true;
   const input = document.getElementById('nameInput');
   if(input) input.value = '';
   show('intro');
@@ -1479,8 +1526,10 @@ function finish(){
   renderResult(pcts, placement, THRESH, partnership);
   show('result');
   if(CONNECT_MODE){
+    // No auto-submit: the student reviews the result first, then presses
+    // the big "send to instructor" button themselves.
     connectPayload = buildConnectPayload(pcts, placement, partnership);
-    submitConnectResult();
+    document.getElementById('connectSubmitBox').hidden = false;
   }
 }
 
@@ -1545,8 +1594,10 @@ function renderConnectWhoami(){
 
 async function submitConnectResult(){
   if(!CONNECT_MODE || !connectPayload) return;
+  document.getElementById('connectSubmitBox').hidden = true;
   connectStatusKey = 'sendStatusSending';
   renderConnectStatus();
+  let receiptInfo = null;
   try{
     if(CONNECT_MODE === 'lti'){
       const r = await fetch('/api/submit', {
@@ -1557,6 +1608,7 @@ async function submitConnectResult(){
       });
       const j = await r.json().catch(() => ({}));
       if(!r.ok || !j.ok) throw new Error('submit failed');
+      receiptInfo = {receipt: j.receipt || '', stamp: j.stamp || '', email: j.email || ''};
     } else {
       if(!CONNECT.formUrl) throw new Error('no form url');
       const form = new FormData();
@@ -1567,13 +1619,29 @@ async function submitConnectResult(){
         form.append(entryId, String(value));
       });
       await fetch(CONNECT.formUrl, {method: 'POST', mode: 'no-cors', body: form});
+      receiptInfo = {receipt: '', stamp: new Date().toISOString(), email: ''};
     }
-    connectStatusKey = 'sendStatusDone';
+    connectStatusKey = null; // the receipt box is the success state
+    renderConnectStatus();
+    renderReceipt(receiptInfo);
+    maybeShowFeedbackModal();
   }catch{
     connectStatusKey = 'sendStatusFail';
+    renderConnectStatus();
   }
-  renderConnectStatus();
-  if(connectStatusKey === 'sendStatusDone') maybeShowFeedbackModal();
+}
+
+function renderReceipt(info){
+  const box = document.getElementById('connectReceipt');
+  if(!box || !info) return;
+  const who = [connectPayload && connectPayload.name, info.email || (connectPayload && connectPayload.studentId)]
+    .filter(Boolean).join(' · ');
+  document.getElementById('receiptWho').textContent = who || '—';
+  document.getElementById('receiptTime').textContent = info.stamp
+    ? `${formatDate(new Date(info.stamp), currentLang)} · ${new Date(info.stamp).toLocaleTimeString(currentLang === 'th' ? 'th-TH' : 'en-US')} · ${info.stamp}`
+    : '—';
+  document.getElementById('receiptCode').textContent = info.receipt || '—';
+  box.hidden = false;
 }
 function retryConnectSubmit(){ submitConnectResult(); }
 
