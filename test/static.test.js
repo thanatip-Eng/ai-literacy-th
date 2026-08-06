@@ -52,10 +52,14 @@ test('connect mode is wired in but defaults to the public zero-data path', () =>
   assert.match(html, /id="gate"/);
 });
 
-test('feedback button opens the configured form with prefill in a new tab', () => {
+test('feedback survey opens as an in-page overlay so the result state survives', () => {
   assert.match(html, /id="feedbackBtn"/);
   assert.match(html, /usp: 'pp_url'/);
-  assert.match(html, /window\.open\(fb\.url \+ sep \+ params\.toString\(\), '_blank', 'noopener'\)/);
+  assert.match(html, /params\.set\('embedded', 'true'\)/);
+  assert.match(html, /id="surveyOverlay"/);
+  assert.match(html, /id="surveyFrame"/);
+  assert.match(html, /function closeSurveyOverlay/);
+  assert.doesNotMatch(html, /window\.open\(fb\.url/);
 });
 
 test('connect mode is scoped to connectHosts so other domains stay public', () => {
