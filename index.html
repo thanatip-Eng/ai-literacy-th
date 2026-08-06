@@ -590,6 +590,7 @@
     font-size:1.05rem;letter-spacing:2px;color:var(--teal-deep);
   }
   .receipt-hint{font-size:.88rem;color:var(--warn);font-weight:600;margin:0}
+  .receipt-dl-btn{width:100%;margin-top:12px;padding:10px 14px;font-size:.9rem}
   @media print{.submit-cta{display:none!important}}
   .feedback-modal-head{
     font-family:"Chakra Petch",sans-serif;font-weight:700;font-size:1.15rem;
@@ -1055,6 +1056,7 @@
         <span class="receipt-label" data-i18n="receiptCodeLabel">รหัสยืนยัน</span><span class="receipt-code" id="receiptCode">—</span>
       </div>
       <p class="receipt-hint" data-i18n="receiptHint">📸 แคปหน้าจอกล่องนี้เก็บไว้เป็นหลักฐานการส่งของคุณ</p>
+      <button class="btn ghost receipt-dl-btn" id="receiptDownloadBtn" type="button" onclick="downloadReceiptImage()" data-i18n="receiptDownloadBtn">💾 ดาวน์โหลดภาพยืนยัน</button>
     </div>
 
     <div class="res-actions">
@@ -1429,6 +1431,7 @@ function restart(){
   finishedAt = null;
   connectPayload = null;
   connectStatusKey = null;
+  connectReceiptInfo = null;
   feedbackModalShown = false;
   renderConnectStatus();
   const submitBox = document.getElementById('connectSubmitBox');
@@ -1635,9 +1638,11 @@ async function submitConnectResult(){
   }
 }
 
+let connectReceiptInfo = null;
 function renderReceipt(info){
   const box = document.getElementById('connectReceipt');
   if(!box || !info) return;
+  connectReceiptInfo = info;
   const who = [connectPayload && connectPayload.name, info.email || (connectPayload && connectPayload.studentId)]
     .filter(Boolean).join(' · ');
   document.getElementById('receiptWho').textContent = who || '—';
@@ -1646,6 +1651,110 @@ function renderReceipt(info){
     : '—';
   document.getElementById('receiptCode').textContent = info.receipt || '—';
   box.hidden = false;
+}
+
+/* Receipt image: a clean PNG of the confirmation box students can keep
+   as durable proof of submission (same canvas approach as the result image). */
+async function generateReceiptImage(){
+  const info = connectReceiptInfo;
+  if(!info) return null;
+  await ensureFontsLoaded();
+  const W = 1080, H = 840;
+  const canvas = document.createElement('canvas');
+  canvas.width = W; canvas.height = H;
+  const ctx = canvas.getContext('2d');
+
+  ctx.fillStyle = '#F3EEE4';
+  ctx.fillRect(0, 0, W, H);
+
+  ctx.textAlign = 'center';
+  ctx.fillStyle = '#0A4F47';
+  ctx.font = '700 26px "Chakra Petch", sans-serif';
+  ctx.fillText(t('imgBrand'), W/2, 78);
+
+  // receipt card
+  ctx.fillStyle = '#EDF5EF';
+  ctx.strokeStyle = '#0E6E63';
+  ctx.lineWidth = 4;
+  roundRect(ctx, 60, 120, W-120, 560, 26);
+  ctx.fill(); ctx.stroke();
+
+  ctx.textAlign = 'left';
+  ctx.fillStyle = '#0A4F47';
+  ctx.font = '600 40px "IBM Plex Sans Thai", "IBM Plex Sans", sans-serif';
+  ctx.fillText('✅ ' + t('receiptHead').replace(/^✅\s*/, ''), 120, 210);
+
+  const who = [connectPayload && connectPayload.name, info.email || (connectPayload && connectPayload.studentId)]
+    .filter(Boolean).join(' · ');
+  const stampDate = info.stamp ? new Date(info.stamp) : null;
+  const rows = [
+    [t('receiptWhoLabel'), who || '—'],
+    [t('receiptTimeLabel'), stampDate ? `${formatDate(stampDate, currentLang)} · ${stampDate.toLocaleTimeString(currentLang === 'th' ? 'th-TH' : 'en-US')}` : '—'],
+    ['Timestamp', info.stamp || '—']
+  ];
+  let y = 290;
+  rows.forEach(([label, value]) => {
+    ctx.fillStyle = '#736A5C';
+    ctx.font = '600 26px "IBM Plex Sans Thai", "IBM Plex Sans", sans-serif';
+    ctx.fillText(label, 120, y);
+    ctx.fillStyle = '#211C16';
+    ctx.font = '500 28px "IBM Plex Sans Thai", "IBM Plex Sans", sans-serif';
+    ctx.fillText(truncateToWidth(ctx, value, W - 240 - 220), 340, y);
+    y += 62;
+  });
+
+  // confirmation code — the star of the receipt
+  ctx.fillStyle = '#736A5C';
+  ctx.font = '600 26px "IBM Plex Sans Thai", "IBM Plex Sans", sans-serif';
+  ctx.fillText(t('receiptCodeLabel'), 120, y + 14);
+  ctx.fillStyle = '#FFFFFF';
+  ctx.strokeStyle = '#DCD3C2';
+  ctx.lineWidth = 2;
+  roundRect(ctx, 120, y + 40, W - 240, 130, 16);
+  ctx.fill(); ctx.stroke();
+  ctx.textAlign = 'center';
+  ctx.fillStyle = '#0A4F47';
+  ctx.font = '700 72px "Chakra Petch", monospace';
+  ctx.fillText((info.receipt || '—').split('').join(' '), W/2, y + 130);
+
+  ctx.fillStyle = '#B5642A';
+  ctx.font = '600 26px "IBM Plex Sans Thai", "IBM Plex Sans", sans-serif';
+  ctx.fillText(t('receiptHint').replace(/^📸\s*/, ''), W/2, 738);
+
+  ctx.fillStyle = '#736A5C';
+  ctx.font = '400 22px "IBM Plex Sans Thai", "IBM Plex Sans", sans-serif';
+  ctx.fillText(t('footerCopy'), W/2, 796);
+
+  return new Promise(resolve => canvas.toBlob(resolve, 'image/png'));
+}
+
+async function downloadReceiptImage(){
+  const btn = document.getElementById('receiptDownloadBtn');
+  const originalHTML = btn.innerHTML;
+  btn.disabled = true;
+  btn.innerHTML = `<span class="spinner" aria-hidden="true"></span>${esc(t('downloading'))}`;
+  try {
+    const blob = await generateReceiptImage();
+    if(!blob) throw new Error('blob null');
+    const code = (connectReceiptInfo && connectReceiptInfo.receipt) || 'receipt';
+    const d = connectReceiptInfo && connectReceiptInfo.stamp ? new Date(connectReceiptInfo.stamp) : new Date();
+    const ymd = d.getFullYear() + '-' + String(d.getMonth()+1).padStart(2,'0') + '-' + String(d.getDate()).padStart(2,'0');
+    const url = URL.createObjectURL(blob);
+    if(isIOS()){
+      openImgModal(url);
+    } else {
+      const a = document.createElement('a');
+      a.href = url; a.download = `AiStyle-Receipt-${code}-${ymd}.png`;
+      document.body.appendChild(a); a.click(); a.remove();
+      setTimeout(()=>{ try { URL.revokeObjectURL(url); } catch(_){} }, 1500);
+    }
+  } catch(e){
+    console.error('receipt image failed', e);
+    alert(t('downloading') + ' — ' + (e && e.message ? e.message : e));
+  } finally {
+    btn.disabled = false;
+    btn.innerHTML = originalHTML;
+  }
 }
 function retryConnectSubmit(){ submitConnectResult(); }
 
