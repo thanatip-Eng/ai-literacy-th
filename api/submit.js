@@ -63,8 +63,13 @@ module.exports = async (req, res) => {
     });
     // Google Forms answers 200 on success and 302 for some locales.
     const ok = resp.status >= 200 && resp.status < 400;
-    json(res, ok ? 200 : 502, {ok, error: ok ? undefined : 'form_rejected'});
-  } catch {
+    if (!ok) {
+      console.log(`submit: Google Form rejected the entry with HTTP ${resp.status} ` +
+        '(common causes: form not published, requires sign-in, or a required question is unmapped)');
+    }
+    json(res, ok ? 200 : 502, {ok, error: ok ? undefined : 'form_rejected', formStatus: resp.status});
+  } catch (err) {
+    console.log('submit: Google Form unreachable:', err && err.message);
     json(res, 502, {ok: false, error: 'form_unreachable'});
   }
 };
