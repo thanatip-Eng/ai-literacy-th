@@ -559,6 +559,14 @@
     display:grid;gap:8px;margin-top:14px;padding:12px 14px;
     background:var(--paper-2);border:1px solid var(--line);border-radius:10px;
   }
+  .partnership-highlights[hidden]{display:none}
+  .partnership-highlights .ph-balanced{margin:0;font-size:.92rem;color:var(--teal-deep)}
+  .feedback-modal-head{
+    font-family:"Chakra Petch",sans-serif;font-weight:700;font-size:1.15rem;
+    color:var(--teal-deep);margin:0 0 8px;
+  }
+  .feedback-modal-body{font-size:.95rem;line-height:1.6;color:var(--ink);margin:0 0 16px}
+  #feedbackModal .btn{width:100%;margin-bottom:8px}
   .partnership-highlights .ph-row{display:flex;align-items:baseline;gap:10px;font-size:.92rem}
   .partnership-highlights .ph-label{font-weight:600;min-width:72px}
   .partnership-highlights .ph-strong .ph-label{color:var(--teal)}
@@ -923,16 +931,17 @@
       <div class="profile" id="rPartnershipComposite"></div>
       <div class="profile partnership-subs" id="rPartnershipBars"></div>
       <div class="partnership-highlights" id="rPartnershipHighlights" hidden>
-        <div class="ph-row ph-strong">
+        <div class="ph-row ph-strong" id="rPHStrongRow">
           <span class="ph-label" data-i18n="partnershipStrengthLabel">จุดแข็ง</span>
           <span class="ph-name" id="rPHStrongName">—</span>
           <span class="ph-pct" id="rPHStrongPct">—</span>
         </div>
-        <div class="ph-row ph-gap">
+        <div class="ph-row ph-gap" id="rPHGapRow">
           <span class="ph-label" data-i18n="partnershipGapLabel">ตัวฉุด</span>
           <span class="ph-name" id="rPHGapName">—</span>
           <span class="ph-pct" id="rPHGapPct">—</span>
         </div>
+        <p class="ph-balanced" id="rPHBalanced" hidden></p>
         <p class="ph-note" id="rPHVarianceNote" hidden></p>
       </div>
     </div>
@@ -1014,6 +1023,16 @@
       <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank" rel="noopener noreferrer" data-i18n="ccLink">เผยแพร่ภายใต้สัญญาอนุญาต CC BY-NC-SA 4.0</a>
     </p>
   </footer>
+
+  <!-- ===================== FEEDBACK MODAL (connect mode, after successful submit) ===================== -->
+  <div class="img-modal" id="feedbackModal" aria-modal="true" role="dialog" aria-labelledby="feedbackModalHead" aria-hidden="true">
+    <div class="img-modal-card">
+      <h3 class="feedback-modal-head" id="feedbackModalHead" data-i18n="feedbackModalHead">ส่งผลเรียบร้อย! เหลือขั้นตอนสุดท้าย 🎉</h3>
+      <p class="feedback-modal-body" data-i18n="feedbackModalBody">ช่วยตอบแบบประเมินความพึงพอใจสั้น ๆ ประมาณ 2 นาที เพื่อให้เราพัฒนาแบบประเมินนี้ให้ดีขึ้น</p>
+      <button class="btn" type="button" onclick="goFeedbackFromModal()" data-i18n="feedbackModalGo">ทำแบบประเมินความพึงพอใจ →</button>
+      <button class="btn ghost img-modal-close" type="button" onclick="closeFeedbackModal()" data-i18n="feedbackModalLater">ขอดูผลก่อน</button>
+    </div>
+  </div>
 
   <!-- ===================== IMAGE MODAL (iOS Safari fallback) ===================== -->
   <div class="img-modal" id="imgModal" aria-modal="true" role="dialog" aria-labelledby="imgModalHint" aria-hidden="true">
@@ -1185,10 +1204,15 @@ let userName = '';
 let userRole = null;
 let finishedAt = null;
 
-/* connect-mode state (Canvas LTI / Google Form) */
+/* connect-mode state (Canvas LTI / Google Form).
+   With connectHosts set, connect mode activates only on those hostnames —
+   every other domain of the same deployment serves the public zero-data app. */
 const CONNECT = (function(){
   const c = globalThis.AI_LITERACY_CONNECT;
-  return (c && typeof c === 'object' && c.enabled) ? c : null;
+  if(!c || typeof c !== 'object' || !c.enabled) return null;
+  if(Array.isArray(c.connectHosts) && c.connectHosts.length &&
+     !c.connectHosts.includes(location.hostname)) return null;
+  return c;
 })();
 const CONNECT_MODE = CONNECT ? (CONNECT.mode === 'form' ? 'form' : 'lti') : null;
 let connectIdentity = null;   // {email, name} verified via /api/me (LTI mode)
@@ -1356,6 +1380,7 @@ function restart(){
   finishedAt = null;
   connectPayload = null;
   connectStatusKey = null;
+  feedbackModalShown = false;
   renderConnectStatus();
   const input = document.getElementById('nameInput');
   if(input) input.value = '';
@@ -1546,8 +1571,30 @@ async function submitConnectResult(){
     connectStatusKey = 'sendStatusFail';
   }
   renderConnectStatus();
+  if(connectStatusKey === 'sendStatusDone') maybeShowFeedbackModal();
 }
 function retryConnectSubmit(){ submitConnectResult(); }
+
+let feedbackModalShown = false;
+function maybeShowFeedbackModal(){
+  if(feedbackModalShown) return;
+  if(!(CONNECT && CONNECT.feedback && CONNECT.feedback.url)) return;
+  feedbackModalShown = true;
+  const modal = document.getElementById('feedbackModal');
+  modal.classList.add('active');
+  modal.setAttribute('aria-hidden', 'false');
+  document.body.style.overflow = 'hidden';
+}
+function closeFeedbackModal(){
+  const modal = document.getElementById('feedbackModal');
+  modal.classList.remove('active');
+  modal.setAttribute('aria-hidden', 'true');
+  document.body.style.overflow = '';
+}
+function goFeedbackFromModal(){
+  closeFeedbackModal();
+  openFeedbackForm();
+}
 
 function openFeedbackForm(){
   const fb = CONNECT && CONNECT.feedback;
@@ -1584,9 +1631,26 @@ async function initLtiGate(){
   }
 }
 
+function applyConnectCopyOverrides(){
+  const overrides = CONNECT && CONNECT.copyOverrides;
+  if(!overrides) return;
+  ['th', 'en'].forEach(langKey => {
+    const src = overrides[langKey];
+    if(!src || typeof src !== 'object') return;
+    Object.entries(src).forEach(([key, value]) => {
+      // only override strings that already exist — same rule as mergeKnownShape
+      if(typeof value === 'string' && typeof LANG[langKey][key] === 'string'){
+        LANG[langKey][key] = value;
+      }
+    });
+  });
+}
+
 function initConnectMode(){
   if(!CONNECT_MODE) return;
   document.getElementById('connectBanner').hidden = false;
+  applyConnectCopyOverrides();
+  applyI18n();
   renderFeedbackButton();
   // The default privacy note promises "never sent anywhere" — not true here.
   const privacyNote = document.querySelector('#name .name-privacy');
@@ -1768,9 +1832,23 @@ function renderPartnershipHighlights(partnership){
     if(s > scores[maxIdx]) maxIdx = i;
     if(s < scores[minIdx]) minIdx = i;
   });
-  // identical subtraits (e.g. all zero) → no insight to surface
-  if(maxIdx === minIdx){ wrap.hidden = true; return; }
+  const strongRow = document.getElementById('rPHStrongRow');
+  const gapRow = document.getElementById('rPHGapRow');
+  const balancedEl = document.getElementById('rPHBalanced');
+  // identical subtraits → a balanced profile is the insight itself
+  if(maxIdx === minIdx){
+    wrap.hidden = false;
+    strongRow.hidden = true;
+    gapRow.hidden = true;
+    document.getElementById('rPHVarianceNote').hidden = true;
+    balancedEl.hidden = false;
+    balancedEl.textContent = t('partnershipBalancedTpl').replace('{p}', scores[0]);
+    return;
+  }
   wrap.hidden = false;
+  strongRow.hidden = false;
+  gapRow.hidden = false;
+  balancedEl.hidden = true;
   const subs = PARTNERSHIP.subtraits;
   document.getElementById('rPHStrongName').textContent = tx(subs[maxIdx].name);
   document.getElementById('rPHStrongPct').textContent = `${scores[maxIdx]}%`;
@@ -1984,6 +2062,8 @@ function copyResult(){
         if(scores[maxI] - scores[minI] > 40){
           lines.push(`    (${t('partnershipVarianceHigh')})`);
         }
+      } else {
+        lines.push(`  · ${t('partnershipBalancedTpl').replace('{p}', scores[0])}`);
       }
     }
     const q = PARTNERSHIP.quadrants[partnership.quadrant];
@@ -2550,8 +2630,12 @@ initConnectMode();
 document.getElementById('imgModal').addEventListener('click', (e)=>{
   if(e.target.id === 'imgModal') closeImgModal();
 });
+document.getElementById('feedbackModal').addEventListener('click', (e)=>{
+  if(e.target.id === 'feedbackModal') closeFeedbackModal();
+});
 document.addEventListener('keydown', (e)=>{
   if(e.key === 'Escape' && document.getElementById('imgModal').classList.contains('active')) closeImgModal();
+  if(e.key === 'Escape' && document.getElementById('feedbackModal').classList.contains('active')) closeFeedbackModal();
 });
 
 /* ---------------- EDIT MODE (?edit=1) ---------------- */

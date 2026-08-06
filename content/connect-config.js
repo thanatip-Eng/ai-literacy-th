@@ -18,6 +18,10 @@
 })(typeof globalThis !== 'undefined' ? globalThis : this, function() {
   return {
     enabled: true,
+// โหมดเชื่อมต่อทำงานเฉพาะโดเมนในรายการนี้ — โดเมนอื่นของโปรเจกต์เดียวกัน
+// (เช่นโดเมน public ที่เพิ่มใน Vercel → Settings → Domains) จะเป็นโหมด
+// สาธารณะ zero-data โดยอัตโนมัติ ("localhost" ไว้สำหรับพัฒนา/ทดสอบ)
+connectHosts: ["ai-literacy-th.vercel.app", "localhost"],
 mode: "lti",           // หรือ "form" ถ้าไม่ใช้ Canvas
 formUrl: "https://docs.google.com/forms/d/e/1FAIpQLSdesg67G-mbJng9f9PwkUbbiDiuuPIyA7CnhSfiGPe3uj0h6A/formResponse",
                        // นำมาจากลิงก์ฟอร์ม เปลี่ยน /viewform เป็น /formResponse
@@ -41,6 +45,26 @@ feedback: {
   params: {
     studentid: "entry.1095727791",
     email: "entry.1860979212"
+  }
+},
+// ข้อความฉบับกระชับสำหรับผู้เรียนใน Canvas — override เฉพาะ key ที่ระบุ
+// (key ต้องมีอยู่ใน content/app-content.js → lang) โดเมน public ใช้ฉบับเต็มเสมอ
+copyOverrides: {
+  th: {
+    nameSub: "ใส่ชื่อเล่นก็ได้ เพื่อให้ผลและภาพสรุปเป็นของคุณ",
+    roleSub: "เลือกที่ใกล้เคียงที่สุด เพื่อคำแนะนำที่ตรงกับคุณ",
+    dimRoleDesc: "เลือกบทบาทที่ใกล้ตัวคุณที่สุด",
+    dimSkillDesc: "เข้าใจ → ใช้ → สร้าง",
+    dimPartnershipDesc: "คุณนำ AI หรือ AI นำคุณ?",
+    dimensionsNote: "ผลรวมออกมาเป็นรูปแบบการใช้ AI 1 ใน 4 แบบ — ดูด้านล่างเลย"
+  },
+  en: {
+    nameSub: "A nickname works too — it makes the result and image yours",
+    roleSub: "Pick the closest match for advice that fits you",
+    dimRoleDesc: "Pick the role closest to you",
+    dimSkillDesc: "Understand → Apply → Build",
+    dimPartnershipDesc: "Do you lead AI, or does AI lead you?",
+    dimensionsNote: "It all adds up to 1 of 4 AI-use patterns — see below"
   }
 }
   };
