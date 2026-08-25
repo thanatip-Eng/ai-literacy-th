@@ -844,7 +844,7 @@
             </svg>
           </span>
           <h3 data-i18n="dimPartnershipName">ความสัมพันธ์กับ AI</h3>
-          <p data-i18n="dimPartnershipDesc">4 มิติ Human-in-the-Loop: ตรวจสอบ · เลือกใช้ · ทักษะมนุษย์ · นำ AI</p>
+          <p data-i18n="dimPartnershipDesc">5 มิติ Human-in-the-Loop: ตรวจสอบ · เลือกใช้ · ทักษะมนุษย์ · นำ AI · เรียนรู้</p>
         </div>
       </div>
       <p class="dimensions-note" data-i18n="dimensionsNote">ผลลัพธ์รวมเป็น 1 ใน 4 รูปแบบการใช้ AI (ดูด้านล่าง)</p>
@@ -1086,6 +1086,7 @@
   <!-- ===================== GLOBAL FOOTER (every screen) ===================== -->
   <footer class="global-footer" role="contentinfo">
     <p class="row" data-i18n="footerCopy">© 2026 Student Talent Development · Faculty of Engineering, Chiang Mai University</p>
+    <p class="row"><a href="frameworks.html" data-i18n="frameworksLink">แหล่งที่มาของแบบประเมิน — 3 กรอบแนวคิดที่เราใช้ →</a></p>
     <p class="row ff-cc">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M9.5 9.5a3 3 0 1 0 0 5"/><path d="M16 9.5a3 3 0 1 0 0 5"/></svg>
       <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank" rel="noopener noreferrer" data-i18n="ccLink">เผยแพร่ภายใต้สัญญาอนุญาต CC BY-NC-SA 4.0</a>
@@ -1603,7 +1604,9 @@ function buildConnectPayload(pcts, placement, partnership){
     restraint: subs.restraint || 0,
     humanLead: subs.human_lead || 0,
     direction: subs.direction || 0,
+    learning: subs.learning || 0,
     score_subtrait: scoreSubtrait,
+    version: 'v2',
     quadrant: partnership.quadrant,
     weakTags: weakTags,
     rawAnswers: answers.join(','),
@@ -2712,7 +2715,8 @@ async function generateResultImage(lang){
     verify: {th: "ตรวจสอบ", en: "Verify"},
     restraint: {th: "เลือกใช้", en: "Restraint"},
     human_lead: {th: "ทักษะคน", en: "Lead"},
-    direction: {th: "นำ AI", en: "Direct"}
+    direction: {th: "นำ AI", en: "Direct"},
+    learning: {th: "เรียนรู้", en: "Learn"}
   };
   if(partnership && PARTNERSHIP){
     drawVBars(rightColL, rightColR, PARTNERSHIP.subtraits,

@@ -1,6 +1,7 @@
 # ร่างชุดข้อคำถาม AiStyle v2 (ฉบับเสนอ — ยังไม่ deploy)
 
-> **สถานะ: DRAFT รอตัดสินใจ** · deploy ที่รอยต่อรุ่น (จบการเก็บข้อมูล cohort ปัจจุบันก่อน)
+> **สถานะ: ✅ DEPLOYED (สิงหาคม 2026)** — ผู้ใช้สั่ง deploy ก่อนกำหนดรอยต่อรุ่น
+> ข้อมูลสองเวอร์ชันแยกด้วยความยาว rawAnswers (v1 = 20 ค่า, v2 = 22 ค่า) และ field `version`
 > ที่มา: รายงานรีวิว Tier B/C (docs/question-review.md) + AI Thinking Framework
 > (LINE MAN Wongnai, 2026) + OECD/EU AILit Framework (2026, ดู docs/ailit-mapping.md)
 >

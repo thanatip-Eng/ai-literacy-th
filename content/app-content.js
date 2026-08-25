@@ -10,7 +10,7 @@
         badgeSelfTest: "AI Literacy Assessment — Skill × Partnership",
         badgeBrand: "สไตล์การใช้ AI ของคุณ",
         heroTitle: "คุณคือคนแบบไหน<br>เมื่อใช้ <span class=\"hl\">AI</span>?",
-        lead: "แบบประเมินตนเองที่มอง 3 มิติพร้อมกัน — <b>บทบาทงาน · ทักษะการใช้ AI · ความสัมพันธ์ของคุณกับ AI</b> ตอบ 20 คำถาม แล้วรับผลวิเคราะห์พร้อมขั้นตอนพัฒนาต่อไปเป็นรายบุคคล",
+        lead: "แบบประเมินตนเองที่มอง 3 มิติพร้อมกัน — <b>บทบาทงาน · ทักษะการใช้ AI · ความสัมพันธ์ของคุณกับ AI</b> ตอบ 22 คำถาม แล้วรับผลวิเคราะห์พร้อมขั้นตอนพัฒนาต่อไปเป็นรายบุคคล",
         credit: "โครงสร้าง 5 ระดับอ้างอิงจาก LinkedIn AI Upskilling Framework · ออกแบบเป็นเครื่องมือประเมินตนเองสำหรับบริบทไทย",
         aboutHead: "เกี่ยวกับ framework",
         aboutSub: "โครงสร้าง 4 ระดับ — ภาพรวมโดยย่อ",
@@ -18,8 +18,9 @@
         linkedinLinkText: "อ่านเกี่ยวกับ LinkedIn AI Upskilling Framework →",
         aboutAuthor: "© 2026 <b>Student Talent Development</b><br>Faculty of Engineering, Chiang Mai University",
         ccLink: "เผยแพร่ภายใต้สัญญาอนุญาต CC BY-NC-SA 4.0",
+        frameworksLink: "แหล่งที่มาของแบบประเมิน — 3 กรอบแนวคิดที่เราใช้ →",
         startBtn: "เริ่มทำแบบประเมิน →",
-        metaNote: "20 ข้อ · 2 ส่วน · ไม่มีถูกผิด · ตอบตามความเป็นจริงของคุณ",
+        metaNote: "22 ข้อ · 2 ส่วน · ไม่มีถูกผิด · ตอบตามความเป็นจริงของคุณ",
         nameStepPill: "ก่อนเริ่ม",
         nameHead: "คุณชื่ออะไร? (ไม่บังคับ)",
         nameSub: "ใส่ชื่อเพื่อให้ผลและภาพดาวน์โหลดแสดงชื่อของคุณ ข้ามได้ถ้าไม่ต้องการ",
@@ -95,7 +96,7 @@
         verdictAtCapTpl: "เป้าหมายของบทบาทเป็นทักษะเฉพาะทาง (ระดับ {target})",
         assessmentScopeNote: "แบบประเมินนี้ออกแบบสำหรับผู้ใช้ทั่วไป ครอบคลุมระดับ 1–3 ของ framework · ระดับ 4 (ผู้เชี่ยวชาญขั้นสูง) อยู่นอกกลุ่มเป้าหมายของแบบประเมิน",
         partnershipSectionPill: "ส่วนที่ 2 · ความสัมพันธ์กับ AI",
-        partnershipIntroBanner: "แบบประเมินมี 2 ส่วน · ส่วนที่ 1 ทักษะ (12 ข้อ) · ส่วนที่ 2 ความสัมพันธ์กับ AI (8 ข้อ)",
+        partnershipIntroBanner: "แบบประเมินมี 2 ส่วน · ส่วนที่ 1 ทักษะ (12 ข้อ) · ส่วนที่ 2 ความสัมพันธ์กับ AI (10 ข้อ)",
         partnershipHead: "ภาพรวมความสัมพันธ์ของคุณกับ AI",
         partnershipSub: "ทักษะ = \"คุณใช้ AI ทำอะไรได้\" · ความสัมพันธ์ = \"คุณใช้ AI ยังไง\"",
         partnershipStrengthLabel: "จุดแข็ง",
@@ -120,7 +121,7 @@
         dimSkillName: "ทักษะการใช้ AI",
         dimSkillDesc: "3 ระดับ: เข้าใจ → ใช้ → สร้าง",
         dimPartnershipName: "ความสัมพันธ์กับ AI",
-        dimPartnershipDesc: "4 มิติ Human-in-the-Loop: ตรวจสอบ · เลือกใช้ · ทักษะมนุษย์ · นำ AI",
+        dimPartnershipDesc: "5 มิติ Human-in-the-Loop: ตรวจสอบ · เลือกใช้ · ทักษะมนุษย์ · นำ AI · เรียนรู้",
         dimensionsNote: "ผลลัพธ์สังเคราะห์เป็น 1 ใน 4 รูปแบบการใช้ AI (ดูด้านล่าง)",
         tagBlockHead: "แท็กสรุปสำหรับองค์กร",
         tagBlockHint: "(คัดลอกหรือถ่ายภาพไปรวมเป็นภาพรวมทีม — ทีม L&D ใช้วิเคราะห์ภาพรวมได้)",
@@ -136,8 +137,8 @@
           "#P{n} = คะแนน Partnership composite 0–100",
           "#Q-{key} = quadrant: novice / coach / autopilot / director",
           "#L{n}:{pct} = คะแนนรายระดับทักษะ 0–100 (เช่น #L1:85 #L2:70 #L3:40)",
-          "#{key}:{pct} = คะแนนราย subtrait 0–100 (verify / restraint / human_lead / direction)",
-          "#weak:{key} = subtrait ที่ได้ < 50% (verify / restraint / human_lead / direction)",
+          "#{key}:{pct} = คะแนนราย subtrait 0–100 (verify / restraint / human_lead / direction / learning)",
+          "#weak:{key} = subtrait ที่ได้ < 50% (verify / restraint / human_lead / direction / learning)",
           "#role-{code} = บทบาทที่ผู้เข้าอบรมเลือก (ถ้าไม่ข้าม)"
         ],
         orgGuideCollectHead: "วิธีเก็บข้อมูล",
@@ -151,6 +152,7 @@
           "#weak:human_lead เยอะ → workshop empathy / creative thinking / human-centered design",
           "#weak:restraint เยอะ → workshop AI mindfulness / รู้จักเลือกใช้ AI",
           "#weak:direction เยอะ → workshop prompt engineering / นำ AI",
+          "#weak:learning เยอะ → workshop การใช้ AI เพื่อการเรียนรู้ (ใช้เป็นติวเตอร์ ไม่ใช่ทำแทน) — สำคัญมากในบริบทการเรียน",
           "L0/L1 เยอะ → workshop พื้นฐาน AI literacy + responsible AI use",
           "ค่าเฉลี่ยคะแนนรายด้านของกลุ่ม (เช่น verify เฉลี่ย < 60) → จัด workshop ด้านนั้นได้เลย แม้ยังไม่มีใครติด #weak — ใช้คะแนนละเอียดจัดลำดับความสำคัญและวัดผลก่อน-หลังการอบรม",
           "L2% สูงแต่ L3% ต่ำทั้งกลุ่ม → กลุ่มพร้อมยกระดับจาก 'ผู้ใช้' เป็น 'ผู้สร้าง' — จัด workshop no-code automation / AI API"
@@ -181,14 +183,14 @@
         surveyOpenNewTab: "เปิดในแท็บใหม่ ↗",
         feedbackModalGo: "ทำแบบประเมินความพึงพอใจ →",
         feedbackModalLater: "ขอดูผลก่อน",
-        partnershipBalancedTpl: "โปรไฟล์ของคุณสมดุลทุกด้าน — ทั้ง 4 ด้านได้ {p}% เท่ากัน รักษาสมดุลนี้ไว้แล้วยกระดับทุกด้านไปพร้อมกัน"
+        partnershipBalancedTpl: "โปรไฟล์ของคุณสมดุลทุกด้าน — ทุกด้านได้ {p}% เท่ากัน รักษาสมดุลนี้ไว้แล้วยกระดับทุกด้านไปพร้อมกัน"
       },
       en: {
         documentTitle: "AI Literacy & Partnership Profile — Self-Assessment",
         badgeSelfTest: "AI Literacy Assessment — Skill × Partnership",
         badgeBrand: "Your AI style",
         heroTitle: "What kind of <span class=\"hl\">AI</span><br>user are you?",
-        lead: "A self-assessment that looks at three dimensions together — <b>your role, your AI skills, and how you partner with AI</b>. Answer 20 questions to get a personalized result with next steps.",
+        lead: "A self-assessment that looks at three dimensions together — <b>your role, your AI skills, and how you partner with AI</b>. Answer 22 questions to get a personalized result with next steps.",
         credit: "Five-level structure adapted from the LinkedIn AI Upskilling Framework · designed as a self-assessment tool.",
         aboutHead: "About the framework",
         aboutSub: "The 4 levels — at a glance",
@@ -196,8 +198,9 @@
         linkedinLinkText: "Read about the LinkedIn AI Upskilling Framework →",
         aboutAuthor: "© 2026 <b>Student Talent Development</b><br>Faculty of Engineering, Chiang Mai University",
         ccLink: "Licensed under CC BY-NC-SA 4.0",
+        frameworksLink: "Where this assessment comes from — the 3 frameworks we use →",
         startBtn: "Start the assessment →",
-        metaNote: "20 questions · 2 parts · no right or wrong · answer honestly",
+        metaNote: "22 questions · 2 parts · no right or wrong · answer honestly",
         nameStepPill: "Before we start",
         nameHead: "What's your name? (optional)",
         nameSub: "Add your name so the result and downloadable image show it. You can skip this if you prefer.",
@@ -273,7 +276,7 @@
         verdictAtCapTpl: "Your role targets a deeper specialization (Level {target})",
         assessmentScopeNote: "This assessment is designed for everyday users and covers Levels 1–3 of the framework · Level 4 (Advanced Specialist) is outside the assessment's target audience",
         partnershipSectionPill: "Part 2 · AI Partnership",
-        partnershipIntroBanner: "Assessment has 2 parts · Part 1 Skill (12 questions) · Part 2 AI Partnership (8 questions)",
+        partnershipIntroBanner: "Assessment has 2 parts · Part 1 Skill (12 questions) · Part 2 AI Partnership (10 questions)",
         partnershipHead: "Your AI partnership profile",
         partnershipSub: "Skill = \"what you can do with AI\" · Partnership = \"how you use AI\"",
         partnershipStrengthLabel: "Strength",
@@ -298,7 +301,7 @@
         dimSkillName: "AI skills",
         dimSkillDesc: "3 levels: Understand → Apply → Build",
         dimPartnershipName: "AI partnership",
-        dimPartnershipDesc: "4 Human-in-the-Loop dimensions: verify · restraint · human-lead · direction",
+        dimPartnershipDesc: "5 Human-in-the-Loop dimensions: verify · restraint · human-lead · direction · learning",
         dimensionsNote: "Results synthesize into 1 of 4 AI use patterns (see below)",
         tagBlockHead: "Summary tags for org leaders",
         tagBlockHint: "(copy or screenshot for cohort review — L&D teams can aggregate at the cohort level)",
@@ -314,8 +317,8 @@
           "#P{n} = Partnership composite score 0–100",
           "#Q-{key} = quadrant: novice / coach / autopilot / director",
           "#L{n}:{pct} = per-level skill score 0–100 (e.g. #L1:85 #L2:70 #L3:40)",
-          "#{key}:{pct} = per-subtrait score 0–100 (verify / restraint / human_lead / direction)",
-          "#weak:{key} = subtrait scoring < 50% (verify / restraint / human_lead / direction)",
+          "#{key}:{pct} = per-subtrait score 0–100 (verify / restraint / human_lead / direction / learning)",
+          "#weak:{key} = subtrait scoring < 50% (verify / restraint / human_lead / direction / learning)",
           "#role-{code} = the role the participant selected (if not skipped)"
         ],
         orgGuideCollectHead: "How to collect the data",
@@ -329,6 +332,7 @@
           "Many #weak:human_lead → workshop on empathy / creative thinking / human-centered design",
           "Many #weak:restraint → workshop on AI mindfulness / knowing when not to use AI",
           "Many #weak:direction → workshop on prompt engineering / leading AI",
+          "Many #weak:learning → workshop on using AI to learn (tutor, not stand-in) — critical in study contexts",
           "Many L0/L1 → workshop on AI literacy foundations + responsible AI use",
           "Group averages per dimension (e.g. mean verify < 60) → run that workshop even before anyone hits #weak — use the detailed scores to prioritize and to measure pre/post training impact",
           "High L2% but low L3% across the group → the group is ready to move from 'user' to 'builder' — run no-code automation / AI API workshops"
@@ -359,7 +363,7 @@
         surveyOpenNewTab: "Open in new tab ↗",
         feedbackModalGo: "Take the survey →",
         feedbackModalLater: "Let me see my results first",
-        partnershipBalancedTpl: "Your profile is balanced — all 4 dimensions scored {p}%. Keep the balance and grow them together"
+        partnershipBalancedTpl: "Your profile is balanced — all 5 dimensions scored {p}%. Keep the balance and grow them together"
       }
     },
     levels: [
@@ -371,9 +375,9 @@
         desc: {th: "รู้ว่า AI คืออะไร ทำอะไรได้/ไม่ได้ และใช้อย่างมีความรับผิดชอบ", en: "Know what AI is, what it can and can't do, and how to use it responsibly"},
         color: "#0E6E63",
         items: [
-          {th: "เมื่อมีคนถามว่า AI อย่าง ChatGPT ทำงานอย่างไร ฉันมักอธิบายหลักการทำงานพื้นฐานให้เขาเข้าใจได้", en: "When someone asks how an AI like ChatGPT works, I can usually explain its basic principles in a way they understand"},
+          {th: "เมื่อมีคนถามว่า AI อย่าง ChatGPT ทำงานอย่างไร ฉันอธิบายได้ว่ามันสร้างคำตอบจากรูปแบบในข้อมูล ไม่ได้ \"คิดหรือเข้าใจ\" แบบมนุษย์", en: "When someone asks how an AI like ChatGPT works, I can explain that it generates answers from patterns in data — it doesn't \"think\" or \"understand\" like a human"},
           {th: "เมื่อมีงานเข้ามา ฉันมักเลือกได้ว่างานไหนลองให้ AI ช่วยน่าจะได้ผลดี และงานไหนควรทำเอง", en: "When a task comes up, I can usually tell which ones to try with AI and which to handle myself"},
-          {th: "เมื่อ AI ให้ข้อมูลที่สำคัญ ฉันมักตรวจสอบซ้ำก่อนเชื่อ เพราะมันอาจผิดหรือกุข้อมูลขึ้นมาได้ (hallucination)", en: "When AI gives me important information, I tend to double-check it before trusting it, since it can be wrong or made up (hallucination)"},
+          {th: "ฉันรู้ว่าฟีดโซเชียลและระบบแนะนำที่ใช้อยู่ทุกวันขับเคลื่อนด้วย AI ซึ่งเลือกและจัดลำดับสิ่งที่ฉันเห็น — และอาจสะท้อนอคติจากข้อมูลที่ใช้ฝึก", en: "I know the social feeds and recommendation systems I use daily are driven by AI that selects and ranks what I see — and can reflect biases in its training data"},
           {th: "ก่อนจะวางข้อมูลงานหรือข้อมูลส่วนตัวลงในแชต AI ฉันมักหยุดคิดก่อนว่าอะไรแชร์ได้หรือไม่ได้", en: "Before pasting work or personal information into an AI chat, I tend to pause and consider what is and isn't OK to share"}
         ],
         blurb: {th: "คุณมีพื้นฐานความเข้าใจ AI ที่ดี รู้ว่า AI ทำอะไรได้และมีข้อจำกัดอย่างไร พร้อมก้าวสู่การลงมือใช้จริง", en: "You have a solid foundation in AI — you know what it can do and where its limits lie, and you're ready to start applying it."},
@@ -399,7 +403,7 @@
         items: [
           {th: "เมื่อคำตอบแรกจาก AI ยังไม่ตรงใจ ฉันมักปรับ prompt (เพิ่มบริบท บทบาท ตัวอย่าง) แล้วลองใหม่จนได้ผลดีขึ้น", en: "When AI's first answer isn't quite right, I usually adjust my prompt (add context, role, examples) and try again until it improves"},
           {th: "ในเดือนที่ผ่านมา ฉันใช้ AI ช่วยงานหลายแบบ เช่น ร่างอีเมล สรุปเอกสารยาว ๆ ระดมไอเดีย หรือช่วยวิเคราะห์ข้อมูล", en: "In the past month, I've used AI for several different things — drafting emails, summarizing long documents, brainstorming, or analyzing data"},
-          {th: "เมื่อได้คำตอบจาก AI ฉันมักอ่าน ตรวจ และปรับแก้ให้เข้ากับงานก่อนนำไปใช้", en: "When I get an answer from AI, I usually read, check, and adapt it to the task before using it"},
+          {th: "เมื่อได้ผลลัพธ์จาก AI ฉันมักปรับแต่งให้เข้ากับบริบท น้ำเสียง และผู้รับของงานจริง ไม่ใช้แบบดิบ ๆ", en: "When I get output from AI, I usually adapt it to the real task's context, tone and audience rather than using it raw"},
           {th: "ฉันเลือกใช้เครื่องมือ AI ให้เหมาะกับงานแต่ละประเภท แทนที่จะใช้เครื่องมือเดียวสำหรับทุกงาน", en: "I pick the right AI tool for each kind of task instead of using one tool for everything"}
         ],
         blurb: {th: "คุณใช้ AI เป็นผู้ช่วยในงานประจำวันได้คล่อง และรู้วิธีสื่อสารกับ AI ให้ได้ผลลัพธ์ที่มีคุณภาพ", en: "You use AI fluently as an everyday assistant and know how to communicate with it to get quality results."},
@@ -611,7 +615,7 @@
           name: {th: "ตรวจสอบและรับผิดชอบ", en: "Verify & Own"},
           desc: {th: "ตรวจสอบผลของ AI และรับผิดชอบในผลงานของตัวเอง", en: "Check AI output and take responsibility for your work"},
           items: [
-            {th: "เวลาเอาคำตอบ AI ไปใช้ในงานสำคัญ ฉันมักหาแหล่งอื่นยืนยันอย่างน้อย 1 แหล่ง", en: "When using an AI answer for important work, I usually find at least one other source to confirm it", reverse: false},
+            {th: "ฉันเคยจับได้ว่า AI ตอบอย่างมั่นใจแต่ผิด เพราะฉันตรวจสอบกับแหล่งอื่นก่อนนำไปใช้", en: "I've caught AI being confidently wrong — because I checked against another source before using its answer", reverse: false},
             {th: "ถ้า AI ตอบเร็วและฟังดูสมเหตุสมผล ฉันมักนำไปใช้ทันที", en: "When AI answers quickly and sounds reasonable, I usually use it as-is", reverse: true}
           ]
         },
@@ -638,8 +642,17 @@
           name: {th: "นำการทำงานของ AI", en: "Direction"},
           desc: {th: "คุณนำ AI ไม่ใช่ AI นำคุณ", en: "You steer AI, not AI steers you"},
           items: [
-            {th: "ก่อนพิมพ์ prompt ฉันมักรู้แล้วว่าผลลัพธ์ที่อยากได้หน้าตาเป็นยังไง", en: "Before typing a prompt, I usually already know what the result should look like", reverse: false},
+            {th: "ก่อนถาม AI ฉันมักประเมินก่อนว่าตอนนี้ตัวเองรู้อะไรและยังไม่รู้อะไร แล้วเลือกวิธีใช้ให้เหมาะ — สั่งงานตรง ๆ ให้ช่วยระดมไอเดีย หรือให้ช่วยค้นเปิดมุมใหม่", en: "Before asking AI, I usually assess what I already know and don't know, then choose how to use it — direct instructions, brainstorming help, or open-ended research", reverse: false},
             {th: "ฉันมักพิมพ์ถาม AI ก่อน แล้วค่อยคิดตามแนวทางที่มันเสนอมา", en: "I usually ask AI first, then shape my thinking around whatever it suggests", reverse: true}
+          ]
+        },
+        {
+          key: "learning",
+          name: {th: "เรียนรู้ ไม่ใช่แค่ได้คำตอบ", en: "Learn, not just answers"},
+          desc: {th: "ใช้ AI เป็นติวเตอร์ที่ทำให้เข้าใจมากขึ้น ไม่ใช่คนทำงานแทน", en: "Use AI as a tutor that deepens understanding — not a stand-in that does the work"},
+          items: [
+            {th: "เวลาใช้ AI กับเรื่องที่ต้องเรียนรู้ ฉันมักให้มันช่วยอธิบายและถามต่อ จนตัวเองเข้าใจพอที่จะอธิบายเองได้", en: "When I use AI on something I need to learn, I usually have it explain and take follow-up questions until I understand well enough to explain it myself", reverse: false},
+            {th: "หลายครั้งฉันส่งงานที่ AI ทำให้ ทั้งที่ยังอธิบายเองไม่ได้ว่าเนื้อหาในนั้นถูกต้องหรือมาได้อย่างไร", en: "I often hand in work AI produced even though I couldn't yet explain whether its content is right or how it got there", reverse: true}
           ]
         }
       ],
