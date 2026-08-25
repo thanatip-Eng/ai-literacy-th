@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>แหล่งที่มาของ framework — AiStyle</title>
+<link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="assets/favicon-16.png">
+<link rel="apple-touch-icon" sizes="180x180" href="assets/favicon-180.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@500;600;700&family=IBM+Plex+Sans+Thai:wght@400;500;600;700&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#F3EEE4; --paper-2:#ECE5D7; --card:#FCFAF5; --ink:#211C16;
+    --muted:#736A5C; --line:#DCD3C2; --teal:#0E6E63; --teal-deep:#0A4F47;
+    --amber:#D9852A; --amber-soft:#FFF1D5; --warn:#B5642A; --r:18px;
+    --shadow:0 14px 30px -22px rgba(33,28,22,.4);
+  }
+  *{box-sizing:border-box}
+  [hidden]{display:none !important}
+  body{
+    margin:0;background:var(--paper);color:var(--ink);
+    font-family:"IBM Plex Sans Thai","IBM Plex Sans",sans-serif;
+    font-size:16px;line-height:1.6;min-height:100vh;
+    background-image:
+      radial-gradient(circle at 90% -10%,rgba(217,133,42,.18),transparent 55%),
+      radial-gradient(circle at -10% 110%,rgba(14,110,99,.14),transparent 50%);
+  }
+  .wrap{max-width:760px;margin:0 auto;padding:36px 22px 60px}
+  .topbar{display:flex;align-items:center;justify-content:space-between;margin-bottom:24px;flex-wrap:wrap;gap:12px}
+  .back-link{
+    font-family:"Chakra Petch",sans-serif;font-weight:600;font-size:.9rem;
+    color:var(--teal-deep);text-decoration:none;display:inline-flex;align-items:center;gap:6px;
+  }
+  .back-link:hover{color:var(--teal)}
+  .lang-toggle{display:flex;gap:4px;background:var(--card);border:1px solid var(--line);border-radius:999px;padding:4px}
+  .lang-toggle button{
+    font-family:"Chakra Petch",sans-serif;font-weight:600;font-size:.78rem;
+    padding:5px 12px;border:none;border-radius:999px;background:transparent;cursor:pointer;color:var(--muted);
+  }
+  .lang-toggle button.active{background:var(--teal);color:#fff}
+  .main-logo{display:block;margin:0 auto 14px;max-width:240px;width:auto;height:auto}
+  @media(max-width:520px){.main-logo{max-width:190px}}
+  .badge{
+    display:inline-flex;align-items:center;gap:6px;font-family:"Chakra Petch",sans-serif;
+    font-size:.78rem;background:var(--card);border:1px solid var(--line);
+    padding:6px 14px;border-radius:999px;color:var(--teal-deep);margin-bottom:14px;
+  }
+  h1{font-family:"Chakra Petch",sans-serif;font-weight:700;font-size:2rem;color:var(--ink);margin:0 0 10px;line-height:1.25}
+  .lead{font-size:1.02rem;color:var(--muted);max-width:62ch;margin:0 0 28px}
+  .card{
+    background:var(--card);border:1px solid var(--line);border-radius:var(--r);
+    padding:22px 24px;box-shadow:var(--shadow);margin-bottom:18px;
+  }
+  .card h2{
+    font-family:"Chakra Petch",sans-serif;font-weight:700;font-size:1.12rem;
+    color:var(--teal-deep);margin:0 0 4px;display:flex;align-items:center;gap:10px;
+  }
+  .card h2::before{content:"";width:18px;height:3px;border-radius:2px;background:var(--amber);flex:0 0 auto}
+  .card .subtitle{font-size:.85rem;color:var(--muted);margin:0 0 12px}
+  .card h3{font-size:.95rem;color:var(--warn);margin:16px 0 6px;font-weight:700}
+  .card p{margin:0 0 8px;font-size:.95rem;line-height:1.65}
+  .card ul,.card ol{margin:0 0 8px;padding-left:20px}
+  .card li{font-size:.92rem;line-height:1.7;margin-bottom:5px}
+  .used{
+    background:var(--amber-soft);border-radius:10px;padding:10px 14px;margin-top:12px;
+  }
+  .used p{margin:0 0 4px;font-weight:600;font-size:.88rem;color:var(--teal-deep)}
+  .used ul{margin:0;padding-left:20px}
+  .used li{font-size:.88rem}
+  .ref{
+    font-size:.82rem;color:var(--muted);border-top:1px dashed var(--line);
+    margin-top:14px;padding-top:10px;word-break:break-word;
+  }
+  .ref a{color:var(--warn);font-weight:600}
+  .footer{text-align:center;font-size:.82rem;color:var(--muted);margin-top:32px;padding-top:18px;border-top:1px solid var(--line)}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="topbar">
+    <a class="back-link" href="index.html">← <span data-i18n="backToAssessment">กลับสู่แบบประเมิน</span></a>
+    <div class="lang-toggle" role="group" aria-label="Language toggle">
+      <button id="langTH" class="active" onclick="setLang('th')" aria-pressed="true">TH</button>
+      <button id="langEN" onclick="setLang('en')" aria-pressed="false">EN</button>
+    </div>
+  </div>
+
+  <img class="main-logo" src="assets/AiStyle.png" alt="AiStyle — AI Literacy Assessment, Skill × Partnership" />
+
+  <div class="badge" data-i18n="badge">แหล่งความรู้</div>
+  <h1 data-i18n="title">แหล่งที่มาของ framework</h1>
+  <p class="lead" data-i18n="lead"></p>
+
+  <section class="card">
+    <h2 data-i18n="s1Head">LinkedIn AI Upskilling Framework</h2>
+    <p class="subtitle" data-i18n="s1Sub">ฐานของแกน "ทักษะการใช้ AI"</p>
+    <p data-i18n="s1Body"></p>
+    <ol id="s1List"></ol>
+    <div class="used">
+      <p data-i18n="usedLabel">AiStyle นำมาใช้อย่างไร</p>
+      <ul id="s1Used"></ul>
+    </div>
+    <p class="ref" id="s1Ref"></p>
+  </section>
+
+  <section class="card">
+    <h2 data-i18n="s2Head">OECD / EU — AILit Framework (2026)</h2>
+    <p class="subtitle" data-i18n="s2Sub">กรอบ AI literacy ระดับนานาชาติ ฐานของการประเมิน PISA 2029</p>
+    <p data-i18n="s2Body"></p>
+    <ul id="s2List"></ul>
+    <div class="used">
+      <p data-i18n="usedLabel2">AiStyle นำมาใช้อย่างไร</p>
+      <ul id="s2Used"></ul>
+    </div>
+    <p class="ref" id="s2Ref"></p>
+  </section>
+
+  <section class="card">
+    <h2 data-i18n="s3Head">AI Thinking Framework — LINE MAN Wongnai</h2>
+    <p class="subtitle" data-i18n="s3Sub">มุมมองจากภาคอุตสาหกรรมเทคโนโลยีไทย</p>
+    <p data-i18n="s3Body"></p>
+    <ol id="s3List"></ol>
+    <div class="used">
+      <p data-i18n="usedLabel3">AiStyle นำมาใช้อย่างไร</p>
+      <ul id="s3Used"></ul>
+    </div>
+    <p class="ref" id="s3Ref"></p>
+  </section>
+
+  <section class="card">
+    <h2 data-i18n="s4Head">ส่วนที่ AiStyle ออกแบบเอง</h2>
+    <p class="subtitle" data-i18n="s4Sub">สิ่งที่ไม่มีในแหล่งใดข้างต้น</p>
+    <ul id="s4List"></ul>
+  </section>
+
+  <p class="footer" data-i18n="footerCopy">© 2026 Student Talent Development · Faculty of Engineering, Chiang Mai University</p>
+</div>
+
+<script>
+const L = {
+  th: {
+    backToAssessment: "กลับสู่แบบประเมิน",
+    badge: "แหล่งความรู้",
+    title: "แหล่งที่มาของ framework",
+    lead: "AiStyle ไม่ได้สร้างจากศูนย์ — โครงสร้างการประเมินสังเคราะห์จากกรอบแนวคิด 3 แหล่งที่ต่างมุมกัน: กรอบทักษะจากแพลตฟอร์มอาชีพระดับโลก กรอบนโยบายการศึกษาระดับนานาชาติ และมุมมองการใช้งานจริงจากบริษัทเทคโนโลยีไทย หน้านี้สรุปแต่ละแหล่งและบอกว่าเรานำอะไรมาใช้ตรงไหน",
+    s1Head: "LinkedIn AI Upskilling Framework",
+    s1Sub: "ฐานของแกน \"ทักษะการใช้ AI\"",
+    s1Body: "กรอบพัฒนาทักษะ AI ของ LinkedIn Learning แบ่งความสามารถด้าน AI เป็น 5 ระดับต่อเนื่อง จากผู้ใช้ทั่วไปจนถึงผู้เชี่ยวชาญวิจัย:",
+    s1List: [
+      "ระดับ 1 — Understanding: เข้าใจว่า AI คืออะไร ทำอะไรได้/ไม่ได้ และใช้อย่างรับผิดชอบ",
+      "ระดับ 2 — Applying: ใช้ AI ช่วยงานประจำ ร่าง สรุป วิเคราะห์ เขียน prompt ได้ผล",
+      "ระดับ 3 — Building: สร้างโซลูชันด้วย AI เช่น workflow, แชตบอต, ต้นแบบแอป",
+      "ระดับ 4 — Training & Maintaining: ฝึก ปรับแต่ง ประเมิน และดูแลโมเดล",
+      "ระดับ 5 — Deeply Specializing: วิจัยและชี้นำทิศทางเทคนิคขั้นสูง"
+    ],
+    usedLabel: "AiStyle นำมาใช้อย่างไร",
+    s1Used: [
+      "เป็นโครงของแกนทักษะทั้งแกน — แบบประเมินวัดระดับ 1–3 ที่ผู้ใช้ทั่วไปไปถึงได้จริง",
+      "ระดับ 4–5 รวมเป็นกลุ่ม \"ผู้เชี่ยวชาญขั้นสูง\" แสดงเป็นข้อมูลอ้างอิง ไม่ประเมิน",
+      "กลไก cumulative placement (ต้องผ่านระดับล่างก่อน) เป็นการออกแบบเพิ่มของ AiStyle"
+    ],
+    s1RefHtml: "อ้างอิง: LinkedIn Learning (2024). <i>AI Upskilling Framework</i>. — <a href=\"https://learning.linkedin.com/\" target=\"_blank\" rel=\"noopener noreferrer\">learning.linkedin.com</a> · โครงสร้าง 5 ระดับถูกดัดแปลงและแปลใหม่ทั้งหมด ไม่ได้ใช้ภาพหรือข้อความต้นฉบับ",
+    s2Head: "OECD / EU — AILit Framework (2026)",
+    s2Sub: "กรอบ AI literacy ระดับนานาชาติ ฐานของการประเมิน PISA 2029",
+    s2Body: "\"Empowering Learners for the Age of AI\" คือกรอบ AI literacy ที่ OECD พัฒนาร่วมกับสหภาพยุโรป ผ่านการรับรองของ PISA Governing Board และเป็นฐานของการสอบ PISA 2029 Media & AI Literacy (MAIL) นิยาม AI literacy เป็น Knowledge–Skills–Attitudes ใน 4 domains:",
+    s2List: [
+      "Engage with AI — รู้จัก ประเมิน และตัดสินใจเกี่ยวกับบทบาทของ AI ในชีวิตประจำวัน",
+      "Create with AI — ใช้ AI เป็นคู่คิดสร้างสรรค์ โดยรักษาความเป็นเจ้าของความคิด",
+      "Manage AI — แบ่งงานระหว่างคนกับ AI อย่างตั้งใจ รู้ว่าเมื่อไหร่ (ไม่) ควรใช้",
+      "Shape AI — ปรับปรุงระบบ AI ให้สะท้อนคุณค่าของมนุษย์และสังคม"
+    ],
+    usedLabel2: "AiStyle นำมาใช้อย่างไร",
+    s2Used: [
+      "ยืนยันแกน Partnership ของเรา: domain \"Manage AI\" และกลุ่ม Attitudes (Reflective, Responsible, Empathetic) ตรงกับ 4 มิติย่อยเดิมของ AiStyle",
+      "ธีมที่นำมาเติมในข้อคำถามรุ่น v2: AI ที่ทำงานเบื้องหลังฟีด/ระบบแนะนำ, อคติจากข้อมูลฝึก, และการไม่มองว่า AI \"คิดแบบมนุษย์\"",
+      "หลักฐานเรื่อง metacognitive laziness สนับสนุนมิติ \"เรียนรู้ ไม่ใช่แค่ได้คำตอบ\""
+    ],
+    s2RefHtml: "อ้างอิง: OECD / European Union (2026). <i>Empowering Learners for the Age of AI: An AI Literacy Framework for Primary and Secondary Education</i>. OECD Publishing. (CC BY 4.0) — <a href=\"https://doi.org/10.1787/65cd27d4-en\" target=\"_blank\" rel=\"noopener noreferrer\">doi.org/10.1787/65cd27d4-en</a>",
+    s3Head: "AI Thinking Framework — LINE MAN Wongnai",
+    s3Sub: "มุมมองจากภาคอุตสาหกรรมเทคโนโลยีไทย",
+    s3Body: "กรอบวิธีคิดการใช้ AI จาก LINE MAN Wongnai Tech Camp 2026 สรุปเป็น 3 หลักการที่จำง่ายและใช้ได้ทันที พร้อมคำเตือนว่า \"AI เป็นตัวคูณ — แต่อะไรคูณ 0 ก็ได้ 0\":",
+    s3List: [
+      "รู้ว่าเมื่อไหร่ (ไม่) ควรใช้ AI — งานนี้ AI ควรทำไหม แล้วเชื่อได้แค่ไหน?",
+      "คิดก่อน แล้วค่อยถามทีหลัง — ฉันคิดพอหรือยัง ก่อนจะถาม AI?",
+      "หาความรู้ ไม่ใช่แค่คำตอบ — ฉันเข้าใจมากขึ้น หรือแค่ได้คำตอบมา? (ผลงานดูดี ≠ เราเก่งขึ้น)"
+    ],
+    usedLabel3: "AiStyle นำมาใช้อย่างไร",
+    s3Used: [
+      "หลักการ 3 เป็นต้นแบบของมิติย่อยที่ห้า \"เรียนรู้ ไม่ใช่แค่ได้คำตอบ\" ในชุดข้อคำถาม v2",
+      "ตาราง 2×2 (รู้ว่ารู้ / ไม่รู้ว่ารู้ / รู้ว่าไม่รู้ / ไม่รู้ว่าไม่รู้ → Prompt / Interview / Brainstorm / Research) ใช้ปรับข้อวัดมิติ \"นำการทำงานของ AI\"",
+      "แนวคำถาม \"เคยจับได้ว่า AI ตอบมั่นใจแต่ผิดไหม\" ใช้ยกระดับข้อวัดการตรวจสอบให้อิงประสบการณ์จริง"
+    ],
+    s3RefHtml: "อ้างอิง: LINE MAN Wongnai (2026). <i>AI Thinking Framework</i>. เอกสารประกอบ Applied AI Workshop, LINE MAN Wongnai Tech Camp 2026",
+    s4Head: "ส่วนที่ AiStyle ออกแบบเอง",
+    s4Sub: "สิ่งที่ไม่มีในแหล่งใดข้างต้น",
+    s4List: [
+      "การ operationalize ทั้งหมดเป็นเครื่องมือวัด: ข้อคำถาม 22 ข้อสองภาษา, Likert 5 ระดับ, ข้อ reverse-scored ทุกมิติย่อย, เกณฑ์คะแนนและการจำลอง cut-point",
+      "การสังเคราะห์สองแกนเป็น 4 รูปแบบผู้ใช้ (ผู้เริ่มสำรวจ · ผู้ตั้งคำถาม · ผู้ใช้โหมดอัตโนมัติ · ผู้นำ AI) พร้อม persona และคำแนะนำรายแบบ",
+      "บริบทบทบาทอาชีพ 9 กลุ่ม (floor/ceiling) และเส้นทาง champion/pivot",
+      "ระบบแท็กสรุปสำหรับการวิเคราะห์ระดับกลุ่มโดยทีมผู้สอน/L&D",
+      "การสะท้อนจุดแข็ง/ตัวฉุดระดับมิติย่อย เมื่อ profile ไม่สมดุล"
+    ],
+    footerCopy: "© 2026 Student Talent Development · Faculty of Engineering, Chiang Mai University"
+  },
+  en: {
+    backToAssessment: "Back to assessment",
+    badge: "Learn more",
+    title: "The frameworks behind AiStyle",
+    lead: "AiStyle wasn't built from scratch — its structure synthesizes three sources with different vantage points: a skills framework from a global career platform, an international education-policy framework, and a practical perspective from a Thai tech company. This page summarizes each source and what we adopted from it.",
+    s1Head: "LinkedIn AI Upskilling Framework",
+    s1Sub: "Foundation of the AI-skill axis",
+    s1Body: "LinkedIn Learning's framework organizes AI capability into five progressive levels, from everyday users to research specialists:",
+    s1List: [
+      "Level 1 — Understanding: know what AI is, its limits, and responsible use",
+      "Level 2 — Applying: use AI for daily work — drafting, summarizing, analyzing, effective prompting",
+      "Level 3 — Building: build AI-powered solutions — workflows, chatbots, app prototypes",
+      "Level 4 — Training & Maintaining: train, fine-tune, evaluate and maintain models",
+      "Level 5 — Deeply Specializing: advanced research and technical leadership"
+    ],
+    usedLabel: "How AiStyle uses it",
+    s1Used: [
+      "It is the backbone of the entire skill axis — the assessment covers Levels 1–3, which everyday users can realistically reach",
+      "Levels 4–5 are merged into an \"advanced specialist\" tier, shown for reference but not assessed",
+      "The cumulative placement mechanic (pass lower levels first) is AiStyle's own addition"
+    ],
+    s1RefHtml: "Reference: LinkedIn Learning (2024). <i>AI Upskilling Framework</i>. — <a href=\"https://learning.linkedin.com/\" target=\"_blank\" rel=\"noopener noreferrer\">learning.linkedin.com</a> · the 5-level structure was fully adapted and re-written; no original imagery or text is used",
+    s2Head: "OECD / EU — AILit Framework (2026)",
+    s2Sub: "The international AI-literacy framework behind PISA 2029",
+    s2Body: "\"Empowering Learners for the Age of AI\" is the AI literacy framework developed by the OECD with the European Union, approved by the PISA Governing Board and underpinning the PISA 2029 Media & AI Literacy (MAIL) assessment. It defines AI literacy as Knowledge–Skills–Attitudes across four domains:",
+    s2List: [
+      "Engage with AI — recognize, evaluate and decide about AI's role in daily life",
+      "Create with AI — use AI as a creative partner while maintaining human agency",
+      "Manage AI — divide work intentionally between humans and AI; know when (not) to use it",
+      "Shape AI — improve AI systems to reflect human and societal values"
+    ],
+    usedLabel2: "How AiStyle uses it",
+    s2Used: [
+      "It validates our Partnership axis: the \"Manage AI\" domain and the Attitudes (Reflective, Responsible, Empathetic) converge with AiStyle's original subtraits",
+      "Themes added to the v2 item set: AI behind feeds/recommendations, training-data bias, and not treating AI as \"thinking like a human\"",
+      "Its evidence on metacognitive laziness supports the \"Learn, not just answers\" dimension"
+    ],
+    s2RefHtml: "Reference: OECD / European Union (2026). <i>Empowering Learners for the Age of AI: An AI Literacy Framework for Primary and Secondary Education</i>. OECD Publishing. (CC BY 4.0) — <a href=\"https://doi.org/10.1787/65cd27d4-en\" target=\"_blank\" rel=\"noopener noreferrer\">doi.org/10.1787/65cd27d4-en</a>",
+    s3Head: "AI Thinking Framework — LINE MAN Wongnai",
+    s3Sub: "A practical view from the Thai tech industry",
+    s3Body: "A way-of-thinking framework from LINE MAN Wongnai Tech Camp 2026, distilled into three memorable principles with the reminder that \"AI is a multiplier — but anything times zero is still zero\":",
+    s3List: [
+      "Know when (not) to use AI — should AI do this task, and how much can I trust it?",
+      "Think first, ask later — have I thought enough before asking AI?",
+      "Seek understanding, not answers — do I understand more, or did I just get an answer? (good output ≠ getting better)"
+    ],
+    usedLabel3: "How AiStyle uses it",
+    s3Used: [
+      "Principle 3 inspired the fifth subtrait, \"Learn, not just answers\", in the v2 item set",
+      "The 2×2 grid (known/unknown knowns → Prompt / Interview / Brainstorm / Research) reshaped the \"Direction\" item",
+      "The \"have you ever caught AI confidently wrong?\" framing upgraded the verification item to be experience-anchored"
+    ],
+    s3RefHtml: "Reference: LINE MAN Wongnai (2026). <i>AI Thinking Framework</i>. Applied AI Workshop material, LINE MAN Wongnai Tech Camp 2026",
+    s4Head: "What AiStyle adds on top",
+    s4Sub: "Not found in any of the sources above",
+    s4List: [
+      "The full operationalization into a measurement tool: 22 bilingual items, 5-point Likert, a reverse-scored item in every subtrait, scoring rules and cut-point simulations",
+      "The synthesis of both axes into 4 usage patterns (Curious Beginner · Thoughtful Learner · Auto-pilot User · AI Director) with personas and tailored advice",
+      "Role context for 9 job groups (floor/ceiling) with champion/pivot paths",
+      "The summary-tag system for cohort-level analysis by instructors / L&D teams",
+      "Strength/gap surfacing at the subtrait level for unbalanced profiles"
+    ],
+    footerCopy: "© 2026 Student Talent Development · Faculty of Engineering, Chiang Mai University"
+  }
+};
+
+let currentLang = 'th';
+
+function fillList(id, items){
+  const el = document.getElementById(id);
+  el.innerHTML = '';
+  (items || []).forEach(text => {
+    const li = document.createElement('li');
+    li.textContent = text;
+    el.appendChild(li);
+  });
+}
+
+function setRefHtml(id, html){
+  // trusted, hand-authored strings above (contain <a>/<i> only)
+  document.getElementById(id).innerHTML = html;
+}
+
+function applyLang(){
+  document.documentElement.lang = currentLang;
+  const t = L[currentLang];
+  document.querySelectorAll('[data-i18n]').forEach(el => {
+    const val = t[el.dataset.i18n];
+    if(typeof val === 'string') el.textContent = val;
+  });
+  fillList('s1List', t.s1List); fillList('s1Used', t.s1Used);
+  fillList('s2List', t.s2List); fillList('s2Used', t.s2Used);
+  fillList('s3List', t.s3List); fillList('s3Used', t.s3Used);
+  fillList('s4List', t.s4List);
+  setRefHtml('s1Ref', t.s1RefHtml);
+  setRefHtml('s2Ref', t.s2RefHtml);
+  setRefHtml('s3Ref', t.s3RefHtml);
+  document.getElementById('langTH').classList.toggle('active', currentLang === 'th');
+  document.getElementById('langEN').classList.toggle('active', currentLang === 'en');
+  document.getElementById('langTH').setAttribute('aria-pressed', currentLang === 'th');
+  document.getElementById('langEN').setAttribute('aria-pressed', currentLang === 'en');
+}
+
+function setLang(lang){
+  if(lang !== 'th' && lang !== 'en') return;
+  currentLang = lang;
+  applyLang();
+}
+
+applyLang();
+</script>
+</body>
+</html>

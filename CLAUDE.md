@@ -3,8 +3,8 @@
 **AiStyle** — bilingual Thai/English self-assessment measuring two axes:
 **AI Skill** (adapted from LinkedIn's AI Upskilling Framework) × **Human–AI
 Partnership** (original Human-in-the-Loop axis). The two axes combine into
-one of 4 usage patterns (quadrants). 20 questions total: 12 skill + 8
-partnership.
+one of 4 usage patterns (quadrants). 22 questions total: 12 skill + 10
+partnership (v2 item set; v1 rows have 20-value rawAnswers).
 
 ## Architecture
 
@@ -22,7 +22,12 @@ partnership.
 - **`test/`** — `node --test` suite (scoring, content validation, LTI
   security, static regression guards)
 - **`docs/`** — `connect-setup.md` (Canvas/Google Form setup),
-  `question-review.md` (item-quality review)
+  `question-review.md` (item-quality review), `ailit-mapping.md`
+  (AiStyle ↔ OECD/EU AILit mapping), `items-v2-draft.md` (v2 item history)
+- **`frameworks.html`** — standalone bilingual knowledge page summarizing
+  the three source frameworks (LinkedIn, OECD/EU AILit, LINE MAN Wongnai
+  AI Thinking) with reference links; linked from the global footer
+- **`tags-guide.html`** — standalone org-tag legend/guide page
 - No build step, no framework. Static everywhere; the `api/` functions
   activate only on Vercel when LTI env vars are set
 
@@ -32,8 +37,8 @@ partnership.
   reference-only, shown in the framework diagram). Each level: `n`, `name`,
   `short`, `desc`, `color`, `items[]` (4 statements for assessable levels),
   `blurb`, `nextH`, `next[]`, `workshops[]`
-- **`partnership`** — 4 `subtraits` (keys `verify`, `restraint`,
-  `human_lead`, `direction`), 2 items each; the second item of every
+- **`partnership`** — 5 `subtraits` (keys `verify`, `restraint`,
+  `human_lead`, `direction`, `learning`), 2 items each; the second item of every
   subtrait is reverse-scored (`reverse: true` — a test enforces exactly
   one reverse item per subtrait, in second position).
   `threshold` (60) is the quadrant partnership cut. `quadrants` holds the 4
@@ -53,7 +58,7 @@ partnership.
 2. `cumulativePlacement(pcts, 70)` → skill level = highest unbroken chain
    from L1 at ≥70%. Failing L1 places the user at 0 regardless of L2/L3
 3. `partnershipSubtraitScores` (handles reverse items) →
-   `partnershipComposite` (mean of 4 subtraits)
+   `partnershipComposite` (mean of 5 subtraits)
 4. `quadrantPlacement(placement, composite, {partnershipCut})` → quadrant:
    high skill = placement ≥ 2, high partnership = composite ≥ 60
 5. `roleVerdict(pcts, userRole, 70)` → below_floor / on_track / role_fit /
