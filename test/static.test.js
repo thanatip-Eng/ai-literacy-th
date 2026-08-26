@@ -72,6 +72,11 @@ test('balanced partnership profile shows a message instead of empty dashes', () 
   assert.match(html, /partnershipBalancedTpl/);
 });
 
+test('demo mode never builds a connect payload or shows the submit box', () => {
+  assert.match(html, /CONNECT_MODE && !DEMO_PROFILE/);
+  assert.match(html, /id="demoBanner"/);
+});
+
 test('the hidden attribute always beats display rules', () => {
   assert.match(html, /\[hidden\]\{display:none !important\}/);
 });
