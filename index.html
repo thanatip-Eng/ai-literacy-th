@@ -641,6 +641,12 @@
     font-size:.92rem;line-height:1.55;font-weight:500;
   }
   .res-actions-top{margin-top:18px}
+  .demo-banner{
+    background:repeating-linear-gradient(-45deg,var(--amber-soft),var(--amber-soft) 12px,#FFE9C4 12px,#FFE9C4 24px);
+    border:1.5px dashed var(--amber);border-radius:12px;
+    padding:10px 14px;font-size:.9rem;font-weight:600;color:var(--warn);
+    text-align:center;margin-bottom:4px;
+  }
   .quadrant-card{
     background:var(--card);border:1px solid var(--line);border-radius:var(--r);
     border-left:5px solid var(--amber);
@@ -946,6 +952,7 @@
 
   <!-- ===================== RESULT ===================== -->
   <section id="result" class="screen">
+    <div class="demo-banner" id="demoBanner" hidden data-i18n="demoBanner">🔍 โหมดตัวอย่าง — ผลด้านล่างเป็นข้อมูลจำลอง ไม่ใช่ผลจริง</div>
     <div class="res-hero quadrant-hero" id="rQuadrantHero">
       <div class="k" data-i18n="rHeroQuadrant">รูปแบบการใช้ AI ของคุณ</div>
       <div class="quadrant-hero-body">
@@ -1491,6 +1498,12 @@ function restart(){
   if(advanceTimer) clearTimeout(advanceTimer);
   advanceTimer = null;
   answerLocked = false;
+  // leaving demo mode: a fresh run from here is a real one
+  if(typeof DEMO_PROFILE !== 'undefined' && DEMO_PROFILE){
+    DEMO_PROFILE = null;
+    const db = document.getElementById('demoBanner');
+    if(db) db.hidden = true;
+  }
   answers.fill(null);
   idx = 0;
   userName = '';
@@ -1600,7 +1613,7 @@ function finish(){
   };
   renderResult(pcts, placement, THRESH, partnership);
   show('result');
-  if(CONNECT_MODE){
+  if(CONNECT_MODE && !DEMO_PROFILE){
     // No auto-submit: the student reviews the result first, then presses
     // the big "send to instructor" button themselves.
     connectPayload = buildConnectPayload(pcts, placement, partnership);
@@ -1896,11 +1909,11 @@ async function initLtiGate(){
     if(j && j.authenticated){
       connectIdentity = {email: j.email || '', name: j.name || ''};
       renderConnectWhoami();
-    } else {
+    } else if(!DEMO_PROFILE){
       show('gate');
     }
   }catch{
-    show('gate');
+    if(!DEMO_PROFILE) show('gate');
   }
 }
 
@@ -2902,6 +2915,39 @@ renderQuadrantGrid('introQuadrantGrid', null);
 updateToggleUI();
 applyI18n();
 initConnectMode();
+
+/* ---------------- DEMO MODE (?demo=1 | novice | coach | autopilot | director)
+   Jumps straight to the result screen with a simulated profile so reviewers
+   can see the final page without answering all questions. Zero-data safe:
+   nothing is stored or sent — the connect payload/submit box are disabled. */
+let DEMO_PROFILE = new URLSearchParams(location.search).get('demo');
+function runDemo(profileKey){
+  const key = ['novice','coach','autopilot','director'].includes(profileKey) ? profileKey : 'director';
+  const highSkill = key === 'autopilot' || key === 'director';
+  const highPartnership = key === 'coach' || key === 'director';
+  userName = currentLang === 'th' ? 'ตัวอย่าง (Demo)' : 'Sample (Demo)';
+  userRole = ROLES.find(r => r.code === 'student') || ROLES[0];
+  QS.forEach((q, i) => {
+    if(q.kind === 'skill'){
+      // high: pass all levels · low: pass only L1
+      answers[i] = highSkill ? 3 : (q.levelIndex === 0 ? 3 : 1);
+      return;
+    }
+    const sub = PARTNERSHIP.subtraits[q.subtraitIndex];
+    if(highPartnership){
+      // strong profile with one visible drag point (verify) for the insight strip
+      if(sub.key === 'verify'){ answers[i] = q.reverse ? 3 : 2; return; }
+      answers[i] = q.reverse ? 1 : 3;
+    } else {
+      // auto-pilot style: agrees with reverse items, skips verification
+      answers[i] = q.reverse ? 3 : 1;
+    }
+  });
+  finish();
+  const banner = document.getElementById('demoBanner');
+  if(banner) banner.hidden = false;
+}
+if(DEMO_PROFILE && new URLSearchParams(location.search).get('edit') !== '1') runDemo(DEMO_PROFILE);
 
 /* image modal dismiss handlers */
 document.getElementById('imgModal').addEventListener('click', (e)=>{
