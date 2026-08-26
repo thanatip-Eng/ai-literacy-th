@@ -26,7 +26,8 @@ partnership (v2 item set; v1 rows have 20-value rawAnswers).
   (AiStyle ↔ OECD/EU AILit mapping), `items-v2-draft.md` (v2 item history)
 - **`frameworks.html`** — standalone bilingual knowledge page summarizing
   the three source frameworks (LinkedIn, OECD/EU AILit, LINE MAN Wongnai
-  AI Thinking) with reference links; linked from the global footer
+  AI Thinking) plus CMU's institutional Gen AI policy (ประกาศ มช. 2566),
+  with reference links; linked from the global footer
 - **`tags-guide.html`** — standalone org-tag legend/guide page
 - No build step, no framework. Static everywhere; the `api/` functions
   activate only on Vercel when LTI env vars are set
