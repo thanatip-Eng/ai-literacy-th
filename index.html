@@ -625,6 +625,22 @@
     font-size:.82rem;color:var(--muted);font-style:italic;margin:4px 0 0;
     border-top:1px dashed var(--line);padding-top:8px;line-height:1.5;
   }
+  /* Tier-1 insight strip: strength / drag / first step */
+  .insight-card{margin-top:16px;padding:16px 18px}
+  .insight-card .insight-head{margin:0 0 4px;font-size:1rem;color:var(--teal-deep)}
+  .insight-card .partnership-highlights{margin-top:8px;background:transparent;border:none;padding:0}
+  .partnership-highlights .ph-step .ph-label{color:var(--amber)}
+  .partnership-highlights .ph-step{border-top:1px dashed var(--line);padding-top:8px}
+  .partnership-highlights .ph-label{min-width:104px}
+  /* Tier-2 accordions reuse .quadrants-details; generic body padding */
+  .quadrants-details .acc-body{padding:2px 14px 16px}
+  .quadrants-details .acc-body .section-h{margin-top:14px}
+  .acc-body .quadrant-hero-nudge{
+    margin:6px 0 12px;padding:12px 14px;border-radius:10px;
+    background:var(--amber-soft);border-left:3px solid var(--amber);
+    font-size:.92rem;line-height:1.55;font-weight:500;
+  }
+  .res-actions-top{margin-top:18px}
   .quadrant-card{
     background:var(--card);border:1px solid var(--line);border-radius:var(--r);
     border-left:5px solid var(--amber);
@@ -941,120 +957,32 @@
         </div>
       </div>
       <p class="quadrant-hero-blurb" id="rQuadrantHeroBlurb"></p>
-      <p class="quadrant-hero-nudge" id="rQuadrantHeroNudge"></p>
       <div class="res-meta" id="rMeta"></div>
     </div>
 
-    <details class="quadrants-details">
-      <summary data-i18n="quadrantsExplainedResultToggle">เปรียบเทียบทั้ง 4 รูปแบบ</summary>
-      <div class="quadrant-grid" id="resultQuadrantGrid"></div>
-    </details>
-
-    <p class="mini bridge-line" data-i18n="partnershipSub">ทักษะ = "คุณใช้ AI ทำอะไรได้" · ความสัมพันธ์ = "คุณใช้ AI ยังไง"</p>
-
-    <div class="section-h with-logo">
-      <span class="section-logo" aria-hidden="true">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-          <rect x="3" y="14" width="4" height="7" rx="1"/>
-          <rect x="10" y="9" width="4" height="12" rx="1"/>
-          <rect x="17" y="4" width="4" height="17" rx="1"/>
-        </svg>
-      </span>
-      <span data-i18n="profileHead">ทักษะการใช้ AI ของคุณ</span>
-    </div>
-    <div class="profile" id="rProfile"></div>
-
-    <div id="rPartnershipWrap" hidden>
-      <div class="section-h with-logo">
-        <span class="section-logo" aria-hidden="true">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <circle cx="7" cy="8" r="3"/>
-            <path d="M2.5 21v-1.5a4 4 0 0 1 4-4h1a4 4 0 0 1 4 4V21"/>
-            <circle cx="17" cy="8" r="3"/>
-            <path d="M12.5 21v-1.5a4 4 0 0 1 4-4h1a4 4 0 0 1 4 4V21"/>
-          </svg>
-        </span>
-        <span data-i18n="partnershipHead">ภาพรวมความสัมพันธ์ของคุณกับ AI</span>
-      </div>
-      <div class="profile" id="rPartnershipComposite"></div>
-      <div class="profile partnership-subs" id="rPartnershipBars"></div>
+    <!-- Tier 1 · the three-line insight strip: strength / drag / first step -->
+    <div class="card insight-card" id="rInsightCard">
+      <h4 class="insight-head" data-i18n="insightHead">สรุปของคุณใน 3 บรรทัด</h4>
       <div class="partnership-highlights" id="rPartnershipHighlights" hidden>
         <div class="ph-row ph-strong" id="rPHStrongRow">
-          <span class="ph-label" data-i18n="partnershipStrengthLabel">จุดแข็ง</span>
+          <span class="ph-label" data-i18n="partnershipStrengthLabel">💪 จุดแข็ง</span>
           <span class="ph-name" id="rPHStrongName">—</span>
           <span class="ph-pct" id="rPHStrongPct">—</span>
         </div>
         <div class="ph-row ph-gap" id="rPHGapRow">
-          <span class="ph-label" data-i18n="partnershipGapLabel">ตัวฉุด</span>
+          <span class="ph-label" data-i18n="partnershipGapLabel">🎯 จุดที่ฉุด</span>
           <span class="ph-name" id="rPHGapName">—</span>
           <span class="ph-pct" id="rPHGapPct">—</span>
         </div>
         <p class="ph-balanced" id="rPHBalanced" hidden></p>
+        <div class="ph-row ph-step" id="rFirstStepRow" hidden>
+          <span class="ph-label" data-i18n="firstStepLabel">👉 ก้าวแรก</span>
+          <span class="ph-name" id="rFirstStepText"></span>
+        </div>
         <p class="ph-note" id="rPHVarianceNote" hidden></p>
       </div>
     </div>
-
-    <div class="twocol">
-      <div class="card"><h4 data-i18n="strongHead">จุดแข็ง</h4><ul id="rStrong"></ul></div>
-      <div class="card"><h4 data-i18n="growHead">จุดที่ควรพัฒนา</h4><ul id="rGrow"></ul></div>
-    </div>
-
-    <div class="section-h" data-i18n="nextHead">ขั้นตอนต่อไปสำหรับคุณ</div>
-    <div class="card next-card" id="rNextCard">
-      <p class="role-line" id="rRoleLine" hidden></p>
-      <div class="next-sub" id="rNextSkillSub">
-        <div class="lvl-tag next-sub-label" data-i18n="nextSubSkillLabel">พัฒนาทักษะ AI</div>
-        <h4 id="rNextH"></h4>
-        <ul id="rNext"></ul>
-      </div>
-      <div class="next-sub" id="rNextPartnershipSub" hidden>
-        <div class="lvl-tag next-sub-label" data-i18n="nextSubPartnershipLabel">พัฒนาสไตล์การใช้ AI</div>
-        <h4 id="rPartnerNextH"></h4>
-        <ul id="rPartnerNext"></ul>
-      </div>
-      <p class="placement-note inline" id="rPlacementNote"></p>
-      <p class="next-milestone inline" id="rNextMilestone" hidden><span id="rNextMilestoneText"></span></p>
-      <div style="margin-top:14px">
-        <div class="lvl-tag" id="rWorkshopsLabel" data-i18n="workshopsLabel" style="margin-bottom:8px">หัวข้อ workshop ที่ขอแนะนำ</div>
-        <div class="paths" id="rWorkshops"></div>
-      </div>
-    </div>
-
-    <div class="stretch-card" id="rStretch" hidden>
-      <h4 id="rStretchHead" data-i18n="stretchHead">🚀 คุณเก่งเกินเพดานบทบาท</h4>
-      <p class="stretch-sub" id="rStretchSub"></p>
-      <p class="stretch-intro" id="rStretchIntro" data-i18n="stretchIntro">ทักษะคุณเกินที่บทบาทปัจจุบันต้องการ มีสองทางเลือกที่ทั้งคู่ดีและไม่ผิด เลือกตามเป้าหมาย</p>
-      <div class="stretch-paths">
-        <div class="stretch-path">
-          <h5 data-i18n="stretchPathAHead">ทางที่ A · เป็น AI Champion ในงานเดิม</h5>
-          <p id="rStretchA"></p>
-        </div>
-        <div class="stretch-path">
-          <h5 data-i18n="stretchPathBHead">ทางที่ B · ขยับสายงานให้ตรงสกิล</h5>
-          <p id="rStretchB"></p>
-        </div>
-      </div>
-      <p class="stretch-note" data-i18n="stretchNote">ทั้งคู่ไม่ผิด — เลือกตามเป้าหมายของคุณ</p>
-    </div>
-
-    <!-- Hidden — kept for legacy reference, populated for image generation -->
-    <span hidden id="rNum">—</span>
-    <span hidden id="rName"></span>
-    <span hidden id="rBlurb"></span>
-
-    <!-- org tag section: hidden in connect mode (students submit results
-         directly, so the L&D tag workflow is irrelevant to them) -->
-    <div id="orgTagSection">
-      <div class="section-h" data-i18n="tagBlockHead">แท็กสรุปสำหรับองค์กร</div>
-      <p class="mini" data-i18n="tagBlockHint">(คัดลอกหรือถ่ายภาพไปรวมเป็นภาพรวมทีม)</p>
-      <pre class="tag-block" id="rTagBlock"></pre>
-
-      <p class="tag-guide-cta" data-i18n="tagGuideCTA" data-i18n-html="true">
-        อยากได้คำแนะนำการใช้แท็กสำหรับองค์กร? ลงทะเบียนได้ที่
-        <a href="https://cmu.to/AILit-Tag" target="_blank" rel="noopener noreferrer">https://cmu.to/AILit-Tag</a>
-      </p>
-    </div>
-
+    <!-- Tier 1 · the single primary action: submit (Canvas) sits above download -->
     <div class="submit-cta" id="connectSubmitBox" hidden>
       <p class="submit-cta-hint" data-i18n="submitCtaHint">ขั้นตอนสำคัญ: ดูผลเสร็จแล้ว กดปุ่มนี้เพื่อส่งผลให้ผู้สอน</p>
       <button class="btn submit-cta-btn" id="connectSubmitBtn" type="button" onclick="submitConnectResult()" data-i18n="submitCtaBtn">📤 ส่งผลให้ผู้สอน</button>
@@ -1076,8 +1004,115 @@
       <button class="btn ghost receipt-dl-btn" id="receiptDownloadBtn" type="button" onclick="downloadReceiptImage()" data-i18n="receiptDownloadBtn">💾 ดาวน์โหลดภาพยืนยัน</button>
     </div>
 
-    <div class="res-actions">
+    <div class="res-actions res-actions-top">
       <button class="btn" onclick="downloadResultImage()" id="downloadBtn" data-i18n="downloadBtn">ดาวน์โหลดเป็นรูปภาพ</button>
+    </div>
+
+    <!-- Tier 2 · details on demand -->
+    <details class="quadrants-details" id="accScores">
+      <summary data-i18n="accScoresHead">📊 คะแนนละเอียดของคุณ</summary>
+      <div class="acc-body">
+        <p class="mini bridge-line" data-i18n="partnershipSub">ทักษะ = "คุณใช้ AI ทำอะไรได้" · ความสัมพันธ์ = "คุณใช้ AI ยังไง"</p>
+        <div class="section-h with-logo">
+          <span class="section-logo" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="3" y="14" width="4" height="7" rx="1"/>
+              <rect x="10" y="9" width="4" height="12" rx="1"/>
+              <rect x="17" y="4" width="4" height="17" rx="1"/>
+            </svg>
+          </span>
+          <span data-i18n="profileHead">ทักษะการใช้ AI ของคุณ</span>
+        </div>
+        <div class="profile" id="rProfile"></div>
+
+        <div id="rPartnershipWrap" hidden>
+          <div class="section-h with-logo">
+            <span class="section-logo" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="7" cy="8" r="3"/>
+                <path d="M2.5 21v-1.5a4 4 0 0 1 4-4h1a4 4 0 0 1 4 4V21"/>
+                <circle cx="17" cy="8" r="3"/>
+                <path d="M12.5 21v-1.5a4 4 0 0 1 4-4h1a4 4 0 0 1 4 4V21"/>
+              </svg>
+            </span>
+            <span data-i18n="partnershipHead">ภาพรวมความสัมพันธ์ของคุณกับ AI</span>
+          </div>
+          <div class="profile" id="rPartnershipComposite"></div>
+          <div class="profile partnership-subs" id="rPartnershipBars"></div>
+        </div>
+      </div>
+    </details>
+
+    <details class="quadrants-details" id="accNext">
+      <summary data-i18n="accNextHead">🧭 เส้นทางถัดไปแบบเต็ม</summary>
+      <div class="acc-body">
+        <p class="quadrant-hero-nudge" id="rQuadrantHeroNudge"></p>
+        <div class="card next-card" id="rNextCard">
+          <p class="role-line" id="rRoleLine" hidden></p>
+          <div class="next-sub" id="rNextSkillSub">
+            <div class="lvl-tag next-sub-label" data-i18n="nextSubSkillLabel">พัฒนาทักษะ AI</div>
+            <h4 id="rNextH"></h4>
+            <ul id="rNext"></ul>
+          </div>
+          <div class="next-sub" id="rNextPartnershipSub" hidden>
+            <div class="lvl-tag next-sub-label" data-i18n="nextSubPartnershipLabel">พัฒนาสไตล์การใช้ AI</div>
+            <h4 id="rPartnerNextH"></h4>
+            <ul id="rPartnerNext"></ul>
+          </div>
+          <p class="placement-note inline" id="rPlacementNote"></p>
+          <p class="next-milestone inline" id="rNextMilestone" hidden><span id="rNextMilestoneText"></span></p>
+          <div style="margin-top:14px">
+            <div class="lvl-tag" id="rWorkshopsLabel" data-i18n="workshopsLabel" style="margin-bottom:8px">หัวข้อ workshop ที่ขอแนะนำ</div>
+            <div class="paths" id="rWorkshops"></div>
+          </div>
+        </div>
+
+        <div class="stretch-card" id="rStretch" hidden>
+          <h4 id="rStretchHead" data-i18n="stretchHead">🚀 คุณเก่งเกินเพดานบทบาท</h4>
+          <p class="stretch-sub" id="rStretchSub"></p>
+          <p class="stretch-intro" id="rStretchIntro" data-i18n="stretchIntro">ทักษะคุณเกินที่บทบาทปัจจุบันต้องการ มีสองทางเลือกที่ทั้งคู่ดีและไม่ผิด เลือกตามเป้าหมาย</p>
+          <div class="stretch-paths">
+            <div class="stretch-path">
+              <h5 data-i18n="stretchPathAHead">ทางที่ A · เป็น AI Champion ในงานเดิม</h5>
+              <p id="rStretchA"></p>
+            </div>
+            <div class="stretch-path">
+              <h5 data-i18n="stretchPathBHead">ทางที่ B · ขยับสายงานให้ตรงสกิล</h5>
+              <p id="rStretchB"></p>
+            </div>
+          </div>
+          <p class="stretch-note" data-i18n="stretchNote">ทั้งคู่ไม่ผิด — เลือกตามเป้าหมายของคุณ</p>
+        </div>
+      </div>
+    </details>
+
+    <details class="quadrants-details">
+      <summary data-i18n="quadrantsExplainedResultToggle">เปรียบเทียบทั้ง 4 รูปแบบ</summary>
+      <div class="quadrant-grid" id="resultQuadrantGrid"></div>
+    </details>
+
+    <!-- org tag section: hidden in connect mode (students submit results
+         directly, so the L&D tag workflow is irrelevant to them) -->
+    <div id="orgTagSection">
+      <details class="quadrants-details">
+        <summary data-i18n="accTagsHead">🏷️ แท็กสำหรับองค์กร / ผู้สอน</summary>
+        <div class="acc-body">
+          <p class="mini" data-i18n="tagBlockHint">(คัดลอกหรือถ่ายภาพไปรวมเป็นภาพรวมทีม)</p>
+          <pre class="tag-block" id="rTagBlock"></pre>
+          <p class="tag-guide-cta" data-i18n="tagGuideCTA" data-i18n-html="true">
+            อยากได้คำแนะนำการใช้แท็กสำหรับองค์กร? ลงทะเบียนได้ที่
+            <a href="https://cmu.to/AILit-Tag" target="_blank" rel="noopener noreferrer">https://cmu.to/AILit-Tag</a>
+          </p>
+        </div>
+      </details>
+    </div>
+
+    <!-- Hidden — kept for legacy reference, populated for image generation -->
+    <span hidden id="rNum">—</span>
+    <span hidden id="rName"></span>
+    <span hidden id="rBlurb"></span>
+
+    <div class="res-actions">
       <button class="btn ghost" id="feedbackBtn" type="button" onclick="openFeedbackForm()" data-i18n="feedbackBtn" hidden>ทำแบบประเมินความพึงพอใจ →</button>
       <button class="btn ghost" onclick="restart()" data-i18n="restartBtn">ทำแบบประเมินใหม่</button>
     </div>
@@ -2008,13 +2043,6 @@ function renderResult(pcts, placement, THRESH, partnership){
     setTimeout(()=>fill.style.width=p+'%', 120+li*110);
   });
 
-  // strengths / growth
-  const ranked=ASSESSABLE.map((L,li)=>({L,p:pcts[li]}));
-  const strong=ranked.filter(x=>x.p>=70).sort((a,b)=>b.p-a.p);
-  const grow=ranked.filter(x=>x.p<70).sort((a,b)=>a.p-b.p);
-  fillUl('rStrong', strong.length? strong.slice(0,3).map(x=>LANG[currentLang].rankTpl(tx(x.L.name), x.p)):[LANG[currentLang].noStrongTpl()]);
-  fillUl('rGrow', grow.length? grow.slice(0,3).map(x=>LANG[currentLang].rankTpl(tx(x.L.name), x.p)):[LANG[currentLang].noGrowTpl()]);
-
   renderHero(partnership, placement);
   renderPartnership(partnership, placement, pcts);
   renderQuadrantGrid('resultQuadrantGrid', partnership ? partnership.quadrant : null);
@@ -2074,6 +2102,14 @@ function renderPartnershipHighlights(partnership){
   const strongRow = document.getElementById('rPHStrongRow');
   const gapRow = document.getElementById('rPHGapRow');
   const balancedEl = document.getElementById('rPHBalanced');
+  // third line of the insight strip: the quadrant's first suggested step
+  const stepRow = document.getElementById('rFirstStepRow');
+  if(stepRow){
+    const q = PARTNERSHIP.quadrants[partnership.quadrant];
+    const step = q && q.partnershipNext && q.partnershipNext[0];
+    stepRow.hidden = !step;
+    if(step) document.getElementById('rFirstStepText').textContent = tx(step);
+  }
   // identical subtraits → a balanced profile is the insight itself
   if(maxIdx === minIdx){
     wrap.hidden = false;
