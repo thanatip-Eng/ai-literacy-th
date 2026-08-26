@@ -10,7 +10,7 @@
         badgeSelfTest: "AI Literacy Assessment — Skill × Partnership",
         badgeBrand: "สไตล์การใช้ AI ของคุณ",
         heroTitle: "คุณคือคนแบบไหน<br>เมื่อใช้ <span class=\"hl\">AI</span>?",
-        lead: "แบบประเมินตนเองที่มอง 3 มิติพร้อมกัน — <b>บทบาทงาน · ทักษะการใช้ AI · ความสัมพันธ์ของคุณกับ AI</b> ตอบ 22 คำถาม แล้วรับผลวิเคราะห์พร้อมขั้นตอนพัฒนาต่อไปเป็นรายบุคคล",
+        lead: "แบบประเมินตนเองที่มอง 3 มิติพร้อมกัน — <b>บทบาทงาน · ทักษะการใช้ AI · ความสัมพันธ์ของคุณกับ AI</b> ตอบ 24 คำถาม แล้วรับผลวิเคราะห์พร้อมขั้นตอนพัฒนาต่อไปเป็นรายบุคคล",
         credit: "โครงสร้าง 5 ระดับอ้างอิงจาก LinkedIn AI Upskilling Framework · ออกแบบเป็นเครื่องมือประเมินตนเองสำหรับบริบทไทย",
         aboutHead: "เกี่ยวกับ framework",
         aboutSub: "โครงสร้าง 4 ระดับ — ภาพรวมโดยย่อ",
@@ -20,7 +20,7 @@
         ccLink: "เผยแพร่ภายใต้สัญญาอนุญาต CC BY-NC-SA 4.0",
         frameworksLink: "แหล่งที่มาของแบบประเมิน — 3 กรอบแนวคิดที่เราใช้ →",
         startBtn: "เริ่มทำแบบประเมิน →",
-        metaNote: "22 ข้อ · 2 ส่วน · ไม่มีถูกผิด · ตอบตามความเป็นจริงของคุณ",
+        metaNote: "24 ข้อ · 2 ส่วน · ไม่มีถูกผิด · ตอบตามความเป็นจริงของคุณ",
         nameStepPill: "ก่อนเริ่ม",
         nameHead: "คุณชื่ออะไร? (ไม่บังคับ)",
         nameSub: "ใส่ชื่อเพื่อให้ผลและภาพดาวน์โหลดแสดงชื่อของคุณ ข้ามได้ถ้าไม่ต้องการ",
@@ -96,7 +96,7 @@
         verdictAtCapTpl: "เป้าหมายของบทบาทเป็นทักษะเฉพาะทาง (ระดับ {target})",
         assessmentScopeNote: "แบบประเมินนี้ออกแบบสำหรับผู้ใช้ทั่วไป ครอบคลุมระดับ 1–3 ของ framework · ระดับ 4 (ผู้เชี่ยวชาญขั้นสูง) อยู่นอกกลุ่มเป้าหมายของแบบประเมิน",
         partnershipSectionPill: "ส่วนที่ 2 · ความสัมพันธ์กับ AI",
-        partnershipIntroBanner: "แบบประเมินมี 2 ส่วน · ส่วนที่ 1 ทักษะ (12 ข้อ) · ส่วนที่ 2 ความสัมพันธ์กับ AI (10 ข้อ)",
+        partnershipIntroBanner: "แบบประเมินมี 2 ส่วน · ส่วนที่ 1 ทักษะ (12 ข้อ) · ส่วนที่ 2 ความสัมพันธ์กับ AI (12 ข้อ)",
         partnershipHead: "ภาพรวมความสัมพันธ์ของคุณกับ AI",
         partnershipSub: "ทักษะ = \"คุณใช้ AI ทำอะไรได้\" · ความสัมพันธ์ = \"คุณใช้ AI ยังไง\"",
         partnershipStrengthLabel: "จุดแข็ง",
@@ -121,7 +121,7 @@
         dimSkillName: "ทักษะการใช้ AI",
         dimSkillDesc: "3 ระดับ: เข้าใจ → ใช้ → สร้าง",
         dimPartnershipName: "ความสัมพันธ์กับ AI",
-        dimPartnershipDesc: "5 มิติ Human-in-the-Loop: ตรวจสอบ · เลือกใช้ · ทักษะมนุษย์ · นำ AI · เรียนรู้",
+        dimPartnershipDesc: "6 มิติ Human-in-the-Loop: ตรวจสอบ · เลือกใช้ · ทักษะมนุษย์ · นำ AI · เรียนรู้ · ปกป้องข้อมูล",
         dimensionsNote: "ผลลัพธ์สังเคราะห์เป็น 1 ใน 4 รูปแบบการใช้ AI (ดูด้านล่าง)",
         tagBlockHead: "แท็กสรุปสำหรับองค์กร",
         tagBlockHint: "(คัดลอกหรือถ่ายภาพไปรวมเป็นภาพรวมทีม — ทีม L&D ใช้วิเคราะห์ภาพรวมได้)",
@@ -137,14 +137,14 @@
           "#P{n} = คะแนน Partnership composite 0–100",
           "#Q-{key} = quadrant: novice / coach / autopilot / director",
           "#L{n}:{pct} = คะแนนรายระดับทักษะ 0–100 (เช่น #L1:85 #L2:70 #L3:40)",
-          "#{key}:{pct} = คะแนนราย subtrait 0–100 (verify / restraint / human_lead / direction / learning)",
-          "#weak:{key} = subtrait ที่ได้ < 50% (verify / restraint / human_lead / direction / learning)",
+          "#{key}:{pct} = คะแนนราย subtrait 0–100 (verify / restraint / human_lead / direction / learning / privacy)",
+          "#weak:{key} = subtrait ที่ได้ < 50% (verify / restraint / human_lead / direction / learning / privacy)",
           "#role-{code} = บทบาทที่ผู้เข้าอบรมเลือก (ถ้าไม่ข้าม)"
         ],
         orgGuideCollectHead: "วิธีเก็บข้อมูล",
         orgGuideCollectBody: "ขอให้ผู้เข้าอบรมคัดลอกหรือถ่าย screenshot บล็อกแท็ก แล้วส่งเข้า Google Sheet / Excel ของทีม — ใช้รหัสนามแฝงแทนชื่อจริงได้เพื่อรักษาความเป็นส่วนตัว",
         orgGuideColumnsHead: "คอลัมน์ที่แนะนำใน spreadsheet",
-        orgGuideColumnsBody: "ผู้เข้าอบรม · ระดับทักษะ · L1% · L2% · L3% · Partnership % · verify% · restraint% · human_lead% · direction% · Quadrant · weak1 · weak2 · บทบาท",
+        orgGuideColumnsBody: "ผู้เข้าอบรม · ระดับทักษะ · L1% · L2% · L3% · Partnership % · verify% · restraint% · human_lead% · direction% · learning% · privacy% · Quadrant · weak1 · weak2 · บทบาท",
         orgGuidePatternsHead: "ตัวอย่างการอ่าน pattern ของทีม",
         orgGuidePatternsBody: [
           "Q-autopilot เยอะ → workshop เรื่อง critical AI use + verification (ทีมใช้ AI คล่องแต่ขาดสติ)",
@@ -153,6 +153,7 @@
           "#weak:restraint เยอะ → workshop AI mindfulness / รู้จักเลือกใช้ AI",
           "#weak:direction เยอะ → workshop prompt engineering / นำ AI",
           "#weak:learning เยอะ → workshop การใช้ AI เพื่อการเรียนรู้ (ใช้เป็นติวเตอร์ ไม่ใช่ทำแทน) — สำคัญมากในบริบทการเรียน",
+          "#weak:privacy เยอะ → workshop data privacy / นโยบายการใช้ Gen AI ขององค์กร (ข้อมูลไหนห้ามป้อนให้ AI)",
           "L0/L1 เยอะ → workshop พื้นฐาน AI literacy + responsible AI use",
           "ค่าเฉลี่ยคะแนนรายด้านของกลุ่ม (เช่น verify เฉลี่ย < 60) → จัด workshop ด้านนั้นได้เลย แม้ยังไม่มีใครติด #weak — ใช้คะแนนละเอียดจัดลำดับความสำคัญและวัดผลก่อน-หลังการอบรม",
           "L2% สูงแต่ L3% ต่ำทั้งกลุ่ม → กลุ่มพร้อมยกระดับจาก 'ผู้ใช้' เป็น 'ผู้สร้าง' — จัด workshop no-code automation / AI API"
@@ -190,7 +191,7 @@
         badgeSelfTest: "AI Literacy Assessment — Skill × Partnership",
         badgeBrand: "Your AI style",
         heroTitle: "What kind of <span class=\"hl\">AI</span><br>user are you?",
-        lead: "A self-assessment that looks at three dimensions together — <b>your role, your AI skills, and how you partner with AI</b>. Answer 22 questions to get a personalized result with next steps.",
+        lead: "A self-assessment that looks at three dimensions together — <b>your role, your AI skills, and how you partner with AI</b>. Answer 24 questions to get a personalized result with next steps.",
         credit: "Five-level structure adapted from the LinkedIn AI Upskilling Framework · designed as a self-assessment tool.",
         aboutHead: "About the framework",
         aboutSub: "The 4 levels — at a glance",
@@ -200,7 +201,7 @@
         ccLink: "Licensed under CC BY-NC-SA 4.0",
         frameworksLink: "Where this assessment comes from — the 3 frameworks we use →",
         startBtn: "Start the assessment →",
-        metaNote: "22 questions · 2 parts · no right or wrong · answer honestly",
+        metaNote: "24 questions · 2 parts · no right or wrong · answer honestly",
         nameStepPill: "Before we start",
         nameHead: "What's your name? (optional)",
         nameSub: "Add your name so the result and downloadable image show it. You can skip this if you prefer.",
@@ -276,7 +277,7 @@
         verdictAtCapTpl: "Your role targets a deeper specialization (Level {target})",
         assessmentScopeNote: "This assessment is designed for everyday users and covers Levels 1–3 of the framework · Level 4 (Advanced Specialist) is outside the assessment's target audience",
         partnershipSectionPill: "Part 2 · AI Partnership",
-        partnershipIntroBanner: "Assessment has 2 parts · Part 1 Skill (12 questions) · Part 2 AI Partnership (10 questions)",
+        partnershipIntroBanner: "Assessment has 2 parts · Part 1 Skill (12 questions) · Part 2 AI Partnership (12 questions)",
         partnershipHead: "Your AI partnership profile",
         partnershipSub: "Skill = \"what you can do with AI\" · Partnership = \"how you use AI\"",
         partnershipStrengthLabel: "Strength",
@@ -301,7 +302,7 @@
         dimSkillName: "AI skills",
         dimSkillDesc: "3 levels: Understand → Apply → Build",
         dimPartnershipName: "AI partnership",
-        dimPartnershipDesc: "5 Human-in-the-Loop dimensions: verify · restraint · human-lead · direction · learning",
+        dimPartnershipDesc: "6 Human-in-the-Loop dimensions: verify · restraint · human-lead · direction · learning · privacy",
         dimensionsNote: "Results synthesize into 1 of 4 AI use patterns (see below)",
         tagBlockHead: "Summary tags for org leaders",
         tagBlockHint: "(copy or screenshot for cohort review — L&D teams can aggregate at the cohort level)",
@@ -317,14 +318,14 @@
           "#P{n} = Partnership composite score 0–100",
           "#Q-{key} = quadrant: novice / coach / autopilot / director",
           "#L{n}:{pct} = per-level skill score 0–100 (e.g. #L1:85 #L2:70 #L3:40)",
-          "#{key}:{pct} = per-subtrait score 0–100 (verify / restraint / human_lead / direction / learning)",
-          "#weak:{key} = subtrait scoring < 50% (verify / restraint / human_lead / direction / learning)",
+          "#{key}:{pct} = per-subtrait score 0–100 (verify / restraint / human_lead / direction / learning / privacy)",
+          "#weak:{key} = subtrait scoring < 50% (verify / restraint / human_lead / direction / learning / privacy)",
           "#role-{code} = the role the participant selected (if not skipped)"
         ],
         orgGuideCollectHead: "How to collect the data",
         orgGuideCollectBody: "Ask participants to copy or screenshot the tag block and submit it to a shared Google Sheet / Excel — pseudonyms can be used to preserve privacy.",
         orgGuideColumnsHead: "Suggested spreadsheet columns",
-        orgGuideColumnsBody: "Participant · Skill level · L1% · L2% · L3% · Partnership % · verify% · restraint% · human_lead% · direction% · Quadrant · weak1 · weak2 · Role",
+        orgGuideColumnsBody: "Participant · Skill level · L1% · L2% · L3% · Partnership % · verify% · restraint% · human_lead% · direction% · learning% · privacy% · Quadrant · weak1 · weak2 · Role",
         orgGuidePatternsHead: "Reading team-level patterns",
         orgGuidePatternsBody: [
           "Many Q-autopilot → workshop on critical AI use + verification (team uses AI fluently but lacks judgment)",
@@ -333,6 +334,7 @@
           "Many #weak:restraint → workshop on AI mindfulness / knowing when not to use AI",
           "Many #weak:direction → workshop on prompt engineering / leading AI",
           "Many #weak:learning → workshop on using AI to learn (tutor, not stand-in) — critical in study contexts",
+          "Many #weak:privacy → workshop on data privacy / your org's Gen AI policy (what must never go into AI)",
           "Many L0/L1 → workshop on AI literacy foundations + responsible AI use",
           "Group averages per dimension (e.g. mean verify < 60) → run that workshop even before anyone hits #weak — use the detailed scores to prioritize and to measure pre/post training impact",
           "High L2% but low L3% across the group → the group is ready to move from 'user' to 'builder' — run no-code automation / AI API workshops"
@@ -363,7 +365,7 @@
         surveyOpenNewTab: "Open in new tab ↗",
         feedbackModalGo: "Take the survey →",
         feedbackModalLater: "Let me see my results first",
-        partnershipBalancedTpl: "Your profile is balanced — all 5 dimensions scored {p}%. Keep the balance and grow them together"
+        partnershipBalancedTpl: "Your profile is balanced — all 6 dimensions scored {p}%. Keep the balance and grow them together"
       }
     },
     levels: [
@@ -653,6 +655,15 @@
           items: [
             {th: "เวลาใช้ AI กับเรื่องที่ต้องเรียนรู้ ฉันมักให้มันช่วยอธิบายและถามต่อ จนตัวเองเข้าใจพอที่จะอธิบายเองได้", en: "When I use AI on something I need to learn, I usually have it explain and take follow-up questions until I understand well enough to explain it myself", reverse: false},
             {th: "หลายครั้งฉันส่งงานที่ AI ทำให้ ทั้งที่ยังอธิบายเองไม่ได้ว่าเนื้อหาในนั้นถูกต้องหรือมาได้อย่างไร", en: "I often hand in work AI produced even though I couldn't yet explain whether its content is right or how it got there", reverse: true}
+          ]
+        },
+        {
+          key: "privacy",
+          name: {th: "ปกป้องข้อมูล", en: "Data privacy"},
+          desc: {th: "รู้ว่าข้อมูลไหนไม่ควรป้อนให้ AI และปกป้องข้อมูลของตัวเองและผู้อื่น", en: "Know what should never go into AI — and protect your own and others' data"},
+          items: [
+            {th: "ก่อนป้อนอะไรให้ AI ฉันเช็คก่อนว่าไม่มีข้อมูลส่วนตัวของตัวเองหรือผู้อื่น หรือข้อมูลลับของงาน/องค์กร ปนอยู่ในนั้น", en: "Before feeding anything into AI, I check that it contains no personal data — mine or other people's — and no confidential work or organizational information", reverse: false},
+            {th: "ฉันเคยวางข้อความหรือไฟล์งานจริงลงในแชต AI โดยไม่ได้หยุดคิดว่าในนั้นมีข้อมูลส่วนตัวหรือข้อมูลลับหรือเปล่า", en: "I've pasted real work text or files into an AI chat without stopping to think whether they contained personal or confidential information", reverse: true}
           ]
         }
       ],
