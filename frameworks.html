@@ -130,6 +130,18 @@
   </section>
 
   <section class="card">
+    <h2 data-i18n="cmuHead">นโยบายการใช้ Generative AI ของมหาวิทยาลัยเชียงใหม่ (2566)</h2>
+    <p class="subtitle" data-i18n="cmuSub">บริบทเชิงนโยบายของสถาบันเรา</p>
+    <p data-i18n="cmuBody"></p>
+    <ul id="cmuList"></ul>
+    <div class="used">
+      <p data-i18n="usedLabelCmu">AiStyle นำมาใช้อย่างไร</p>
+      <ul id="cmuUsed"></ul>
+    </div>
+    <p class="ref" id="cmuRef"></p>
+  </section>
+
+  <section class="card">
     <h2 data-i18n="s4Head">ส่วนที่ AiStyle ออกแบบเอง</h2>
     <p class="subtitle" data-i18n="s4Sub">สิ่งที่ไม่มีในแหล่งใดข้างต้น</p>
     <ul id="s4List"></ul>
@@ -144,7 +156,7 @@ const L = {
     backToAssessment: "กลับสู่แบบประเมิน",
     badge: "แหล่งความรู้",
     title: "แหล่งที่มาของ framework",
-    lead: "AiStyle ไม่ได้สร้างจากศูนย์ — โครงสร้างการประเมินสังเคราะห์จากกรอบแนวคิด 3 แหล่งที่ต่างมุมกัน: กรอบทักษะจากแพลตฟอร์มอาชีพระดับโลก กรอบนโยบายการศึกษาระดับนานาชาติ และมุมมองการใช้งานจริงจากบริษัทเทคโนโลยีไทย หน้านี้สรุปแต่ละแหล่งและบอกว่าเรานำอะไรมาใช้ตรงไหน",
+    lead: "AiStyle ไม่ได้สร้างจากศูนย์ — โครงสร้างการประเมินสังเคราะห์จากกรอบแนวคิด 3 แหล่งที่ต่างมุมกัน: กรอบทักษะจากแพลตฟอร์มอาชีพระดับโลก กรอบนโยบายการศึกษาระดับนานาชาติ และมุมมองการใช้งานจริงจากบริษัทเทคโนโลยีไทย หน้านี้สรุปแต่ละแหล่งและบอกว่าเรานำอะไรมาใช้ตรงไหน พร้อมบริบทจากนโยบายการใช้ Gen AI ของมหาวิทยาลัยเชียงใหม่",
     s1Head: "LinkedIn AI Upskilling Framework",
     s1Sub: "ฐานของแกน \"ทักษะการใช้ AI\"",
     s1Body: "กรอบพัฒนาทักษะ AI ของ LinkedIn Learning แบ่งความสามารถด้าน AI เป็น 5 ระดับต่อเนื่อง จากผู้ใช้ทั่วไปจนถึงผู้เชี่ยวชาญวิจัย:",
@@ -193,6 +205,22 @@ const L = {
       "แนวคำถาม \"เคยจับได้ว่า AI ตอบมั่นใจแต่ผิดไหม\" ใช้ยกระดับข้อวัดการตรวจสอบให้อิงประสบการณ์จริง"
     ],
     s3RefHtml: "อ้างอิง: LINE MAN Wongnai (2026). <i>AI Thinking Framework</i>. เอกสารประกอบ Applied AI Workshop, LINE MAN Wongnai Tech Camp 2026",
+    cmuHead: "นโยบายการใช้ Generative AI ของมหาวิทยาลัยเชียงใหม่ (2566)",
+    cmuSub: "บริบทเชิงนโยบายของสถาบันเรา",
+    cmuBody: "ประกาศมหาวิทยาลัยเชียงใหม่ เรื่อง นโยบายการใช้เทคโนโลยีปัญญาประดิษฐ์แบบเจเนอเรทิฟ กำหนดแนวปฏิบัติสำหรับคณาจารย์ บุคลากร และผู้เรียนทั้งมหาวิทยาลัย ใจความสำคัญ:",
+    cmuList: [
+      "สนับสนุนให้ใช้ Gen AI ช่วยการเรียน การสอน การวิจัย และการทำงาน — แต่ผู้ใช้ต้องศึกษาความสามารถและข้อจำกัดของเครื่องมือก่อน",
+      "เมื่อนำผลลัพธ์จาก AI มาใช้ ต้องอ้างอิงแหล่งที่มาให้ชัดเจน และควรเก็บบันทึก prompt ไว้เป็นหลักฐานตรวจสอบ",
+      "ห้ามป้อนข้อมูลส่วนบุคคล ทรัพย์สินทางปัญญาของมหาวิทยาลัย หรือข้อมูลลับ ให้ AI ประมวลผลโดยไม่ได้รับความยินยอม",
+      "ภาคผนวกแนะนำบทบาทการใช้ที่สร้างสรรค์ เช่น ติวเตอร์ส่วนตัว (Personal tutor), คู่โต้แย้งแบบโซคราติก (Socratic opponent), ผู้ช่วยแนะแนวความคิด (Guide on the side)"
+    ],
+    usedLabelCmu: "AiStyle นำมาใช้อย่างไร",
+    cmuUsed: [
+      "เป็นคำตอบว่าทำไมต้องประเมิน: นโยบายกำหนดว่านักศึกษา \"ควรทำอะไร\" — AiStyle วัดว่าพฤติกรรมจริง \"เป็นอย่างนั้นหรือยัง\"",
+      "ข้อกำหนดเรื่องอ้างอิง/เก็บ prompt ตรงกับมิติ \"ตรวจสอบก่อนใช้\" · ข้อห้ามป้อนข้อมูลส่วนบุคคลตรงกับมิติ \"รู้ว่าเมื่อไหร่ไม่ควรใช้\"",
+      "บทบาท Personal tutor / Socratic opponent ในภาคผนวก ตรงกับมิติที่ห้า \"เรียนรู้ ไม่ใช่แค่ได้คำตอบ\" ของชุดข้อคำถาม v2"
+    ],
+    cmuRefHtml: "อ้างอิง: ประกาศมหาวิทยาลัยเชียงใหม่ เรื่อง นโยบายการใช้เทคโนโลยีปัญญาประดิษฐ์แบบเจเนอเรทิฟ (Generative Artificial Intelligence) — มติคณะกรรมการบริหารมหาวิทยาลัย ครั้งที่ 18/2566 (18 ตุลาคม 2566), CMU e-Document รหัสอ้างอิง BEE564-7F1-220",
     s4Head: "ส่วนที่ AiStyle ออกแบบเอง",
     s4Sub: "สิ่งที่ไม่มีในแหล่งใดข้างต้น",
     s4List: [
@@ -208,7 +236,7 @@ const L = {
     backToAssessment: "Back to assessment",
     badge: "Learn more",
     title: "The frameworks behind AiStyle",
-    lead: "AiStyle wasn't built from scratch — its structure synthesizes three sources with different vantage points: a skills framework from a global career platform, an international education-policy framework, and a practical perspective from a Thai tech company. This page summarizes each source and what we adopted from it.",
+    lead: "AiStyle wasn't built from scratch — its structure synthesizes three sources with different vantage points: a skills framework from a global career platform, an international education-policy framework, and a practical perspective from a Thai tech company. This page summarizes each source and what we adopted from it, alongside the policy context of Chiang Mai University's own Generative AI announcement.",
     s1Head: "LinkedIn AI Upskilling Framework",
     s1Sub: "Foundation of the AI-skill axis",
     s1Body: "LinkedIn Learning's framework organizes AI capability into five progressive levels, from everyday users to research specialists:",
@@ -257,6 +285,22 @@ const L = {
       "The \"have you ever caught AI confidently wrong?\" framing upgraded the verification item to be experience-anchored"
     ],
     s3RefHtml: "Reference: LINE MAN Wongnai (2026). <i>AI Thinking Framework</i>. Applied AI Workshop material, LINE MAN Wongnai Tech Camp 2026",
+    cmuHead: "Chiang Mai University Generative AI Policy (2023)",
+    cmuSub: "Our institution's policy context",
+    cmuBody: "CMU's official announcement on the use of Generative AI sets the rules of the road for faculty, staff and students university-wide. Key points:",
+    cmuList: [
+      "Gen AI use in learning, teaching, research and work is encouraged — but users are expected to study each tool's capabilities and limits first",
+      "AI-generated output must be clearly attributed, and keeping the prompts used is recommended as an audit trail",
+      "Feeding personal data, university intellectual property or confidential information into AI without consent is prohibited",
+      "Its appendix endorses constructive usage roles such as Personal tutor, Socratic opponent and Guide on the side"
+    ],
+    usedLabelCmu: "How AiStyle uses it",
+    cmuUsed: [
+      "It answers why assess at all: the policy defines what students should do — AiStyle measures whether their actual behavior matches",
+      "The attribution / keep-your-prompts rules map to our \"Verify before use\" dimension · the personal-data prohibition maps to \"Know when not to use\"",
+      "The Personal tutor / Socratic opponent roles in its appendix converge with the fifth v2 subtrait, \"Learn, not just answers\""
+    ],
+    cmuRefHtml: "Reference: Chiang Mai University Announcement on the Policy for the Use of Generative Artificial Intelligence — University Executive Board resolution 18/2566 (18 October 2023), CMU e-Document ref. BEE564-7F1-220",
     s4Head: "What AiStyle adds on top",
     s4Sub: "Not found in any of the sources above",
     s4List: [
@@ -297,10 +341,12 @@ function applyLang(){
   fillList('s1List', t.s1List); fillList('s1Used', t.s1Used);
   fillList('s2List', t.s2List); fillList('s2Used', t.s2Used);
   fillList('s3List', t.s3List); fillList('s3Used', t.s3Used);
+  fillList('cmuList', t.cmuList); fillList('cmuUsed', t.cmuUsed);
   fillList('s4List', t.s4List);
   setRefHtml('s1Ref', t.s1RefHtml);
   setRefHtml('s2Ref', t.s2RefHtml);
   setRefHtml('s3Ref', t.s3RefHtml);
+  setRefHtml('cmuRef', t.cmuRefHtml);
   document.getElementById('langTH').classList.toggle('active', currentLang === 'th');
   document.getElementById('langEN').classList.toggle('active', currentLang === 'en');
   document.getElementById('langTH').setAttribute('aria-pressed', currentLang === 'th');
