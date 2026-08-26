@@ -16,16 +16,16 @@ test('canonical content is complete and bilingual', () => {
   assert.deepEqual(content.scale.map(choice => choice.display), [1, 2, 3, 4, 5]);
 });
 
-test('partnership block has five subtraits with two items each', () => {
+test('partnership block has six subtraits with two items each', () => {
   const p = content.partnership;
   assert.ok(p, 'partnership block is required');
-  assert.equal(p.subtraits.length, 5);
-  assert.deepEqual(p.subtraits.map(sub => sub.key), ['verify', 'restraint', 'human_lead', 'direction', 'learning']);
+  assert.equal(p.subtraits.length, 6);
+  assert.deepEqual(p.subtraits.map(sub => sub.key), ['verify', 'restraint', 'human_lead', 'direction', 'learning', 'privacy']);
   for (const sub of p.subtraits) {
     assert.equal(sub.items.length, 2, `subtrait ${sub.key} must have exactly 2 items`);
   }
   const totalItems = p.subtraits.reduce((sum, sub) => sum + sub.items.length, 0);
-  assert.equal(totalItems, 10);
+  assert.equal(totalItems, 12);
   assert.deepEqual(Object.keys(p.quadrants), ['novice', 'coach', 'autopilot', 'director']);
 });
 

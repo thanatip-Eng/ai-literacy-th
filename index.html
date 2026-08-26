@@ -1605,8 +1605,9 @@ function buildConnectPayload(pcts, placement, partnership){
     humanLead: subs.human_lead || 0,
     direction: subs.direction || 0,
     learning: subs.learning || 0,
+    privacy: subs.privacy || 0,
     score_subtrait: scoreSubtrait,
-    version: 'v2',
+    version: 'v3',
     quadrant: partnership.quadrant,
     weakTags: weakTags,
     rawAnswers: answers.join(','),
@@ -2695,10 +2696,10 @@ async function generateResultImage(lang){
       ctx.textAlign = 'center';
       ctx.fillText(`${score}%`, cx, y - 10);
 
-      // x-axis label
+      // x-axis label (smaller font when many bars share the column)
       ctx.fillStyle = TEXT;
-      ctx.font = '500 22px "IBM Plex Sans Thai", "IBM Plex Sans", sans-serif';
-      ctx.fillText(truncateToWidth(ctx, labelFn(item, i), slot - 8), cx, labelY);
+      ctx.font = `500 ${n >= 6 ? 18 : 22}px "IBM Plex Sans Thai", "IBM Plex Sans", sans-serif`;
+      ctx.fillText(truncateToWidth(ctx, labelFn(item, i), slot - 6), cx, labelY);
     });
   }
 
@@ -2712,11 +2713,12 @@ async function generateResultImage(lang){
 
   // partnership column (right)
   const TRAIT_LABEL = {
-    verify: {th: "ตรวจสอบ", en: "Verify"},
+    verify: {th: "ตรวจ", en: "Verify"},
     restraint: {th: "เลือกใช้", en: "Restraint"},
     human_lead: {th: "ทักษะคน", en: "Lead"},
     direction: {th: "นำ AI", en: "Direct"},
-    learning: {th: "เรียนรู้", en: "Learn"}
+    learning: {th: "เรียนรู้", en: "Learn"},
+    privacy: {th: "ข้อมูล", en: "Privacy"}
   };
   if(partnership && PARTNERSHIP){
     drawVBars(rightColL, rightColR, PARTNERSHIP.subtraits,
