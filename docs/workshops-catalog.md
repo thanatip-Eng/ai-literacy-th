@@ -5,7 +5,7 @@
 **เติมที่ช่อง "ลิงก์คอร์สจริง" ด้านล่าง แล้วแจ้งทีมพัฒนา** — ระบบจะใส่ลิงก์ลงใน
 `workshops.html` (field `link` ของหัวข้อนั้น ค่าเดียวจบ)
 
-แหล่งข้อมูลเดียวกับหน้า https://aistyle-cmu.vercel.app/workshops.html
+แหล่งข้อมูลเดียวกับหน้า https://aistyle-test.vercel.app/workshops.html
 
 ---
 
