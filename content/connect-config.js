@@ -62,12 +62,12 @@ microFeedback: {
   fields: {
     rating: "entry.1545245341",
     fit: "entry.179077316",
-    useful: "",
+    useful: "entry.825188523",
     note: "entry.1063626964",
     quadrant: "entry.158752728",
     lang: "entry.448667513",
     version: "entry.964770858",
-    aud: ""
+    aud: "entry.1655906560"
   }
 },
 // ข้อความฉบับกระชับสำหรับผู้เรียนใน Canvas — override เฉพาะ key ที่ระบุ
