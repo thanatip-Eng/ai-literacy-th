@@ -10,7 +10,9 @@ partnership (v3 item set; v1 rows have 20-value rawAnswers, v2 rows 22).
 
 - **`index.html`** — all UI, browser behavior, canvas image generation,
   visual editor (`?edit=1`), demo preview (`?demo=1|novice|coach|autopilot|director`
-  jumps straight to a simulated result page; never submits), connect-mode client logic
+  jumps straight to a simulated result page; `?demo=canvas` additionally replays
+  the Canvas student view — required feedback card, send button, sample receipt.
+  No variant ever submits), connect-mode client logic
 - **`content/app-content.js`** — canonical editable content (UI strings,
   levels, scale, roles, partnership). Never move content back into HTML
 - **`content/connect-config.js`** — opt-in connect-mode config (ships
