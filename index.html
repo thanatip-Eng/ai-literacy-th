@@ -641,6 +641,19 @@
     font-size:.92rem;line-height:1.55;font-weight:500;
   }
   .res-actions-top{margin-top:18px}
+  /* learn-more menu on the intro screen */
+  .learn-links{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:12px}
+  @media(max-width:520px){.learn-links{grid-template-columns:1fr}}
+  .learn-link{
+    display:flex;align-items:center;gap:12px;padding:12px 14px;
+    background:var(--paper-2);border:1px solid var(--line);border-radius:12px;
+    text-decoration:none;color:var(--ink);transition:border-color .12s;
+  }
+  .learn-link:hover{border-color:var(--teal)}
+  .learn-link .ll-icon{font-size:1.3rem;flex:0 0 auto}
+  .learn-link .ll-txt{display:flex;flex-direction:column;gap:1px;min-width:0}
+  .learn-link .ll-txt b{font-size:.9rem;color:var(--teal-deep)}
+  .learn-link .ll-txt small{font-size:.76rem;color:var(--muted);line-height:1.4}
   .demo-banner{
     background:repeating-linear-gradient(-45deg,var(--amber-soft),var(--amber-soft) 12px,#FFE9C4 12px,#FFE9C4 24px);
     border:1.5px dashed var(--amber);border-radius:12px;
@@ -878,6 +891,17 @@
       <div class="quadrant-grid" id="introQuadrantGrid"></div>
     </section>
 
+    <section class="about-card learn-more-card" aria-labelledby="learnMoreHeading">
+      <h2 class="about-h" id="learnMoreHeading" data-i18n="learnMoreHead">📚 เรียนรู้เพิ่มเติม</h2>
+      <p class="about-sub" data-i18n="learnMoreSub">เจาะลึกหลักคิดเบื้องหลังแบบประเมินนี้</p>
+      <div class="learn-links">
+        <a class="learn-link" href="frameworks.html"><span class="ll-icon" aria-hidden="true">📚</span><span class="ll-txt"><b data-i18n="learnLinkFw">แหล่งที่มา framework</b><small data-i18n="learnLinkFwSub">3 กรอบแนวคิด + นโยบาย Gen AI ของ มช.</small></span></a>
+        <a class="learn-link" href="roles-guide.html"><span class="ll-icon" aria-hidden="true">🎯</span><span class="ll-txt"><b data-i18n="learnLinkRoles">เพดานทักษะรายสายงาน</b><small data-i18n="learnLinkRolesSub">หลักคิด floor/ceiling ของ 9 สายงาน</small></span></a>
+        <a class="learn-link" href="workshops.html"><span class="ll-icon" aria-hidden="true">🛠</span><span class="ll-txt"><b data-i18n="learnLinkWs">รายการ workshop</b><small data-i18n="learnLinkWsSub">ทุกหัวข้อทั้งแทร็กทักษะและสไตล์</small></span></a>
+        <a class="learn-link" href="tags-guide.html"><span class="ll-icon" aria-hidden="true">🏷</span><span class="ll-txt"><b data-i18n="learnLinkTags">คู่มือแท็กองค์กร</b><small data-i18n="learnLinkTagsSub">สำหรับผู้สอน / ทีม L&amp;D</small></span></a>
+      </div>
+    </section>
+
     <div class="cta"><button class="btn" onclick="start()" data-i18n="startBtn">เริ่มทำแบบประเมิน →</button></div>
   </section>
 
@@ -987,6 +1011,10 @@
           <span class="ph-label" data-i18n="firstStepLabel">👉 ก้าวแรก</span>
           <span class="ph-name" id="rFirstStepText"></span>
         </div>
+        <div class="ph-row ph-role" id="rRoleInsightRow" hidden>
+          <span class="ph-label" data-i18n="roleInsightLabel">🏁 บทบาท</span>
+          <span class="ph-name"><span id="rRoleInsightText"></span> <a href="roles-guide.html" target="_blank" rel="noopener" data-i18n="roleInsightLink">หลักคิดเพดาน →</a></span>
+        </div>
         <p class="ph-note" id="rPHVarianceNote" hidden></p>
       </div>
     </div>
@@ -1056,7 +1084,6 @@
       <div class="acc-body">
         <p class="quadrant-hero-nudge" id="rQuadrantHeroNudge"></p>
         <div class="card next-card" id="rNextCard">
-          <p class="role-line" id="rRoleLine" hidden></p>
           <div class="next-sub" id="rNextSkillSub">
             <div class="lvl-tag next-sub-label" data-i18n="nextSubSkillLabel">พัฒนาทักษะ AI</div>
             <h4 id="rNextH"></h4>
@@ -1069,10 +1096,6 @@
           </div>
           <p class="placement-note inline" id="rPlacementNote"></p>
           <p class="next-milestone inline" id="rNextMilestone" hidden><span id="rNextMilestoneText"></span></p>
-          <div style="margin-top:14px">
-            <div class="lvl-tag" id="rWorkshopsLabel" data-i18n="workshopsLabel" style="margin-bottom:8px">หัวข้อ workshop ที่ขอแนะนำ</div>
-            <div class="paths" id="rWorkshops"></div>
-          </div>
         </div>
 
         <div class="stretch-card" id="rStretch" hidden>
@@ -1091,6 +1114,14 @@
           </div>
           <p class="stretch-note" data-i18n="stretchNote">ทั้งคู่ไม่ผิด — เลือกตามเป้าหมายของคุณ</p>
         </div>
+      </div>
+    </details>
+
+    <details class="quadrants-details" id="accWorkshops">
+      <summary data-i18n="workshopsLabel">🛠 workshop ที่แนะนำสำหรับคุณ</summary>
+      <div class="acc-body">
+        <div class="paths" id="rWorkshops" style="margin-top:10px"></div>
+        <p class="mini" style="margin-top:12px"><a href="workshops.html" target="_blank" rel="noopener" data-i18n="workshopsAllLink">ดูรายการ workshop ทั้งหมด พร้อมรายละเอียด →</a></p>
       </div>
     </details>
 
@@ -2226,12 +2257,12 @@ function renderTags(pcts, placement, partnership){
 }
 
 function renderRoleVerdict(pcts, THRESH){
-  const roleLineEl = document.getElementById('rRoleLine');
+  const insightRow = document.getElementById('rRoleInsightRow');
   const stretchBox = document.getElementById('rStretch');
-  if(!roleLineEl) return;
+  if(!insightRow) return;
   const verdict = CORE.roleVerdict(pcts, userRole, THRESH);
   if(verdict.kind === 'agnostic'){
-    roleLineEl.hidden = true;
+    insightRow.hidden = true;
     if(stretchBox) stretchBox.hidden = true;
     return;
   }
@@ -2243,8 +2274,8 @@ function renderRoleVerdict(pcts, THRESH){
   else if(verdict.kind === 'at_cap') msg = t('verdictAtCapTpl').replace('{target}', verdict.targetCeiling);
 
   const roleName = tx(userRole.label);
-  roleLineEl.textContent = t('roleLineTpl').replace('{role}', roleName).replace('{msg}', msg);
-  roleLineEl.hidden = false;
+  document.getElementById('rRoleInsightText').textContent = `${roleName} — ${msg}`;
+  insightRow.hidden = false;
 
   if(verdict.kind === 'above_ceiling' && stretchBox){
     stretchBox.hidden = false;

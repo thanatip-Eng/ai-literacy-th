@@ -31,8 +31,13 @@ partnership (v3 item set; v1 rows have 20-value rawAnswers, v2 rows 22).
   with reference links; linked from the global footer
 - **`tags-guide.html`** — standalone org-tag legend/guide page
 - **`roles-guide.html`** — standalone bilingual page explaining the per-role
-  floor/ceiling rationale + design-hypothesis disclaimer; linked from the
-  role-pick screen and frameworks.html (mirror values with `roles[]`)
+  floor/ceiling rationale (incl. a CSS range chart) + design-hypothesis
+  disclaimer; mirror values with `roles[]`
+- **`workshops.html`** — standalone bilingual workshop catalog (skill track
+  L1–L5 + style track); each entry has a `link` field for real course URLs
+  (mirrored as `docs/workshops-catalog.md` for offline curation). All
+  knowledge pages share a `guide-nav` pill row and are linked from the
+  intro "เรียนรู้เพิ่มเติม" menu card
 - No build step, no framework. Static everywhere; the `api/` functions
   activate only on Vercel when LTI env vars are set
 
