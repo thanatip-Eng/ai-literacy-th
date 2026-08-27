@@ -219,3 +219,161 @@ test('session cookie carries the hardening flags', () => {
   assert.match(cookie, /SameSite=None/);
   assert.match(cookie, /Path=\//);
 });
+
+/* ---------------- grade passback (LTI 1.1 Basic Outcomes) ---------------- */
+const outcomes = require('../api/_lib/outcomes');
+const crypto = require('node:crypto');
+
+const OUTCOME_URL = 'https://canvas.example.edu/api/lti/v1/tools/1/grade_passback';
+
+function successXml() {
+  return '<imsx_POXEnvelopeResponse><imsx_POXHeader><imsx_statusInfo>' +
+    '<imsx_codeMajor>success</imsx_codeMajor></imsx_statusInfo></imsx_POXHeader>' +
+    '</imsx_POXEnvelopeResponse>';
+}
+
+function stubFetch(impl) {
+  const calls = [];
+  const fn = async (url, init) => { calls.push({url, init}); return impl(url, init); };
+  fn.calls = calls;
+  return fn;
+}
+
+test('replaceResult XML carries the score and escapes the sourcedid', () => {
+  const xml = outcomes.buildReplaceResultXml({sourcedId: 'a&b<c>"d"', score: 1});
+  assert.match(xml, /<textString>1<\/textString>/);
+  assert.match(xml, /<sourcedId>a&amp;b&lt;c&gt;&quot;d&quot;<\/sourcedId>/);
+  assert.match(xml, /<replaceResultRequest>/);
+  assert.ok(!/[^&]&(?!(amp|lt|gt|quot|apos);)/.test(xml), 'no unescaped ampersands');
+});
+
+test('scores are clamped into the 0.0–1.0 range Canvas accepts', () => {
+  assert.match(outcomes.buildReplaceResultXml({sourcedId: 's', score: 7}), /<textString>1</);
+  assert.match(outcomes.buildReplaceResultXml({sourcedId: 's', score: -3}), /<textString>0</);
+  assert.match(outcomes.buildReplaceResultXml({sourcedId: 's', score: 0.5}), /<textString>0.5</);
+});
+
+test('oauth body hash binds the exact XML body', () => {
+  const body = outcomes.buildReplaceResultXml({sourcedId: 's', score: 1});
+  const expected = crypto.createHash('sha1').update(body, 'utf8').digest('base64');
+  assert.equal(oauth1.bodyHash(body), expected);
+  assert.notEqual(oauth1.bodyHash(body + ' '), expected);
+});
+
+test('the Authorization header verifies against our own oauth1 checker', () => {
+  const params = {
+    oauth_consumer_key: CONSUMER_KEY,
+    oauth_signature_method: 'HMAC-SHA1',
+    oauth_timestamp: '1700000000',
+    oauth_nonce: 'abc123',
+    oauth_version: '1.0',
+    oauth_body_hash: oauth1.bodyHash('<xml/>')
+  };
+  const header = oauth1.authHeader('POST', OUTCOME_URL, params, SHARED_SECRET);
+  assert.match(header, /^OAuth /);
+  const parsed = {};
+  header.slice(6).split(',').forEach(part => {
+    const eq = part.indexOf('=');
+    parsed[decodeURIComponent(part.slice(0, eq))] =
+      decodeURIComponent(part.slice(eq + 1).replace(/^"|"$/g, ''));
+  });
+  assert.equal(oauth1.verify('POST', OUTCOME_URL, parsed, SHARED_SECRET), true);
+  assert.equal(oauth1.verify('POST', OUTCOME_URL, parsed, 'wrong-secret'), false);
+});
+
+test('postScore reports success only when Canvas answers success', async () => {
+  const okFetch = stubFetch(async () => ({status: 200, text: async () => successXml()}));
+  const okResult = await outcomes.postScore({
+    serviceUrl: OUTCOME_URL, sourcedId: 'sid', score: 1,
+    consumerKey: CONSUMER_KEY, consumerSecret: SHARED_SECRET, fetchImpl: okFetch
+  });
+  assert.deepEqual(okResult, {ok: true});
+  assert.equal(okFetch.calls[0].url, OUTCOME_URL);
+  assert.match(okFetch.calls[0].init.headers.Authorization, /oauth_body_hash/);
+  assert.equal(okFetch.calls[0].init.headers['Content-Type'], 'application/xml');
+
+  const failureXml = '<imsx_codeMajor>failure</imsx_codeMajor>';
+  const rejected = await outcomes.postScore({
+    serviceUrl: OUTCOME_URL, sourcedId: 'sid', score: 1,
+    consumerKey: CONSUMER_KEY, consumerSecret: SHARED_SECRET,
+    fetchImpl: stubFetch(async () => ({status: 200, text: async () => failureXml}))
+  });
+  assert.equal(rejected.ok, false);
+
+  const http500 = await outcomes.postScore({
+    serviceUrl: OUTCOME_URL, sourcedId: 'sid', score: 1,
+    consumerKey: CONSUMER_KEY, consumerSecret: SHARED_SECRET,
+    fetchImpl: stubFetch(async () => ({status: 500, text: async () => ''}))
+  });
+  assert.equal(http500.ok, false);
+
+  const thrown = await outcomes.postScore({
+    serviceUrl: OUTCOME_URL, sourcedId: 'sid', score: 1,
+    consumerKey: CONSUMER_KEY, consumerSecret: SHARED_SECRET,
+    fetchImpl: stubFetch(async () => { throw new Error('network down'); })
+  });
+  assert.equal(thrown.ok, false, 'network errors resolve instead of throwing');
+});
+
+test('postScore skips launches Canvas did not mark as graded', async () => {
+  const never = stubFetch(async () => { throw new Error('should not be called'); });
+  assert.deepEqual(
+    await outcomes.postScore({serviceUrl: '', sourcedId: 'sid', fetchImpl: never}),
+    {ok: false, reason: 'not_graded_launch'});
+  assert.deepEqual(
+    await outcomes.postScore({serviceUrl: OUTCOME_URL, sourcedId: '', fetchImpl: never}),
+    {ok: false, reason: 'not_graded_launch'});
+  assert.equal(never.calls.length, 0);
+});
+
+test('launch stores the outcome pair in the session, and copes without it', async () => {
+  baseEnv();
+  const graded = signedLaunchParams({
+    lis_outcome_service_url: OUTCOME_URL,
+    lis_result_sourcedid: 'sourced-123'
+  });
+  const res = mockRes();
+  await launch(mockReq({body: graded}), res);
+  assert.equal(res.statusCode, 302);
+  const token = String(res.headers['set-cookie']).split(';')[0].split('=').slice(1).join('=');
+  const session = verifySession(token, SESSION_SECRET);
+  assert.equal(session.outcomeUrl, OUTCOME_URL);
+  assert.equal(session.sourcedId, 'sourced-123');
+
+  const plain = signedLaunchParams();
+  const res2 = mockRes();
+  await launch(mockReq({body: plain}), res2);
+  assert.equal(res2.statusCode, 302);
+  const token2 = String(res2.headers['set-cookie']).split(';')[0].split('=').slice(1).join('=');
+  const session2 = verifySession(token2, SESSION_SECRET);
+  assert.equal(session2.outcomeUrl, undefined);
+  assert.equal(session2.sourcedId, undefined);
+});
+
+test('submit still succeeds for the student when the gradebook push fails', async () => {
+  baseEnv();
+  const submit = require('../api/submit');
+  const realFetch = globalThis.fetch;
+  const seen = [];
+  globalThis.fetch = async (url, init) => {
+    seen.push(String(url));
+    if (String(url).includes('docs.google.com')) return {status: 200, text: async () => ''};
+    return {status: 500, text: async () => ''}; // Canvas refuses the score
+  };
+  try {
+    const token = signSession({
+      email: 'student@cmu.ac.th', name: 'S',
+      outcomeUrl: OUTCOME_URL, sourcedId: 'sid'
+    }, SESSION_SECRET);
+    const res = mockRes();
+    await submit(mockReq({body: {placement: 2}, cookie: `${COOKIE_NAME}=${token}`}), res);
+    const payload = JSON.parse(res.body);
+    assert.equal(res.statusCode, 200);
+    assert.equal(payload.ok, true, 'the stored submission still counts');
+    assert.equal(payload.graded, false, 'and the student is not told it was graded');
+    assert.ok(payload.receipt, 'a receipt is still issued');
+    assert.ok(seen.some(u => u.includes('docs.google.com')), 'the Sheet was written first');
+  } finally {
+    globalThis.fetch = realFetch;
+  }
+});

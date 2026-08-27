@@ -40,6 +40,21 @@ function sign(method, url, params, consumerSecret) {
   return hmacSha1(signatureBaseString(method, url, params), consumerSecret);
 }
 
+// --- outgoing requests (grade passback) ---------------------------------
+// LTI launches arrive with the OAuth params in the form body; outcome calls go
+// the other way: an XML body plus an Authorization header, where the body is
+// bound to the signature through oauth_body_hash (OAuth 1.0 body signing).
+function bodyHash(body) {
+  return crypto.createHash('sha1').update(body, 'utf8').digest('base64');
+}
+
+function authHeader(method, url, oauthParams, consumerSecret) {
+  const signature = sign(method, url, oauthParams, consumerSecret);
+  const parts = Object.entries({...oauthParams, oauth_signature: signature})
+    .map(([k, v]) => `${rfc3986(k)}="${rfc3986(String(v))}"`);
+  return `OAuth ${parts.join(',')}`;
+}
+
 function verify(method, url, params, consumerSecret) {
   const provided = params.oauth_signature;
   if (typeof provided !== 'string' || !provided) return false;
@@ -49,4 +64,4 @@ function verify(method, url, params, consumerSecret) {
   return a.length === b.length && crypto.timingSafeEqual(a, b);
 }
 
-module.exports = {rfc3986, signatureBaseString, sign, verify};
+module.exports = {rfc3986, signatureBaseString, sign, verify, bodyHash, authHeader};

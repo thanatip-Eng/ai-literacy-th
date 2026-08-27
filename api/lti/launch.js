@@ -146,11 +146,20 @@ module.exports = async (req, res) => {
   }
 
   // e. Issue an authenticated session and hand off into the app (same origin).
-  const token = signSession({
+  // Canvas sends the outcome pair only for assignment launches; carrying it in
+  // the signed session lets /api/submit push the grade back later.
+  const sessionData = {
     email,
     name: String(params.lis_person_name_full || '').trim(),
     roles: String(params.roles || '')
-  }, sessionSecret);
+  };
+  const outcomeUrl = String(params.lis_outcome_service_url || '').trim();
+  const sourcedId = String(params.lis_result_sourcedid || '').trim();
+  if (outcomeUrl && sourcedId) {
+    sessionData.outcomeUrl = outcomeUrl;
+    sessionData.sourcedId = sourcedId;
+  }
+  const token = signSession(sessionData, sessionSecret);
   res.statusCode = 302;
   res.setHeader('Set-Cookie', sessionCookie(token, DEFAULT_MAX_AGE));
   res.setHeader('Cache-Control', 'no-store');
