@@ -1290,7 +1290,7 @@
         <p class="mfb-privacy" data-i18n="mfbPrivacy">ส่งแบบไม่ระบุตัวตน — เฉพาะคำตอบในกล่องนี้ + รูปแบบผล/ภาษา เท่านั้น</p>
       </div>
       <p class="mfb-thanks" id="mfbThanks" hidden data-i18n="mfbThanks">ขอบคุณมากค่ะ 🙏 ความเห็นของคุณช่วยพัฒนาระบบนี้ต่อ</p>
-      <p class="mfb-gate" id="mfbGateHint" hidden data-i18n="mfbGateHint">ให้ดาวครบทั้ง 2 ข้อก่อน ปุ่มส่งผลจึงจะกดได้</p>
+      <p class="mfb-gate" id="mfbGateHint" hidden data-i18n="mfbGateHint">ให้ดาวครบทั้ง 3 ข้อก่อน ปุ่มส่งผลจึงจะกดได้</p>
     </div>
 
     <div class="res-actions">
@@ -1880,6 +1880,11 @@ function initMicroFeedback(){
   const head = box.querySelector('.mfb-head');
   head.dataset.i18n = CONNECT_MODE ? 'mfbHeadConnect' : 'mfbHead';
   head.textContent = t(head.dataset.i18n);
+  // on Canvas the result itself IS identified, so the privacy line has to say
+  // that only this box is anonymous — otherwise it reads as a broader promise
+  const priv = box.querySelector('.mfb-privacy');
+  priv.dataset.i18n = CONNECT_MODE ? 'mfbPrivacyConnect' : 'mfbPrivacy';
+  priv.textContent = t(priv.dataset.i18n);
   document.getElementById('mfbSendBtn').hidden = !!CONNECT_MODE;
   if(CONNECT_MODE){
     // sit right above the send-to-instructor button so the gate is obvious
