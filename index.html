@@ -2717,17 +2717,59 @@ async function generateResultImage(lang){
   ctx.font = '600 26px "IBM Plex Sans Thai", "IBM Plex Sans", sans-serif';
   ctx.fillText(truncateToWidth(ctx, axesLine, IMG_W - PAD*2), IMG_W/2, 555);
 
-  // short tagline + nudge
-  if(q){
+  // insight strip — mirrors the result page's quick summary
+  // (💪 strength / 🎯 drag point / 👉 first step / 🏁 role verdict)
+  const TRAIT_LABEL = {
+    verify: {th: "ตรวจ", en: "Verify"},
+    restraint: {th: "เลือกใช้", en: "Restraint"},
+    human_lead: {th: "ทักษะคน", en: "Lead"},
+    direction: {th: "นำ AI", en: "Direct"},
+    learning: {th: "เรียนรู้", en: "Learn"},
+    privacy: {th: "ข้อมูล", en: "Privacy"}
+  };
+  if(partnership && PARTNERSHIP){
+    const scores = partnership.subtraitScores || [];
+    let maxIdx = 0, minIdx = 0;
+    scores.forEach((s, i) => {
+      if(s > scores[maxIdx]) maxIdx = i;
+      if(s < scores[minIdx]) minIdx = i;
+    });
+    const traitName = i => {
+      const sub = PARTNERSHIP.subtraits[i];
+      return (TRAIT_LABEL[sub.key] && TRAIT_LABEL[sub.key][lang]) || sub.name[lang];
+    };
     ctx.fillStyle = TEXT;
-    ctx.font = '500 26px "IBM Plex Sans Thai", "IBM Plex Sans", sans-serif';
-    const shortLines = wrapToLines(ctx, q.short[lang], IMG_W - PAD*2, 2);
-    shortLines.forEach((ln, i) => ctx.fillText(ln, IMG_W/2, 605 + i*36));
+    ctx.font = '600 26px "IBM Plex Sans Thai", "IBM Plex Sans", sans-serif';
+    const line1 = (maxIdx === minIdx && scores.length)
+      ? L18.partnershipBalancedTpl.replace('{p}', scores[0])
+      : `${L18.partnershipStrengthLabel}: ${traitName(maxIdx)} ${scores[maxIdx]}% · ${L18.partnershipGapLabel}: ${traitName(minIdx)} ${scores[minIdx]}%`;
+    const line1Lines = wrapToLines(ctx, line1, IMG_W - PAD*2, 2);
+    line1Lines.forEach((ln, i) => ctx.fillText(ln, IMG_W/2, 606 + i*34));
 
-    ctx.fillStyle = MUTED;
-    ctx.font = '400 24px "IBM Plex Sans Thai", "IBM Plex Sans", sans-serif';
-    const nudgeLines = wrapToLines(ctx, q.nudge[lang], IMG_W - PAD*2, 3);
-    nudgeLines.forEach((ln, i) => ctx.fillText(ln, IMG_W/2, 690 + i*30));
+    const step = q && q.partnershipNext && q.partnershipNext[0];
+    if(step){
+      const stepTop = 606 + (line1Lines.length - 1) * 34 + 50;
+      ctx.fillStyle = MUTED;
+      ctx.font = '400 24px "IBM Plex Sans Thai", "IBM Plex Sans", sans-serif';
+      const stepLines = wrapToLines(ctx, `${L18.firstStepLabel}: ${step[lang]}`, IMG_W - PAD*2, 2);
+      stepLines.forEach((ln, i) => ctx.fillText(ln, IMG_W/2, stepTop + i*32));
+    }
+
+    if(userRole){
+      const verdict = CORE.roleVerdict((window.__res && window.__res.pcts) || [], userRole, 70);
+      if(verdict.kind !== 'agnostic'){
+        let msg = '';
+        if(verdict.kind === 'below_floor') msg = L18.verdictBelowFloor;
+        else if(verdict.kind === 'on_track') msg = L18.verdictOnTrack;
+        else if(verdict.kind === 'role_fit') msg = L18.verdictRoleFit;
+        else if(verdict.kind === 'above_ceiling') msg = L18.verdictAboveCeiling;
+        else if(verdict.kind === 'at_cap') msg = L18.verdictAtCapTpl.replace('{target}', verdict.targetCeiling);
+        ctx.fillStyle = color;
+        ctx.font = '600 24px "IBM Plex Sans Thai", "IBM Plex Sans", sans-serif';
+        const roleLine = `${L18.roleInsightLabel}: ${userRole.label[lang]} — ${msg}`;
+        ctx.fillText(truncateToWidth(ctx, roleLine, IMG_W - PAD*2), IMG_W/2, 748);
+      }
+    }
   }
 
   ctx.strokeStyle = SEP; ctx.lineWidth = 1;
@@ -2822,14 +2864,6 @@ async function generateResultImage(lang){
   );
 
   // partnership column (right)
-  const TRAIT_LABEL = {
-    verify: {th: "ตรวจ", en: "Verify"},
-    restraint: {th: "เลือกใช้", en: "Restraint"},
-    human_lead: {th: "ทักษะคน", en: "Lead"},
-    direction: {th: "นำ AI", en: "Direct"},
-    learning: {th: "เรียนรู้", en: "Learn"},
-    privacy: {th: "ข้อมูล", en: "Privacy"}
-  };
   if(partnership && PARTNERSHIP){
     drawVBars(rightColL, rightColR, PARTNERSHIP.subtraits,
       (s, i) => partnership.subtraitScores[i] || 0,
