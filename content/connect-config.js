@@ -41,26 +41,33 @@ fields: {
 },
 // ปุ่ม "ทำแบบประเมินความพึงพอใจ" บนหน้าผล — เปิดฟอร์มใน tab ใหม่
 // params: prefill จากข้อมูลผู้ทำ (key = ชื่อ field ใน payload, ค่า = entry ID)
+// *เลิกใช้แล้ว* — เปลี่ยนไปใช้ microFeedback (บังคับตอบก่อนส่งผล) แทน
+// url ว่าง = ปุ่ม/ป็อปอัปไม่แสดง; ใส่ url กลับเมื่อไรก็เปิดใช้ใหม่ได้ทันที
 feedback: {
-  url: "https://docs.google.com/forms/d/e/1FAIpQLSdufO_eon5oOSCQKHIdpDRTK4cVWtBsoSZuGB4qz4CiHDhWkw/viewform",
+  url: "",
   params: {
     studentid: "entry.1095727791",
     email: "entry.1860979212"
   }
 },
-// micro-feedback widget บนหน้าผลของ "เวอร์ชันสาธารณะ" เท่านั้น (ไม่บังคับตอบ,
-// ไม่ระบุตัวตน) — สร้าง Google Form ใหม่ที่มีคำถาม Short answer 6 ข้อ:
-// rating, fit, note, quadrant, lang, version แล้วเติม formUrl + entry ID ด้านล่าง
-// ค่าว่าง = widget ไม่แสดง
+// micro-feedback widget บนหน้าผล (ไม่ระบุตัวตนทั้งสองโหมด)
+// - โดเมนสาธารณะ: ไม่บังคับตอบ อยู่ท้ายหน้า
+// - Canvas: บังคับให้ดาวครบ 3 ข้อก่อนจึงจะกดส่งผลให้ผู้สอนได้ (ช่องแนะนำไม่บังคับ)
+// สร้างจาก Google Form ที่มีคำถาม Short answer: rating, fit, useful, note,
+// quadrant, lang, version, aud แล้วเติม formUrl + entry ID ด้านล่าง
+// formUrl ว่าง = ปิด widget · ช่องที่ยังไม่มี entry ID จะไม่ถูกส่ง
+// aud = แหล่งคำตอบ ("canvas" หรือ "public") ไว้แยกกลุ่มตอนวิเคราะห์
 microFeedback: {
   formUrl: "https://docs.google.com/forms/d/e/1FAIpQLSf7dnrpxzgSz-_-ruGA2Mt06NGZlEP-1GntWqQWVcVtpJCvpA/formResponse",
   fields: {
     rating: "entry.1545245341",
     fit: "entry.179077316",
+    useful: "",
     note: "entry.1063626964",
     quadrant: "entry.158752728",
     lang: "entry.448667513",
-    version: "entry.964770858"
+    version: "entry.964770858",
+    aud: ""
   }
 },
 // ข้อความฉบับกระชับสำหรับผู้เรียนใน Canvas — override เฉพาะ key ที่ระบุ

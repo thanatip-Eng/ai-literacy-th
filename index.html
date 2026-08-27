@@ -728,7 +728,9 @@
   .mfb-send{margin-top:12px}
   .mfb-privacy{margin:8px 0 0;font-size:.75rem;color:var(--muted);font-style:italic}
   .mfb-thanks{margin:6px 0 0;font-size:.95rem;color:var(--teal-deep);font-weight:600}
-  .micro-fb.done .mfb-q,.micro-fb.done .mfb-stars,.micro-fb.done #mfbStep2{display:none}
+  .mfb-gate{margin:10px 0 0;font-size:.82rem;color:var(--warn);font-weight:600}
+  .micro-fb.done .mfb-q,.micro-fb.done .mfb-stars,.micro-fb.done #mfbStep2,.micro-fb.done .mfb-gate{display:none}
+  .submit-cta-btn:disabled{opacity:.45;cursor:not-allowed}
   .demo-banner{
     background:repeating-linear-gradient(-45deg,var(--amber-soft),var(--amber-soft) 12px,#FFE9C4 12px,#FFE9C4 24px);
     border:1.5px dashed var(--amber);border-radius:12px;
@@ -1272,7 +1274,8 @@
     <span hidden id="rName"></span>
     <span hidden id="rBlurb"></span>
 
-    <!-- micro-feedback: public version only, optional, anonymous -->
+    <!-- micro-feedback: anonymous both modes — optional on public, required
+         (2 star questions) before the send-to-instructor button on Canvas -->
     <div class="micro-fb" id="microFb" hidden>
       <p class="mfb-head" data-i18n="mfbHead">ช่วยบอกเราหน่อย — ไม่บังคับ ใช้เวลา 10 วินาที</p>
       <p class="mfb-q" data-i18n="mfbQ1">ให้คะแนนแบบประเมินนี้</p>
@@ -1280,11 +1283,14 @@
       <div id="mfbStep2" hidden>
         <p class="mfb-q" data-i18n="mfbQ2">ผลที่ได้ตรงกับตัวคุณแค่ไหน</p>
         <div class="mfb-stars" id="mfbFit" role="radiogroup" aria-label="fit"></div>
+        <p class="mfb-q" data-i18n="mfbQ3">คำแนะนำที่ได้มีประโยชน์กับคุณแค่ไหน</p>
+        <div class="mfb-stars" id="mfbUseful" role="radiogroup" aria-label="useful"></div>
         <textarea class="mfb-note" id="mfbNote" rows="2" maxlength="500" data-i18n-placeholder="mfbNotePh" placeholder="ข้อเสนอแนะถึงทีมพัฒนา (ไม่บังคับ)"></textarea>
         <button class="btn mfb-send" id="mfbSendBtn" type="button" onclick="submitMicroFeedback()" data-i18n="mfbSend">ส่งความเห็น</button>
         <p class="mfb-privacy" data-i18n="mfbPrivacy">ส่งแบบไม่ระบุตัวตน — เฉพาะคำตอบในกล่องนี้ + รูปแบบผล/ภาษา เท่านั้น</p>
       </div>
       <p class="mfb-thanks" id="mfbThanks" hidden data-i18n="mfbThanks">ขอบคุณมากค่ะ 🙏 ความเห็นของคุณช่วยพัฒนาระบบนี้ต่อ</p>
+      <p class="mfb-gate" id="mfbGateHint" hidden data-i18n="mfbGateHint">ให้ดาวครบทั้ง 2 ข้อก่อน ปุ่มส่งผลจึงจะกดได้</p>
     </div>
 
     <div class="res-actions">
@@ -1827,9 +1833,12 @@ function buildConnectPayload(pcts, placement, partnership){
   };
 }
 
-/* ---------------- micro-feedback (public result page, optional, anonymous) ----
+/* ---------------- micro-feedback (result page, anonymous) ----
    Reads the raw config (not CONNECT — that is null on public domains by design).
-   Hidden entirely in connect mode, demo mode, or while formUrl is unset. */
+   Public: optional, at the bottom of the page. Connect (Canvas): required —
+   both star questions gate the send-to-instructor button, and the answers are
+   posted automatically together with the result submission.
+   Hidden entirely in demo mode or while formUrl is unset. */
 const MICRO_FB = (function(){
   const c = globalThis.AI_LITERACY_CONNECT;
   const m = c && c.microFeedback;
@@ -1838,7 +1847,7 @@ const MICRO_FB = (function(){
   if(typeof f.rating !== 'string' || !f.rating.startsWith('entry.')) return null;
   return m;
 })();
-let mfbRating = 0, mfbFit = 0, mfbSent = false;
+let mfbRating = 0, mfbFit = 0, mfbUseful = 0, mfbSent = false;
 
 function renderMfbStars(id, get, set){
   const box = document.getElementById(id);
@@ -1852,7 +1861,7 @@ function renderMfbStars(id, get, set){
     b.setAttribute('aria-checked', String(v === get()));
     b.setAttribute('aria-label', String(v));
     b.classList.toggle('on', v <= get());
-    b.onclick = () => { set(v); renderMfbStars(id, get, set); document.getElementById('mfbStep2').hidden = false; };
+    b.onclick = () => { set(v); renderMfbStars(id, get, set); document.getElementById('mfbStep2').hidden = false; updateMfbGate(); };
     box.appendChild(b);
   }
 }
@@ -1860,16 +1869,39 @@ function renderMfbStars(id, get, set){
 function initMicroFeedback(){
   const box = document.getElementById('microFb');
   if(!box) return;
-  const eligible = !!MICRO_FB && !CONNECT_MODE && !DEMO_PROFILE;
+  const eligible = !!MICRO_FB && !DEMO_PROFILE;
   box.hidden = !eligible;
-  if(!eligible) return;
+  if(!eligible){ updateMfbGate(); return; }
   box.classList.remove('done');
-  mfbRating = 0; mfbFit = 0; mfbSent = false;
+  mfbRating = 0; mfbFit = 0; mfbUseful = 0; mfbSent = false;
   document.getElementById('mfbThanks').hidden = true;
   document.getElementById('mfbStep2').hidden = true;
   document.getElementById('mfbNote').value = '';
+  const head = box.querySelector('.mfb-head');
+  head.dataset.i18n = CONNECT_MODE ? 'mfbHeadConnect' : 'mfbHead';
+  head.textContent = t(head.dataset.i18n);
+  document.getElementById('mfbSendBtn').hidden = !!CONNECT_MODE;
+  if(CONNECT_MODE){
+    // sit right above the send-to-instructor button so the gate is obvious
+    const submitBox = document.getElementById('connectSubmitBox');
+    if(submitBox && submitBox.parentNode) submitBox.parentNode.insertBefore(box, submitBox);
+  }
   renderMfbStars('mfbRating', () => mfbRating, v => { mfbRating = v; });
   renderMfbStars('mfbFit', () => mfbFit, v => { mfbFit = v; });
+  renderMfbStars('mfbUseful', () => mfbUseful, v => { mfbUseful = v; });
+  updateMfbGate();
+}
+
+/* Connect mode only: the send-to-instructor button unlocks once both star
+   questions are answered. Never blocks when the widget itself is unavailable. */
+function updateMfbGate(){
+  const btn = document.getElementById('connectSubmitBtn');
+  const hint = document.getElementById('mfbGateHint');
+  if(!btn) return;
+  const gated = !!CONNECT_MODE && !DEMO_PROFILE && !!MICRO_FB;
+  const ok = (mfbRating > 0 && mfbFit > 0 && mfbUseful > 0) || mfbSent;
+  btn.disabled = gated && !ok;
+  if(hint) hint.hidden = !gated || ok;
 }
 
 async function submitMicroFeedback(){
@@ -1879,10 +1911,12 @@ async function submitMicroFeedback(){
   const values = {
     rating: mfbRating,
     fit: mfbFit || '',
+    useful: mfbUseful || '',
     note: document.getElementById('mfbNote').value.trim().slice(0, 500),
     quadrant: (window.__res && window.__res.partnership) ? window.__res.partnership.quadrant : '',
     lang: currentLang,
-    version: 'v3'
+    version: 'v3',
+    aud: CONNECT_MODE ? 'canvas' : 'public'
   };
   const form = new FormData();
   Object.entries(values).forEach(([key, value]) => {
@@ -1895,6 +1929,7 @@ async function submitMicroFeedback(){
   const box = document.getElementById('microFb');
   box.classList.add('done');
   document.getElementById('mfbThanks').hidden = false;
+  updateMfbGate();
 }
 
 function renderConnectStatus(){
@@ -1919,6 +1954,8 @@ function renderConnectWhoami(){
 
 async function submitConnectResult(){
   if(!CONNECT_MODE || !connectPayload) return;
+  // required micro-feedback rides along with the result (best-effort, anonymous)
+  if(MICRO_FB && !mfbSent && mfbRating) submitMicroFeedback();
   document.getElementById('connectSubmitBox').hidden = true;
   connectStatusKey = 'sendStatusSending';
   renderConnectStatus();
