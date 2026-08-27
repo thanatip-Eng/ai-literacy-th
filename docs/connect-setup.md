@@ -134,6 +134,18 @@ console.log(c.createHmac('sha256', process.env.SESSION_SECRET)
 
 ---
 
+## micro-feedback บนเวอร์ชันสาธารณะ (ไม่บังคับ)
+
+หน้าเวอร์ชันสาธารณะมี widget ถามความพึงพอใจสั้น ๆ ท้ายหน้าผล (ให้ดาว 2 ข้อ + ช่องแนะนำ
+ส่งแบบไม่ระบุตัวตน) — เปิดใช้โดย:
+
+1. สร้าง Google Form ใหม่ มีคำถาม **Short answer 6 ข้อ ไม่บังคับทั้งหมด**:
+   `rating` (1–5), `fit` (1–5), `note`, `quadrant`, `lang`, `version`
+2. Publish + ตั้ง "Collect email = Do not collect" + Limit to 1 response = OFF + Link to Sheets
+3. หา entry ID (Get pre-filled link) แล้วเติมใน `content/connect-config.js → microFeedback`
+   (formUrl ใช้ /formResponse) — เติมแล้ว widget แสดงเองทันที ค่าว่าง = ซ่อน
+4. widget ไม่แสดงบนโดเมน Canvas (มีแบบประเมินเต็มอยู่แล้ว) และในโหมด ?demo
+
 ## การทดสอบก่อนใช้จริง
 
 1. `npm test` — รวมเทสลายเซ็น LTI, nonce, allowlist, session

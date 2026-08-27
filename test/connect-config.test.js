@@ -74,3 +74,15 @@ test('enabled config points at a real Google Form response endpoint', () => {
   const mapped = Object.values(config.fields).filter(Boolean);
   assert.ok(mapped.length > 0, 'enabled config must map at least one field');
 });
+
+const MICRO_FB_FIELDS = ['rating', 'fit', 'note', 'quadrant', 'lang', 'version'];
+
+test('microFeedback block is well-formed', () => {
+  const m = config.microFeedback;
+  assert.ok(m && typeof m === 'object', 'microFeedback block missing');
+  assert.equal(typeof m.formUrl, 'string');
+  for (const [key, value] of Object.entries(m.fields || {})) {
+    assert.ok(MICRO_FB_FIELDS.includes(key), `unknown microFeedback field "${key}"`);
+    assert.ok(value === '' || /^entry\.\d+$/.test(value), `bad entry id for "${key}"`);
+  }
+});

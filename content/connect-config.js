@@ -48,6 +48,21 @@ feedback: {
     email: "entry.1860979212"
   }
 },
+// micro-feedback widget บนหน้าผลของ "เวอร์ชันสาธารณะ" เท่านั้น (ไม่บังคับตอบ,
+// ไม่ระบุตัวตน) — สร้าง Google Form ใหม่ที่มีคำถาม Short answer 6 ข้อ:
+// rating, fit, note, quadrant, lang, version แล้วเติม formUrl + entry ID ด้านล่าง
+// ค่าว่าง = widget ไม่แสดง
+microFeedback: {
+  formUrl: "",
+  fields: {
+    rating: "",
+    fit: "",
+    note: "",
+    quadrant: "",
+    lang: "",
+    version: ""
+  }
+},
 // ข้อความฉบับกระชับสำหรับผู้เรียนใน Canvas — override เฉพาะ key ที่ระบุ
 // (key ต้องมีอยู่ใน content/app-content.js → lang) โดเมน public ใช้ฉบับเต็มเสมอ
 copyOverrides: {
