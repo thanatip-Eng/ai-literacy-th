@@ -30,6 +30,9 @@ partnership (v3 item set; v1 rows have 20-value rawAnswers, v2 rows 22).
   AI Thinking) plus CMU's institutional Gen AI policy (ประกาศ มช. 2566),
   with reference links; linked from the global footer
 - **`tags-guide.html`** — standalone org-tag legend/guide page
+- **`roles-guide.html`** — standalone bilingual page explaining the per-role
+  floor/ceiling rationale + design-hypothesis disclaimer; linked from the
+  role-pick screen and frameworks.html (mirror values with `roles[]`)
 - No build step, no framework. Static everywhere; the `api/` functions
   activate only on Vercel when LTI env vars are set
 

@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>เพดานทักษะรายสายงาน — AiStyle</title>
+<link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="assets/favicon-16.png">
+<link rel="apple-touch-icon" sizes="180x180" href="assets/favicon-180.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@500;600;700&family=IBM+Plex+Sans+Thai:wght@400;500;600;700&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#F3EEE4; --paper-2:#ECE5D7; --card:#FCFAF5; --ink:#211C16;
+    --muted:#736A5C; --line:#DCD3C2; --teal:#0E6E63; --teal-deep:#0A4F47;
+    --amber:#D9852A; --amber-soft:#FFF1D5; --warn:#B5642A; --r:18px;
+    --shadow:0 14px 30px -22px rgba(33,28,22,.4);
+  }
+  *{box-sizing:border-box}
+  [hidden]{display:none !important}
+  body{
+    margin:0;background:var(--paper);color:var(--ink);
+    font-family:"IBM Plex Sans Thai","IBM Plex Sans",sans-serif;
+    font-size:16px;line-height:1.6;min-height:100vh;
+    background-image:
+      radial-gradient(circle at 90% -10%,rgba(217,133,42,.18),transparent 55%),
+      radial-gradient(circle at -10% 110%,rgba(14,110,99,.14),transparent 50%);
+  }
+  .wrap{max-width:760px;margin:0 auto;padding:36px 22px 60px}
+  .topbar{display:flex;align-items:center;justify-content:space-between;margin-bottom:24px;flex-wrap:wrap;gap:12px}
+  .back-link{
+    font-family:"Chakra Petch",sans-serif;font-weight:600;font-size:.9rem;
+    color:var(--teal-deep);text-decoration:none;display:inline-flex;align-items:center;gap:6px;
+  }
+  .back-link:hover{color:var(--teal)}
+  .lang-toggle{display:flex;gap:4px;background:var(--card);border:1px solid var(--line);border-radius:999px;padding:4px}
+  .lang-toggle button{
+    font-family:"Chakra Petch",sans-serif;font-weight:600;font-size:.78rem;
+    padding:5px 12px;border:none;border-radius:999px;background:transparent;cursor:pointer;color:var(--muted);
+  }
+  .lang-toggle button.active{background:var(--teal);color:#fff}
+  .main-logo{display:block;margin:0 auto 14px;max-width:240px;width:auto;height:auto}
+  @media(max-width:520px){.main-logo{max-width:190px}}
+  .badge{
+    display:inline-flex;align-items:center;gap:6px;font-family:"Chakra Petch",sans-serif;
+    font-size:.78rem;background:var(--card);border:1px solid var(--line);
+    padding:6px 14px;border-radius:999px;color:var(--teal-deep);margin-bottom:14px;
+  }
+  h1{font-family:"Chakra Petch",sans-serif;font-weight:700;font-size:2rem;color:var(--ink);margin:0 0 10px;line-height:1.25}
+  .lead{font-size:1.02rem;color:var(--muted);max-width:62ch;margin:0 0 28px}
+  .card{
+    background:var(--card);border:1px solid var(--line);border-radius:var(--r);
+    padding:22px 24px;box-shadow:var(--shadow);margin-bottom:18px;
+  }
+  .card h2{
+    font-family:"Chakra Petch",sans-serif;font-weight:700;font-size:1.12rem;
+    color:var(--teal-deep);margin:0 0 4px;display:flex;align-items:center;gap:10px;
+  }
+  .card h2::before{content:"";width:18px;height:3px;border-radius:2px;background:var(--amber);flex:0 0 auto}
+  .card .subtitle{font-size:.85rem;color:var(--muted);margin:0 0 12px}
+  .card p{margin:0 0 8px;font-size:.95rem;line-height:1.65}
+  .card ul,.card ol{margin:0 0 8px;padding-left:20px}
+  .card li{font-size:.92rem;line-height:1.7;margin-bottom:5px}
+  .verdicts{display:grid;gap:6px;margin-top:10px}
+  .verdicts .v{display:flex;gap:10px;align-items:baseline;font-size:.9rem}
+  .verdicts .v b{font-family:"Chakra Petch",sans-serif;color:var(--warn);min-width:118px;font-size:.82rem}
+  .role-row{
+    border:1px solid var(--line);border-radius:12px;padding:14px 16px;margin-bottom:10px;
+    background:var(--paper-2);
+  }
+  .role-row .rr-head{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;margin-bottom:4px}
+  .role-row .rr-name{font-weight:700;font-size:.98rem}
+  .role-row .rr-range{
+    font-family:"Chakra Petch",sans-serif;font-weight:700;font-size:.82rem;
+    background:var(--teal);color:#fff;border-radius:999px;padding:4px 12px;white-space:nowrap;
+  }
+  .role-row .rr-why{margin:0;font-size:.9rem;color:var(--ink);line-height:1.6}
+  .caution{
+    background:var(--amber-soft);border:1.5px dashed var(--amber);border-radius:12px;
+    padding:14px 16px;font-size:.92rem;line-height:1.65;
+  }
+  .footer{text-align:center;font-size:.82rem;color:var(--muted);margin-top:32px;padding-top:18px;border-top:1px solid var(--line)}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="topbar">
+    <a class="back-link" href="index.html">← <span data-i18n="backToAssessment">กลับสู่แบบประเมิน</span></a>
+    <div class="lang-toggle" role="group" aria-label="Language toggle">
+      <button id="langTH" class="active" onclick="setLang('th')" aria-pressed="true">TH</button>
+      <button id="langEN" onclick="setLang('en')" aria-pressed="false">EN</button>
+    </div>
+  </div>
+
+  <img class="main-logo" src="assets/AiStyle.png" alt="AiStyle — AI Literacy Assessment, Skill × Partnership" />
+
+  <div class="badge" data-i18n="badge">แหล่งความรู้</div>
+  <h1 data-i18n="title">เพดานทักษะรายสายงาน มาจากไหน?</h1>
+  <p class="lead" data-i18n="lead"></p>
+
+  <section class="card">
+    <h2 data-i18n="s1Head">floor / ceiling คืออะไร</h2>
+    <p class="subtitle" data-i18n="s1Sub">กลไกเบื้องหลัง "คำตัดสินตามบทบาท" บนหน้าผลลัพธ์</p>
+    <p data-i18n="s1Body"></p>
+    <div class="verdicts" id="verdictList"></div>
+    <p data-i18n="s1Note" style="margin-top:10px"></p>
+  </section>
+
+  <section class="card">
+    <h2 data-i18n="s2Head">หลักการออกแบบ 4 ข้อ</h2>
+    <p class="subtitle" data-i18n="s2Sub">ใช้ตั้งค่า floor/ceiling ของทุกสายงาน</p>
+    <ol id="principleList"></ol>
+  </section>
+
+  <section class="card">
+    <h2 data-i18n="s3Head">เหตุผลรายสายงาน (9 กลุ่ม)</h2>
+    <p class="subtitle" data-i18n="s3Sub">ระดับอ้างอิง: L1 เข้าใจ · L2 ใช้ · L3 สร้าง · L4 ฝึกและดูแลโมเดล · L5 เชี่ยวชาญเชิงวิจัย</p>
+    <div id="roleList"></div>
+  </section>
+
+  <section class="card">
+    <h2 data-i18n="s4Head">ที่มาและข้อจำกัด — โปรดอ่าน</h2>
+    <p class="subtitle" data-i18n="s4Sub">ความโปร่งใสเรื่องแหล่งอ้างอิง</p>
+    <div class="caution" data-i18n="cautionBody"></div>
+    <p data-i18n="s4Plan" style="margin-top:12px"></p>
+  </section>
+
+  <p class="footer" data-i18n="footerCopy">© 2026 Student Talent Development · Faculty of Engineering, Chiang Mai University</p>
+</div>
+
+<script>
+/* floor/ceiling values mirror content/app-content.js → roles[] (source of truth
+   for the app); update both places if the design changes */
+const ROLE_DATA = [
+  {key:'admin',    floor:1, ceiling:2,
+   name:{th:'ธุรการ / สนับสนุน', en:'Admin / Support'},
+   why:{th:'งานเอกสาร นัดหมาย และประสานงาน ครอบคลุมได้ด้วยการรู้ทัน AI (L1) และใช้ช่วยงานประจำ (L2) — ร่าง สรุป จัดรูปแบบ ถ้าไปถึงระดับสร้างระบบ (L3) ถือว่าเกินหน้างาน และเป็นสัญญาณของ AI champion ประจำทีม',
+        en:'Paperwork, scheduling and coordination are well covered by understanding AI (L1) and applying it to daily tasks (L2) — drafting, summarizing, formatting. Reaching build level (L3) exceeds the job itself and signals team AI-champion material.'}},
+  {key:'ops_cs',   floor:1, ceiling:2,
+   name:{th:'ปฏิบัติการ / ลูกค้าสัมพันธ์ / เซลส์', en:'Ops / Customer-facing / Sales'},
+   why:{th:'หัวใจของงานคือปฏิสัมพันธ์กับคน AI เป็นผู้ช่วยเตรียมข้อมูล ตอบไว และสรุปบทสนทนา (L2) — ความเข้าอกเข้าใจลูกค้ายังเป็นทักษะมนุษย์ล้วน เพดานจึงไม่บังคับถึงระดับสร้างเครื่องมือเอง',
+        en:'The heart of this work is human interaction. AI assists with preparation, fast responses and conversation summaries (L2) — customer empathy remains a purely human skill, so the ceiling does not require building tools.'}},
+  {key:'creative', floor:2, ceiling:3,
+   name:{th:'งานสร้างสรรค์ / คอนเทนต์ / การตลาด', en:'Creative / Content / Marketing'},
+   why:{th:'สายงานนี้ถูก disrupt ตรงที่สุด การใช้ AI เป็นคู่คิดสร้างสรรค์จึงเป็นขั้นต่ำ (floor L2) ส่วนการต่อ workflow อัตโนมัติ เช่น ระบบผลิตคอนเทนต์หลายช่องทาง คือแต้มต่อที่หน้างานใช้ได้จริง (ceiling L3)',
+        en:'This field faces the most direct disruption, so using AI as a creative partner is the minimum (floor L2). Automating content workflows across channels is a directly usable edge (ceiling L3).'}},
+  {key:'analyst',  floor:2, ceiling:3,
+   name:{th:'นักวิเคราะห์ / วางแผน / PM', en:'Analyst / Planner / PM'},
+   why:{th:'งานสรุป วิเคราะห์ และวางแผนคือจุดแข็งของ AI ปัจจุบัน จึงต้องใช้เป็นอย่างน้อย (L2) การสร้าง pipeline วิเคราะห์อัตโนมัติหรือแดชบอร์ดที่ AI ช่วยขับเคลื่อน (L3) คือเพดานที่งานได้ประโยชน์เต็มที่',
+        en:'Summarizing, analyzing and planning are exactly what current AI does best, so applying it is the minimum (L2). Building automated analysis pipelines or AI-assisted dashboards (L3) is where the role gains the most.'}},
+  {key:'tech',     floor:2, ceiling:4,
+   name:{th:'วิศวกรซอฟต์แวร์ / ดาต้า', en:'Engineer / Developer / Data'},
+   why:{th:'การใช้ AI ช่วยเขียนโค้ดกลายเป็นพื้นฐานใหม่ของอาชีพ (floor L2) การสร้างระบบที่มี AI เป็นส่วนประกอบคือมาตรฐานของสายงาน (L3) และเปิดเพดานถึงการฝึก/ดูแลโมเดล (L4) สำหรับผู้ที่ลงลึกฝั่ง ML engineering',
+        en:'AI-assisted coding is the profession\'s new baseline (floor L2). Building AI-powered systems is the field standard (L3), and the ceiling opens to training/maintaining models (L4) for those going deep into ML engineering.'}},
+  {key:'ai',       floor:3, ceiling:5,
+   name:{th:'AI / ML / นักวิจัย', en:'AI / ML / Research'},
+   why:{th:'งานคือ AI โดยตรง — การสร้างโซลูชันได้ (L3) เป็นแค่จุดเริ่มต้น เพดานเปิดสุดถึงการวิจัยและชี้นำทิศทางเทคนิค (L5) สายงานเดียวที่เพดานเกินช่วงที่แบบประเมินนี้วัด (วัดถึง L3) ระบบจึงแสดงผลแบบ "ถึงเพดานของเครื่องมือ"',
+        en:'The job is AI itself — building solutions (L3) is only the entry point, with the ceiling fully open to research leadership (L5). It is the only role whose ceiling exceeds what this assessment measures (up to L3), so the result shows an "at instrument cap" verdict.'}},
+  {key:'leader',   floor:2, ceiling:3,
+   name:{th:'ผู้บริหาร / หัวหน้า / ผู้ก่อตั้ง', en:'Leader / Executive / Founder'},
+   why:{th:'ผู้นำต้องใช้ AI เป็นเองจึงจะชี้ทิศ ประเมินงานของทีม และตัดสินใจลงทุนได้ (floor L2) ไม่จำเป็นต้องสร้างระบบเอง แต่ถ้าถึง L3 จะยิ่งนำ AI adoption ขององค์กรได้อย่างน่าเชื่อถือ',
+        en:'Leaders must use AI competently themselves to set direction, evaluate the team\'s work and make investment calls (floor L2). Building systems isn\'t required, but reaching L3 makes leading organizational AI adoption far more credible.'}},
+  {key:'educator', floor:2, ceiling:3,
+   name:{th:'ครู / อาจารย์ / ผู้ฝึกอบรม / L&D', en:'Educator / Trainer / L&D'},
+   why:{th:'ผู้สอนต้องใช้ AI เป็นเพื่อออกแบบการเรียนรู้และสอนการใช้อย่างมีวิจารณญาณต่อได้ (floor L2 — สอดคล้องบทบาท tutor/guide ที่นโยบาย Gen AI ของ มช. สนับสนุน) การสร้างสื่อหรือบอทช่วยสอน (L3) คือแต้มต่อของสายนี้',
+        en:'Educators must apply AI to design learning and teach critical use (floor L2 — matching the tutor/guide roles endorsed by CMU\'s Gen AI policy). Building teaching aids or tutoring bots (L3) is this role\'s edge.'}},
+  {key:'student',  floor:1, ceiling:3,
+   name:{th:'นักเรียน / นักศึกษา / เปลี่ยนสายงาน', en:'Student / Career-change'},
+   why:{th:'จุดเริ่มต้นคือรู้ทัน AI (floor L1) แต่เพดานเปิดกว้างถึงระดับสร้าง (L3) เพราะเส้นทางยังไม่ผูกกับหน้างานใด — ยิ่งไปได้ไกลเท่าไหร่ ตัวเลือกอาชีพยิ่งกว้างขึ้นเท่านั้น',
+        en:'The starting point is understanding AI (floor L1), but the ceiling stays wide open to build level (L3) because the path isn\'t tied to any job yet — the further you go, the wider your career options.'}}
+];
+
+const L = {
+  th: {
+    backToAssessment: "กลับสู่แบบประเมิน",
+    badge: "แหล่งความรู้",
+    title: "เพดานทักษะรายสายงาน มาจากไหน?",
+    lead: "ตอนเลือกบทบาท ระบบใช้ค่า \"ขั้นต่ำ (floor)\" และ \"เพดาน (ceiling)\" ของสายงานนั้นมาเทียบกับระดับทักษะของคุณ เพื่อให้คำแนะนำที่ตรงกับหน้างานจริง หน้านี้เปิดหลักคิดทั้งหมด: ตัวเลขแต่ละสายงานตั้งจากอะไร และมีข้อจำกัดอะไรที่ควรรู้",
+    s1Head: "floor / ceiling คืออะไร",
+    s1Sub: "กลไกเบื้องหลัง \"คำตัดสินตามบทบาท\" บนหน้าผลลัพธ์",
+    s1Body: "floor คือระดับทักษะขั้นต่ำที่หน้างานของบทบาทนั้นต้องการ ส่วน ceiling คือระดับสูงสุดที่หน้างาน \"จำเป็น\" ต้องใช้ — ไม่ใช่เพดานของตัวคุณ ระบบเทียบระดับของคุณกับสองค่านี้แล้วสรุปเป็น 1 ใน 5 กรณี:",
+    verdicts: [
+      ["ยังไม่ถึงขั้นต่ำ", "ระดับของคุณต่ำกว่า floor — คำแนะนำเน้นปิดพื้นฐานให้เร็ว"],
+      ["กำลังมาถูกทาง", "ผ่าน floor แล้ว กำลังไต่ไปหาเพดาน — ไปต่อตามเส้นทางเดิม"],
+      ["พอดีกับบทบาท", "อยู่ที่เพดานพอดี — โฟกัสรักษาระดับและเก็บความลึก"],
+      ["เกินเพดานบทบาท", "ทักษะเกินที่หน้างานต้องการ — ระบบชวนเลือกเส้นทาง champion (นำ AI ในงานเดิม) หรือ pivot (ขยับสายงานให้ตรงสกิล)"],
+      ["ถึงเพดานเครื่องมือ", "เฉพาะสาย AI/ML: เพดานจริง (L5) เกินช่วงที่แบบประเมินวัด — ได้ระดับสูงสุดของเครื่องมือแล้ว"]
+    ],
+    s1Note: "ceiling จึงไม่ใช่คำสั่ง \"ห้ามเกิน\" — มันคือจุดที่ระบบเปลี่ยนจากคำแนะนำ \"พัฒนาต่อ\" เป็นคำแนะนำ \"เลือกทิศทาง\"",
+    s2Head: "หลักการออกแบบ 4 ข้อ",
+    s2Sub: "ใช้ตั้งค่า floor/ceiling ของทุกสายงาน",
+    principles: [
+      "ทุกบทบาทต้องรู้ทัน AI — ไม่มีสายงานไหนที่ floor ต่ำกว่า L1 (เข้าใจ) เพราะการรู้ข้อจำกัดและความเสี่ยงของ AI เป็นพื้นของพลเมืองยุคนี้ ไม่ใช่ทักษะเฉพาะทาง",
+      "งาน knowledge work ตั้ง floor ที่ L2 (ใช้เป็น) — บทบาทที่เนื้องานหลักคือการคิด วิเคราะห์ สร้างสรรค์ หรือสอน ล้วนถูก AI เปลี่ยนวิธีทำงานโดยตรง การ \"ใช้เป็น\" จึงเป็นขั้นต่ำ ไม่ใช่แต้มต่อ",
+      "เพดานตั้งตามหน้างานจริง ไม่ใช่ศักยภาพของคน — คำถามที่ใช้ตั้งค่าคือ \"งานประจำวันของบทบาทนี้ได้ประโยชน์จากระดับไหนบ้าง\" ไม่ใช่ \"คนในบทบาทนี้เก่งได้แค่ไหน\" (เก่งเกินเพดานยิ่งดี — ระบบจะชวนวางแผนต่อ)",
+      "L4–L5 สงวนไว้สำหรับสายอาชีพ AI โดยตรง — สอดคล้องกับโครงของ LinkedIn framework ที่วางระดับ 4–5 เป็น specialist ไม่ใช่เป้าหมายของผู้ใช้ทั่วไป"
+    ],
+    s3Head: "เหตุผลรายสายงาน (9 กลุ่ม)",
+    s3Sub: "ระดับอ้างอิง: L1 เข้าใจ · L2 ใช้ · L3 สร้าง · L4 ฝึกและดูแลโมเดล · L5 เชี่ยวชาญเชิงวิจัย",
+    s4Head: "ที่มาและข้อจำกัด — โปรดอ่าน",
+    s4Sub: "ความโปร่งใสเรื่องแหล่งอ้างอิง",
+    cautionBody: "⚠️ ค่า floor/ceiling ทั้งหมดเป็นการออกแบบของผู้พัฒนา AiStyle เอง โดยประเมินจากลักษณะงานของแต่ละบทบาท ยังไม่มีมาตรฐานสากลที่จับคู่ \"ระดับทักษะ AI ↔ สายอาชีพ\" ให้อ้างอิงโดยตรง — LinkedIn AI Upskilling Framework นิยามสเกล 5 ระดับแต่ไม่ผูกกับอาชีพ ส่วน OECD/EU AILit เป็นกรอบสมรรถนะการศึกษาที่ไม่แบ่งสายงาน ค่าเหล่านี้จึงมีสถานะเป็นสมมุติฐานตั้งต้น (design hypothesis) ไม่ใช่ข้อเท็จจริงที่พิสูจน์แล้ว",
+    s4Plan: "แผนต่อไป: เมื่อมีข้อมูลการใช้งานจริงมากพอ เราจะตรวจการกระจายของคำตัดสินรายบทบาท (เช่น ถ้าสายงานหนึ่ง \"ยังไม่ถึงขั้นต่ำ\" เกือบทั้งหมด แปลว่า floor อาจตั้งสูงเกินจริง) แล้วปรับค่าให้สะท้อนความเป็นจริงของผู้ใช้ หากคุณมีข้อเสนอหรือแหล่งอ้างอิงที่เกี่ยวข้อง ติดต่อทีมพัฒนาได้เลย",
+    footerCopy: "© 2026 Student Talent Development · Faculty of Engineering, Chiang Mai University"
+  },
+  en: {
+    backToAssessment: "Back to assessment",
+    badge: "Learn more",
+    title: "Where do the per-role skill ceilings come from?",
+    lead: "When you pick a role, the system compares your skill level against that role's \"floor\" and \"ceiling\" to tailor its advice to the actual job. This page opens up the full reasoning: what each role's numbers are based on, and the limitations you should know about.",
+    s1Head: "What floor / ceiling mean",
+    s1Sub: "The mechanism behind the role verdict on the result page",
+    s1Body: "The floor is the minimum skill level the role's day-to-day work requires; the ceiling is the highest level the job itself needs — not a cap on you. The system compares your level against both and lands on one of five verdicts:",
+    verdicts: [
+      ["Below the floor", "Your level is under the role's floor — advice focuses on closing the foundation quickly"],
+      ["On track", "Past the floor, climbing toward the ceiling — keep going on the same path"],
+      ["Fits the role", "Right at the ceiling — focus on maintaining the level and adding depth"],
+      ["Above the ceiling", "Your skill exceeds what the job needs — the system offers the champion path (lead AI where you are) or the pivot path (move toward roles that match your skill)"],
+      ["At instrument cap", "AI/ML roles only: the true ceiling (L5) exceeds what this assessment measures — you've reached the instrument's top"]
+    ],
+    s1Note: "So a ceiling is not a \"do not exceed\" order — it's the point where the system switches from \"keep developing\" advice to \"choose a direction\" advice.",
+    s2Head: "Four design principles",
+    s2Sub: "Used to set every role's floor and ceiling",
+    principles: [
+      "Every role must understand AI — no role's floor sits below L1 (Understanding), because knowing AI's limits and risks is modern citizenship, not a specialist skill",
+      "Knowledge work floors at L2 (Applying) — roles whose core output is thinking, analyzing, creating or teaching are directly reshaped by AI, so applying it is the minimum, not an edge",
+      "Ceilings follow the actual job, not people's potential — the design question is \"which levels does this role's daily work benefit from\", never \"how good can people in this role get\" (exceeding the ceiling is great — the system then helps you plan)",
+      "L4–L5 are reserved for AI-career roles — consistent with the LinkedIn framework's structure, which positions levels 4–5 as specialist territory rather than a general target"
+    ],
+    s3Head: "Role-by-role rationale (9 groups)",
+    s3Sub: "Reference levels: L1 Understand · L2 Apply · L3 Build · L4 Train & Maintain · L5 Deeply Specialize",
+    s4Head: "Origin and limitations — please read",
+    s4Sub: "Transparency about sources",
+    cautionBody: "⚠️ All floor/ceiling values are the AiStyle developers' own design, estimated from the nature of each role's work. No international standard directly maps \"AI skill level ↔ occupation\" that we could cite — the LinkedIn AI Upskilling Framework defines the 5-level scale but does not tie it to occupations, and the OECD/EU AILit framework is an education competence framework with no role breakdown. These values are therefore a starting design hypothesis, not established fact.",
+    s4Plan: "Next step: once enough real usage data accumulates, we will examine the distribution of verdicts per role (e.g., if one role lands almost entirely \"below the floor\", its floor is probably set too high) and recalibrate. If you have suggestions or relevant references, please contact the team.",
+    footerCopy: "© 2026 Student Talent Development · Faculty of Engineering, Chiang Mai University"
+  }
+};
+
+let currentLang = 'th';
+
+function render(){
+  document.documentElement.lang = currentLang;
+  const t = L[currentLang];
+  document.querySelectorAll('[data-i18n]').forEach(el => {
+    const val = t[el.dataset.i18n];
+    if(typeof val === 'string') el.textContent = val;
+  });
+
+  const vBox = document.getElementById('verdictList');
+  vBox.innerHTML = '';
+  t.verdicts.forEach(([name, desc]) => {
+    const row = document.createElement('div'); row.className = 'v';
+    const b = document.createElement('b'); b.textContent = name;
+    const s = document.createElement('span'); s.textContent = desc;
+    row.append(b, s); vBox.appendChild(row);
+  });
+
+  const pBox = document.getElementById('principleList');
+  pBox.innerHTML = '';
+  t.principles.forEach(text => {
+    const li = document.createElement('li'); li.textContent = text; pBox.appendChild(li);
+  });
+
+  const rBox = document.getElementById('roleList');
+  rBox.innerHTML = '';
+  ROLE_DATA.forEach(r => {
+    const row = document.createElement('div'); row.className = 'role-row';
+    const head = document.createElement('div'); head.className = 'rr-head';
+    const name = document.createElement('span'); name.className = 'rr-name';
+    name.textContent = r.name[currentLang];
+    const range = document.createElement('span'); range.className = 'rr-range';
+    range.textContent = `L${r.floor} → L${r.ceiling}`;
+    head.append(name, range);
+    const why = document.createElement('p'); why.className = 'rr-why';
+    why.textContent = r.why[currentLang];
+    row.append(head, why);
+    rBox.appendChild(row);
+  });
+
+  document.getElementById('langTH').classList.toggle('active', currentLang === 'th');
+  document.getElementById('langEN').classList.toggle('active', currentLang === 'en');
+  document.getElementById('langTH').setAttribute('aria-pressed', currentLang === 'th');
+  document.getElementById('langEN').setAttribute('aria-pressed', currentLang === 'en');
+}
+
+function setLang(lang){
+  if(lang !== 'th' && lang !== 'en') return;
+  currentLang = lang;
+  render();
+}
+
+render();
+</script>
+</body>
+</html>
