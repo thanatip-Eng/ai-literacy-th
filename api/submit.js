@@ -5,6 +5,7 @@
 const {readSession} = require('./_lib/session');
 const {readJsonBody} = require('./_lib/body');
 const {makeReceipt} = require('./_lib/receipt');
+const {postScore} = require('./_lib/outcomes');
 const connectConfig = require('../content/connect-config.js');
 
 function json(res, status, payload) {
@@ -72,10 +73,19 @@ module.exports = async (req, res) => {
     if (!ok) {
       console.log(`submit: Google Form rejected the entry with HTTP ${resp.status} ` +
         '(common causes: form not published, requires sign-in, or a required question is unmapped)');
+      json(res, 502, {ok, error: 'form_rejected', formStatus: resp.status});
+      return;
     }
-    json(res, ok ? 200 : 502, ok
-      ? {ok, receipt, stamp, email: session.email}
-      : {ok, error: 'form_rejected', formStatus: resp.status});
+    // The Sheet is the record of truth; a gradebook failure is reported but
+    // never turns a stored submission into an error for the student.
+    const grade = await postScore({
+      serviceUrl: session.outcomeUrl,
+      sourcedId: session.sourcedId,
+      score: 1,
+      consumerKey: process.env.LTI_CONSUMER_KEY,
+      consumerSecret: process.env.LTI_SHARED_SECRET
+    });
+    json(res, 200, {ok, receipt, stamp, email: session.email, graded: grade.ok});
   } catch (err) {
     console.log('submit: Google Form unreachable:', err && err.message);
     json(res, 502, {ok: false, error: 'form_unreachable'});

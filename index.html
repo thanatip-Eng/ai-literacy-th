@@ -641,6 +641,7 @@
     font-size:1.05rem;letter-spacing:2px;color:var(--teal-deep);
   }
   .receipt-hint{font-size:.88rem;color:var(--warn);font-weight:600;margin:0}
+  .receipt-graded{font-size:.88rem;color:var(--teal-deep);font-weight:600;margin:0 0 8px}
   .receipt-dl-btn{width:100%;margin-top:12px;padding:10px 14px;font-size:.9rem}
   @media print{.submit-cta{display:none!important}}
   .survey-overlay{
@@ -1150,6 +1151,7 @@
         <span class="receipt-label" data-i18n="receiptTimeLabel">เวลา</span><span id="receiptTime">—</span>
         <span class="receipt-label" data-i18n="receiptCodeLabel">รหัสยืนยัน</span><span class="receipt-code" id="receiptCode">—</span>
       </div>
+      <p class="receipt-graded" id="receiptGraded" hidden data-i18n="receiptGraded">✓ บันทึกคะแนนใน Canvas ให้อัตโนมัติแล้ว</p>
       <p class="receipt-hint" data-i18n="receiptHint">📸 แคปหน้าจอกล่องนี้เก็บไว้เป็นหลักฐานการส่งของคุณ</p>
       <button class="btn ghost receipt-dl-btn" id="receiptDownloadBtn" type="button" onclick="downloadReceiptImage()" data-i18n="receiptDownloadBtn">💾 ดาวน์โหลดภาพยืนยัน</button>
     </div>
@@ -1969,7 +1971,7 @@ async function submitConnectResult(){
     document.getElementById('connectSubmitBox').hidden = true;
     connectStatusKey = null;
     renderConnectStatus();
-    renderReceipt({receipt: 'DEMO12', stamp: new Date().toISOString(), email: 'demo@cmu.ac.th'});
+    renderReceipt({receipt: 'DEMO12', stamp: new Date().toISOString(), email: 'demo@cmu.ac.th', graded: true});
     return;
   }
   if(!CONNECT_MODE || !connectPayload) return;
@@ -1989,7 +1991,7 @@ async function submitConnectResult(){
       });
       const j = await r.json().catch(() => ({}));
       if(!r.ok || !j.ok) throw new Error('submit failed');
-      receiptInfo = {receipt: j.receipt || '', stamp: j.stamp || '', email: j.email || ''};
+      receiptInfo = {receipt: j.receipt || '', stamp: j.stamp || '', email: j.email || '', graded: !!j.graded};
     } else {
       if(!CONNECT.formUrl) throw new Error('no form url');
       const form = new FormData();
@@ -2024,6 +2026,8 @@ function renderReceipt(info){
     ? `${formatDate(new Date(info.stamp), currentLang)} · ${new Date(info.stamp).toLocaleTimeString(currentLang === 'th' ? 'th-TH' : 'en-US')} · ${info.stamp}`
     : '—';
   document.getElementById('receiptCode').textContent = info.receipt || '—';
+  const graded = document.getElementById('receiptGraded');
+  if(graded) graded.hidden = !info.graded;
   box.hidden = false;
 }
 
