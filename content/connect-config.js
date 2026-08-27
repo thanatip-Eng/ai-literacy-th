@@ -53,14 +53,14 @@ feedback: {
 // rating, fit, note, quadrant, lang, version แล้วเติม formUrl + entry ID ด้านล่าง
 // ค่าว่าง = widget ไม่แสดง
 microFeedback: {
-  formUrl: "",
+  formUrl: "https://docs.google.com/forms/d/e/1FAIpQLSf7dnrpxzgSz-_-ruGA2Mt06NGZlEP-1GntWqQWVcVtpJCvpA/formResponse",
   fields: {
-    rating: "",
-    fit: "",
-    note: "",
-    quadrant: "",
-    lang: "",
-    version: ""
+    rating: "entry.1545245341",
+    fit: "entry.179077316",
+    note: "entry.1063626964",
+    quadrant: "entry.158752728",
+    lang: "entry.448667513",
+    version: "entry.964770858"
   }
 },
 // ข้อความฉบับกระชับสำหรับผู้เรียนใน Canvas — override เฉพาะ key ที่ระบุ
