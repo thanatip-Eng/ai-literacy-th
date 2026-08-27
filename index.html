@@ -705,6 +705,30 @@
   .learn-link .ll-txt{display:flex;flex-direction:column;gap:1px;min-width:0}
   .learn-link .ll-txt b{font-size:.9rem;color:var(--teal-deep)}
   .learn-link .ll-txt small{font-size:.76rem;color:var(--muted);line-height:1.4}
+  /* micro-feedback widget (public result page) */
+  .micro-fb{
+    margin-top:22px;background:var(--card);border:1px solid var(--line);
+    border-radius:14px;padding:16px 18px;box-shadow:var(--shadow);text-align:center;
+  }
+  .mfb-head{margin:0 0 10px;font-family:"Chakra Petch",sans-serif;font-weight:600;font-size:.9rem;color:var(--teal-deep)}
+  .mfb-q{margin:8px 0 6px;font-size:.92rem;color:var(--ink)}
+  .mfb-stars{display:flex;justify-content:center;gap:6px}
+  .mfb-stars button{
+    background:none;border:none;cursor:pointer;font-size:1.9rem;line-height:1;
+    color:var(--line);padding:2px 4px;transition:transform .1s, color .1s;
+  }
+  .mfb-stars button:hover{transform:scale(1.15)}
+  .mfb-stars button.on{color:var(--amber)}
+  .mfb-note{
+    width:100%;max-width:420px;margin:10px auto 0;display:block;resize:vertical;
+    border:1px solid var(--line);border-radius:10px;padding:9px 12px;
+    font-family:inherit;font-size:.9rem;background:var(--paper-2);color:var(--ink);
+  }
+  .mfb-note:focus{outline:none;border-color:var(--teal)}
+  .mfb-send{margin-top:12px}
+  .mfb-privacy{margin:8px 0 0;font-size:.75rem;color:var(--muted);font-style:italic}
+  .mfb-thanks{margin:6px 0 0;font-size:.95rem;color:var(--teal-deep);font-weight:600}
+  .micro-fb.done .mfb-q,.micro-fb.done .mfb-stars,.micro-fb.done #mfbStep2{display:none}
   .demo-banner{
     background:repeating-linear-gradient(-45deg,var(--amber-soft),var(--amber-soft) 12px,#FFE9C4 12px,#FFE9C4 24px);
     border:1.5px dashed var(--amber);border-radius:12px;
@@ -1248,6 +1272,21 @@
     <span hidden id="rName"></span>
     <span hidden id="rBlurb"></span>
 
+    <!-- micro-feedback: public version only, optional, anonymous -->
+    <div class="micro-fb" id="microFb" hidden>
+      <p class="mfb-head" data-i18n="mfbHead">ช่วยบอกเราหน่อย — ไม่บังคับ ใช้เวลา 10 วินาที</p>
+      <p class="mfb-q" data-i18n="mfbQ1">ให้คะแนนแบบประเมินนี้</p>
+      <div class="mfb-stars" id="mfbRating" role="radiogroup" aria-label="rating"></div>
+      <div id="mfbStep2" hidden>
+        <p class="mfb-q" data-i18n="mfbQ2">ผลที่ได้ตรงกับตัวคุณแค่ไหน</p>
+        <div class="mfb-stars" id="mfbFit" role="radiogroup" aria-label="fit"></div>
+        <textarea class="mfb-note" id="mfbNote" rows="2" maxlength="500" data-i18n-placeholder="mfbNotePh" placeholder="ข้อเสนอแนะถึงทีมพัฒนา (ไม่บังคับ)"></textarea>
+        <button class="btn mfb-send" id="mfbSendBtn" type="button" onclick="submitMicroFeedback()" data-i18n="mfbSend">ส่งความเห็น</button>
+        <p class="mfb-privacy" data-i18n="mfbPrivacy">ส่งแบบไม่ระบุตัวตน — เฉพาะคำตอบในกล่องนี้ + รูปแบบผล/ภาษา เท่านั้น</p>
+      </div>
+      <p class="mfb-thanks" id="mfbThanks" hidden data-i18n="mfbThanks">ขอบคุณมากค่ะ 🙏 ความเห็นของคุณช่วยพัฒนาระบบนี้ต่อ</p>
+    </div>
+
     <div class="res-actions">
       <button class="btn ghost" id="feedbackBtn" type="button" onclick="openFeedbackForm()" data-i18n="feedbackBtn" hidden>ทำแบบประเมินความพึงพอใจ →</button>
       <button class="btn ghost" onclick="restart()" data-i18n="restartBtn">ทำแบบประเมินใหม่</button>
@@ -1737,6 +1776,7 @@ function finish(){
   };
   renderResult(pcts, placement, THRESH, partnership);
   show('result');
+  initMicroFeedback();
   if(CONNECT_MODE && !DEMO_PROFILE){
     // No auto-submit: the student reviews the result first, then presses
     // the big "send to instructor" button themselves.
@@ -1785,6 +1825,76 @@ function buildConnectPayload(pcts, placement, partnership){
     rawAnswers: answers.join(','),
     date: new Date().toISOString()
   };
+}
+
+/* ---------------- micro-feedback (public result page, optional, anonymous) ----
+   Reads the raw config (not CONNECT — that is null on public domains by design).
+   Hidden entirely in connect mode, demo mode, or while formUrl is unset. */
+const MICRO_FB = (function(){
+  const c = globalThis.AI_LITERACY_CONNECT;
+  const m = c && c.microFeedback;
+  if(!m || typeof m.formUrl !== 'string' || !m.formUrl) return null;
+  const f = m.fields || {};
+  if(typeof f.rating !== 'string' || !f.rating.startsWith('entry.')) return null;
+  return m;
+})();
+let mfbRating = 0, mfbFit = 0, mfbSent = false;
+
+function renderMfbStars(id, get, set){
+  const box = document.getElementById(id);
+  if(!box) return;
+  box.innerHTML = '';
+  for(let v = 1; v <= 5; v++){
+    const b = document.createElement('button');
+    b.type = 'button';
+    b.textContent = '\u2605';
+    b.setAttribute('role', 'radio');
+    b.setAttribute('aria-checked', String(v === get()));
+    b.setAttribute('aria-label', String(v));
+    b.classList.toggle('on', v <= get());
+    b.onclick = () => { set(v); renderMfbStars(id, get, set); document.getElementById('mfbStep2').hidden = false; };
+    box.appendChild(b);
+  }
+}
+
+function initMicroFeedback(){
+  const box = document.getElementById('microFb');
+  if(!box) return;
+  const eligible = !!MICRO_FB && !CONNECT_MODE && !DEMO_PROFILE;
+  box.hidden = !eligible;
+  if(!eligible) return;
+  box.classList.remove('done');
+  mfbRating = 0; mfbFit = 0; mfbSent = false;
+  document.getElementById('mfbThanks').hidden = true;
+  document.getElementById('mfbStep2').hidden = true;
+  document.getElementById('mfbNote').value = '';
+  renderMfbStars('mfbRating', () => mfbRating, v => { mfbRating = v; });
+  renderMfbStars('mfbFit', () => mfbFit, v => { mfbFit = v; });
+}
+
+async function submitMicroFeedback(){
+  if(!MICRO_FB || mfbSent || !mfbRating) return;
+  mfbSent = true;
+  const f = MICRO_FB.fields || {};
+  const values = {
+    rating: mfbRating,
+    fit: mfbFit || '',
+    note: document.getElementById('mfbNote').value.trim().slice(0, 500),
+    quadrant: (window.__res && window.__res.partnership) ? window.__res.partnership.quadrant : '',
+    lang: currentLang,
+    version: 'v3'
+  };
+  const form = new FormData();
+  Object.entries(values).forEach(([key, value]) => {
+    const entryId = f[key];
+    if(typeof entryId !== 'string' || !entryId.startsWith('entry.')) return;
+    if(value === '' || value === null || value === undefined) return;
+    form.append(entryId, String(value));
+  });
+  try{ await fetch(MICRO_FB.formUrl, {method: 'POST', mode: 'no-cors', body: form}); }catch(_){}
+  const box = document.getElementById('microFb');
+  box.classList.add('done');
+  document.getElementById('mfbThanks').hidden = false;
 }
 
 function renderConnectStatus(){
