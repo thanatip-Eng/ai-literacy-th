@@ -79,6 +79,14 @@
   .card p{margin:0 0 8px;font-size:.95rem;line-height:1.65}
   .card ul{margin:0;padding-left:20px}
   .card ul li{font-size:.92rem;line-height:1.7;margin-bottom:6px}
+  .guide-nav{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin:0 0 22px}
+  .guide-nav a{
+    font-family:"Chakra Petch",sans-serif;font-weight:600;font-size:.8rem;
+    padding:7px 14px;border-radius:999px;border:1px solid var(--line);
+    background:var(--card);color:var(--teal-deep);text-decoration:none;
+  }
+  .guide-nav a:hover{border-color:var(--teal)}
+  .guide-nav a[aria-current="page"]{background:var(--teal);color:#fff;border-color:var(--teal)}
   .footer{
     text-align:center;font-size:.82rem;color:var(--muted);
     margin-top:32px;padding-top:18px;border-top:1px solid var(--line);
@@ -96,6 +104,13 @@
   </div>
 
   <img class="main-logo" src="assets/AiStyle.png" alt="AiStyle — AI Literacy Assessment, Skill × Partnership" />
+
+  <nav class="guide-nav" aria-label="Knowledge pages">
+    <a href="frameworks.html" data-i18n="navFrameworks">📚 แหล่งที่มา framework</a>
+    <a href="roles-guide.html" data-i18n="navRoles">🎯 เพดานสายงาน</a>
+    <a href="workshops.html" data-i18n="navWorkshops">🛠 รายการ workshop</a>
+    <a href="tags-guide.html" aria-current="page" data-i18n="navTags">🏷 แท็กองค์กร</a>
+  </nav>
 
   <div class="badge" data-i18n="forOrgLeaders">สำหรับ L&D / ผู้นำองค์กร</div>
   <h1 data-i18n="orgGuideToggle">วิธีใช้แท็กสำหรับองค์กร</h1>
@@ -128,8 +143,8 @@
 <script>
 const CONTENT = globalThis.AI_LITERACY_CONTENT;
 const EXTRA = {
-  th: {backToAssessment: "กลับสู่แบบประเมิน", forOrgLeaders: "สำหรับ L&D / ผู้นำองค์กร"},
-  en: {backToAssessment: "Back to assessment", forOrgLeaders: "For L&D / org leaders"}
+  th: {backToAssessment: "กลับสู่แบบประเมิน", forOrgLeaders: "สำหรับ L&D / ผู้นำองค์กร", navFrameworks: "📚 แหล่งที่มา framework", navRoles: "🎯 เพดานสายงาน", navWorkshops: "🛠 รายการ workshop", navTags: "🏷 แท็กองค์กร"},
+  en: {backToAssessment: "Back to assessment", forOrgLeaders: "For L&D / org leaders", navFrameworks: "📚 Framework sources", navRoles: "🎯 Role ceilings", navWorkshops: "🛠 Workshop catalog", navTags: "🏷 Org tags"}
 };
 let currentLang = 'th';
 

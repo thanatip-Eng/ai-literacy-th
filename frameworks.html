@@ -74,6 +74,14 @@
     margin-top:14px;padding-top:10px;word-break:break-word;
   }
   .ref a{color:var(--warn);font-weight:600}
+  .guide-nav{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin:0 0 22px}
+  .guide-nav a{
+    font-family:"Chakra Petch",sans-serif;font-weight:600;font-size:.8rem;
+    padding:7px 14px;border-radius:999px;border:1px solid var(--line);
+    background:var(--card);color:var(--teal-deep);text-decoration:none;
+  }
+  .guide-nav a:hover{border-color:var(--teal)}
+  .guide-nav a[aria-current="page"]{background:var(--teal);color:#fff;border-color:var(--teal)}
   .footer{text-align:center;font-size:.82rem;color:var(--muted);margin-top:32px;padding-top:18px;border-top:1px solid var(--line)}
 </style>
 </head>
@@ -88,6 +96,13 @@
   </div>
 
   <img class="main-logo" src="assets/AiStyle.png" alt="AiStyle — AI Literacy Assessment, Skill × Partnership" />
+
+  <nav class="guide-nav" aria-label="Knowledge pages">
+    <a href="frameworks.html" aria-current="page" data-i18n="navFrameworks">📚 แหล่งที่มา framework</a>
+    <a href="roles-guide.html" data-i18n="navRoles">🎯 เพดานสายงาน</a>
+    <a href="workshops.html" data-i18n="navWorkshops">🛠 รายการ workshop</a>
+    <a href="tags-guide.html" data-i18n="navTags">🏷 แท็กองค์กร</a>
+  </nav>
 
   <div class="badge" data-i18n="badge">แหล่งความรู้</div>
   <h1 data-i18n="title">แหล่งที่มาของ framework</h1>
@@ -156,6 +171,10 @@ const L = {
   th: {
     backToAssessment: "กลับสู่แบบประเมิน",
     badge: "แหล่งความรู้",
+    navFrameworks: "📚 แหล่งที่มา framework",
+    navRoles: "🎯 เพดานสายงาน",
+    navWorkshops: "🛠 รายการ workshop",
+    navTags: "🏷 แท็กองค์กร",
     title: "แหล่งที่มาของ framework",
     lead: "AiStyle ไม่ได้สร้างจากศูนย์ — โครงสร้างการประเมินสังเคราะห์จากกรอบแนวคิด 3 แหล่งที่ต่างมุมกัน: กรอบทักษะจากแพลตฟอร์มอาชีพระดับโลก กรอบนโยบายการศึกษาระดับนานาชาติ และมุมมองการใช้งานจริงจากบริษัทเทคโนโลยีไทย หน้านี้สรุปแต่ละแหล่งและบอกว่าเรานำอะไรมาใช้ตรงไหน พร้อมบริบทจากนโยบายการใช้ Gen AI ของมหาวิทยาลัยเชียงใหม่",
     s1Head: "LinkedIn AI Upskilling Framework",
@@ -237,6 +256,10 @@ const L = {
   en: {
     backToAssessment: "Back to assessment",
     badge: "Learn more",
+    navFrameworks: "📚 Framework sources",
+    navRoles: "🎯 Role ceilings",
+    navWorkshops: "🛠 Workshop catalog",
+    navTags: "🏷 Org tags",
     title: "The frameworks behind AiStyle",
     lead: "AiStyle wasn't built from scratch — its structure synthesizes three sources with different vantage points: a skills framework from a global career platform, an international education-policy framework, and a practical perspective from a Thai tech company. This page summarizes each source and what we adopted from it, alongside the policy context of Chiang Mai University's own Generative AI announcement.",
     s1Head: "LinkedIn AI Upskilling Framework",

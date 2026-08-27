@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>รายการ workshop — AiStyle</title>
+<link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="assets/favicon-16.png">
+<link rel="apple-touch-icon" sizes="180x180" href="assets/favicon-180.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@500;600;700&family=IBM+Plex+Sans+Thai:wght@400;500;600;700&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#F3EEE4; --paper-2:#ECE5D7; --card:#FCFAF5; --ink:#211C16;
+    --muted:#736A5C; --line:#DCD3C2; --teal:#0E6E63; --teal-deep:#0A4F47;
+    --amber:#D9852A; --amber-soft:#FFF1D5; --warn:#B5642A; --r:18px;
+    --shadow:0 14px 30px -22px rgba(33,28,22,.4);
+  }
+  *{box-sizing:border-box}
+  [hidden]{display:none !important}
+  body{
+    margin:0;background:var(--paper);color:var(--ink);
+    font-family:"IBM Plex Sans Thai","IBM Plex Sans",sans-serif;
+    font-size:16px;line-height:1.6;min-height:100vh;
+    background-image:
+      radial-gradient(circle at 90% -10%,rgba(217,133,42,.18),transparent 55%),
+      radial-gradient(circle at -10% 110%,rgba(14,110,99,.14),transparent 50%);
+  }
+  .wrap{max-width:760px;margin:0 auto;padding:36px 22px 60px}
+  .topbar{display:flex;align-items:center;justify-content:space-between;margin-bottom:24px;flex-wrap:wrap;gap:12px}
+  .back-link{
+    font-family:"Chakra Petch",sans-serif;font-weight:600;font-size:.9rem;
+    color:var(--teal-deep);text-decoration:none;display:inline-flex;align-items:center;gap:6px;
+  }
+  .back-link:hover{color:var(--teal)}
+  .lang-toggle{display:flex;gap:4px;background:var(--card);border:1px solid var(--line);border-radius:999px;padding:4px}
+  .lang-toggle button{
+    font-family:"Chakra Petch",sans-serif;font-weight:600;font-size:.78rem;
+    padding:5px 12px;border:none;border-radius:999px;background:transparent;cursor:pointer;color:var(--muted);
+  }
+  .lang-toggle button.active{background:var(--teal);color:#fff}
+  .main-logo{display:block;margin:0 auto 14px;max-width:240px;width:auto;height:auto}
+  @media(max-width:520px){.main-logo{max-width:190px}}
+  .badge{
+    display:inline-flex;align-items:center;gap:6px;font-family:"Chakra Petch",sans-serif;
+    font-size:.78rem;background:var(--card);border:1px solid var(--line);
+    padding:6px 14px;border-radius:999px;color:var(--teal-deep);margin-bottom:14px;
+  }
+  h1{font-family:"Chakra Petch",sans-serif;font-weight:700;font-size:2rem;color:var(--ink);margin:0 0 10px;line-height:1.25}
+  .lead{font-size:1.02rem;color:var(--muted);max-width:62ch;margin:0 0 28px}
+  .card{
+    background:var(--card);border:1px solid var(--line);border-radius:var(--r);
+    padding:22px 24px;box-shadow:var(--shadow);margin-bottom:18px;
+  }
+  .card h2{
+    font-family:"Chakra Petch",sans-serif;font-weight:700;font-size:1.12rem;
+    color:var(--teal-deep);margin:0 0 4px;display:flex;align-items:center;gap:10px;
+  }
+  .card h2::before{content:"";width:18px;height:3px;border-radius:2px;background:var(--amber);flex:0 0 auto}
+  .card .subtitle{font-size:.85rem;color:var(--muted);margin:0 0 12px}
+  .lvl-group{margin:16px 0 4px;font-family:"Chakra Petch",sans-serif;font-weight:700;font-size:.9rem;color:var(--warn)}
+  .lvl-group .ref-tag{font-weight:600;font-size:.72rem;background:var(--paper-2);border:1px solid var(--line);border-radius:999px;padding:2px 10px;margin-left:8px;color:var(--muted)}
+  .ws-row{
+    border:1px solid var(--line);border-radius:12px;padding:14px 16px;margin-bottom:10px;
+    background:var(--paper-2);
+  }
+  .ws-head{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;margin-bottom:2px}
+  .ws-name{font-weight:700;font-size:.98rem}
+  .ws-aud{font-size:.78rem;color:var(--muted)}
+  .ws-cover{margin:6px 0 4px;font-size:.88rem}
+  .ws-cover b{color:var(--teal-deep);font-size:.82rem}
+  .ws-cover ul{margin:2px 0 0;padding-left:20px}
+  .ws-cover li{font-size:.88rem;line-height:1.6;margin-bottom:2px}
+  .ws-outcome{margin:6px 0 0;font-size:.86rem;color:var(--ink)}
+  .ws-outcome b{color:var(--teal-deep);font-size:.82rem}
+  .ws-link{margin:8px 0 0;font-size:.84rem}
+  .ws-link a{color:var(--warn);font-weight:600}
+  .ws-link .pending{color:var(--muted);font-style:italic}
+  .note{
+    background:var(--amber-soft);border:1.5px dashed var(--amber);border-radius:12px;
+    padding:12px 16px;font-size:.9rem;line-height:1.6;margin-bottom:18px;
+  }
+  .guide-nav{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin:0 0 22px}
+  .guide-nav a{
+    font-family:"Chakra Petch",sans-serif;font-weight:600;font-size:.8rem;
+    padding:7px 14px;border-radius:999px;border:1px solid var(--line);
+    background:var(--card);color:var(--teal-deep);text-decoration:none;
+  }
+  .guide-nav a:hover{border-color:var(--teal)}
+  .guide-nav a[aria-current="page"]{background:var(--teal);color:#fff;border-color:var(--teal)}
+  .footer{text-align:center;font-size:.82rem;color:var(--muted);margin-top:32px;padding-top:18px;border-top:1px solid var(--line)}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="topbar">
+    <a class="back-link" href="index.html">← <span data-i18n="backToAssessment">กลับสู่แบบประเมิน</span></a>
+    <div class="lang-toggle" role="group" aria-label="Language toggle">
+      <button id="langTH" class="active" onclick="setLang('th')" aria-pressed="true">TH</button>
+      <button id="langEN" onclick="setLang('en')" aria-pressed="false">EN</button>
+    </div>
+  </div>
+
+  <img class="main-logo" src="assets/AiStyle.png" alt="AiStyle — AI Literacy Assessment, Skill × Partnership" />
+
+  <nav class="guide-nav" aria-label="Knowledge pages">
+    <a href="frameworks.html" data-i18n="navFrameworks">📚 แหล่งที่มา framework</a>
+    <a href="roles-guide.html" data-i18n="navRoles">🎯 เพดานสายงาน</a>
+    <a href="workshops.html" aria-current="page" data-i18n="navWorkshops">🛠 รายการ workshop</a>
+    <a href="tags-guide.html" data-i18n="navTags">🏷 แท็กองค์กร</a>
+  </nav>
+
+  <div class="badge" data-i18n="badge">แหล่งความรู้</div>
+  <h1 data-i18n="title">รายการ workshop ที่แนะนำ</h1>
+  <p class="lead" data-i18n="lead"></p>
+  <div class="note" data-i18n="linkNote">🔗 รายการนี้คือ "พิมพ์เขียว" ของแต่ละหัวข้อ — ลิงก์คอร์ส/กิจกรรมจริงจะทยอยเพิ่มเข้ามา หัวข้อที่ยังไม่มีลิงก์ขึ้นว่า "เร็ว ๆ นี้"</div>
+
+  <section class="card">
+    <h2 data-i18n="skillHead">แทร็กทักษะ — ไต่ตามระดับ L1 → L5</h2>
+    <p class="subtitle" data-i18n="skillSub">จับคู่กับระดับทักษะบนหน้าผลลัพธ์ · L4–L5 เป็นระดับอ้างอิงสำหรับสายอาชีพ AI</p>
+    <div id="skillList"></div>
+  </section>
+
+  <section class="card">
+    <h2 data-i18n="styleHead">แทร็กสไตล์ — ยกระดับความสัมพันธ์กับ AI</h2>
+    <p class="subtitle" data-i18n="styleSub">จับคู่กับ 6 มิติ Partnership และ 4 รูปแบบผู้ใช้ · เหมาะจัดเสริมจากผลแท็กของกลุ่ม</p>
+    <div id="styleList"></div>
+  </section>
+
+  <p class="footer" data-i18n="footerCopy">© 2026 Student Talent Development · Faculty of Engineering, Chiang Mai University</p>
+</div>
+
+<script>
+/* Workshop catalog. Titles mirror content/app-content.js (levels[].workshops +
+   partnership.quadrants[].persona.workshops); descriptions/audience live only
+   here. To publish a real course, set `link` to its URL — nothing else needed. */
+const WORKSHOPS = [
+  // ---------- skill track ----------
+  {key:'ai_foundations', track:'skill', level:1, link:null,
+   title:{th:'พื้นฐาน AI สำหรับทุกคน', en:'AI Foundations for Everyone'},
+   audience:{th:'ทุกคนที่ยังไม่มั่นใจว่า AI คืออะไร', en:'Anyone not yet confident about what AI is'},
+   cover:{th:['AI/Gen AI ทำงานอย่างไรแบบไม่ต้องใช้คณิตศาสตร์ — สร้างคำตอบจากรูปแบบข้อมูล ไม่ได้ "คิด" แบบมนุษย์','AI ที่ทำงานอยู่เบื้องหลังชีวิตประจำวัน: ฟีด ระบบแนะนำ การอนุมัติอัตโนมัติ','ข้อจำกัดสำคัญ: hallucination, อคติจากข้อมูลฝึก, ข้อมูลไม่อัปเดต'],
+          en:['How AI/GenAI works without the math — patterns in data, not human "thinking"','Invisible AI in daily life: feeds, recommenders, automated decisions','Key limits: hallucination, training-data bias, stale knowledge']},
+   outcome:{th:'อธิบายได้ว่า AI ตอบมาจากอะไร และรู้ว่าเมื่อไหร่ไม่ควรเชื่อ', en:'Can explain where AI answers come from and when not to trust them'}},
+  {key:'responsible_ai', track:'skill', level:1, link:null,
+   title:{th:'การใช้ AI อย่างมีความรับผิดชอบ', en:'Responsible AI Practices'},
+   audience:{th:'นักศึกษา/บุคลากรทุกคน โดยเฉพาะผู้ใช้ในงานวิชาการ', en:'All students/staff, especially academic users'},
+   cover:{th:['นโยบายการใช้ Gen AI ของ มช. (อ้างอิง/เก็บ prompt · ข้อห้ามข้อมูลส่วนบุคคล)','การอ้างอิงผลงานที่ใช้ AI อย่างถูกต้อง และเส้นแบ่ง plagiarism','กรณีศึกษาการใช้ผิดที่เกิดผลจริง'],
+          en:['CMU\'s Gen AI policy (attribution/prompt records · personal-data prohibitions)','Correctly crediting AI-assisted work and the plagiarism line','Real misuse case studies']},
+   outcome:{th:'ใช้ AI ในงานเรียน/งานสอนได้โดยไม่ผิดกติกาและอ้างอิงเป็น', en:'Uses AI in study/teaching within the rules, with proper attribution'}},
+  {key:'everyday_prompting', track:'skill', level:1, link:null,
+   title:{th:'Prompt พื้นฐานในชีวิตประจำวัน', en:'Everyday Prompting Basics'},
+   audience:{th:'ผู้เริ่มต้นที่ยังถาม AI แบบประโยคเดียว', en:'Beginners still using one-line prompts'},
+   cover:{th:['โครงสร้าง prompt ที่ดี: บริบท + งาน + รูปแบบผลลัพธ์','ถาม-ปรับ-ถามต่อ (iterate) แทนการยอมรับคำตอบแรก','ตัวอย่างงานจริง: สรุป ร่างอีเมล เตรียมสอบ'],
+          en:['Good prompt structure: context + task + output format','Iterate instead of accepting the first answer','Real tasks: summarize, draft emails, exam prep']},
+   outcome:{th:'ได้ผลลัพธ์ที่ใช้งานได้จริงจากการถามอย่างมีโครงสร้าง', en:'Gets usable results through structured prompting'}},
+  {key:'intermediate_prompting', track:'skill', level:2, link:null,
+   title:{th:'Prompt Engineering ขั้นกลาง', en:'Intermediate Prompt Engineering'},
+   audience:{th:'ผู้ใช้ประจำที่อยากได้ผลลัพธ์แม่นและซับซ้อนขึ้น', en:'Regular users wanting sharper, more complex outputs'},
+   cover:{th:['เทคนิค role / few-shot / chain-of-thought / รูปแบบผลลัพธ์บังคับ','การป้อนเอกสารประกอบและคุมขอบเขตคำตอบ','การเลือกวิธีถามตามสถานะความรู้ (รู้ว่ารู้/ไม่รู้ว่าไม่รู้ → สั่งตรง/ระดมไอเดีย/ค้น)'],
+          en:['Role / few-shot / chain-of-thought / enforced output formats','Grounding with documents and constraining answers','Choosing the mode by knowledge state (known/unknown → direct/brainstorm/research)']},
+   outcome:{th:'ออกแบบ prompt ให้งานหลายขั้นเสร็จอย่างคุมคุณภาพได้', en:'Designs prompts that complete multi-step work with quality control'}},
+  {key:'ai_workflows', track:'skill', level:2, link:null,
+   title:{th:'AI กับเวิร์กโฟลว์ในงานประจำ', en:'AI Workflows in Daily Work'},
+   audience:{th:'คนทำงาน/นักศึกษาที่มีงานซ้ำ ๆ เป็นรูทีน', en:'Workers/students with repetitive routines'},
+   cover:{th:['แตกงานประจำเป็นขั้น แล้วเลือกขั้นที่ AI ช่วยได้คุ้ม','ต่อเครื่องมือที่ใช้อยู่ (เอกสาร สเปรดชีต อีเมล) เข้ากับ AI','จุดตรวจสอบของมนุษย์ในทุก workflow'],
+          en:['Decompose routines and pick the steps AI helps most','Connect existing tools (docs, sheets, email) with AI','Human checkpoints in every workflow']},
+   outcome:{th:'มี workflow จริงของตัวเองที่ AI ช่วยแล้วเร็วขึ้นวัดได้', en:'Leaves with a measurably faster personal AI-assisted workflow'}},
+  {key:'nocode_automation', track:'skill', level:2, link:null,
+   title:{th:'No-Code Automation พื้นฐาน', en:'No-Code Automation Basics'},
+   audience:{th:'ผู้ใช้คล่องที่อยากให้งานไหลอัตโนมัติโดยไม่เขียนโค้ด', en:'Fluent users wanting automation without code'},
+   cover:{th:['เครื่องมือ no-code (เช่น Zapier/Make/GPTs) และแนวคิด trigger → action','สร้าง automation ที่มี AI เป็นขั้นตอนหนึ่ง','ข้อควรระวัง: ข้อมูลที่ไหลออกนอกองค์กร'],
+          en:['No-code tools (e.g., Zapier/Make/GPTs) and trigger → action thinking','Automations with an AI step inside','Caution: data leaving the organization']},
+   outcome:{th:'สร้าง automation แรกที่ทำงานแทนตัวเองได้จริง 1 ชิ้น', en:'Ships one working automation that does real work'}},
+  {key:'ai_apis', track:'skill', level:3, link:null,
+   title:{th:'สร้างแอปด้วย AI API', en:'Building Apps with AI APIs'},
+   audience:{th:'ผู้ที่พร้อมขยับจาก "ผู้ใช้" เป็น "ผู้สร้าง"', en:'Those ready to move from user to builder'},
+   cover:{th:['เรียก AI API (key, request, ค่าใช้จ่าย, ข้อจำกัด rate)','ออกแบบ system prompt และโครงสร้างแอปอย่างง่าย','สร้างต้นแบบ 1 ตัวจนมีคนอื่นลองใช้ได้'],
+          en:['Calling AI APIs (keys, requests, costs, rate limits)','System-prompt design and simple app structure','Build one prototype others can try']},
+   outcome:{th:'มีต้นแบบแอป AI ของตัวเองที่รันได้จริง', en:'Owns a working AI app prototype'}},
+  {key:'intro_ml', track:'skill', level:3, link:null,
+   title:{th:'พื้นฐาน Machine Learning', en:'Introduction to Machine Learning'},
+   audience:{th:'สาย technical ที่อยากเข้าใจใต้ฝากระโปรง', en:'Technical folks wanting to see under the hood'},
+   cover:{th:['train/test, overfitting, การประเมินโมเดลแบบเข้าใจง่าย','ลองเทรนโมเดลเล็ก ๆ กับข้อมูลจริง','ความต่างระหว่าง ML ดั้งเดิมกับ LLM'],
+          en:['Train/test, overfitting, model evaluation made simple','Hands-on training a small model on real data','Classic ML vs. LLMs']},
+   outcome:{th:'อ่านผลโมเดลเป็นและรู้ว่าปัญหาไหนควรใช้ ML แบบใด', en:'Reads model results and matches problems to ML approaches'}},
+  {key:'llm_appdev', track:'skill', level:3, link:null,
+   title:{th:'LLM Application Development', en:'LLM Application Development'},
+   audience:{th:'นักพัฒนาที่จะสร้างระบบ LLM ใช้งานจริง', en:'Developers building production LLM systems'},
+   cover:{th:['RAG, tool use, การจัดการ context','การประเมินคุณภาพและ guardrails','ต้นทุน/ความเร็ว/ความเป็นส่วนตัวของข้อมูลผู้ใช้'],
+          en:['RAG, tool use, context management','Quality evaluation and guardrails','Cost/latency/user-data privacy']},
+   outcome:{th:'ออกแบบระบบ LLM ที่เชื่อถือได้เกินระดับ demo', en:'Designs LLM systems trustworthy beyond the demo stage'}},
+  {key:'mlops', track:'skill', level:4, link:null,
+   title:{th:'MLOps ขั้นสูง', en:'Advanced MLOps'},
+   audience:{th:'วิศวกร ML ที่ดูแลโมเดลใน production', en:'ML engineers running models in production'},
+   cover:{th:['pipeline เทรน-ดีพลอย-มอนิเตอร์','การจัดการ drift และ retraining','ระดับอ้างอิง — แนะนำคอร์สภายนอกเฉพาะทาง'],
+          en:['Train-deploy-monitor pipelines','Drift management and retraining','Reference tier — specialized external courses recommended']},
+   outcome:{th:'ดูแลโมเดล production ได้อย่างเป็นระบบ', en:'Operates production models systematically'}},
+  {key:'deep_learning', track:'skill', level:4, link:null,
+   title:{th:'Deep Learning เฉพาะทาง', en:'Specialized Deep Learning'},
+   audience:{th:'สายลึกที่ต้องปรับแต่ง/เทรนโมเดลเอง', en:'Specialists fine-tuning/training models'},
+   cover:{th:['สถาปัตยกรรมหลักและ fine-tuning','การเลือก/เตรียมข้อมูลเทรน','ระดับอ้างอิง — แนะนำคอร์สภายนอกเฉพาะทาง'],
+          en:['Core architectures and fine-tuning','Training-data selection/preparation','Reference tier — specialized external courses recommended']},
+   outcome:{th:'ปรับแต่งโมเดลให้เข้ากับโจทย์เฉพาะได้', en:'Fine-tunes models for specific problems'}},
+  {key:'trustworthy_ai', track:'skill', level:4, link:null,
+   title:{th:'Responsible & Trustworthy AI', en:'Responsible & Trustworthy AI'},
+   audience:{th:'ผู้พัฒนา/ผู้กำกับระบบ AI ในองค์กร', en:'Builders/governors of organizational AI'},
+   cover:{th:['fairness, explainability, การประเมินความเสี่ยง','กรอบกำกับ (เช่น EU AI Act) โดยสังเขป','ระดับอ้างอิง — แนะนำคอร์สภายนอกเฉพาะทาง'],
+          en:['Fairness, explainability, risk assessment','Governance frameworks (e.g., EU AI Act) in brief','Reference tier — specialized external courses recommended']},
+   outcome:{th:'ประเมินและสื่อสารความเสี่ยงของระบบ AI ได้', en:'Assesses and communicates AI system risk'}},
+  {key:'ai_research', track:'skill', level:5, link:null,
+   title:{th:'AI Research & Frontier Models', en:'AI Research & Frontier Models'},
+   audience:{th:'นักวิจัย/ผู้สนใจงาน frontier', en:'Researchers / frontier-curious'},
+   cover:{th:['ติดตามงานวิจัยและ benchmark สำคัญ','ระดับอ้างอิง — เส้นทางบัณฑิตศึกษา/วิจัย'],
+          en:['Following key research and benchmarks','Reference tier — graduate/research pathway']},
+   outcome:{th:'มีแผนที่เส้นทางเข้าสู่งานวิจัย AI', en:'Has a map into AI research'}},
+  {key:'ai_strategy', track:'skill', level:5, link:null,
+   title:{th:'AI Strategy Leadership', en:'Leading AI Strategy'},
+   audience:{th:'ผู้บริหารที่กำหนดทิศ AI ระดับองค์กร', en:'Executives setting organizational AI direction'},
+   cover:{th:['ประเมินความพร้อมองค์กรและ ROI ของ AI','นโยบายข้อมูล ความเสี่ยง และคน','ระดับอ้างอิง — executive program'],
+          en:['Org readiness and AI ROI','Data policy, risk and people','Reference tier — executive program']},
+   outcome:{th:'วางยุทธศาสตร์ AI ที่ทีมนำไปทำต่อได้จริง', en:'Sets an AI strategy teams can execute'}},
+  // ---------- style (partnership) track ----------
+  {key:'critical_use', track:'style', level:null, link:null,
+   title:{th:'Critical AI Use & Verification', en:'Critical AI Use & Verification'},
+   audience:{th:'ทุกคน โดยเฉพาะกลุ่ม autopilot / #weak:verify', en:'Everyone, especially autopilot / #weak:verify groups'},
+   cover:{th:['ฝึก "จับผิด AI" กับคำตอบที่มั่นใจแต่ผิดจริง','เทคนิคตรวจสอบเร็ว: แหล่งที่สอง, ถามย้อน, ขอหลักฐาน','ความรับผิดชอบต่อผลงานที่มี AI ช่วย'],
+          en:['Practice catching confidently-wrong AI answers','Fast verification: second sources, cross-examining, demanding evidence','Owning AI-assisted work']},
+   outcome:{th:'มีนิสัยตรวจสอบก่อนใช้เป็นค่าเริ่มต้น', en:'Verification becomes the default habit'}},
+  {key:'ai_mindfulness', track:'style', level:null, link:null,
+   title:{th:'AI Mindfulness — รู้จักเลือกใช้และไม่ใช้', en:'AI Mindfulness — choosing when to use vs. not'},
+   audience:{th:'ผู้ใช้หนักที่เปิด AI ก่อนคิด / #weak:restraint', en:'Heavy users who open AI before thinking / #weak:restraint'},
+   cover:{th:['งานแบบไหนควรทำเองเพื่อรักษากล้ามเนื้อการคิด','สัญญาณของการพึ่งพาเกิน (คิดตาม AI แทนคิดเอง)','ออกแบบกติกาส่วนตัว: ใช้เมื่อไหร่ ไม่ใช้เมื่อไหร่'],
+          en:['Which tasks to do yourself to keep thinking muscles','Signs of over-reliance (thinking after AI, not before)','Personal rules: when to use, when not']},
+   outcome:{th:'มีเกณฑ์ส่วนตัวชัดเจนว่างานไหนใช้/ไม่ใช้ AI', en:'Clear personal criteria for AI vs. no-AI tasks'}},
+  {key:'human_skill', track:'style', level:null, link:null,
+   title:{th:'Human-Skill Lead — empathy · ความคิดสร้างสรรค์ · วิจารณญาณ', en:'Human-Skill Lead — empathy · creativity · judgment'},
+   audience:{th:'กลุ่ม #weak:human_lead / ทีมที่งานพึ่งไอเดีย AI มากไป', en:'#weak:human_lead groups / teams leaning on AI ideas'},
+   cover:{th:['ฟังและสังเกตมนุษย์ก่อนให้ AI สรุป','เทคนิคให้ไอเดียหลักมาจากตัวเอง แล้วใช้ AI ขยาย/ขัดเกลา','human-centered design เบื้องต้น'],
+          en:['Listen and observe humans before AI summaries','Own the core idea; use AI to expand/polish','Human-centered design basics']},
+   outcome:{th:'งานที่ส่งออกมีลายมือความคิดของตัวเองชัดขึ้น', en:'Work carries a clearly human fingerprint again'}},
+  {key:'ai_for_learning', track:'style', level:null, link:null,
+   title:{th:'ใช้ AI เพื่อการเรียนรู้ — ติวเตอร์ ไม่ใช่ทำแทน', en:'AI for Learning — tutor, not stand-in'},
+   audience:{th:'นักศึกษาทุกคน โดยเฉพาะ #weak:learning', en:'All students, especially #weak:learning'},
+   cover:{th:['ตั้ง AI เป็น Personal tutor / Socratic opponent (ตามภาคผนวกประกาศ มช.)','เกณฑ์ "อธิบายเองได้" ก่อนส่งงานทุกครั้ง','งานวิจัย metacognitive laziness: ผลงานดี ≠ ได้เรียนรู้'],
+          en:['Set AI as Personal tutor / Socratic opponent (per CMU policy appendix)','The "can I explain it myself?" bar before submitting','Metacognitive-laziness research: good output ≠ learning']},
+   outcome:{th:'ใช้ AI แล้วสอบ/อธิบายเองได้ดีขึ้น ไม่ใช่แค่งานเสร็จ', en:'AI use improves what you can explain, not just what you submit'}},
+  {key:'data_privacy', track:'style', level:null, link:null,
+   title:{th:'Data Privacy & นโยบายการใช้ Gen AI', en:'Data Privacy & Gen AI Policy'},
+   audience:{th:'ทุกคนที่ป้อนข้อมูลจริงให้ AI / #weak:privacy', en:'Anyone feeding real data into AI / #weak:privacy'},
+   cover:{th:['ข้อมูลแบบไหนห้ามป้อนให้ AI (ส่วนบุคคล/ลับ/ทรัพย์สินทางปัญญา — ข้อ 7.3)','เทคนิคทำข้อมูลให้ปลอดภัยก่อนใช้ (นิรนาม/ตัดทอน)','ตั้งค่าความเป็นส่วนตัวของเครื่องมือยอดนิยม'],
+          en:['What must never go into AI (personal/confidential/IP — clause 7.3)','Sanitizing data before use (anonymize/redact)','Privacy settings of popular tools']},
+   outcome:{th:'เช็คข้อมูลก่อนป้อนเป็นอัตโนมัติ และตั้งค่าเครื่องมือปลอดภัย', en:'Pre-feed data checks become automatic; tools configured safely'}},
+  {key:'champion_coaching', track:'style', level:null, link:null,
+   title:{th:'AI Champion Coaching', en:'AI Champion Coaching'},
+   audience:{th:'ผู้ที่ผล above_ceiling / director ที่พร้อมนำคนอื่น', en:'Above-ceiling / director results ready to lead others'},
+   cover:{th:['เปลี่ยนความเก่งส่วนตัวเป็น template/SOP ที่ทีมใช้ได้','เทคนิคสอนเพื่อนร่วมงาน (สอนวิธีคิด ไม่ใช่แค่ prompt)','วัดผลการยกระดับของทีม'],
+          en:['Turn personal skill into team templates/SOPs','Coaching colleagues (teach the thinking, not just prompts)','Measuring the team\'s lift']},
+   outcome:{th:'มีแผน coaching จริง 1 แผน พร้อมตัววัด', en:'A real coaching plan with metrics'}},
+  {key:'leading_adoption', track:'style', level:null, link:null,
+   title:{th:'Leading AI Adoption ในทีม / องค์กร', en:'Leading AI Adoption in teams'},
+   audience:{th:'หัวหน้าทีม/ผู้บริหารที่จะขับเคลื่อนการใช้ AI', en:'Team leads/executives driving AI adoption'},
+   cover:{th:['อ่านแท็กสรุปของกลุ่ม (#weak:… , quadrant) เป็นแผนพัฒนา','เลือก use case แรกที่สำเร็จง่ายและเห็นผล','กติกาการใช้ + ความปลอดภัยข้อมูลระดับทีม'],
+          en:['Reading the group\'s tags (#weak:…, quadrants) into a development plan','Picking a first high-win use case','Team usage rules + data safety']},
+   outcome:{th:'มี roadmap adoption ของทีมพร้อมตัวชี้วัด', en:'A team adoption roadmap with indicators'}}
+];
+
+const L = {
+  th: {
+    backToAssessment: "กลับสู่แบบประเมิน",
+    badge: "แหล่งความรู้",
+    navFrameworks: "📚 แหล่งที่มา framework",
+    navRoles: "🎯 เพดานสายงาน",
+    navWorkshops: "🛠 รายการ workshop",
+    navTags: "🏷 แท็กองค์กร",
+    title: "รายการ workshop ที่แนะนำ",
+    lead: "หัวข้อ workshop ทั้งหมดที่หน้าผลลัพธ์อ้างถึง รวมไว้ที่เดียว — แบ่งเป็นแทร็กทักษะ (ไต่ระดับ L1→L5) และแทร็กสไตล์ (ยกระดับความสัมพันธ์กับ AI ทั้ง 6 มิติ) แต่ละหัวข้อบอกกลุ่มเป้าหมาย สิ่งที่ควรครอบคลุม และผลลัพธ์ที่คาดหวัง",
+    linkNote: "🔗 รายการนี้คือ \"พิมพ์เขียว\" ของแต่ละหัวข้อ — ลิงก์คอร์ส/กิจกรรมจริงจะทยอยเพิ่มเข้ามา หัวข้อที่ยังไม่มีลิงก์ขึ้นว่า \"เร็ว ๆ นี้\"",
+    skillHead: "แทร็กทักษะ — ไต่ตามระดับ L1 → L5",
+    skillSub: "จับคู่กับระดับทักษะบนหน้าผลลัพธ์ · L4–L5 เป็นระดับอ้างอิงสำหรับสายอาชีพ AI",
+    styleHead: "แทร็กสไตล์ — ยกระดับความสัมพันธ์กับ AI",
+    styleSub: "จับคู่กับ 6 มิติ Partnership และ 4 รูปแบบผู้ใช้ · เหมาะจัดเสริมจากผลแท็กของกลุ่ม",
+    lvlNames: {1:"ระดับ 1 · เข้าใจ", 2:"ระดับ 2 · ใช้", 3:"ระดับ 3 · สร้าง", 4:"ระดับ 4 · ฝึกและดูแลโมเดล", 5:"ระดับ 5 · เชี่ยวชาญเชิงวิจัย"},
+    refTag: "ระดับอ้างอิง",
+    forLabel: "เหมาะกับ:",
+    coverLabel: "ควรครอบคลุม",
+    outcomeLabel: "ผลลัพธ์ที่คาด:",
+    linkLabel: "🔗 คอร์ส/กิจกรรมจริง:",
+    linkPending: "เร็ว ๆ นี้",
+    footerCopy: "© 2026 Student Talent Development · Faculty of Engineering, Chiang Mai University"
+  },
+  en: {
+    backToAssessment: "Back to assessment",
+    badge: "Learn more",
+    navFrameworks: "📚 Framework sources",
+    navRoles: "🎯 Role ceilings",
+    navWorkshops: "🛠 Workshop catalog",
+    navTags: "🏷 Org tags",
+    title: "Recommended workshop catalog",
+    lead: "Every workshop the result page refers to, in one place — a skill track (climbing L1→L5) and a style track (strengthening all 6 partnership dimensions). Each entry lists the audience, what it should cover, and the expected outcome.",
+    linkNote: "🔗 This catalog is each topic's blueprint — links to real courses/activities will be added over time. Topics without one yet show \"coming soon\".",
+    skillHead: "Skill track — climbing L1 → L5",
+    skillSub: "Maps to the skill levels on the result page · L4–L5 are reference tier for AI careers",
+    styleHead: "Style track — strengthening your AI partnership",
+    styleSub: "Maps to the 6 partnership dimensions and 4 usage patterns · ideal follow-ups to group tag results",
+    lvlNames: {1:"Level 1 · Understand", 2:"Level 2 · Apply", 3:"Level 3 · Build", 4:"Level 4 · Train & Maintain", 5:"Level 5 · Deeply Specialize"},
+    refTag: "reference tier",
+    forLabel: "For:",
+    coverLabel: "Should cover",
+    outcomeLabel: "Expected outcome:",
+    linkLabel: "🔗 Real course/activity:",
+    linkPending: "coming soon",
+    footerCopy: "© 2026 Student Talent Development · Faculty of Engineering, Chiang Mai University"
+  }
+};
+
+let currentLang = 'th';
+
+function wsCard(w, t){
+  const row = document.createElement('div'); row.className = 'ws-row';
+  const head = document.createElement('div'); head.className = 'ws-head';
+  const name = document.createElement('span'); name.className = 'ws-name';
+  name.textContent = w.title[currentLang];
+  const aud = document.createElement('span'); aud.className = 'ws-aud';
+  aud.textContent = `${t.forLabel} ${w.audience[currentLang]}`;
+  head.append(name);
+  const cover = document.createElement('div'); cover.className = 'ws-cover';
+  const cb = document.createElement('b'); cb.textContent = t.coverLabel;
+  const ul = document.createElement('ul');
+  w.cover[currentLang].forEach(x => { const li = document.createElement('li'); li.textContent = x; ul.appendChild(li); });
+  cover.append(cb, ul);
+  const out = document.createElement('p'); out.className = 'ws-outcome';
+  const ob = document.createElement('b'); ob.textContent = t.outcomeLabel + ' ';
+  out.append(ob, document.createTextNode(w.outcome[currentLang]));
+  const link = document.createElement('p'); link.className = 'ws-link';
+  const lb = document.createElement('b'); lb.textContent = t.linkLabel + ' ';
+  link.appendChild(lb);
+  if(w.link){
+    const a = document.createElement('a'); a.href = w.link; a.target = '_blank'; a.rel = 'noopener noreferrer';
+    a.textContent = w.link.replace(/^https?:\/\//,'');
+    link.appendChild(a);
+  } else {
+    const span = document.createElement('span'); span.className = 'pending';
+    span.textContent = t.linkPending;
+    link.appendChild(span);
+  }
+  row.append(head, aud, cover, out, link);
+  return row;
+}
+
+function render(){
+  document.documentElement.lang = currentLang;
+  const t = L[currentLang];
+  document.querySelectorAll('[data-i18n]').forEach(el => {
+    const val = t[el.dataset.i18n];
+    if(typeof val === 'string') el.textContent = val;
+  });
+
+  const sBox = document.getElementById('skillList');
+  sBox.innerHTML = '';
+  [1,2,3,4,5].forEach(lvl => {
+    const ws = WORKSHOPS.filter(w => w.track === 'skill' && w.level === lvl);
+    if(!ws.length) return;
+    const h = document.createElement('div'); h.className = 'lvl-group';
+    h.textContent = t.lvlNames[lvl];
+    if(lvl >= 4){
+      const tag = document.createElement('span'); tag.className = 'ref-tag';
+      tag.textContent = t.refTag; h.appendChild(tag);
+    }
+    sBox.appendChild(h);
+    ws.forEach(w => sBox.appendChild(wsCard(w, t)));
+  });
+
+  const yBox = document.getElementById('styleList');
+  yBox.innerHTML = '';
+  WORKSHOPS.filter(w => w.track === 'style').forEach(w => yBox.appendChild(wsCard(w, t)));
+
+  document.getElementById('langTH').classList.toggle('active', currentLang === 'th');
+  document.getElementById('langEN').classList.toggle('active', currentLang === 'en');
+  document.getElementById('langTH').setAttribute('aria-pressed', currentLang === 'th');
+  document.getElementById('langEN').setAttribute('aria-pressed', currentLang === 'en');
+}
+
+function setLang(lang){
+  if(lang !== 'th' && lang !== 'en') return;
+  currentLang = lang;
+  render();
+}
+
+render();
+</script>
+</body>
+</html>
