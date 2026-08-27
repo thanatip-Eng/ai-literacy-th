@@ -274,7 +274,46 @@
   .quadrant-grid{
     display:grid;grid-template-columns:repeat(2,1fr);gap:14px;margin-top:14px;
   }
-  @media(max-width:540px){.quadrant-grid{grid-template-columns:1fr}}
+  /* the grid lives inside a labeled 2-axis matrix frame */
+  .quad-matrix{display:grid;grid-template-columns:auto 1fr;column-gap:8px;row-gap:6px;margin-top:14px}
+  .qm-y{
+    grid-column:1;grid-row:1;align-self:center;
+    writing-mode:vertical-rl;transform:rotate(180deg);
+    font-family:"Chakra Petch",sans-serif;font-weight:600;font-size:.78rem;
+    color:var(--teal-deep);letter-spacing:.02em;
+  }
+  .qm-y::after{content:" ▸";color:var(--amber)}
+  .qm-x{
+    grid-column:2;grid-row:2;text-align:center;
+    font-family:"Chakra Petch",sans-serif;font-weight:600;font-size:.78rem;
+    color:var(--teal-deep);letter-spacing:.02em;
+  }
+  .qm-x::after{content:" ▸";color:var(--amber)}
+  .qm-plot{grid-column:2;grid-row:1;position:relative;padding:12px 0 12px 14px}
+  .qm-plot .quadrant-grid{margin-top:0}
+  .qm-axis-y{position:absolute;left:0;top:2px;bottom:0;width:2px;background:var(--line)}
+  .qm-axis-y::before{
+    content:"";position:absolute;top:-9px;left:-4px;
+    border:5px solid transparent;border-bottom:9px solid var(--amber);
+  }
+  .qm-axis-x{position:absolute;left:0;right:2px;bottom:0;height:2px;background:var(--line)}
+  .qm-axis-x::after{
+    content:"";position:absolute;right:-9px;top:-4px;
+    border:5px solid transparent;border-left:9px solid var(--amber);
+  }
+  @media(max-width:540px){
+    /* keep the 2x2 matrix on phones — compact collapsed cards instead of stacking */
+    .quadrant-grid{grid-template-columns:repeat(2,1fr);gap:8px}
+    .quad-matrix .quadrant-persona-icon{width:48px;height:48px}
+    .quad-matrix .quadrant-persona-head{gap:8px}
+    .quad-matrix .quadrant-persona-name{font-size:.86rem}
+    .quad-matrix .quadrant-persona-name small{font-size:.68rem}
+    .quad-matrix .quadrant-persona > summary{padding:10px 24px 10px 10px}
+    .quad-matrix .quadrant-persona > summary .qp-short{display:none}
+    .quad-matrix .quadrant-persona > summary::after{right:8px;top:12px}
+    /* an open card needs reading room — span both columns while expanded */
+    .quad-matrix .quadrant-persona[open]{grid-column:1 / -1}
+  }
   .quadrant-persona{
     background:var(--card);border:1px solid var(--line);border-radius:14px;
     padding:0;box-shadow:var(--shadow);position:relative;overflow:hidden;
@@ -903,7 +942,15 @@
       <h2 class="about-h" id="quadrantsExplainedHeading" data-i18n="quadrantsExplainedHead">4 รูปแบบการใช้ AI</h2>
       <p class="about-sub" data-i18n="quadrantsExplainedSub">เกิดจากการตัดกันของ "ทักษะ AI" และ "ความสัมพันธ์กับ AI"</p>
       <p class="quadrants-note" data-i18n="quadrantTapHint">แตะการ์ดเพื่อดูรายละเอียดของแต่ละแบบ</p>
-      <div class="quadrant-grid" id="introQuadrantGrid"></div>
+      <div class="quad-matrix">
+        <span class="qm-y" data-i18n="quadrantAxisSkill">ทักษะ AI</span>
+        <div class="qm-plot">
+          <span class="qm-axis-y" aria-hidden="true"></span>
+          <span class="qm-axis-x" aria-hidden="true"></span>
+          <div class="quadrant-grid" id="introQuadrantGrid"></div>
+        </div>
+        <span class="qm-x" data-i18n="quadrantAxisPartnership">ความสัมพันธ์กับ AI</span>
+      </div>
     </section>
 
     <section class="about-card learn-more-card" aria-labelledby="learnMoreHeading">
@@ -1143,7 +1190,15 @@
     <details class="quadrants-details">
       <summary data-i18n="quadrantsExplainedResultToggle">เปรียบเทียบทั้ง 4 รูปแบบ</summary>
       <p class="quadrants-note" style="margin:10px 18px 0" data-i18n="quadrantTapHint">แตะการ์ดเพื่อดูรายละเอียดของแต่ละแบบ</p>
-      <div class="quadrant-grid" id="resultQuadrantGrid"></div>
+      <div class="quad-matrix" style="margin:0 14px 16px">
+        <span class="qm-y" data-i18n="quadrantAxisSkill">ทักษะ AI</span>
+        <div class="qm-plot">
+          <span class="qm-axis-y" aria-hidden="true"></span>
+          <span class="qm-axis-x" aria-hidden="true"></span>
+          <div class="quadrant-grid" id="resultQuadrantGrid"></div>
+        </div>
+        <span class="qm-x" data-i18n="quadrantAxisPartnership">ความสัมพันธ์กับ AI</span>
+      </div>
     </details>
 
     <!-- org tag section: hidden in connect mode (students submit results
@@ -2439,8 +2494,9 @@ function renderQuadrantGrid(containerId, currentKey){
   const box = document.getElementById(containerId);
   if(!box || !PARTNERSHIP) return;
   box.innerHTML = '';
-  // 2×2 grid order: top-left autopilot, top-right director,
-  // bottom-left novice, bottom-right coach (skill→ X axis, partnership→ Y axis)
+  // 2×2 matrix order: top-left autopilot, top-right director,
+  // bottom-left novice, bottom-right coach
+  // (Y axis = skill, high on top · X axis = partnership, high on the right)
   ['autopilot', 'director', 'novice', 'coach'].forEach(key => {
     const q = PARTNERSHIP.quadrants[key];
     if(!q) return;
