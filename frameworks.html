@@ -145,6 +145,7 @@
     <h2 data-i18n="s4Head">ส่วนที่ AiStyle ออกแบบเอง</h2>
     <p class="subtitle" data-i18n="s4Sub">สิ่งที่ไม่มีในแหล่งใดข้างต้น</p>
     <ul id="s4List"></ul>
+    <p class="ref" id="s4Ref"></p>
   </section>
 
   <p class="footer" data-i18n="footerCopy">© 2026 Student Talent Development · Faculty of Engineering, Chiang Mai University</p>
@@ -230,6 +231,7 @@ const L = {
       "ระบบแท็กสรุปสำหรับการวิเคราะห์ระดับกลุ่มโดยทีมผู้สอน/L&D",
       "การสะท้อนจุดแข็ง/ตัวฉุดระดับมิติย่อย เมื่อ profile ไม่สมดุล"
     ],
+    s4RefHtml: "อ่านเพิ่ม: หลักคิดและเหตุผลของ floor/ceiling รายสายงาน — <a href=\"roles-guide.html\">เพดานทักษะรายสายงาน</a> (การออกแบบของ AiStyle เอง พร้อมคำอธิบายข้อจำกัด)",
     footerCopy: "© 2026 Student Talent Development · Faculty of Engineering, Chiang Mai University"
   },
   en: {
@@ -310,6 +312,7 @@ const L = {
       "The summary-tag system for cohort-level analysis by instructors / L&D teams",
       "Strength/gap surfacing at the subtrait level for unbalanced profiles"
     ],
+    s4RefHtml: "Read more: the reasoning behind each role's floor/ceiling — <a href=\"roles-guide.html\">Per-role skill ceilings</a> (AiStyle's own design, limitations explained)",
     footerCopy: "© 2026 Student Talent Development · Faculty of Engineering, Chiang Mai University"
   }
 };
@@ -347,6 +350,7 @@ function applyLang(){
   setRefHtml('s2Ref', t.s2RefHtml);
   setRefHtml('s3Ref', t.s3RefHtml);
   setRefHtml('cmuRef', t.cmuRefHtml);
+  setRefHtml('s4Ref', t.s4RefHtml);
   document.getElementById('langTH').classList.toggle('active', currentLang === 'th');
   document.getElementById('langEN').classList.toggle('active', currentLang === 'en');
   document.getElementById('langTH').setAttribute('aria-pressed', currentLang === 'th');
