@@ -163,6 +163,17 @@
     <p class="ref" id="s4Ref"></p>
   </section>
 
+  <section class="card" id="ai-transparency">
+    <h2 data-i18n="aiTHead">🤝 ความโปร่งใสเรื่องการใช้ AI ในการพัฒนาระบบนี้</h2>
+    <p class="subtitle" data-i18n="aiTSub">ใครทำอะไร — ระหว่างมนุษย์กับ AI</p>
+    <p data-i18n="aiTBody"></p>
+    <h3 data-i18n="aiTAiHead">บทบาทของ AI</h3>
+    <ul id="aiTAiList"></ul>
+    <h3 data-i18n="aiTHumanHead">บทบาทของมนุษย์</h3>
+    <ul id="aiTHumanList"></ul>
+    <p class="ref" id="aiTRef"></p>
+  </section>
+
   <p class="footer" data-i18n="footerCopy">© 2026 Student Talent Development · Faculty of Engineering, Chiang Mai University</p>
 </div>
 
@@ -251,6 +262,22 @@ const L = {
       "การสะท้อนจุดแข็ง/ตัวฉุดระดับมิติย่อย เมื่อ profile ไม่สมดุล"
     ],
     s4RefHtml: "อ่านเพิ่ม: หลักคิดและเหตุผลของ floor/ceiling รายสายงาน — <a href=\"roles-guide.html\">เพดานทักษะรายสายงาน</a> (การออกแบบของ AiStyle เอง พร้อมคำอธิบายข้อจำกัด)",
+    aiTHead: "🤝 ความโปร่งใสเรื่องการใช้ AI ในการพัฒนาระบบนี้",
+    aiTSub: "ใครทำอะไร — ระหว่างมนุษย์กับ AI",
+    aiTBody: "AiStyle พัฒนาโดยผู้พัฒนา (Student Talent Development, คณะวิศวกรรมศาสตร์ มหาวิทยาลัยเชียงใหม่) ร่วมกับ Claude — AI ผู้ช่วยของ Anthropic ผ่านเครื่องมือ Claude Code เราเปิดเผยการแบ่งบทบาทไว้ตรงนี้อย่างชัดเจน:",
+    aiTAiList: [
+      "เขียนโค้ดของระบบตามโจทย์และคำสั่งของผู้พัฒนา",
+      "ร่างข้อคำถามและเนื้อหาสองภาษาให้ผู้พัฒนาคัดเลือกและปรับ",
+      "วิเคราะห์และเทียบเคียงกรอบแนวคิด (LinkedIn, OECD/EU AILit, LINE MAN Wongnai, ประกาศ มช.)",
+      "เขียนหน้าความรู้และเอกสารประกอบ"
+    ],
+    aiTHumanList: [
+      "ตั้งโจทย์และกำหนดทิศทางของทุกฟีเจอร์",
+      "ตัดสินใจการออกแบบทั้งหมด — โครงสองแกน เกณฑ์คะแนน การเพิ่มมิติที่ 5–6 นโยบายความเป็นส่วนตัวของข้อมูล",
+      "ทดสอบกับการใช้งานจริงในห้องเรียนและสั่งปรับทุกรอบ",
+      "ตรวจทานเนื้อหาและรับผิดชอบผลงานสุดท้ายทั้งหมด"
+    ],
+    aiTRefHtml: "การเปิดเผยนี้เป็นไปตามประกาศมหาวิทยาลัยเชียงใหม่ เรื่องนโยบายการใช้ Gen AI (ข้อ 6.4 — การอ้างอิงการใช้ AI ในผลงาน) และกระบวนการทำงานนี้เองคือตัวอย่างของรูปแบบ \"ผู้นำ AI\" ที่แบบประเมินนี้อยากชวนทุกคนไปให้ถึง — มนุษย์นำ ตรวจสอบ และตัดสินใจ โดยมี AI เป็นคู่คิดที่ทรงพลัง",
     footerCopy: "© 2026 Student Talent Development · Faculty of Engineering, Chiang Mai University"
   },
   en: {
@@ -336,6 +363,22 @@ const L = {
       "Strength/gap surfacing at the subtrait level for unbalanced profiles"
     ],
     s4RefHtml: "Read more: the reasoning behind each role's floor/ceiling — <a href=\"roles-guide.html\">Per-role skill ceilings</a> (AiStyle's own design, limitations explained)",
+    aiTHead: "🤝 AI-use transparency for this system",
+    aiTSub: "Who did what — human and AI",
+    aiTBody: "AiStyle was built by its developer (Student Talent Development, Faculty of Engineering, Chiang Mai University) together with Claude — Anthropic's AI assistant, via the Claude Code tool. We disclose the division of roles plainly:",
+    aiTAiList: [
+      "Wrote the system's code to the developer's specifications and instructions",
+      "Drafted bilingual items and content for the developer to select and revise",
+      "Analyzed and cross-mapped the source frameworks (LinkedIn, OECD/EU AILit, LINE MAN Wongnai, CMU policy)",
+      "Wrote the knowledge pages and documentation"
+    ],
+    aiTHumanList: [
+      "Set every goal and direction",
+      "Made all design decisions — the two-axis structure, scoring thresholds, adding the 5th–6th dimensions, the data-privacy policy",
+      "Tested with real classroom use and directed every revision",
+      "Reviewed the content and takes full responsibility for the final work"
+    ],
+    aiTRefHtml: "This disclosure follows Chiang Mai University's Gen AI policy (clause 6.4 — attributing AI use in one's work). The building process itself is an example of the \"AI Director\" pattern this assessment invites everyone toward — humans leading, verifying and deciding, with AI as a powerful thinking partner.",
     footerCopy: "© 2026 Student Talent Development · Faculty of Engineering, Chiang Mai University"
   }
 };
@@ -374,6 +417,8 @@ function applyLang(){
   setRefHtml('s3Ref', t.s3RefHtml);
   setRefHtml('cmuRef', t.cmuRefHtml);
   setRefHtml('s4Ref', t.s4RefHtml);
+  fillList('aiTAiList', t.aiTAiList); fillList('aiTHumanList', t.aiTHumanList);
+  setRefHtml('aiTRef', t.aiTRefHtml);
   document.getElementById('langTH').classList.toggle('active', currentLang === 'th');
   document.getElementById('langEN').classList.toggle('active', currentLang === 'en');
   document.getElementById('langTH').setAttribute('aria-pressed', currentLang === 'th');
