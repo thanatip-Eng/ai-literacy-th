@@ -42,11 +42,6 @@
   .lang-toggle button.active{background:var(--teal);color:#fff}
   .main-logo{display:block;margin:0 auto 14px;max-width:240px;width:auto;height:auto}
   @media(max-width:520px){.main-logo{max-width:190px}}
-  .badge{
-    display:inline-flex;align-items:center;gap:6px;font-family:"Chakra Petch",sans-serif;
-    font-size:.78rem;background:var(--card);border:1px solid var(--line);
-    padding:6px 14px;border-radius:999px;color:var(--teal-deep);margin-bottom:14px;
-  }
   h1{font-family:"Chakra Petch",sans-serif;font-weight:700;font-size:2rem;color:var(--ink);margin:0 0 10px;line-height:1.25}
   .lead{font-size:1.02rem;color:var(--muted);max-width:62ch;margin:0 0 28px}
   .card{
@@ -111,7 +106,6 @@
     <a href="tags-guide.html" data-i18n="navTags">🏷 แท็กองค์กร</a>
   </nav>
 
-  <div class="badge" data-i18n="badge">แหล่งความรู้</div>
   <h1 data-i18n="title">รายการ workshop ที่แนะนำ</h1>
   <p class="lead" data-i18n="lead"></p>
   <div class="note" data-i18n="linkNote">🔗 รายการนี้คือ "พิมพ์เขียว" ของแต่ละหัวข้อ — ลิงก์คอร์ส/กิจกรรมจริงจะทยอยเพิ่มเข้ามา หัวข้อที่ยังไม่มีลิงก์ขึ้นว่า "เร็ว ๆ นี้"</div>
@@ -269,7 +263,6 @@ const WORKSHOPS = [
 const L = {
   th: {
     backToAssessment: "กลับสู่แบบประเมิน",
-    badge: "แหล่งความรู้",
     navFrameworks: "📚 แหล่งที่มา framework",
     navRoles: "🎯 เพดานสายงาน",
     navWorkshops: "🛠 รายการ workshop",
@@ -292,7 +285,6 @@ const L = {
   },
   en: {
     backToAssessment: "Back to assessment",
-    badge: "Learn more",
     navFrameworks: "📚 Framework sources",
     navRoles: "🎯 Role ceilings",
     navWorkshops: "🛠 Workshop catalog",

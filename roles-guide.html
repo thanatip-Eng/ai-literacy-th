@@ -42,11 +42,6 @@
   .lang-toggle button.active{background:var(--teal);color:#fff}
   .main-logo{display:block;margin:0 auto 14px;max-width:240px;width:auto;height:auto}
   @media(max-width:520px){.main-logo{max-width:190px}}
-  .badge{
-    display:inline-flex;align-items:center;gap:6px;font-family:"Chakra Petch",sans-serif;
-    font-size:.78rem;background:var(--card);border:1px solid var(--line);
-    padding:6px 14px;border-radius:999px;color:var(--teal-deep);margin-bottom:14px;
-  }
   h1{font-family:"Chakra Petch",sans-serif;font-weight:700;font-size:2rem;color:var(--ink);margin:0 0 10px;line-height:1.25}
   .lead{font-size:1.02rem;color:var(--muted);max-width:62ch;margin:0 0 28px}
   .card{
@@ -131,7 +126,6 @@
     <a href="tags-guide.html" data-i18n="navTags">🏷 แท็กองค์กร</a>
   </nav>
 
-  <div class="badge" data-i18n="badge">แหล่งความรู้</div>
   <h1 data-i18n="title">เพดานทักษะรายสายงาน มาจากไหน?</h1>
   <p class="lead" data-i18n="lead"></p>
 
@@ -224,7 +218,6 @@ const ROLE_DATA = [
 const L = {
   th: {
     backToAssessment: "กลับสู่แบบประเมิน",
-    badge: "แหล่งความรู้",
     title: "เพดานทักษะรายสายงาน มาจากไหน?",
     lead: "ตอนเลือกบทบาท ระบบใช้ค่า \"ขั้นต่ำ (floor)\" และ \"เพดาน (ceiling)\" ของสายงานนั้นมาเทียบกับระดับทักษะของคุณ เพื่อให้คำแนะนำที่ตรงกับหน้างานจริง หน้านี้เปิดหลักคิดทั้งหมด: ตัวเลขแต่ละสายงานตั้งจากอะไร และมีข้อจำกัดอะไรที่ควรรู้",
     navFrameworks: "📚 แหล่งที่มา framework",
@@ -264,7 +257,6 @@ const L = {
   },
   en: {
     backToAssessment: "Back to assessment",
-    badge: "Learn more",
     title: "Where do the per-role skill ceilings come from?",
     lead: "When you pick a role, the system compares your skill level against that role's \"floor\" and \"ceiling\" to tailor its advice to the actual job. This page opens up the full reasoning: what each role's numbers are based on, and the limitations you should know about.",
     navFrameworks: "📚 Framework sources",
