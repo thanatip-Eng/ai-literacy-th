@@ -55,13 +55,6 @@
   .lang-toggle button.active{background:var(--teal);color:#fff}
   .main-logo{display:block;margin:0 auto 14px;max-width:240px;width:auto;height:auto}
   @media(max-width:520px){.main-logo{max-width:190px}}
-  .badge{
-    display:inline-flex;align-items:center;gap:6px;
-    font-family:"Chakra Petch",sans-serif;font-size:.78rem;
-    background:var(--card);border:1px solid var(--line);
-    padding:6px 14px;border-radius:999px;color:var(--teal-deep);
-    margin-bottom:14px;
-  }
   h1{
     font-family:"Chakra Petch",sans-serif;font-weight:700;font-size:2.1rem;
     color:var(--ink);margin:0 0 10px;line-height:1.2;
@@ -112,7 +105,6 @@
     <a href="tags-guide.html" aria-current="page" data-i18n="navTags">🏷 แท็กองค์กร</a>
   </nav>
 
-  <div class="badge" data-i18n="forOrgLeaders">สำหรับ L&D / ผู้นำองค์กร</div>
   <h1 data-i18n="orgGuideToggle">วิธีใช้แท็กสำหรับองค์กร</h1>
   <p class="lead" data-i18n="orgGuideIntro"></p>
 
@@ -143,8 +135,8 @@
 <script>
 const CONTENT = globalThis.AI_LITERACY_CONTENT;
 const EXTRA = {
-  th: {backToAssessment: "กลับสู่แบบประเมิน", forOrgLeaders: "สำหรับ L&D / ผู้นำองค์กร", navFrameworks: "📚 แหล่งที่มา framework", navRoles: "🎯 เพดานสายงาน", navWorkshops: "🛠 รายการ workshop", navTags: "🏷 แท็กองค์กร"},
-  en: {backToAssessment: "Back to assessment", forOrgLeaders: "For L&D / org leaders", navFrameworks: "📚 Framework sources", navRoles: "🎯 Role ceilings", navWorkshops: "🛠 Workshop catalog", navTags: "🏷 Org tags"}
+  th: {backToAssessment: "กลับสู่แบบประเมิน", navFrameworks: "📚 แหล่งที่มา framework", navRoles: "🎯 เพดานสายงาน", navWorkshops: "🛠 รายการ workshop", navTags: "🏷 แท็กองค์กร"},
+  en: {backToAssessment: "Back to assessment", navFrameworks: "📚 Framework sources", navRoles: "🎯 Role ceilings", navWorkshops: "🛠 Workshop catalog", navTags: "🏷 Org tags"}
 };
 let currentLang = 'th';
 
