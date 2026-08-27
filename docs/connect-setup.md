@@ -5,7 +5,7 @@
 deployment เดียวให้บริการได้ทั้งสองแบบ — โหมดเชื่อมต่อทำงานเฉพาะโดเมนที่อยู่ใน
 `connectHosts` ของ `content/connect-config.js` ส่วน**โดเมนอื่นทุกโดเมนของโปรเจกต์
 เดียวกันเป็นโหมด public (zero-data) โดยอัตโนมัติ** วิธีเพิ่มโดเมนสาธารณะ:
-Vercel → Project → Settings → Domains → Add (เช่น `aistyle-test.vercel.app`) —
+Vercel → Project → Settings → Domains → Add (เช่น `testyouraistyle.vercel.app`) —
 เพิ่มแล้วใช้ได้ทันที ไม่ต้องแก้ config
 
 นอกจากนี้ `copyOverrides` ใน config ใช้ปรับข้อความบางจุดให้กระชับสำหรับผู้เรียน
