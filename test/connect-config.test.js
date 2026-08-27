@@ -58,6 +58,7 @@ test('copyOverrides only override existing string keys, in both languages', () =
 
 test('feedback block, when present, is a valid prefillable form link', () => {
   if (!config.feedback) return;
+  if (config.feedback.url === '') return; // empty url = the big survey is switched off
   assert.match(config.feedback.url, /^https:\/\/docs\.google\.com\/forms\/.+\/viewform$/,
     'feedback.url must be the /viewform URL of a Google Form');
   for (const [field, entryId] of Object.entries(config.feedback.params || {})) {
@@ -75,7 +76,7 @@ test('enabled config points at a real Google Form response endpoint', () => {
   assert.ok(mapped.length > 0, 'enabled config must map at least one field');
 });
 
-const MICRO_FB_FIELDS = ['rating', 'fit', 'note', 'quadrant', 'lang', 'version'];
+const MICRO_FB_FIELDS = ['rating', 'fit', 'useful', 'note', 'quadrant', 'lang', 'version', 'aud'];
 
 test('microFeedback block is well-formed', () => {
   const m = config.microFeedback;
