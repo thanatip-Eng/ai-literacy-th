@@ -277,8 +277,22 @@
   @media(max-width:540px){.quadrant-grid{grid-template-columns:1fr}}
   .quadrant-persona{
     background:var(--card);border:1px solid var(--line);border-radius:14px;
-    padding:16px 16px 18px;display:flex;flex-direction:column;gap:8px;
-    box-shadow:var(--shadow);position:relative;overflow:hidden;
+    padding:0;box-shadow:var(--shadow);position:relative;overflow:hidden;
+  }
+  .quadrant-persona:hover{border-color:var(--persona-color, var(--teal))}
+  .quadrant-persona > summary{
+    list-style:none;cursor:pointer;padding:14px 34px 14px 16px;
+    display:flex;flex-direction:column;gap:6px;position:relative;
+  }
+  .quadrant-persona > summary::-webkit-details-marker{display:none}
+  .quadrant-persona > summary::after{
+    content:"▸";position:absolute;right:14px;top:16px;
+    color:var(--persona-color, var(--teal));font-weight:700;transition:transform .15s;
+  }
+  .quadrant-persona[open] > summary::after{transform:rotate(90deg)}
+  .quadrant-persona .qp-short{font-size:.82rem;color:var(--muted);line-height:1.5;margin:0}
+  .quadrant-persona .qp-body{
+    padding:0 16px 16px;display:flex;flex-direction:column;gap:8px;
   }
   .quadrant-persona::before{
     content:"";position:absolute;left:0;top:0;width:5px;height:100%;
@@ -286,7 +300,7 @@
   }
   .quadrant-persona.is-current{outline:2px solid var(--persona-color, var(--teal));outline-offset:-1px}
   .quadrant-persona .current-tag{
-    position:absolute;top:10px;right:10px;font-size:.7rem;font-weight:600;
+    position:absolute;top:10px;right:32px;font-size:.7rem;font-weight:600;
     padding:3px 8px;border-radius:999px;background:var(--persona-color);color:#fff;
     font-family:"Chakra Petch",sans-serif;letter-spacing:.04em;
   }
@@ -888,6 +902,7 @@
     <section class="about-card quadrants-card" aria-labelledby="quadrantsExplainedHeading">
       <h2 class="about-h" id="quadrantsExplainedHeading" data-i18n="quadrantsExplainedHead">4 รูปแบบการใช้ AI</h2>
       <p class="about-sub" data-i18n="quadrantsExplainedSub">เกิดจากการตัดกันของ "ทักษะ AI" และ "ความสัมพันธ์กับ AI"</p>
+      <p class="quadrants-note" data-i18n="quadrantTapHint">แตะการ์ดเพื่อดูรายละเอียดของแต่ละแบบ</p>
       <div class="quadrant-grid" id="introQuadrantGrid"></div>
     </section>
 
@@ -1127,6 +1142,7 @@
 
     <details class="quadrants-details">
       <summary data-i18n="quadrantsExplainedResultToggle">เปรียบเทียบทั้ง 4 รูปแบบ</summary>
+      <p class="quadrants-note" style="margin:10px 18px 0" data-i18n="quadrantTapHint">แตะการ์ดเพื่อดูรายละเอียดของแต่ละแบบ</p>
       <div class="quadrant-grid" id="resultQuadrantGrid"></div>
     </details>
 
@@ -2428,16 +2444,18 @@ function renderQuadrantGrid(containerId, currentKey){
     const q = PARTNERSHIP.quadrants[key];
     if(!q) return;
     const persona = q.persona || {};
-    const card = document.createElement('div');
+    // collapsed card: avatar + name + one-line tagline; tap/click expands
+    const card = document.createElement('details');
     card.className = 'quadrant-persona';
-    if(key === currentKey) card.classList.add('is-current');
+    if(key === currentKey){ card.classList.add('is-current'); card.open = true; }
     card.style.setProperty('--persona-color', q.color);
 
+    const summary = document.createElement('summary');
     if(key === currentKey){
       const tag = document.createElement('span');
       tag.className = 'current-tag';
       tag.textContent = currentLang === 'th' ? 'คุณอยู่นี่' : 'You are here';
-      card.appendChild(tag);
+      summary.appendChild(tag);
     }
 
     const head = document.createElement('div');
@@ -2454,30 +2472,40 @@ function renderQuadrantGrid(containerId, currentKey){
     small.textContent = secondary;
     nameEl.appendChild(small);
     head.append(iconWrap, nameEl);
-    card.appendChild(head);
+    summary.appendChild(head);
+    if(q.short){
+      const shortEl = document.createElement('p');
+      shortEl.className = 'qp-short';
+      shortEl.textContent = tx(q.short);
+      summary.appendChild(shortEl);
+    }
+    card.appendChild(summary);
 
+    const body = document.createElement('div');
+    body.className = 'qp-body';
     if(persona.who){
-      const h = document.createElement('h6'); h.textContent = t('quadrantPersonaWhoHead'); card.appendChild(h);
-      const p = document.createElement('p'); p.textContent = tx(persona.who); card.appendChild(p);
+      const h = document.createElement('h6'); h.textContent = t('quadrantPersonaWhoHead'); body.appendChild(h);
+      const p = document.createElement('p'); p.textContent = tx(persona.who); body.appendChild(p);
     }
     if(Array.isArray(persona.strengths) && persona.strengths.length){
-      const h = document.createElement('h6'); h.textContent = t('quadrantStrengthsHead'); card.appendChild(h);
+      const h = document.createElement('h6'); h.textContent = t('quadrantStrengthsHead'); body.appendChild(h);
       const ul = document.createElement('ul');
       persona.strengths.forEach(s => { const li = document.createElement('li'); li.textContent = tx(s); ul.appendChild(li); });
-      card.appendChild(ul);
+      body.appendChild(ul);
     }
     if(Array.isArray(persona.watchouts) && persona.watchouts.length){
-      const h = document.createElement('h6'); h.textContent = t('quadrantWatchoutsHead'); card.appendChild(h);
+      const h = document.createElement('h6'); h.textContent = t('quadrantWatchoutsHead'); body.appendChild(h);
       const ul = document.createElement('ul');
       persona.watchouts.forEach(s => { const li = document.createElement('li'); li.textContent = tx(s); ul.appendChild(li); });
-      card.appendChild(ul);
+      body.appendChild(ul);
     }
     if(Array.isArray(persona.workshops) && persona.workshops.length){
-      const h = document.createElement('h6'); h.textContent = t('quadrantWorkshopsHead'); card.appendChild(h);
+      const h = document.createElement('h6'); h.textContent = t('quadrantWorkshopsHead'); body.appendChild(h);
       const ul = document.createElement('ul');
       persona.workshops.forEach(s => { const li = document.createElement('li'); li.textContent = tx(s); ul.appendChild(li); });
-      card.appendChild(ul);
+      body.appendChild(ul);
     }
+    card.appendChild(body);
     box.appendChild(card);
   });
 }
