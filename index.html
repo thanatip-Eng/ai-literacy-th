@@ -1788,6 +1788,8 @@ function finish(){
     // the big "send to instructor" button themselves.
     connectPayload = buildConnectPayload(pcts, placement, partnership);
     document.getElementById('connectSubmitBox').hidden = false;
+  } else if(demoCanvas()){
+    document.getElementById('connectSubmitBox').hidden = false;
   }
 }
 
@@ -1869,7 +1871,7 @@ function renderMfbStars(id, get, set){
 function initMicroFeedback(){
   const box = document.getElementById('microFb');
   if(!box) return;
-  const eligible = !!MICRO_FB && !DEMO_PROFILE;
+  const eligible = !!MICRO_FB && (!DEMO_PROFILE || demoCanvas());
   box.hidden = !eligible;
   if(!eligible){ updateMfbGate(); return; }
   box.classList.remove('done');
@@ -1878,15 +1880,15 @@ function initMicroFeedback(){
   document.getElementById('mfbStep2').hidden = true;
   document.getElementById('mfbNote').value = '';
   const head = box.querySelector('.mfb-head');
-  head.dataset.i18n = CONNECT_MODE ? 'mfbHeadConnect' : 'mfbHead';
+  head.dataset.i18n = canvasView() ? 'mfbHeadConnect' : 'mfbHead';
   head.textContent = t(head.dataset.i18n);
   // on Canvas the result itself IS identified, so the privacy line has to say
   // that only this box is anonymous — otherwise it reads as a broader promise
   const priv = box.querySelector('.mfb-privacy');
-  priv.dataset.i18n = CONNECT_MODE ? 'mfbPrivacyConnect' : 'mfbPrivacy';
+  priv.dataset.i18n = canvasView() ? 'mfbPrivacyConnect' : 'mfbPrivacy';
   priv.textContent = t(priv.dataset.i18n);
-  document.getElementById('mfbSendBtn').hidden = !!CONNECT_MODE;
-  if(CONNECT_MODE){
+  document.getElementById('mfbSendBtn').hidden = canvasView();
+  if(canvasView()){
     // sit right above the send-to-instructor button so the gate is obvious
     const submitBox = document.getElementById('connectSubmitBox');
     if(submitBox && submitBox.parentNode) submitBox.parentNode.insertBefore(box, submitBox);
@@ -1903,7 +1905,7 @@ function updateMfbGate(){
   const btn = document.getElementById('connectSubmitBtn');
   const hint = document.getElementById('mfbGateHint');
   if(!btn) return;
-  const gated = !!CONNECT_MODE && !DEMO_PROFILE && !!MICRO_FB;
+  const gated = canvasView() && !!MICRO_FB;
   const ok = (mfbRating > 0 && mfbFit > 0 && mfbUseful > 0) || mfbSent;
   btn.disabled = gated && !ok;
   if(hint) hint.hidden = !gated || ok;
@@ -1921,7 +1923,7 @@ async function submitMicroFeedback(){
     quadrant: (window.__res && window.__res.partnership) ? window.__res.partnership.quadrant : '',
     lang: currentLang,
     version: 'v3',
-    aud: CONNECT_MODE ? 'canvas' : 'public'
+    aud: canvasView() ? 'canvas' : 'public'
   };
   const form = new FormData();
   Object.entries(values).forEach(([key, value]) => {
@@ -1930,7 +1932,10 @@ async function submitMicroFeedback(){
     if(value === '' || value === null || value === undefined) return;
     form.append(entryId, String(value));
   });
-  try{ await fetch(MICRO_FB.formUrl, {method: 'POST', mode: 'no-cors', body: form}); }catch(_){}
+  // demo previews go through the same UI but never leave the browser
+  if(!DEMO_PROFILE){
+    try{ await fetch(MICRO_FB.formUrl, {method: 'POST', mode: 'no-cors', body: form}); }catch(_){}
+  }
   const box = document.getElementById('microFb');
   box.classList.add('done');
   document.getElementById('mfbThanks').hidden = false;
@@ -1958,6 +1963,15 @@ function renderConnectWhoami(){
 }
 
 async function submitConnectResult(){
+  if(demoCanvas()){
+    // simulated send: same screens, no request, sample confirmation code
+    if(MICRO_FB && !mfbSent && mfbRating) submitMicroFeedback();
+    document.getElementById('connectSubmitBox').hidden = true;
+    connectStatusKey = null;
+    renderConnectStatus();
+    renderReceipt({receipt: 'DEMO12', stamp: new Date().toISOString(), email: 'demo@cmu.ac.th'});
+    return;
+  }
   if(!CONNECT_MODE || !connectPayload) return;
   // required micro-feedback rides along with the result (best-effort, anonymous)
   if(MICRO_FB && !mfbSent && mfbRating) submitMicroFeedback();
@@ -2003,7 +2017,7 @@ function renderReceipt(info){
   const box = document.getElementById('connectReceipt');
   if(!box || !info) return;
   connectReceiptInfo = info;
-  const who = [connectPayload && connectPayload.name, info.email || (connectPayload && connectPayload.studentId)]
+  const who = [(connectPayload && connectPayload.name) || userName, info.email || (connectPayload && connectPayload.studentId)]
     .filter(Boolean).join(' · ');
   document.getElementById('receiptWho').textContent = who || '—';
   document.getElementById('receiptTime').textContent = info.stamp
@@ -2044,7 +2058,7 @@ async function generateReceiptImage(){
   ctx.font = '600 40px "IBM Plex Sans Thai", "IBM Plex Sans", sans-serif';
   ctx.fillText('✅ ' + t('receiptHead').replace(/^✅\s*/, ''), 120, 210);
 
-  const who = [connectPayload && connectPayload.name, info.email || (connectPayload && connectPayload.studentId)]
+  const who = [(connectPayload && connectPayload.name) || userName, info.email || (connectPayload && connectPayload.studentId)]
     .filter(Boolean).join(' · ');
   const stampDate = info.stamp ? new Date(info.stamp) : null;
   const rows = [
@@ -3231,6 +3245,18 @@ async function downloadResultImage(){
   }
 }
 
+/* ---------------- DEMO MODE (?demo=1 | novice | coach | autopilot | director
+   | canvas) — jumps straight to the result screen with a simulated profile so
+   reviewers can see the final page without answering all questions.
+   ?demo=canvas additionally replays what a Canvas student sees: the required
+   feedback card, the send-to-instructor button and a sample receipt.
+   Zero-data safe in every variant: nothing is stored or sent. */
+let DEMO_PROFILE = new URLSearchParams(location.search).get('demo');
+function demoCanvas(){ return DEMO_PROFILE === 'canvas' || DEMO_PROFILE === 'student'; }
+/* True whenever the page should look like the Canvas student view — the real
+   thing on a connect host, or the simulation in ?demo=canvas. */
+function canvasView(){ return !!CONNECT_MODE || demoCanvas(); }
+
 /* ---------------- init ---------------- */
 renderIntroLevels();
 renderFrameworkDiagram();
@@ -3238,14 +3264,14 @@ renderQuadrantGrid('introQuadrantGrid', null);
 updateToggleUI();
 applyI18n();
 initConnectMode();
+if(demoCanvas()){
+  // mirror the parts of initConnectMode() that change the result page
+  document.getElementById('connectBanner').hidden = false;
+  document.getElementById('orgTagSection').hidden = true;
+}
 
-/* ---------------- DEMO MODE (?demo=1 | novice | coach | autopilot | director)
-   Jumps straight to the result screen with a simulated profile so reviewers
-   can see the final page without answering all questions. Zero-data safe:
-   nothing is stored or sent — the connect payload/submit box are disabled. */
-let DEMO_PROFILE = new URLSearchParams(location.search).get('demo');
 function runDemo(profileKey){
-  const key = ['novice','coach','autopilot','director'].includes(profileKey) ? profileKey : 'director';
+  const key = ['novice','coach','autopilot','director'].includes(profileKey) ? profileKey : 'coach';
   const highSkill = key === 'autopilot' || key === 'director';
   const highPartnership = key === 'coach' || key === 'director';
   userName = currentLang === 'th' ? 'ตัวอย่าง (Demo)' : 'Sample (Demo)';
