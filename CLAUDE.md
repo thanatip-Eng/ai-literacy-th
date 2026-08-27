@@ -28,7 +28,8 @@ partnership (v3 item set; v1 rows have 20-value rawAnswers, v2 rows 22).
 - **`frameworks.html`** — standalone bilingual knowledge page summarizing
   the three source frameworks (LinkedIn, OECD/EU AILit, LINE MAN Wongnai
   AI Thinking) plus CMU's institutional Gen AI policy (ประกาศ มช. 2566),
-  with reference links; linked from the global footer
+  with reference links + an AI-use transparency card (#ai-transparency);
+  linked from the global footer
 - **`tags-guide.html`** — standalone org-tag legend/guide page
 - **`roles-guide.html`** — standalone bilingual page explaining the per-role
   floor/ceiling rationale (incl. a CSS range chart) + design-hypothesis
