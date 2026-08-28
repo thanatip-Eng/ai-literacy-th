@@ -25,6 +25,7 @@ partnership (v3 item set; v1 rows have 20-value rawAnswers, v2 rows 22).
 - **`test/`** — `node --test` suite (scoring, content validation, LTI
   security, static regression guards)
 - **`docs/`** — `connect-setup.md` (Canvas/Google Form setup),
+  `canvas-course-setup.md` (per-course Canvas checklist for instructors),
   `question-review.md` (item-quality review), `ailit-mapping.md`
   (AiStyle ↔ OECD/EU AILit mapping), `items-v2-draft.md` (v2 item history)
 - **`frameworks.html`** — standalone bilingual knowledge page summarizing
