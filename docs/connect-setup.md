@@ -96,6 +96,9 @@ fields: {
 
 ### 3.2 เพิ่มแอปใน Canvas (ระดับรายวิชา — ไม่ต้องเป็น admin)
 
+> 📘 **ทำหลายวิชา?** ดู [`canvas-course-setup.md`](canvas-course-setup.md) —
+> คู่มือทีละขั้นพร้อมเช็กลิสต์ ตารางแก้ปัญหา และคำอธิบาย assignment ให้ก๊อปวาง
+
 1. เข้ารายวิชา → **Settings → Apps → View App Configurations → + App**
 2. **Configuration Type = Manual Entry** แล้วกรอก:
    - **Name**: AiStyle Assessment
