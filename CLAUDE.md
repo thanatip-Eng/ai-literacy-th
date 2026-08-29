@@ -141,6 +141,37 @@ strings for a concise Canvas-facing tone without touching the public copy.
 - License CC BY-NC-SA 4.0; don't use LinkedIn's imagery — the framework
   diagram is our own SVG
 
+## Project log (Notion)
+
+Every working session logs itself into the project's Notion space — this is a
+standing agreement with the owner, not something to wait for a prompt about.
+Parent page **AiStyle — บันทึกการพัฒนาระบบ**
+(`3ca5fa32-95f6-8171-ab24-c9fd6586dbbd`, teamspace Student Talent
+Development@ENGCMU) holds three databases. Column names are Thai and must be
+spelled exactly, or `notion-create-pages` rejects the row:
+
+| Database | data_source_id | Columns |
+|---|---|---|
+| บันทึกการตัดสินใจ | `1629f4bc-4b99-425f-88c4-eedd343d6f6d` | การตัดสินใจ (title) · วันที่ · ด้าน · เหตุผล · ทางเลือกที่ไม่เลือก · สถานะ · อ้างอิง |
+| สิ่งที่ทำไปแล้ว | `95698a9b-01c2-4ce2-9f48-e575e1d9aca9` | สิ่งที่ทำ (title) · วันที่ · PR · ประเภท · รายละเอียด |
+| งานค้าง | `d39ec2c2-ab1a-4e50-8a47-d2ebffc135e1` | งาน (title) · สถานะ · ความสำคัญ · รายละเอียด |
+
+What to log:
+
+1. **A PR merges** → one row in *สิ่งที่ทำไปแล้ว* with its number
+2. **A design or policy decision that will outlive the session** → one row in
+   *บันทึกการตัดสินใจ*. Fill in เหตุผล and ทางเลือกที่ไม่เลือก — the reasoning and
+   the roads not taken are the whole point; git already records what changed
+3. **Work that is blocked or deferred** → a row in *งานค้าง*; set สถานะ to
+   "เสร็จแล้ว" once it lands
+
+Practical notes: write entries in Thai · create at most ~4 rows per call
+(longer payloads fail to parse) · if the Notion connector is unavailable, say
+plainly what went unlogged rather than skipping it silently.
+
+Scope stays split: Notion carries the *why* and the timeline; setup guides and
+anything that must track the code stay in `docs/` only, so the two never drift.
+
 ## Deploy
 
 Static host for public/form modes (Netlify, GitHub Pages, …). **Vercel
