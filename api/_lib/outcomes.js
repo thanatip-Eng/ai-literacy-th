@@ -6,7 +6,7 @@
 const crypto = require('crypto');
 const oauth1 = require('./oauth1');
 
-const TIMEOUT_MS = 8000;
+const TIMEOUT_MS = 4000;
 
 function xmlEscape(value) {
   return String(value)
