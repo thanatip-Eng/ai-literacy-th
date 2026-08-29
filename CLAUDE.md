@@ -146,8 +146,8 @@ strings for a concise Canvas-facing tone without touching the public copy.
 Every working session logs itself into the project's Notion space — this is a
 standing agreement with the owner, not something to wait for a prompt about.
 Parent page **AiStyle — บันทึกการพัฒนาระบบ**
-(`3ca5fa32-95f6-8171-ab24-c9fd6586dbbd`, teamspace Student Talent
-Development@ENGCMU) holds three databases. Column names are Thai and must be
+(`3ca5fa32-95f6-8171-ab24-c9fd6586dbbd`, teamspace Entaneer Journey) holds
+three databases. Column names are Thai and must be
 spelled exactly, or `notion-create-pages` rejects the row:
 
 | Database | data_source_id | Columns |
