@@ -377,3 +377,74 @@ test('submit still succeeds for the student when the gradebook push fails', asyn
     globalThis.fetch = realFetch;
   }
 });
+
+/* ---------------- burst resilience (3,000-student rollout) ---------------- */
+
+function submitWithFormResponses(statuses) {
+  // Returns {run, calls} where run() performs one /api/submit request with a
+  // stubbed fetch that answers the Google Form with the given statuses in order
+  // and always accepts the Canvas grade push.
+  const calls = {form: 0, outcome: 0};
+  const run = async () => {
+    baseEnv();
+    const submit = require('../api/submit');
+    const realFetch = globalThis.fetch;
+    globalThis.fetch = async (url) => {
+      if (String(url).includes('docs.google.com')) {
+        const status = statuses[Math.min(calls.form, statuses.length - 1)];
+        calls.form++;
+        if (status === 'network') throw new Error('socket hang up');
+        return {status, text: async () => ''};
+      }
+      calls.outcome++;
+      return {status: 200, text: async () => successXml()};
+    };
+    try {
+      const token = signSession({email: 'student@cmu.ac.th', name: 'S'}, SESSION_SECRET);
+      const res = mockRes();
+      await submit(mockReq({body: {placement: 2}, cookie: `${COOKIE_NAME}=${token}`}), res);
+      return JSON.parse(res.body);
+    } finally {
+      globalThis.fetch = realFetch;
+    }
+  };
+  return {run, calls};
+}
+
+test('a throttled Google Form submission is retried once and succeeds', async () => {
+  const {run, calls} = submitWithFormResponses([429, 200]);
+  const payload = await run();
+  assert.equal(payload.ok, true, 'the student sees a success, not an error');
+  assert.equal(calls.form, 2, 'exactly one retry');
+  assert.ok(payload.receipt);
+});
+
+test('a dropped connection to the form is retried too', async () => {
+  const {run, calls} = submitWithFormResponses(['network', 200]);
+  const payload = await run();
+  assert.equal(payload.ok, true);
+  assert.equal(calls.form, 2);
+});
+
+test('a form that keeps failing gives up after two attempts', async () => {
+  const {run, calls} = submitWithFormResponses([500, 500]);
+  const payload = await run();
+  assert.equal(payload.ok, false, 'the student is told to send again');
+  assert.equal(calls.form, 2, 'no endless retrying');
+  assert.equal(calls.outcome, 0, 'and no grade is pushed for an unstored result');
+});
+
+test('a rejection that retrying cannot fix is not retried', async () => {
+  // 400 means the form itself is misconfigured — hammering it helps nobody.
+  const {run, calls} = submitWithFormResponses([400, 200]);
+  const payload = await run();
+  assert.equal(payload.ok, false);
+  assert.equal(calls.form, 1);
+});
+
+test('a form that answers on the first try is posted to only once', async () => {
+  const {run, calls} = submitWithFormResponses([200]);
+  const payload = await run();
+  assert.equal(payload.ok, true);
+  assert.equal(calls.form, 1);
+});
