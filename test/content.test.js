@@ -95,10 +95,11 @@ test('malformed text is rejected without changing content', () => {
 
 const QUADRANT_KEYS = ['novice', 'coach', 'autopilot', 'director'];
 
-test('the three CMU field groups are defined bilingually', () => {
+test('the CMU field groups are defined bilingually', () => {
   const list = content.disciplines;
   assert.ok(Array.isArray(list), 'disciplines block is required');
-  assert.deepEqual(list.map(d => d.code), ['health', 'scitech', 'humsoc']);
+  assert.deepEqual(list.map(d => d.code),
+    ['health', 'engtech', 'scienat', 'bizpol', 'humsoc', 'artdes']);
   for (const d of list) {
     for (const lang of ['th', 'en']) {
       assert.equal(typeof d.label[lang], 'string', `${d.code} label.${lang}`);
