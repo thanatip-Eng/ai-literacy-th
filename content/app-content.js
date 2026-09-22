@@ -88,6 +88,11 @@
         disciplineSub: "เลือก 1 ข้อ เพื่อให้ตัวอย่างระหว่างทำและคำแนะนำท้ายผลตรงกับศาสตร์ของคุณ ข้ามได้ถ้าไม่ต้องการ",
         disciplineInsightLabel: "🎓 สาขาของคุณ",
         qExampleTag: "ในสายของคุณ",
+        withoutAiHead: "🎓 ถ้าวันนี้ไม่มี AI",
+        withoutAiIntro: "สองด้านนี้บอกว่าอะไรจะเหลืออยู่กับคุณเมื่อเครื่องมือถูกปิด — เช่น ในห้องสอบ",
+        withoutAiLow: "ตอนนี้งานส่วนใหญ่ของคุณเดินได้เพราะ AI ในห้องสอบหรือหน้างานจริงที่ไม่มีเครื่องมือ คุณจะเหลือน้อยกว่าที่คะแนนงานบอก ลองเลือกสักหนึ่งเรื่องที่คุณต้องเก่งให้ได้จริง ๆ แล้วทำเองจนจบโดยไม่เปิด AI สักครั้ง",
+        withoutAiMid: "คุณยังทำเองได้ในหลายเรื่อง แต่มีบางส่วนที่พึ่ง AI จนไม่แน่ใจว่าทำเองได้ไหม ลองทดสอบดู: หยิบงานที่เพิ่งส่งไป แล้วอธิบายหรือทำใหม่โดยไม่เปิด AI ตรงที่ติดคือตรงที่ต้องฝึก",
+        withoutAiHigh: "คุณใช้ AI โดยที่ทักษะยังเป็นของคุณจริง ๆ นี่คือสิ่งที่ทำให้ต่างจากคนที่ใช้ AI เก่งแต่ทำเองไม่ได้ — รักษาไว้ แล้วใช้ AI ดันเพดานตัวเองให้สูงขึ้นอีก",
         disciplineAdviceHead: "🎓 คำแนะนำสำหรับสายของคุณ",
         disciplineAdviceIntro: "อิงจากกลุ่มสาขาที่คุณเลือก และรูปแบบการใช้ AI ที่ออกมา",
         verdictHead: "บทบาทกับสไตล์การใช้ AI ของคุณ",
@@ -310,6 +315,11 @@
         disciplineSub: "Pick one so the examples during the assessment and the guidance at the end match your field. You can skip this if you prefer.",
         disciplineInsightLabel: "🎓 Your field",
         qExampleTag: "IN YOUR FIELD",
+        withoutAiHead: "🎓 If AI were switched off today",
+        withoutAiIntro: "These two say what would still be yours when the tools are gone — in an exam room, for instance",
+        withoutAiLow: "Right now most of your work moves because AI is moving it. In an exam, or anywhere the tools are not available, you will have less to draw on than your grades suggest. Pick one thing you genuinely need to be good at and do it end to end without opening AI.",
+        withoutAiMid: "You can still do plenty yourself, but parts of your work lean on AI enough that you are not sure. Test it: take something you just handed in and explain it, or redo it, with AI closed. Wherever you get stuck is what needs practice.",
+        withoutAiHigh: "You use AI and the skill is still genuinely yours. That is the difference between you and someone who is good with AI but cannot work without it — keep it, and use AI to push your own ceiling higher.",
         disciplineAdviceHead: "🎓 Guidance for your field",
         disciplineAdviceIntro: "Based on the field you picked and the AI-use pattern in your result",
         verdictHead: "How AI fits your role",
@@ -1128,6 +1138,52 @@
                 humsoc: {th: "ไฟล์ถอดเทป หรือรายชื่อผู้เข้าร่วมวิจัย", en: "a transcript file or a list of research participants"},
                 artdes: {th: "ไฟล์งานออกแบบของลูกค้าที่ยังไม่เปิดตัว", en: "a client's unreleased design files"}
               }}
+          ]
+        },
+        {
+          key: "self_reliance",
+          name: {th: "ทำเองได้เมื่อไม่มี AI", en: "Stands on your own"},
+          desc: {th: "ถ้าวันนี้ไม่มี AI คุณยังทำงานและสอบได้ด้วยตัวเอง", en: "With AI switched off, you can still do the work and sit the exam"},
+          items: [
+            {th: "ถ้าพรุ่งนี้ต้องสอบโดยไม่ให้ใช้ AI ฉันมั่นใจว่าทำเรื่องที่เคยให้ AI ช่วยได้ด้วยตัวเอง", en: "If tomorrow's exam banned AI, I'm confident I could do the things I usually get AI's help with", reverse: false, examples: {
+                  health: {th: "ตอบข้อสอบปฏิบัติหรือซักประวัติจริงโดยไม่มีตัวช่วย", en: "handling a practical exam or a real history-taking with no help"},
+                  engtech: {th: "เขียนโค้ดในห้องสอบโดยไม่มี autocomplete หรือผู้ช่วย", en: "writing code in an exam with no autocomplete and no assistant"},
+                  scienat: {th: "คำนวณและแปลผลการทดลองด้วยตัวเองในห้องสอบ", en: "doing the calculation and interpreting the result yourself in an exam"},
+                  bizpol: {th: "วิเคราะห์เคสสดในห้องสอบภายในเวลาที่จำกัด", en: "analyzing a case live, under time, in an exam"},
+                  humsoc: {th: "เขียนเรียงความวิเคราะห์สดในห้องสอบ", en: "writing an analytical essay live in an exam"},
+                  artdes: {th: "ร่างแบบหรือวาดสดต่อหน้าคณะกรรมการ", en: "sketching or drafting live in front of a jury"}
+                }},
+            {th: "มีงานที่ฉันส่งผ่านมาได้เพราะ AI แต่ถ้าต้องทำสดในห้องสอบคงทำไม่ได้", en: "There is work I got through because of AI that I could not produce on my own in an exam room", reverse: true, examples: {
+                  health: {th: "รายงานเคสหรือแผนการดูแลที่ AI ร่างให้เกือบทั้งหมด", en: "a case report or care plan AI drafted almost entirely"},
+                  engtech: {th: "แอสไซน์เมนต์โค้ดที่ AI เขียนให้เกือบทั้งหมด", en: "a coding assignment AI wrote almost entirely"},
+                  scienat: {th: "รายงานแล็บที่ AI เขียนส่วนวิเคราะห์ให้", en: "a lab report whose analysis section AI wrote"},
+                  bizpol: {th: "บทวิเคราะห์หรือข้อสอบ take-home ที่ AI ทำให้เกือบหมด", en: "a brief or take-home exam AI did most of"},
+                  humsoc: {th: "เปเปอร์ที่ AI วางโครงและเขียนเนื้อหาหลักให้", en: "a paper whose structure and substance came from AI"},
+                  artdes: {th: "งานส่งที่ AI สร้างภาพหรือแบบให้เกือบทั้งชิ้น", en: "a submission whose images or drawings AI made almost entirely"}
+                }}
+          ]
+        },
+        {
+          key: "effort",
+          name: {th: "ยอมลำบากเพื่อให้เก่งขึ้น", en: "Willing to struggle"},
+          desc: {th: "ยอมใช้เวลาและความยาก เพื่อให้ทักษะเป็นของตัวเองจริง ๆ", en: "You accept time and difficulty so the skill becomes genuinely yours"},
+          items: [
+            {th: "ฉันยอมใช้เวลานานขึ้นทำเอง ในเรื่องที่รู้ว่าตัวเองต้องเก่งให้ได้", en: "I take the slower route and do it myself on the things I know I need to be good at", reverse: false, examples: {
+                  health: {th: "ทำความเข้าใจกลไกของโรคด้วยตัวเองแม้จะช้ากว่า", en: "working out a disease mechanism yourself even though it is slower"},
+                  engtech: {th: "ไล่ดีบักเองจนเจอสาเหตุ แทนที่จะให้ AI แก้ให้", en: "debugging until you find the cause instead of letting AI patch it"},
+                  scienat: {th: "ไล่คำนวณหรือพิสูจน์เองจนจบแม้จะใช้เวลานาน", en: "working a calculation or a proof through yourself however long it takes"},
+                  bizpol: {th: "อ่านตัวบทหรืองบการเงินเองทั้งฉบับ", en: "reading the statute or the financial statement yourself, in full"},
+                  humsoc: {th: "อ่านต้นฉบับเองทั้งเล่มแทนการอ่านฉบับย่อ", en: "reading the original in full instead of a summary"},
+                  artdes: {th: "ฝึกวาดหรือเขียนแบบเองซ้ำ ๆ จนมือขึ้น", en: "drawing or drafting again and again until your hand knows it"}
+                }},
+            {th: "พอเริ่มรู้สึกยาก ฉันมักเปลี่ยนไปให้ AI ทำให้จบ ๆ", en: "As soon as it starts to feel hard, I tend to hand it to AI just to get it done", reverse: true, examples: {
+                  health: {th: "พอเจอเคสที่ซับซ้อนก็ให้ AI สรุปให้เลย", en: "as soon as a case gets complex, you have AI summarize it"},
+                  engtech: {th: "พอบั๊กหายากก็โยนโค้ดทั้งไฟล์ให้ AI แก้", en: "when a bug gets hard, you throw the whole file at AI"},
+                  scienat: {th: "พอสถิติเริ่มยากก็ให้ AI เลือกวิธีให้", en: "when the statistics get hard, you let AI pick the method"},
+                  bizpol: {th: "พอประเด็นกฎหมายเริ่มซับซ้อนก็ให้ AI ตอบให้", en: "when the legal issue gets tangled, you let AI answer it"},
+                  humsoc: {th: "พอทฤษฎีเริ่มยากก็ให้ AI สรุปแทนการอ่านเอง", en: "when the theory gets hard, you let AI summarize instead of reading"},
+                  artdes: {th: "พอร่างไม่ออกก็ให้ AI สร้างภาพให้แล้วใช้เลย", en: "when the sketch will not come, you have AI generate one and use it"}
+                }}
           ]
         }
       ],
