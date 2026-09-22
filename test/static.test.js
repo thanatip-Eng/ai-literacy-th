@@ -128,3 +128,10 @@ test('field of study and job role never overwrite each other', () => {
   assert.match(html, /userRole = ROLES\.find\(r => r\.code === code\) \|\| null;\s*userDiscipline = null;/);
   assert.match(html, /discipline: userDiscipline \? userDiscipline\.code : '',/);
 });
+
+test('the per-field example line is gated on student mode', () => {
+  assert.match(html, /id="qExample" hidden/);
+  assert.match(html, /function renderQExample/);
+  assert.match(html, /studentMode\(\) && userDiscipline && itemObj && itemObj\.examples/);
+  assert.match(html, /if\(!set\)\{ box\.hidden = true; box\.textContent = ''; return; \}/);
+});

@@ -141,3 +141,43 @@ test('field guidance is distinct per field, not one text reused', () => {
       `quadrant ${quadrant} repeats the same focus line across fields`);
   }
 });
+
+// Every scored item carries a one-line example per field. The stems stay
+// identical for everyone — only the example changes — so a half-filled set
+// would leave some students staring at a blank line where others get context.
+function scoredItems() {
+  const out = [];
+  content.levels.filter(level => level.assessable).forEach(level => {
+    level.items.forEach((item, i) => out.push([`L${level.n} item ${i + 1}`, item]));
+  });
+  content.partnership.subtraits.forEach(sub => {
+    sub.items.forEach((item, i) => out.push([`${sub.key} item ${i + 1}`, item]));
+  });
+  return out;
+}
+
+test('every scored item has a field example for all three field groups', () => {
+  const codes = content.disciplines.map(d => d.code);
+  for (const [where, item] of scoredItems()) {
+    assert.ok(item.examples, `${where} has no examples block`);
+    assert.deepEqual(Object.keys(item.examples), codes,
+      `${where} must cover exactly the three field groups`);
+    for (const code of codes) {
+      for (const lang of ['th', 'en']) {
+        const text = item.examples[code][lang];
+        assert.ok(typeof text === 'string' && text.trim(), `${where} examples.${code}.${lang}`);
+      }
+    }
+  }
+});
+
+test('field examples are distinct per field and never repeat the stem', () => {
+  for (const [where, item] of scoredItems()) {
+    const phrases = content.disciplines.map(d => item.examples[d.code].th);
+    assert.equal(new Set(phrases).size, phrases.length,
+      `${where} reuses the same example across fields`);
+    for (const phrase of phrases) {
+      assert.notEqual(phrase, item.th, `${where} example just repeats the question`);
+    }
+  }
+});

@@ -457,10 +457,26 @@
         desc: {th: "รู้ว่า AI คืออะไร ทำอะไรได้/ไม่ได้ และใช้อย่างมีความรับผิดชอบ", en: "Know what AI is, what it can and can't do, and how to use it responsibly"},
         color: "#0E6E63",
         items: [
-          {th: "เมื่อมีคนถามว่า AI อย่าง ChatGPT ทำงานอย่างไร ฉันอธิบายได้ว่ามันสร้างคำตอบจากรูปแบบในข้อมูล ไม่ได้ \"คิดหรือเข้าใจ\" แบบมนุษย์", en: "When someone asks how an AI like ChatGPT works, I can explain that it generates answers from patterns in data — it doesn't \"think\" or \"understand\" like a human"},
-          {th: "เมื่อมีงานเข้ามา ฉันมักเลือกได้ว่างานไหนลองให้ AI ช่วยน่าจะได้ผลดี และงานไหนควรทำเอง", en: "When a task comes up, I can usually tell which ones to try with AI and which to handle myself"},
-          {th: "ฉันรู้ว่าฟีดโซเชียลและระบบแนะนำที่ใช้อยู่ทุกวันขับเคลื่อนด้วย AI ซึ่งเลือกและจัดลำดับสิ่งที่ฉันเห็น — และอาจสะท้อนอคติจากข้อมูลที่ใช้ฝึก", en: "I know the social feeds and recommendation systems I use daily are driven by AI that selects and ranks what I see — and can reflect biases in its training data"},
-          {th: "ก่อนจะวางข้อมูลงานหรือข้อมูลส่วนตัวลงในแชต AI ฉันมักหยุดคิดก่อนว่าอะไรแชร์ได้หรือไม่ได้", en: "Before pasting work or personal information into an AI chat, I tend to pause and consider what is and isn't OK to share"}
+          {th: "เมื่อมีคนถามว่า AI อย่าง ChatGPT ทำงานอย่างไร ฉันอธิบายได้ว่ามันสร้างคำตอบจากรูปแบบในข้อมูล ไม่ได้ \"คิดหรือเข้าใจ\" แบบมนุษย์", en: "When someone asks how an AI like ChatGPT works, I can explain that it generates answers from patterns in data — it doesn't \"think\" or \"understand\" like a human", examples: {
+              health: {th: "เช่น อธิบายให้เพื่อนร่วมวอร์ดฟังว่าทำไม AI ตอบเรื่องยาผิดได้", en: "e.g. explaining to a ward-mate why AI can get a drug fact wrong"},
+              scitech: {th: "เช่น อธิบายว่าทำไมโมเดลถึงแต่งชื่อฟังก์ชันที่ไม่มีอยู่จริงขึ้นมา", en: "e.g. explaining why a model invents functions that don't exist"},
+              humsoc: {th: "เช่น อธิบายว่าทำไม AI ถึงอ้างชื่อหนังสือหรืองานวิจัยที่ไม่มีจริง", en: "e.g. explaining why AI cites books or studies that don't exist"}
+            }},
+          {th: "เมื่อมีงานเข้ามา ฉันมักเลือกได้ว่างานไหนลองให้ AI ช่วยน่าจะได้ผลดี และงานไหนควรทำเอง", en: "When a task comes up, I can usually tell which ones to try with AI and which to handle myself", examples: {
+              health: {th: "เช่น ให้ช่วยสรุปงานวิจัยทางคลินิกได้ แต่การประเมินผู้ป่วยต้องทำเอง", en: "e.g. summarizing clinical papers, but assessing a patient yourself"},
+              scitech: {th: "เช่น ให้ช่วยร่างโค้ดต้นแบบได้ แต่ตัวเลขในรายงานแล็บต้องคำนวณเอง", en: "e.g. drafting prototype code, but computing your lab figures yourself"},
+              humsoc: {th: "เช่น ให้ช่วยระดมประเด็นสัมภาษณ์ได้ แต่การตีความคำให้การต้องทำเอง", en: "e.g. brainstorming interview angles, but interpreting testimony yourself"}
+            }},
+          {th: "ฉันรู้ว่าฟีดโซเชียลและระบบแนะนำที่ใช้อยู่ทุกวันขับเคลื่อนด้วย AI ซึ่งเลือกและจัดลำดับสิ่งที่ฉันเห็น — และอาจสะท้อนอคติจากข้อมูลที่ใช้ฝึก", en: "I know the social feeds and recommendation systems I use daily are driven by AI that selects and ranks what I see — and can reflect biases in its training data", examples: {
+              health: {th: "เช่น ข้อมูลสุขภาพที่ฟีดดันขึ้นมา อาจไม่ใช่สิ่งที่มีหลักฐานรองรับ", en: "e.g. the health advice your feed pushes may not be evidence-based"},
+              scitech: {th: "เช่น ผลค้นหาโค้ดและคำแนะนำเครื่องมือก็ถูกจัดอันดับด้วยอัลกอริทึม", en: "e.g. code search results and tool recommendations are ranked by algorithms too"},
+              humsoc: {th: "เช่น ฟีดข่าวหรือประเด็นสังคมที่คุณเห็น ต่างจากที่คนอื่นเห็นคนละชุด", en: "e.g. the news and social issues in your feed differ from what others see"}
+            }},
+          {th: "ก่อนจะวางข้อมูลงานหรือข้อมูลส่วนตัวลงในแชต AI ฉันมักหยุดคิดก่อนว่าอะไรแชร์ได้หรือไม่ได้", en: "Before pasting work or personal information into an AI chat, I tend to pause and consider what is and isn't OK to share", examples: {
+              health: {th: "เช่น ข้อมูลผู้ป่วยจากการฝึกปฏิบัติ แม้ตัดชื่อออกแล้วก็ยังอ่อนไหว", en: "e.g. patient data from clinical practice stays sensitive even de-identified"},
+              scitech: {th: "เช่น โค้ดของที่ฝึกงาน หรือคีย์ API ที่ติดมากับไฟล์ตั้งค่า", en: "e.g. your internship employer's code, or API keys in a config file"},
+              humsoc: {th: "เช่น บทถอดเทปสัมภาษณ์ หรือข้อมูลผู้ให้ข้อมูลในงานวิจัย", en: "e.g. interview transcripts, or informants' details in your research"}
+            }}
         ],
         blurb: {th: "คุณมีพื้นฐานความเข้าใจ AI ที่ดี รู้ว่า AI ทำอะไรได้และมีข้อจำกัดอย่างไร พร้อมก้าวสู่การลงมือใช้จริง", en: "You have a solid foundation in AI — you know what it can do and where its limits lie, and you're ready to start applying it."},
         nextH: {th: "พัฒนาสู่ระดับ 2 — นำ AI ไปใช้จริง", en: "Grow into Level 2 — Applying AI"},
@@ -483,10 +499,26 @@
         desc: {th: "ใช้ AI ช่วยร่าง สรุป ระดมความคิด วิเคราะห์ และเขียน prompt ได้ดี", en: "Use AI to draft, summarize, brainstorm, analyze, and write effective prompts"},
         color: "#15827A",
         items: [
-          {th: "เมื่อคำตอบแรกจาก AI ยังไม่ตรงใจ ฉันมักปรับ prompt (เพิ่มบริบท บทบาท ตัวอย่าง) แล้วลองใหม่จนได้ผลดีขึ้น", en: "When AI's first answer isn't quite right, I usually adjust my prompt (add context, role, examples) and try again until it improves"},
-          {th: "ในเดือนที่ผ่านมา ฉันใช้ AI ช่วยงานหลายแบบ เช่น ร่างอีเมล สรุปเอกสารยาว ๆ ระดมไอเดีย หรือช่วยวิเคราะห์ข้อมูล", en: "In the past month, I've used AI for several different things — drafting emails, summarizing long documents, brainstorming, or analyzing data"},
-          {th: "เมื่อได้ผลลัพธ์จาก AI ฉันมักปรับแต่งให้เข้ากับบริบท น้ำเสียง และผู้รับของงานจริง ไม่ใช้แบบดิบ ๆ", en: "When I get output from AI, I usually adapt it to the real task's context, tone and audience rather than using it raw"},
-          {th: "ฉันเลือกใช้เครื่องมือ AI ให้เหมาะกับงานแต่ละประเภท แทนที่จะใช้เครื่องมือเดียวสำหรับทุกงาน", en: "I pick the right AI tool for each kind of task instead of using one tool for everything"}
+          {th: "เมื่อคำตอบแรกจาก AI ยังไม่ตรงใจ ฉันมักปรับ prompt (เพิ่มบริบท บทบาท ตัวอย่าง) แล้วลองใหม่จนได้ผลดีขึ้น", en: "When AI's first answer isn't quite right, I usually adjust my prompt (add context, role, examples) and try again until it improves", examples: {
+              health: {th: "เช่น ระบุว่าเป็นผู้ป่วยกลุ่มไหน เพื่อให้คำอธิบายตรงกรณี", en: "e.g. naming the patient group so the explanation fits the case"},
+              scitech: {th: "เช่น แปะข้อความ error จริงและเวอร์ชันไลบรารีไปให้ด้วย", en: "e.g. pasting the actual error and the library version"},
+              humsoc: {th: "เช่น บอกกรอบทฤษฎีที่ใช้และกลุ่มผู้อ่านที่ต้องการ", en: "e.g. naming the theoretical frame and the audience you write for"}
+            }},
+          {th: "ในเดือนที่ผ่านมา ฉันใช้ AI ช่วยงานหลายแบบ เช่น ร่างอีเมล สรุปเอกสารยาว ๆ ระดมไอเดีย หรือช่วยวิเคราะห์ข้อมูล", en: "In the past month, I've used AI for several different things — drafting emails, summarizing long documents, brainstorming, or analyzing data", examples: {
+              health: {th: "เช่น สรุปเปเปอร์ ทำสไลด์ journal club ซ้อมตอบคำถามก่อนสอบ", en: "e.g. summarizing papers, journal-club slides, rehearsing exam questions"},
+              scitech: {th: "เช่น ดีบักโค้ด เขียนสคริปต์วิเคราะห์ข้อมูล ร่างรายงานแล็บ", en: "e.g. debugging code, writing analysis scripts, drafting lab reports"},
+              humsoc: {th: "เช่น ร่างแนวคำถามสัมภาษณ์ สรุปเอกสารชั้นต้น ทำสไลด์นำเสนอ", en: "e.g. drafting interview guides, summarizing primary sources, building slides"}
+            }},
+          {th: "เมื่อได้ผลลัพธ์จาก AI ฉันมักปรับแต่งให้เข้ากับบริบท น้ำเสียง และผู้รับของงานจริง ไม่ใช้แบบดิบ ๆ", en: "When I get output from AI, I usually adapt it to the real task's context, tone and audience rather than using it raw", examples: {
+              health: {th: "เช่น ปรับคำอธิบายโรคให้ผู้ป่วยเข้าใจ ไม่ใช่ภาษาแบบในตำรา", en: "e.g. rewording a diagnosis so a patient understands, not textbook language"},
+              scitech: {th: "เช่น ปรับโค้ดที่ได้ให้เข้ากับโครงสร้างและสไตล์ของโปรเจกต์", en: "e.g. reshaping generated code to your project's structure and style"},
+              humsoc: {th: "เช่น ปรับสำนวนให้เข้ากับรูปแบบอ้างอิงและน้ำเสียงทางวิชาการของสาขา", en: "e.g. matching your field's citation style and academic voice"}
+            }},
+          {th: "ฉันเลือกใช้เครื่องมือ AI ให้เหมาะกับงานแต่ละประเภท แทนที่จะใช้เครื่องมือเดียวสำหรับทุกงาน", en: "I pick the right AI tool for each kind of task instead of using one tool for everything", examples: {
+              health: {th: "เช่น ใช้ตัวที่อ้างอิงแหล่งได้เวลาต้องหาหลักฐานทางคลินิก", en: "e.g. using a tool that cites sources when you need clinical evidence"},
+              scitech: {th: "เช่น ใช้ผู้ช่วยในเอดิเตอร์ตอนเขียนโค้ด แยกจากแชตตอนคิดโครงสร้าง", en: "e.g. an in-editor assistant for code, a chat for design thinking"},
+              humsoc: {th: "เช่น ใช้ตัวที่อ่านไฟล์ยาว ๆ ได้ตอนทำงานกับเอกสารชั้นต้น", en: "e.g. using a long-document tool when working with primary sources"}
+            }}
         ],
         blurb: {th: "คุณใช้ AI เป็นผู้ช่วยในงานประจำวันได้คล่อง และรู้วิธีสื่อสารกับ AI ให้ได้ผลลัพธ์ที่มีคุณภาพ", en: "You use AI fluently as an everyday assistant and know how to communicate with it to get quality results."},
         nextH: {th: "พัฒนาสู่ระดับ 3 — สร้างด้วย AI", en: "Grow into Level 3 — Building with AI"},
@@ -509,10 +541,26 @@
         desc: {th: "ใช้ no-code/low-code หรือ API สร้างแอป แชตบอต หรือ workflow", en: "Use no-code/low-code tools or APIs to build apps, chatbots, or workflows"},
         color: "#1E8E63",
         items: [
-          {th: "เมื่อเจอปัญหางานซ้ำ ๆ ฉันมักวางแผนได้ว่าจะออกแบบ workflow ที่ให้ AI ทำงานหลายขั้นต่อเนื่องเพื่อแก้ปัญหานั้นอย่างไร", en: "When I hit a repetitive problem, I can usually map out a multi-step workflow where AI handles several stages to solve it"},
-          {th: "ฉันสามารถเชื่อมต่อ AI เข้ากับแอปหรือระบบผ่าน API ได้ด้วยตนเอง", en: "I can connect AI to an app or system via API on my own"},
-          {th: "ฉันสามารถสร้างต้นแบบของแอปหรือระบบที่ใช้งานได้จริง ด้วยวิธีใดวิธีหนึ่ง — ให้ AI ช่วยวางแผน/เขียนโค้ด หรือใช้เครื่องมือ no-code/low-code", en: "I can build a working prototype of an app or system in at least one way — using AI to help plan or code, or with no-code/low-code tools"},
-          {th: "ฉันเคยใช้ AI เป็นส่วนหนึ่งของการพัฒนาผลงานหรือระบบที่มีผู้อื่นได้ทดลองหรือใช้งานจริง (เช่น เพื่อน เพื่อนร่วมงาน หรือลูกค้ากลุ่มเล็ก ๆ)", en: "I've used AI as part of building something that other people — friends, colleagues, or a small group of users — have actually tried or used"}
+          {th: "เมื่อเจอปัญหางานซ้ำ ๆ ฉันมักวางแผนได้ว่าจะออกแบบ workflow ที่ให้ AI ทำงานหลายขั้นต่อเนื่องเพื่อแก้ปัญหานั้นอย่างไร", en: "When I hit a repetitive problem, I can usually map out a multi-step workflow where AI handles several stages to solve it", examples: {
+              health: {th: "เช่น วางขั้นตอนคัดกรองงานวิจัยสำหรับการทบทวนวรรณกรรม", en: "e.g. a screening pipeline for a systematic literature review"},
+              scitech: {th: "เช่น ต่อขั้นตอนดึงข้อมูล → ทำความสะอาด → สรุปผล ให้ทำงานต่อกัน", en: "e.g. chaining fetch → clean → summarize into one flow"},
+              humsoc: {th: "เช่น วางขั้นตอนถอดเทป → ให้รหัส → สรุปธีม ของข้อมูลสัมภาษณ์", en: "e.g. transcribe → code → theme-summarize your interview data"}
+            }},
+          {th: "ฉันสามารถเชื่อมต่อ AI เข้ากับแอปหรือระบบผ่าน API ได้ด้วยตนเอง", en: "I can connect AI to an app or system via API on my own", examples: {
+              health: {th: "เช่น ต่อ AI เข้ากับชุดข้อมูลสุขภาพเพื่อสรุปผลอัตโนมัติ", en: "e.g. wiring AI to a health dataset to summarize it automatically"},
+              scitech: {th: "เช่น เรียก API ของโมเดลจากโค้ดที่เขียนเอง", en: "e.g. calling a model's API from code you wrote yourself"},
+              humsoc: {th: "เช่น ต่อ AI เข้ากับข้อมูลแบบสอบถามเพื่อจัดกลุ่มคำตอบปลายเปิด", en: "e.g. connecting AI to survey data to cluster open-ended answers"}
+            }},
+          {th: "ฉันสามารถสร้างต้นแบบของแอปหรือระบบที่ใช้งานได้จริง ด้วยวิธีใดวิธีหนึ่ง — ให้ AI ช่วยวางแผน/เขียนโค้ด หรือใช้เครื่องมือ no-code/low-code", en: "I can build a working prototype of an app or system in at least one way — using AI to help plan or code, or with no-code/low-code tools", examples: {
+              health: {th: "เช่น ต้นแบบแอปเตือนกินยา หรือแบบคัดกรองอาการเบื้องต้น", en: "e.g. a medication-reminder prototype or a basic symptom screener"},
+              scitech: {th: "เช่น ต้นแบบเว็บหรือเครื่องมือที่รันได้จริง ไม่ใช่แค่สไลด์", en: "e.g. a web app or tool prototype that actually runs, not just slides"},
+              humsoc: {th: "เช่น ต้นแบบเว็บจัดนิทรรศการ หรือเครื่องมือเก็บแบบสอบถาม", en: "e.g. an online exhibition prototype or a survey-collection tool"}
+            }},
+          {th: "ฉันเคยใช้ AI เป็นส่วนหนึ่งของการพัฒนาผลงานหรือระบบที่มีผู้อื่นได้ทดลองหรือใช้งานจริง (เช่น เพื่อน เพื่อนร่วมงาน หรือลูกค้ากลุ่มเล็ก ๆ)", en: "I've used AI as part of building something that other people — friends, colleagues, or a small group of users — have actually tried or used", examples: {
+              health: {th: "เช่น สื่อให้ความรู้ผู้ป่วยที่มีคนได้ใช้จริงในหอผู้ป่วยหรือชุมชน", en: "e.g. patient-education material actually used on a ward or in a community"},
+              scitech: {th: "เช่น โปรเจกต์ที่มีคนอื่นได้ลองใช้จริง ไม่ใช่แค่ส่งอาจารย์", en: "e.g. a project other people actually tried, not just one handed in"},
+              humsoc: {th: "เช่น กิจกรรมหรือสื่อรณรงค์ที่กลุ่มเป้าหมายได้ใช้จริง", en: "e.g. an event or campaign material your target audience actually used"}
+            }}
         ],
         blurb: {th: "คุณไม่ได้แค่ใช้ AI แต่สร้างสิ่งใหม่ด้วย AI ได้ ทั้งเวิร์กโฟลว์ ต้นแบบ และการเชื่อมต่อระบบ", en: "You don't just use AI — you build new things with it: workflows, prototypes, and integrations."},
         nextH: {th: "พัฒนาสู่ระดับ 4 — ฝึกและดูแลโมเดล", en: "Grow into Level 4 — Training & maintaining models"},
@@ -806,8 +854,16 @@
           name: {th: "ตรวจสอบและรับผิดชอบ", en: "Verify & Own"},
           desc: {th: "ตรวจสอบผลของ AI และรับผิดชอบในผลงานของตัวเอง", en: "Check AI output and take responsibility for your work"},
           items: [
-            {th: "ฉันเคยจับได้ว่า AI ตอบอย่างมั่นใจแต่ผิด เพราะฉันตรวจสอบกับแหล่งอื่นก่อนนำไปใช้", en: "I've caught AI being confidently wrong — because I checked against another source before using its answer", reverse: false},
-            {th: "ถ้า AI ตอบเร็วและฟังดูสมเหตุสมผล ฉันมักนำไปใช้ทันที", en: "When AI answers quickly and sounds reasonable, I usually use it as-is", reverse: true}
+            {th: "ฉันเคยจับได้ว่า AI ตอบอย่างมั่นใจแต่ผิด เพราะฉันตรวจสอบกับแหล่งอื่นก่อนนำไปใช้", en: "I've caught AI being confidently wrong — because I checked against another source before using its answer", reverse: false, examples: {
+                health: {th: "เช่น ขนาดยาหรือค่าอ้างอิงที่ไปเช็คกับแนวทางเวชปฏิบัติแล้วไม่ตรง", en: "e.g. a dose or reference range that didn't match the clinical guideline"},
+                scitech: {th: "เช่น ฟังก์ชันที่ AI อ้างว่ามีในไลบรารี แต่เปิดเอกสารแล้วไม่มี", en: "e.g. a library function it claimed exists but the docs don't have"},
+                humsoc: {th: "เช่น ชื่อผู้แต่งหรือปีที่อ้าง แล้วตามหาต้นฉบับจริงไม่เจอ", en: "e.g. an author or year it cited that you couldn't trace to a source"}
+              }},
+            {th: "ถ้า AI ตอบเร็วและฟังดูสมเหตุสมผล ฉันมักนำไปใช้ทันที", en: "When AI answers quickly and sounds reasonable, I usually use it as-is", reverse: true, examples: {
+                health: {th: "เช่น คำอธิบายกลไกของโรคที่ฟังดูเข้าท่า", en: "e.g. a plausible-sounding explanation of a disease mechanism"},
+                scitech: {th: "เช่น โค้ดที่คอมไพล์ผ่านก็ถือว่าใช้ได้เลย", en: "e.g. code that compiles, so you take it as correct"},
+                humsoc: {th: "เช่น ย่อหน้าวิเคราะห์ที่สำนวนดีจนดูน่าเชื่อ", en: "e.g. an analysis paragraph that reads well enough to trust"}
+              }}
           ]
         },
         {
@@ -815,8 +871,16 @@
           name: {th: "เลือกใช้อย่างมีสติ", en: "Restraint"},
           desc: {th: "รู้ว่าเมื่อใดควรใช้ AI และเมื่อใดควรลงมือเอง", en: "Know when to use AI and when to do it yourself"},
           items: [
-            {th: "มีบางงานที่ฉันเลือกทำเองโดยไม่เปิด AI เพราะอยากให้ออกมาเป็นแบบที่ฉันคิดจริง ๆ", en: "There are tasks I choose to do without AI because I want the result to truly reflect my own thinking", reverse: false},
-            {th: "ช่วงหลัง ๆ แทบทุกงานฉันจะเปิด AI ก่อนเป็นอย่างแรก แม้แต่งานที่ฉันทำเองได้เร็วกว่า", en: "Lately I open AI first for almost every task — even ones I could do faster myself", reverse: true}
+            {th: "มีบางงานที่ฉันเลือกทำเองโดยไม่เปิด AI เพราะอยากให้ออกมาเป็นแบบที่ฉันคิดจริง ๆ", en: "There are tasks I choose to do without AI because I want the result to truly reflect my own thinking", reverse: false, examples: {
+                health: {th: "เช่น เขียนบันทึกสะท้อนคิดหลังออกฝึกปฏิบัติ", en: "e.g. writing your own reflection after clinical practice"},
+                scitech: {th: "เช่น แก้โจทย์อัลกอริทึมเองเพื่อให้เข้าใจจริง ๆ", en: "e.g. solving an algorithm problem yourself to really learn it"},
+                humsoc: {th: "เช่น เขียนเรียงความที่แสดงจุดยืนของตัวเอง", en: "e.g. writing an essay that argues your own position"}
+              }},
+            {th: "ช่วงหลัง ๆ แทบทุกงานฉันจะเปิด AI ก่อนเป็นอย่างแรก แม้แต่งานที่ฉันทำเองได้เร็วกว่า", en: "Lately I open AI first for almost every task — even ones I could do faster myself", reverse: true, examples: {
+                health: {th: "เช่น แม้แต่สรุปเลกเชอร์ที่จดเองได้เร็วกว่า", en: "e.g. even summarizing a lecture you could note faster yourself"},
+                scitech: {th: "เช่น แม้แต่โค้ดสั้น ๆ ที่เขียนเองได้ในห้านาที", en: "e.g. even a snippet you could write yourself in five minutes"},
+                humsoc: {th: "เช่น แม้แต่ร่างข้อความสั้น ๆ ถึงอาจารย์หรือเพื่อนร่วมทีม", en: "e.g. even a short message to a lecturer or a teammate"}
+              }}
           ]
         },
         {
@@ -824,8 +888,16 @@
           name: {th: "ใช้ทักษะมนุษย์เป็นแกน", en: "Human-skill lead"},
           desc: {th: "ใช้ empathy ความคิดสร้างสรรค์ และวิจารณญาณของตัวเองเป็นแกน AI เป็นตัวช่วย", en: "Lead with empathy, creativity, and judgment — AI assists"},
           items: [
-            {th: "เวลาคุยกับลูกค้า/เพื่อนร่วมงาน/ผู้ใช้ ฉันใช้การฟังและการสังเกตของตัวเองเป็นหลักในการทำความเข้าใจ ไม่ใช่ให้ AI สรุปแทน", en: "When talking with customers/colleagues/users, I rely on my own listening and observation to understand them — not on AI summaries", reverse: false},
-            {th: "หลายครั้งงานที่ฉันส่งออกไป แนวคิดหลักมาจาก AI มากกว่ามาจากตัวฉันเอง", en: "Often, the core ideas in work I hand in come more from AI than from me", reverse: true}
+            {th: "เวลาคุยกับลูกค้า/เพื่อนร่วมงาน/ผู้ใช้ ฉันใช้การฟังและการสังเกตของตัวเองเป็นหลักในการทำความเข้าใจ ไม่ใช่ให้ AI สรุปแทน", en: "When talking with customers/colleagues/users, I rely on my own listening and observation to understand them — not on AI summaries", reverse: false, examples: {
+                health: {th: "เช่น ซักประวัติและสังเกตอาการผู้ป่วยด้วยตัวเอง", en: "e.g. taking a history and observing the patient yourself"},
+                scitech: {th: "เช่น คุยกับผู้ใช้จริงเองก่อนออกแบบฟีเจอร์", en: "e.g. talking to real users yourself before designing a feature"},
+                humsoc: {th: "เช่น ลงพื้นที่ฟังผู้ให้ข้อมูลด้วยตัวเอง", en: "e.g. going into the field and listening to informants yourself"}
+              }},
+            {th: "หลายครั้งงานที่ฉันส่งออกไป แนวคิดหลักมาจาก AI มากกว่ามาจากตัวฉันเอง", en: "Often, the core ideas in work I hand in come more from AI than from me", reverse: true, examples: {
+                health: {th: "เช่น กรณีศึกษาหรือแผนการดูแลผู้ป่วยที่ส่ง", en: "e.g. the case study or care plan you hand in"},
+                scitech: {th: "เช่น แนวทางออกแบบระบบในโปรเจกต์ที่ส่ง", en: "e.g. the system design in the project you submit"},
+                humsoc: {th: "เช่น ประเด็นหลักในเปเปอร์หรือข้อเสนอโครงการ", en: "e.g. the central argument in your paper or proposal"}
+              }}
           ]
         },
         {
@@ -833,8 +905,16 @@
           name: {th: "นำการทำงานของ AI", en: "Direction"},
           desc: {th: "คุณนำ AI ไม่ใช่ AI นำคุณ", en: "You steer AI, not AI steers you"},
           items: [
-            {th: "ก่อนถาม AI ฉันมักประเมินก่อนว่าตอนนี้ตัวเองรู้อะไรและยังไม่รู้อะไร แล้วเลือกวิธีใช้ให้เหมาะ — สั่งงานตรง ๆ ให้ช่วยระดมไอเดีย หรือให้ช่วยค้นเปิดมุมใหม่", en: "Before asking AI, I usually assess what I already know and don't know, then choose how to use it — direct instructions, brainstorming help, or open-ended research", reverse: false},
-            {th: "ฉันมักพิมพ์ถาม AI ก่อน แล้วค่อยคิดตามแนวทางที่มันเสนอมา", en: "I usually ask AI first, then shape my thinking around whatever it suggests", reverse: true}
+            {th: "ก่อนถาม AI ฉันมักประเมินก่อนว่าตอนนี้ตัวเองรู้อะไรและยังไม่รู้อะไร แล้วเลือกวิธีใช้ให้เหมาะ — สั่งงานตรง ๆ ให้ช่วยระดมไอเดีย หรือให้ช่วยค้นเปิดมุมใหม่", en: "Before asking AI, I usually assess what I already know and don't know, then choose how to use it — direct instructions, brainstorming help, or open-ended research", reverse: false, examples: {
+                health: {th: "เช่น รู้ว่าตัวเองติดตรงกลไกของโรค ไม่ใช่ตรงชื่อยา", en: "e.g. knowing you're stuck on the mechanism, not the drug name"},
+                scitech: {th: "เช่น รู้ว่าตัวเองติดตรงตรรกะ ไม่ใช่ตรงไวยากรณ์ของภาษา", en: "e.g. knowing you're stuck on the logic, not the syntax"},
+                humsoc: {th: "เช่น รู้ว่าตัวเองติดตรงกรอบวิเคราะห์ ไม่ใช่ตรงตัวข้อมูล", en: "e.g. knowing you're stuck on the framework, not the data"}
+              }},
+            {th: "ฉันมักพิมพ์ถาม AI ก่อน แล้วค่อยคิดตามแนวทางที่มันเสนอมา", en: "I usually ask AI first, then shape my thinking around whatever it suggests", reverse: true, examples: {
+                health: {th: "เช่น ให้ AI ไล่การวินิจฉัยแยกโรคก่อนที่จะคิดเอง", en: "e.g. letting AI list differentials before thinking of your own"},
+                scitech: {th: "เช่น ให้ AI เสนอวิธีแก้ก่อนที่จะไล่หาสาเหตุเอง", en: "e.g. letting AI propose a fix before tracing the cause yourself"},
+                humsoc: {th: "เช่น ให้ AI ตั้งประเด็นของเปเปอร์ก่อนที่จะคิดเอง", en: "e.g. letting AI frame your paper's thesis before you do"}
+              }}
           ]
         },
         {
@@ -842,8 +922,16 @@
           name: {th: "เรียนรู้ ไม่ใช่แค่ได้คำตอบ", en: "Learn, not just answers"},
           desc: {th: "ใช้ AI เป็นติวเตอร์ที่ทำให้เข้าใจมากขึ้น ไม่ใช่คนทำงานแทน", en: "Use AI as a tutor that deepens understanding — not a stand-in that does the work"},
           items: [
-            {th: "เวลาใช้ AI กับเรื่องที่ต้องเรียนรู้ ฉันมักให้มันช่วยอธิบายและถามต่อ จนตัวเองเข้าใจพอที่จะอธิบายเองได้", en: "When I use AI on something I need to learn, I usually have it explain and take follow-up questions until I understand well enough to explain it myself", reverse: false},
-            {th: "หลายครั้งฉันส่งงานที่ AI ทำให้ ทั้งที่ยังอธิบายเองไม่ได้ว่าเนื้อหาในนั้นถูกต้องหรือมาได้อย่างไร", en: "I often hand in work AI produced even though I couldn't yet explain whether its content is right or how it got there", reverse: true}
+            {th: "เวลาใช้ AI กับเรื่องที่ต้องเรียนรู้ ฉันมักให้มันช่วยอธิบายและถามต่อ จนตัวเองเข้าใจพอที่จะอธิบายเองได้", en: "When I use AI on something I need to learn, I usually have it explain and take follow-up questions until I understand well enough to explain it myself", reverse: false, examples: {
+                health: {th: "เช่น ถามจนอธิบายกลไกของยาให้คนอื่นฟังได้", en: "e.g. asking until you can explain a drug's mechanism to someone"},
+                scitech: {th: "เช่น ถามจนอธิบายได้ว่าโค้ดแต่ละบรรทัดทำอะไร", en: "e.g. asking until you can explain what each line of code does"},
+                humsoc: {th: "เช่น ถามจนอธิบายทฤษฎีด้วยคำของตัวเองได้", en: "e.g. asking until you can explain the theory in your own words"}
+              }},
+            {th: "หลายครั้งฉันส่งงานที่ AI ทำให้ ทั้งที่ยังอธิบายเองไม่ได้ว่าเนื้อหาในนั้นถูกต้องหรือมาได้อย่างไร", en: "I often hand in work AI produced even though I couldn't yet explain whether its content is right or how it got there", reverse: true, examples: {
+                health: {th: "เช่น รายงานกรณีศึกษาที่อธิบายเหตุผลทางคลินิกเองไม่ได้", en: "e.g. a case report whose clinical reasoning you can't explain"},
+                scitech: {th: "เช่น โค้ดที่รันผ่าน แต่อธิบายไม่ได้ว่ามันทำงานอย่างไร", en: "e.g. code that runs but you can't say how it works"},
+                humsoc: {th: "เช่น บทวิเคราะห์ที่อ้างทฤษฎีซึ่งตัวเองยังไม่เข้าใจ", en: "e.g. an analysis citing theory you don't yet understand"}
+              }}
           ]
         },
         {
@@ -851,8 +939,16 @@
           name: {th: "ปกป้องข้อมูล", en: "Data privacy"},
           desc: {th: "รู้ว่าข้อมูลไหนไม่ควรป้อนให้ AI และปกป้องข้อมูลของตัวเองและผู้อื่น", en: "Know what should never go into AI — and protect your own and others' data"},
           items: [
-            {th: "ก่อนป้อนอะไรให้ AI ฉันเช็คก่อนว่าไม่มีข้อมูลส่วนตัวของตัวเองหรือผู้อื่น หรือข้อมูลลับของงาน/องค์กร ปนอยู่ในนั้น", en: "Before feeding anything into AI, I check that it contains no personal data — mine or other people's — and no confidential work or organizational information", reverse: false},
-            {th: "ฉันเคยวางข้อความหรือไฟล์งานจริงลงในแชต AI โดยไม่ได้หยุดคิดว่าในนั้นมีข้อมูลส่วนตัวหรือข้อมูลลับหรือเปล่า", en: "I've pasted real work text or files into an AI chat without stopping to think whether they contained personal or confidential information", reverse: true}
+            {th: "ก่อนป้อนอะไรให้ AI ฉันเช็คก่อนว่าไม่มีข้อมูลส่วนตัวของตัวเองหรือผู้อื่น หรือข้อมูลลับของงาน/องค์กร ปนอยู่ในนั้น", en: "Before feeding anything into AI, I check that it contains no personal data — mine or other people's — and no confidential work or organizational information", reverse: false, examples: {
+                health: {th: "เช่น ตัดชื่อ เลขประจำตัวผู้ป่วย และรายละเอียดที่ระบุตัวได้ออกก่อน", en: "e.g. stripping names, hospital numbers and identifying details first"},
+                scitech: {th: "เช่น เอาคีย์ API และข้อมูลผู้ใช้จริงออกจากโค้ดก่อนแปะ", en: "e.g. removing API keys and real user data from code before pasting"},
+                humsoc: {th: "เช่น ปกปิดชื่อผู้ให้สัมภาษณ์ก่อนให้ AI ช่วยวิเคราะห์", en: "e.g. anonymizing interviewees before asking AI to analyze"}
+              }},
+            {th: "ฉันเคยวางข้อความหรือไฟล์งานจริงลงในแชต AI โดยไม่ได้หยุดคิดว่าในนั้นมีข้อมูลส่วนตัวหรือข้อมูลลับหรือเปล่า", en: "I've pasted real work text or files into an AI chat without stopping to think whether they contained personal or confidential information", reverse: true, examples: {
+                health: {th: "เช่น ภาพหรือบันทึกที่ได้มาจากการฝึกปฏิบัติบนหอผู้ป่วย", en: "e.g. images or notes from a ward rotation"},
+                scitech: {th: "เช่น ไฟล์โปรเจกต์ของที่ฝึกงานทั้งไฟล์", en: "e.g. a whole project file from your internship"},
+                humsoc: {th: "เช่น ไฟล์ถอดเทป หรือรายชื่อผู้เข้าร่วมวิจัย", en: "e.g. a transcript file or a list of research participants"}
+              }}
           ]
         }
       ],

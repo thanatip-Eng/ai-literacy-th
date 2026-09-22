@@ -142,6 +142,7 @@
   }
   .lvl-tag{font-family:"Chakra Petch",sans-serif;font-weight:600;font-size:.74rem;color:var(--teal);letter-spacing:.04em;margin-bottom:10px}
   .qtext{font-size:1.22rem;font-weight:500;line-height:1.5;min-height:2.4em}
+  .qexample{font-size:.92rem;line-height:1.45;color:var(--muted);margin-top:8px}
   .scale{display:grid;gap:10px;margin-top:22px}
   .opt{
     display:flex;align-items:center;gap:14px;text-align:left;width:100%;
@@ -1082,6 +1083,7 @@
     <div class="qcard">
       <div class="lvl-tag" id="qLvlTag"></div>
       <div class="qtext" id="qText"></div>
+      <p class="qexample" id="qExample" hidden></p>
       <div class="scale" id="qScale"></div>
     </div>
 
@@ -1733,20 +1735,35 @@ function restart(){
   show('intro');
 }
 
+/* One extra line under the question, phrased in the student's own field, so a
+   nursing or fine-arts student does not have to translate "customers" into their
+   world. The scored statement above it is identical for everyone — only the
+   example changes — so the scores stay comparable across fields and across the
+   public version, which never shows this line. */
+function renderQExample(itemObj){
+  const box = document.getElementById('qExample');
+  if(!box) return;
+  const set = studentMode() && userDiscipline && itemObj && itemObj.examples
+    ? itemObj.examples[userDiscipline.code]
+    : null;
+  if(!set){ box.hidden = true; box.textContent = ''; return; }
+  box.textContent = tx(set);
+  box.hidden = false;
+}
 function renderQ(){
   const item = QS[idx];
   const pill = document.getElementById('qPill');
-  let pillText, pillColor, lvlTagText, qText;
+  let pillText, pillColor, lvlTagText, qText, itemObj;
   if(item.kind === 'partnership'){
     const sub = PARTNERSHIP.subtraits[item.subtraitIndex];
-    const itemObj = sub.items[item.itemIndex];
+    itemObj = sub.items[item.itemIndex];
     pillText = LANG[currentLang].qPartnershipPillTpl(tx(sub.name));
     pillColor = PARTNERSHIP.color;
     lvlTagText = `${tx(sub.name)} · ${currentLang === 'th' ? sub.name.en : sub.name.th}`;
     qText = tx(itemObj);
   } else {
     const L = ASSESSABLE[item.levelIndex];
-    const itemObj = L.items[item.itemIndex];
+    itemObj = L.items[item.itemIndex];
     pillText = LANG[currentLang].qPillTpl(L.n);
     pillColor = L.color;
     lvlTagText = `${tx(L.name)} · ${currentLang === 'th' ? L.name.en : L.name.th}`;
@@ -1759,6 +1776,7 @@ function renderQ(){
   document.getElementById('qBar').style.width = ((idx)/(TOTAL))*100 + '%';
   document.getElementById('qLvlTag').textContent = lvlTagText;
   document.getElementById('qText').textContent = qText;
+  renderQExample(itemObj);
   document.getElementById('backBtn').style.visibility = idx===0 ? 'hidden':'visible';
 
   const sc = document.getElementById('qScale'); sc.innerHTML='';
