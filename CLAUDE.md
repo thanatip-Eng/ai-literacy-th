@@ -65,6 +65,10 @@ partnership (v3 item set; v1 rows have 20-value rawAnswers, v2 rows 22).
   `{focus, steps[2]}` block per field × quadrant (12 blocks). Student mode only:
   students have no job role, and a role *ceiling* would wrongly tell a CS student
   who reaches L3 that they have outgrown being a student
+- Every scored item (`levels[].items[]` L1–L3 and `partnership.subtraits[].items[]`)
+  also carries `examples: {health, scitech, humsoc}` — a one-phrase example shown
+  under the question in student mode only. The scored stems are identical for
+  everyone, so scores stay comparable across fields and across the public version
 - **`scale`** — 5-point Likert, stored values `v: 0–4`, displayed 1–5
 - **`lang.th` / `lang.en`** — all UI strings; key sets must match exactly
   (validated). Template *functions* (`placementBlockedTpl` etc.) live in
