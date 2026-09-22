@@ -83,6 +83,12 @@
         roleSub: "เลือก 1 ข้อที่ใกล้เคียงที่สุด เพื่อให้คำแนะนำตรงกับงานของคุณ ข้ามได้ถ้าไม่ต้องการ",
         roleSkip: "ข้าม / ไม่ระบุ",
         roleGuideLink: "เพดานทักษะของแต่ละสายงานตั้งจากอะไร? →",
+        disciplineStepPill: "เลือกกลุ่มสาขา",
+        disciplineHead: "คุณเรียนอยู่กลุ่มสาขาใด?",
+        disciplineSub: "เลือก 1 ข้อ เพื่อให้ตัวอย่างระหว่างทำและคำแนะนำท้ายผลตรงกับศาสตร์ของคุณ ข้ามได้ถ้าไม่ต้องการ",
+        disciplineInsightLabel: "🎓 สาขาของคุณ",
+        disciplineAdviceHead: "🎓 คำแนะนำสำหรับสายของคุณ",
+        disciplineAdviceIntro: "อิงจากกลุ่มสาขาที่คุณเลือก และรูปแบบการใช้ AI ที่ออกมา",
         verdictHead: "บทบาทกับสไตล์การใช้ AI ของคุณ",
         verdictRoleLineTpl: "บทบาท: {role} · เป้าหมาย ระดับ {ceiling}",
         verdictBelowFloor: "เริ่มจากสำรวจพื้นฐานก่อน — เส้นทางข้างหน้าจะเดินสบายขึ้น",
@@ -298,6 +304,12 @@
         roleSub: "Pick the closest match so we can tailor advice to your work. You can skip this if you prefer.",
         roleSkip: "Skip / prefer not to say",
         roleGuideLink: "How are each role's skill ceilings set? →",
+        disciplineStepPill: "Pick your field",
+        disciplineHead: "Which field are you studying?",
+        disciplineSub: "Pick one so the examples during the assessment and the guidance at the end match your field. You can skip this if you prefer.",
+        disciplineInsightLabel: "🎓 Your field",
+        disciplineAdviceHead: "🎓 Guidance for your field",
+        disciplineAdviceIntro: "Based on the field you picked and the AI-use pattern in your result",
         verdictHead: "How AI fits your role",
         verdictRoleLineTpl: "Role: {role} · target Level {ceiling}",
         verdictBelowFloor: "Start by exploring the foundations — the path ahead gets easier",
@@ -671,6 +683,115 @@
         pivot: {
           th: "สร้าง portfolio ที่โชว์ระดับจริงของคุณ และสมัครงาน/internship สาย AI ที่ตรงกับสกิล",
           en: "Build a portfolio that reflects your real level and apply for AI-track jobs/internships that match"
+        }
+      }
+    },
+    disciplines: [
+      {
+        code: "health",
+        label: {th: "วิทยาศาสตร์สุขภาพ", en: "Health Sciences"},
+        hint: {th: "แพทย์ · ทันตแพทย์ · เภสัช · พยาบาล · เทคนิคการแพทย์ · สาธารณสุข · สัตวแพทย์", en: "Medicine · Dentistry · Pharmacy · Nursing · Medical Tech · Public Health · Veterinary"}
+      },
+      {
+        code: "scitech",
+        label: {th: "วิทยาศาสตร์และเทคโนโลยี", en: "Science & Technology"},
+        hint: {th: "วิศวกรรม · วิทยาศาสตร์ · ไอที · เกษตร · สถาปัตยกรรม · อุตสาหกรรมเกษตร", en: "Engineering · Science · IT · Agriculture · Architecture · Agro-Industry"}
+      },
+      {
+        code: "humsoc",
+        label: {th: "มนุษยศาสตร์และสังคมศาสตร์", en: "Humanities & Social Sciences"},
+        hint: {th: "มนุษยศาสตร์ · สังคมศาสตร์ · บริหารธุรกิจ · ศึกษาศาสตร์ · นิติศาสตร์ · วิจิตรศิลป์ · สื่อสารมวลชน · รัฐศาสตร์ · เศรษฐศาสตร์", en: "Humanities · Social Sciences · Business · Education · Law · Fine Arts · Mass Comm · Political Science · Economics"}
+      }
+    ],
+    disciplineAdvice: {
+      health: {
+        novice: {
+          focus: {th: "เริ่มจากงานที่ไม่มีข้อมูลผู้ป่วยอยู่ในนั้น", en: "Start with tasks that contain no patient data"},
+          steps: [
+            {th: "ลองให้ AI ช่วยสรุปบทความวิชาการหรืออธิบายศัพท์ทางคลินิกที่ยังไม่คุ้น แล้วเทียบกับตำราเรียน", en: "Have AI summarize a paper or explain unfamiliar clinical terms, then check it against your textbook"},
+            {th: "ตั้งกฎของตัวเองให้ชัดตั้งแต่วันนี้ว่าอะไรห้ามพิมพ์ลงแชต AI เด็ดขาด — ชื่อ HN ผลแล็บ ภาพถ่ายผู้ป่วย", en: "Set your own rule now for what never goes into an AI chat — names, hospital numbers, lab results, patient images"}
+          ]
+        },
+        coach: {
+          focus: {th: "คุณระวังดีอยู่แล้ว เหลือเพิ่มทักษะการใช้ให้คล่องขึ้น", en: "Your judgment is already sound — now build fluency"},
+          steps: [
+            {th: "ลองใช้ AI ช่วยร่างสื่อให้ความรู้ผู้ป่วยภาษาชาวบ้าน แล้วตรวจเนื้อหากับแนวทางเวชปฏิบัติก่อนใช้จริง", en: "Draft patient-education material in plain language with AI, then check it against clinical guidelines before use"},
+            {th: "ฝึกเขียน prompt ที่สั่งให้ AI ระบุแหล่งอ้างอิงเสมอ จะได้ตรวจย้อนได้เร็ว", en: "Practise prompts that force AI to cite its sources, so you can verify quickly"}
+          ]
+        },
+        autopilot: {
+          focus: {th: "ความเร็วที่ได้มา กำลังแลกกับความปลอดภัยของผู้ป่วย", en: "The speed you gain is being traded against patient safety"},
+          steps: [
+            {th: "ทุกตัวเลขที่ AI ให้มา — ขนาดยา ค่าอ้างอิง ชื่อยา — ต้องตรวจกับแหล่งปฐมภูมิก่อนเสมอ AI แต่งตัวเลขที่ฟังดูถูกได้", en: "Every number AI gives you — doses, reference ranges, drug names — must be checked against a primary source; AI invents plausible-sounding numbers"},
+            {th: "หยุดวางข้อมูลผู้ป่วยลงแชต แม้ตัดชื่อออกแล้ว เพราะวันเดือนปีเกิดกับการวินิจฉัยรวมกันก็ระบุตัวคนได้", en: "Stop pasting patient data even with names removed — a date of birth plus a diagnosis can still identify someone"}
+          ]
+        },
+        director: {
+          focus: {th: "คุณพร้อมเป็นต้นแบบการใช้ AI อย่างปลอดภัยให้รุ่นน้อง", en: "You are ready to model safe AI use for those coming after you"},
+          steps: [
+            {th: "ร่างแนวปฏิบัติการใช้ AI สำหรับงานบนหอผู้ป่วยหรือในแล็บของกลุ่มคุณ ระบุให้ชัดว่าอะไรทำได้ อะไรห้าม", en: "Draft an AI practice guideline for your ward or lab group — spell out what is allowed and what is not"},
+            {th: "สอนเพื่อนจับ hallucination ทางคลินิก ด้วยตัวอย่างจริงที่คุณเคยเจอ", en: "Teach peers to catch clinical hallucinations using real examples you have hit yourself"}
+          ]
+        }
+      },
+      scitech: {
+        novice: {
+          focus: {th: "ใช้ AI เป็นติวเตอร์ ไม่ใช่เครื่องส่งการบ้าน", en: "Use AI as a tutor, not as a homework dispenser"},
+          steps: [
+            {th: "ให้ AI อธิบายโค้ดหรือสมการที่คุณยังไม่เข้าใจ แทนที่จะให้มันเขียนให้ทั้งหมด", en: "Ask AI to explain code or equations you don't yet understand, instead of having it write them for you"},
+            {th: "เทียบคำตอบกับเอกสารทางการของภาษา/ไลบรารีที่ใช้ เพราะ AI มักอ้างฟังก์ชันที่ไม่มีอยู่จริง", en: "Check answers against the official docs of the language or library — AI routinely cites functions that don't exist"}
+          ]
+        },
+        coach: {
+          focus: {th: "คุณมีวินัยตรวจสอบแล้ว ขยับไปเป็นคนสร้างได้", en: "You already verify — now move toward building"},
+          steps: [
+            {th: "ให้ AI ช่วยวางโครงโปรเจกต์ แล้วลงมือเขียนส่วนที่ยากที่สุดเอง เพื่อให้ทักษะยังโตต่อ", en: "Let AI help scaffold a project, then write the hardest part yourself so your skills keep growing"},
+            {th: "ลองเชื่อม AI เข้ากับงานจริงผ่าน API สักตัว — เป็นก้าวสำคัญจากผู้ใช้ไปเป็นผู้สร้าง", en: "Wire AI into something real through an API — the step that turns a user into a builder"}
+          ]
+        },
+        autopilot: {
+          focus: {th: "คุณใช้ AI เก่งจนเริ่มไม่ได้ตรวจสิ่งที่มันให้มา", en: "You are skilled enough with AI that you have stopped checking what it hands you"},
+          steps: [
+            {th: "ก่อนส่งหรือ commit ต้องอธิบายได้ทุกบรรทัดว่าโค้ดทำอะไร ถ้าอธิบายไม่ได้แปลว่ายังใช้ไม่ได้ ไม่ใช่ว่ามันเสร็จแล้ว", en: "Before you submit or commit, be able to explain every line; if you can't, it isn't done — it's just written"},
+            {th: "ทดสอบ edge case ด้วยตัวเอง โค้ดที่รันผ่านไม่ได้แปลว่าถูก และผลวิเคราะห์ที่ดูสวยไม่ได้แปลว่าวิธีถูก", en: "Test the edge cases yourself — code that runs isn't code that's correct, and a clean-looking analysis isn't a sound method"}
+          ]
+        },
+        director: {
+          focus: {th: "คุณอยู่ในจุดที่วางมาตรฐานให้ทีมได้", en: "You are in a position to set the standard for your team"},
+          steps: [
+            {th: "ตั้ง guideline การใช้ AI ในโปรเจกต์กลุ่ม ว่าส่วนไหนต้องรีวิวโดยคน ส่วนไหนห้ามให้ AI แตะ", en: "Set an AI guideline for group projects — what a human must review, and what AI must not touch"},
+            {th: "สร้างชุดทดสอบหรือวิธีประเมินผลให้ระบบที่ใช้ AI แทนการเชื่อว่ามันทำงานถูก", en: "Build a test suite or evaluation method for anything AI-powered, instead of assuming it works"}
+          ]
+        }
+      },
+      humsoc: {
+        novice: {
+          focus: {th: "เริ่มจากงานค้นคว้าและงานเขียนที่คุณตรวจเองได้", en: "Start with research and writing you can check yourself"},
+          steps: [
+            {th: "ใช้ AI ช่วยสรุปบทความยาว ๆ แล้วตั้งคำถามกลับว่ามันตีความตรงกับต้นฉบับไหม", en: "Use AI to summarize long readings, then question whether its reading matches the original"},
+            {th: "ตรวจทุกครั้งว่าแหล่งอ้างอิงที่ AI ให้มามีอยู่จริง — มันสร้างชื่อผู้แต่งและปีที่ไม่มีอยู่ได้อย่างแนบเนียน", en: "Always check that the sources AI gives you exist — it fabricates authors and years very convincingly"}
+          ]
+        },
+        coach: {
+          focus: {th: "คุณรักษาเสียงของตัวเองไว้ได้ ใช้ AI ให้ลึกขึ้นได้อีก", en: "You keep your own voice — now use AI more deeply"},
+          steps: [
+            {th: "ใช้ AI เป็นคู่โต้แย้ง ให้มันหาจุดอ่อนในข้อเขียนของคุณก่อนส่ง", en: "Use AI as a sparring partner — have it attack the weak points in your argument before you submit"},
+            {th: "ลองให้ AI ช่วยจัดหมวดข้อมูลเชิงคุณภาพ แล้วสุ่มตรวจเองว่าจัดถูกจริงไหม", en: "Try AI-assisted coding of qualitative data, then spot-check its categories yourself"}
+          ]
+        },
+        autopilot: {
+          focus: {th: "งานที่ส่งเริ่มเป็นเสียงของ AI มากกว่าเสียงของคุณ", en: "What you hand in is starting to sound like AI rather than like you"},
+          steps: [
+            {th: "เขียนร่างแรกด้วยตัวเองเสมอ แล้วค่อยให้ AI ช่วยขัด — ลำดับนี้รักษาทั้งความคิดและสำนวนของคุณไว้", en: "Always write the first draft yourself and let AI polish afterwards — that order protects both your thinking and your voice"},
+            {th: "ตรวจการอ้างอิงทุกตัวก่อนส่ง การอ้างงานที่ไม่มีอยู่จริงถือเป็นความผิดทางวิชาการ ไม่ใช่แค่ความผิดพลาด", en: "Verify every citation before submitting — citing work that doesn't exist is academic misconduct, not a slip"}
+          ]
+        },
+        director: {
+          focus: {th: "ใช้ AI ได้ลึกโดยที่จุดยืนทางวิชาการยังชัด", en: "You use AI deeply while your scholarly position stays clear"},
+          steps: [
+            {th: "ระบุวิธีที่คุณใช้ AI ไว้ในระเบียบวิธีวิจัยให้ชัด เป็นมาตรฐานที่กำลังกลายเป็นข้อกำหนดของวารสาร", en: "State how you used AI in your methodology — journals are making this a requirement"},
+            {th: "ช่วยเพื่อนแยกให้ออกว่างานแบบไหนควรใช้ AI และงานแบบไหนที่การใช้ทำให้คุณค่าของงานหายไป", en: "Help peers tell apart work AI should assist and work where using it destroys the point"}
+          ]
         }
       }
     },

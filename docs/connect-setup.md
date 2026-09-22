@@ -33,7 +33,8 @@ Vercel → Project → Settings → Domains → Add (เช่น `testyouraisty
    | name | ชื่อผู้ทำ |
    | studentId (หรือ studentid) | รหัสนักศึกษา (โหมด form) |
    | email | อีเมลที่ยืนยันจาก Canvas (โหมด lti) |
-   | role | รหัสบทบาท (admin / student / …) |
+   | role | รหัสบทบาท (admin / student / …) — เฉพาะเวอร์ชันสาธารณะ |
+   | discipline | กลุ่มสาขาของนักศึกษา (health / scitech / humsoc) — เฉพาะเวอร์ชันนักศึกษา |
    | lang | ภาษาที่ใช้ทำ (th / en) |
    | placement (หรือ level_cumulative) | ระดับทักษะสะสม 0–3 |
    | l1, l2, l3 | คะแนนรายระดับทักษะ 0–100 (3 ช่องแยก) |
@@ -53,6 +54,14 @@ Vercel → Project → Settings → Domains → Add (เช่น `testyouraisty
 2. ใน Form ตั้ง **Settings → Responses → Limit to 1 response = OFF** (ระบบส่งแทนผู้ใช้ การบังคับ login Google จะทำให้ส่งไม่ได้) และกด **Link to Sheets** เพื่อให้ผลไหลเข้า Google Sheet
 
 3. **หา entry ID ของแต่ละคำถาม**: กด ⋮ → **Get pre-filled link** → กรอกค่าอะไรก็ได้ทุกช่อง → **Get link** → คัดลอกลิงก์มาดู จะเห็น `entry.123456789=...` ของแต่ละคำถามเรียงตามลำดับ
+
+4. **ช่องที่ฟอร์มปัจจุบันยังไม่มี** — `discipline`, `role` และ `version` ยังไม่เคยถูก map
+   ใน `content/connect-config.js` แปลว่าค่าเหล่านี้ถูกส่งออกจากเบราว์เซอร์แต่ไม่มีคำถาม
+   รองรับ จึงไม่ถึง Sheet · ถ้าต้องการวิเคราะห์แยกตามกลุ่มสาขา (เช่น "นักศึกษาสาย
+   วิทยาศาสตร์และเทคโนโลยีเป็น autopilot มากกว่าสายอื่นไหม") ให้เพิ่มคำถาม Short answer
+   ชื่อ `discipline` ในฟอร์มหลัก → ทำขั้นตอน Get pre-filled link ซ้ำ → นำ entry ID ที่ได้
+   ไปใส่ใน `fields.discipline` (ตอนนี้เว้นเป็น `""` ไว้แล้ว) · คำถามที่เพิ่มทีหลังจะอยู่
+   ท้ายลิงก์ prefill เสมอ จึงหาไม่ยาก
 
 ## ขั้นที่ 2 — ตั้งค่า `content/connect-config.js`
 

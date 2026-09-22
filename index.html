@@ -1064,7 +1064,7 @@
       <h2 class="name-h" data-i18n="roleHead">งานหลักของคุณคือ?</h2>
       <p class="name-sub" data-i18n="roleSub">เลือก 1 ข้อที่ใกล้เคียงที่สุด เพื่อให้คำแนะนำตรงกับงานของคุณ ข้ามได้ถ้าไม่ต้องการ</p>
       <div class="role-grid" id="roleGrid"></div>
-      <p class="mini" style="margin-top:12px;text-align:center"><a href="roles-guide.html" target="_blank" rel="noopener" data-i18n="roleGuideLink">เพดานทักษะของแต่ละสายงานตั้งจากอะไร? →</a></p>
+      <p class="mini" id="roleGuideLinkRow" style="margin-top:12px;text-align:center"><a href="roles-guide.html" target="_blank" rel="noopener" data-i18n="roleGuideLink">เพดานทักษะของแต่ละสายงานตั้งจากอะไร? →</a></p>
       <div class="navrow" style="margin-top:18px">
         <button class="btn ghost" type="button" onclick="skipRole()" data-i18n="roleSkip">ข้าม / ไม่ระบุ</button>
       </div>
@@ -1128,7 +1128,7 @@
         </div>
         <div class="ph-row ph-role" id="rRoleInsightRow" hidden>
           <span class="ph-label" data-i18n="roleInsightLabel">🏁 บทบาท</span>
-          <span class="ph-name"><span id="rRoleInsightText"></span> <a href="roles-guide.html" target="_blank" rel="noopener" data-i18n="roleInsightLink">หลักคิดเพดาน →</a></span>
+          <span class="ph-name"><span id="rRoleInsightText"></span> <a href="roles-guide.html" id="rRoleInsightLink" target="_blank" rel="noopener" data-i18n="roleInsightLink">หลักคิดเพดาน →</a></span>
         </div>
         <p class="ph-note" id="rPHVarianceNote" hidden></p>
       </div>
@@ -1229,6 +1229,13 @@
             </div>
           </div>
           <p class="stretch-note" data-i18n="stretchNote">ทั้งคู่ไม่ผิด — เลือกตามเป้าหมายของคุณ</p>
+        </div>
+
+        <div class="stretch-card" id="rFieldAdvice" hidden>
+          <h4 data-i18n="disciplineAdviceHead">🎓 คำแนะนำสำหรับสายของคุณ</h4>
+          <p class="stretch-sub" id="rFieldAdviceSub"></p>
+          <p class="stretch-intro" id="rFieldAdviceFocus"></p>
+          <ul id="rFieldAdviceSteps"></ul>
         </div>
       </div>
     </details>
@@ -1381,6 +1388,8 @@ const DIAGRAM_LEVELS = [
 const SCALE = CONTENT.scale;
 const ROLES = CONTENT.roles || [];
 const ROLE_STRETCH = CONTENT.roleStretch || {};
+const DISCIPLINES = CONTENT.disciplines || [];
+const DISCIPLINE_ADVICE = CONTENT.disciplineAdvice || {};
 const PARTNERSHIP = CONTENT.partnership;
 const PARTNERSHIP_CUT = (PARTNERSHIP && typeof PARTNERSHIP.threshold === 'number') ? PARTNERSHIP.threshold : 60;
 
@@ -1498,6 +1507,8 @@ let idx = 0;
 const answers = new Array(TOTAL).fill(null);
 let userName = '';
 let userRole = null;
+// Students pick a field of study instead of a job role; the two never mix.
+let userDiscipline = null;
 let finishedAt = null;
 
 /* connect-mode state (Canvas LTI / Google Form).
@@ -1631,33 +1642,59 @@ function goToRolePick(){
   renderRoleOptions();
   show('role');
 }
+/* Students are all students — asking for a job role tells us nothing, so the
+   same screen asks for their field of study instead and drives the examples
+   during the quiz and the guidance at the end. */
+function studentMode(){ return !!CONNECT_MODE || demoCanvas(); }
+
 function renderRoleOptions(){
   const box = document.getElementById('roleGrid');
   if(!box) return;
+  const student = studentMode();
+  const section = document.getElementById('role');
+  const setKey = (sel, key) => {
+    const el = section && section.querySelector(sel);
+    if(!el) return;
+    el.dataset.i18n = key;
+    el.textContent = t(key);
+  };
+  setKey('.pill', student ? 'disciplineStepPill' : 'roleStepPill');
+  setKey('.name-h', student ? 'disciplineHead' : 'roleHead');
+  setKey('.name-sub', student ? 'disciplineSub' : 'roleSub');
+  // the ceiling rationale is about job roles — it has no meaning for a student
+  const guideRow = document.getElementById('roleGuideLinkRow');
+  if(guideRow) guideRow.hidden = student;
+
   box.innerHTML = '';
-  ROLES.forEach(role => {
+  const options = student ? DISCIPLINES : ROLES;
+  options.forEach(opt => {
     const btn = document.createElement('button');
     btn.type = 'button';
     btn.className = 'role-opt';
-    const primary = tx(role.label);
-    const secondary = currentLang === 'th' ? role.label.en : role.label.th;
     const lab = document.createElement('span');
     lab.className = 'lab';
-    lab.textContent = primary;
+    lab.textContent = tx(opt.label);
     const sub = document.createElement('span');
     sub.className = 'sub';
-    sub.textContent = secondary;
+    sub.textContent = student ? tx(opt.hint) : (currentLang === 'th' ? opt.label.en : opt.label.th);
     btn.append(lab, sub);
-    btn.onclick = () => pickRole(role.code);
+    btn.onclick = () => pickRole(opt.code);
     box.appendChild(btn);
   });
 }
 function pickRole(code){
-  userRole = ROLES.find(r => r.code === code) || null;
+  if(studentMode()){
+    userDiscipline = DISCIPLINES.find(d => d.code === code) || null;
+    userRole = null;
+  } else {
+    userRole = ROLES.find(r => r.code === code) || null;
+    userDiscipline = null;
+  }
   startQuizFlow();
 }
 function skipRole(){
   userRole = null;
+  userDiscipline = null;
   startQuizFlow();
 }
 function startQuizFlow(){
@@ -1679,6 +1716,7 @@ function restart(){
   idx = 0;
   userName = '';
   userRole = null;
+  userDiscipline = null;
   finishedAt = null;
   connectPayload = null;
   connectStatusKey = null;
@@ -1813,6 +1851,7 @@ function buildConnectPayload(pcts, placement, partnership){
     studentid: connectStudentId,
     email: (connectIdentity && connectIdentity.email) || '',
     role: userRole ? userRole.code : '',
+    discipline: userDiscipline ? userDiscipline.code : '',
     lang: currentLang,
     placement: placement,
     level_cumulative: placement,
@@ -2518,10 +2557,53 @@ function renderTags(pcts, placement, partnership){
   block.textContent = lines.join('\n');
 }
 
+/* Field guidance = field × the quadrant they landed in. A tech student on
+   autopilot needs to hear about reviewing what AI hands them, not about
+   learning more tools. */
+function renderDisciplineAdvice(){
+  const insightRow = document.getElementById('rRoleInsightRow');
+  const fieldBox = document.getElementById('rFieldAdvice');
+  const quadrant = (window.__res && window.__res.partnership) ? window.__res.partnership.quadrant : '';
+  const advice = userDiscipline && DISCIPLINE_ADVICE[userDiscipline.code]
+    ? DISCIPLINE_ADVICE[userDiscipline.code][quadrant]
+    : null;
+  if(!userDiscipline || !advice){
+    if(insightRow) insightRow.hidden = true;
+    if(fieldBox) fieldBox.hidden = true;
+    return;
+  }
+  const fieldName = tx(userDiscipline.label);
+  const label = insightRow.querySelector('.ph-label');
+  if(label){
+    label.dataset.i18n = 'disciplineInsightLabel';
+    label.textContent = t('disciplineInsightLabel');
+  }
+  document.getElementById('rRoleInsightText').textContent = `${fieldName} — ${tx(advice.focus)}`;
+  insightRow.hidden = false;
+
+  if(!fieldBox) return;
+  document.getElementById('rFieldAdviceSub').textContent = `${fieldName} · ${t('disciplineAdviceIntro')}`;
+  document.getElementById('rFieldAdviceFocus').textContent = tx(advice.focus);
+  fillUl('rFieldAdviceSteps', (advice.steps || []).map(tx));
+  fieldBox.hidden = false;
+}
+
 function renderRoleVerdict(pcts, THRESH){
   const insightRow = document.getElementById('rRoleInsightRow');
   const stretchBox = document.getElementById('rStretch');
   if(!insightRow) return;
+  const fieldBox = document.getElementById('rFieldAdvice');
+  const ceilingLink = document.getElementById('rRoleInsightLink');
+  // Students get field guidance instead of a role ceiling: they are still
+  // studying, so "you have outgrown your role" is the wrong thing to say.
+  if(studentMode()){
+    if(stretchBox) stretchBox.hidden = true;
+    if(ceilingLink) ceilingLink.hidden = true;
+    renderDisciplineAdvice();
+    return;
+  }
+  if(ceilingLink) ceilingLink.hidden = false;
+  if(fieldBox) fieldBox.hidden = true;
   const verdict = CORE.roleVerdict(pcts, userRole, THRESH);
   if(verdict.kind === 'agnostic'){
     insightRow.hidden = true;
@@ -3001,7 +3083,17 @@ async function generateResultImage(lang){
       stepLines.forEach((ln, i) => ctx.fillText(ln, IMG_W/2, stepTop + i*32));
     }
 
-    if(userRole){
+    if(userDiscipline){
+      // students: field + the focus line, mirroring the page's insight strip
+      const quadrantKey = (window.__res && window.__res.partnership) ? window.__res.partnership.quadrant : '';
+      const advice = (DISCIPLINE_ADVICE[userDiscipline.code] || {})[quadrantKey];
+      if(advice){
+        ctx.fillStyle = color;
+        ctx.font = '600 24px "IBM Plex Sans Thai", "IBM Plex Sans", sans-serif';
+        const fieldLine = `${L18.disciplineInsightLabel}: ${userDiscipline.label[lang]} — ${advice.focus[lang]}`;
+        ctx.fillText(truncateToWidth(ctx, fieldLine, IMG_W - PAD*2), IMG_W/2, 748);
+      }
+    } else if(userRole){
       const verdict = CORE.roleVerdict((window.__res && window.__res.pcts) || [], userRole, 70);
       if(verdict.kind !== 'agnostic'){
         let msg = '';
@@ -3279,7 +3371,13 @@ function runDemo(profileKey){
   const highSkill = key === 'autopilot' || key === 'director';
   const highPartnership = key === 'coach' || key === 'director';
   userName = currentLang === 'th' ? 'ตัวอย่าง (Demo)' : 'Sample (Demo)';
-  userRole = ROLES.find(r => r.code === 'student') || ROLES[0];
+  if(demoCanvas()){
+    userDiscipline = DISCIPLINES.find(d => d.code === 'scitech') || DISCIPLINES[0] || null;
+    userRole = null;
+  } else {
+    userRole = ROLES.find(r => r.code === 'student') || ROLES[0];
+    userDiscipline = null;
+  }
   QS.forEach((q, i) => {
     if(q.kind === 'skill'){
       // high: pass all levels · low: pass only L1

@@ -90,3 +90,54 @@ test('malformed text is rejected without changing content', () => {
   assert.notEqual(result.status, 0);
   assert.equal(fs.readFileSync(contentPath, 'utf8'), before);
 });
+
+/* ---------------- student version: field of study ---------------- */
+
+const QUADRANT_KEYS = ['novice', 'coach', 'autopilot', 'director'];
+
+test('the three CMU field groups are defined bilingually', () => {
+  const list = content.disciplines;
+  assert.ok(Array.isArray(list), 'disciplines block is required');
+  assert.deepEqual(list.map(d => d.code), ['health', 'scitech', 'humsoc']);
+  for (const d of list) {
+    for (const lang of ['th', 'en']) {
+      assert.equal(typeof d.label[lang], 'string', `${d.code} label.${lang}`);
+      assert.ok(d.label[lang].trim(), `${d.code} label.${lang} must not be empty`);
+      // the hint lists the faculties in that group — it is what makes the
+      // choice answerable in one tap
+      assert.ok(d.hint && d.hint[lang] && d.hint[lang].trim(), `${d.code} hint.${lang}`);
+    }
+  }
+});
+
+test('field guidance covers every field in every quadrant', () => {
+  const advice = content.disciplineAdvice;
+  assert.ok(advice, 'disciplineAdvice block is required');
+  assert.deepEqual(Object.keys(advice), content.disciplines.map(d => d.code));
+  for (const [code, byQuadrant] of Object.entries(advice)) {
+    assert.deepEqual(Object.keys(byQuadrant), QUADRANT_KEYS,
+      `${code} must cover all four quadrants — a student landing in a missing one would see nothing`);
+    for (const [quadrant, block] of Object.entries(byQuadrant)) {
+      const where = `${code}.${quadrant}`;
+      for (const lang of ['th', 'en']) {
+        assert.ok(block.focus && block.focus[lang] && block.focus[lang].trim(), `${where} focus.${lang}`);
+      }
+      assert.equal(block.steps.length, 2, `${where} must offer exactly 2 steps`);
+      for (const step of block.steps) {
+        for (const lang of ['th', 'en']) {
+          assert.ok(step[lang] && step[lang].trim(), `${where} step.${lang}`);
+        }
+      }
+    }
+  }
+});
+
+test('field guidance is distinct per field, not one text reused', () => {
+  // The whole point is that a tech student and a health student read something
+  // different; identical copy would quietly defeat the feature.
+  for (const quadrant of QUADRANT_KEYS) {
+    const focuses = content.disciplines.map(d => content.disciplineAdvice[d.code][quadrant].focus.th);
+    assert.equal(new Set(focuses).size, focuses.length,
+      `quadrant ${quadrant} repeats the same focus line across fields`);
+  }
+});

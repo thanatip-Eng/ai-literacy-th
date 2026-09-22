@@ -36,6 +36,8 @@ fields: {
   quadrant: "entry.1221995085",
   weakTags: "entry.36105660",
   rawAnswers: "entry.425412520",
+  // กลุ่มสาขาของนักศึกษา (health / scitech / humsoc) — ใส่ entry ID เมื่อเพิ่มคำถามในฟอร์ม
+  discipline: "",
   date: "entry.370420129",
   receipt: "entry.1083670918"
 },
@@ -75,16 +77,16 @@ microFeedback: {
 copyOverrides: {
   th: {
     nameSub: "ใส่ชื่อเล่นก็ได้ เพื่อให้ผลและภาพสรุปเป็นของคุณ",
-    roleSub: "เลือกที่ใกล้เคียงที่สุด เพื่อคำแนะนำที่ตรงกับคุณ",
-    dimRoleDesc: "เลือกบทบาทที่ใกล้ตัวคุณที่สุด",
+    dimRoleName: "กลุ่มสาขา",
+    dimRoleDesc: "เลือกกลุ่มสาขาที่คุณเรียน เพื่อคำแนะนำตรงสาย",
     dimSkillDesc: "เข้าใจ → ใช้ → สร้าง",
     dimPartnershipDesc: "คุณนำ AI หรือ AI นำคุณ?",
     dimensionsNote: "ผลรวมออกมาเป็นรูปแบบการใช้ AI 1 ใน 4 แบบ — ดูด้านล่างเลย"
   },
   en: {
     nameSub: "A nickname works too — it makes the result and image yours",
-    roleSub: "Pick the closest match for advice that fits you",
-    dimRoleDesc: "Pick the role closest to you",
+    dimRoleName: "Your field",
+    dimRoleDesc: "Pick your field of study for guidance that fits it",
     dimSkillDesc: "Understand → Apply → Build",
     dimPartnershipDesc: "Do you lead AI, or does AI lead you?",
     dimensionsNote: "It all adds up to 1 of 4 AI-use patterns — see below"
