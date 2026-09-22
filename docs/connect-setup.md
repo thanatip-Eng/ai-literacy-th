@@ -35,6 +35,7 @@ Vercel → Project → Settings → Domains → Add (เช่น `testyouraisty
    | email | อีเมลที่ยืนยันจาก Canvas (โหมด lti) |
    | role | รหัสบทบาท (admin / student / …) — เฉพาะเวอร์ชันสาธารณะ |
    | discipline | กลุ่มสาขาของนักศึกษา (health / engtech / scienat / bizpol / humsoc / artdes) — เฉพาะเวอร์ชันนักศึกษา |
+   | fieldScore | คะแนนชุดสถานการณ์ตามสาย 0–100 — ไม่ได้รวมอยู่ในคะแนนหลัก |
    | lang | ภาษาที่ใช้ทำ (th / en) |
    | placement (หรือ level_cumulative) | ระดับทักษะสะสม 0–3 |
    | l1, l2, l3 | คะแนนรายระดับทักษะ 0–100 (3 ช่องแยก) |
@@ -44,7 +45,7 @@ Vercel → Project → Settings → Domains → Add (เช่น `testyouraisty
    | score_subtrait | คะแนน subtrait รวมช่องเดียว เช่น `verify:13 restraint:75 human_lead:100 direction:75 learning:63 privacy:50` |
    | quadrant | novice / coach / autopilot / director |
    | weakTags | subtrait ที่ < 50% (คั่นด้วย comma) |
-   | rawAnswers | คำตอบดิบ (0–4 คั่นด้วย comma) — ใช้วิเคราะห์รายข้อ · ความยาว 20 = ข้อมูล v1, 22 = v2, 24 = v3, 28 = v4 |
+   | rawAnswers | คำตอบดิบ (0–4 คั่นด้วย comma) — ใช้วิเคราะห์รายข้อ · ความยาว 20 = ข้อมูล v1, 22 = v2, 24 = v3, 28 = v4 (แกนกลาง), 34 = v4 + ชุดสถานการณ์ตามสาย |
    | version | เวอร์ชันชุดข้อคำถาม (เช่น v3) |
    | date | เวลาที่ทำเสร็จ (ISO) |
 

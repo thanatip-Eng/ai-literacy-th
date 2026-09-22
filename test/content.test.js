@@ -185,3 +185,47 @@ test('field examples are distinct per field and never repeat the stem', () => {
     }
   }
 });
+
+test('each field group has its own scenario block, scored on its own', () => {
+  const codes = content.disciplines.map(d => d.code);
+  assert.deepEqual(Object.keys(content.fieldItems), codes,
+    'every field group needs a scenario block — a student in a missing one would answer nothing');
+  for (const code of codes) {
+    const items = content.fieldItems[code];
+    assert.equal(items.length, 6, `${code} must have exactly 6 scenario items`);
+    for (const [i, item] of items.entries()) {
+      for (const lang of ['th', 'en']) {
+        assert.ok(item[lang] && item[lang].trim(), `${code} scenario ${i + 1}.${lang}`);
+      }
+    }
+    // a block of only agree-shaped statements reads as a quiz you pass by nodding
+    const reversed = items.filter(item => item.reverse).length;
+    assert.equal(reversed, 2, `${code} must balance its scenarios with exactly 2 reverse items`);
+  }
+});
+
+test('each field group has a high and a low verdict, in both languages', () => {
+  for (const code of content.disciplines.map(d => d.code)) {
+    const verdict = content.fieldVerdict[code];
+    assert.ok(verdict, `${code} has no field verdict`);
+    for (const side of ['high', 'low']) {
+      for (const lang of ['th', 'en']) {
+        assert.ok(verdict[side] && verdict[side][lang] && verdict[side][lang].trim(),
+          `${code} verdict.${side}.${lang}`);
+      }
+    }
+  }
+});
+
+test('field scenarios never become part of the scored core', () => {
+  // the core is 12 skill + 16 partnership; the field block sits after it
+  const skillItems = content.levels.filter(l => l.assessable).reduce((n, l) => n + l.items.length, 0);
+  const partnershipItems = content.partnership.subtraits.reduce((n, s) => n + s.items.length, 0);
+  assert.equal(skillItems + partnershipItems, 28);
+  for (const items of Object.values(content.fieldItems)) {
+    for (const item of items) {
+      assert.equal(item.examples, undefined,
+        'field scenarios are already field-specific — an examples block would mean they were copied from a core item');
+    }
+  }
+});

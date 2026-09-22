@@ -39,6 +39,8 @@ fields: {
   // กลุ่มสาขาของนักศึกษา (health / engtech / scienat / bizpol / humsoc / artdes)
   // — ใส่ entry ID เมื่อเพิ่มคำถามในฟอร์ม
   discipline: "",
+  // คะแนนชุดสถานการณ์ตามสาย 0–100 (เฉพาะนักศึกษาที่เลือกกลุ่มสาขา)
+  fieldScore: "",
   date: "entry.370420129",
   receipt: "entry.1083670918"
 },

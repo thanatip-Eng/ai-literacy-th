@@ -12,7 +12,7 @@ const ALLOWED_FIELDS = [
   'l1', 'l2', 'l3', 'score_skill',
   'partnershipComposite', 'score_partnership',
   'verify', 'restraint', 'humanLead', 'direction', 'learning', 'privacy', 'score_subtrait',
-  'quadrant', 'weakTags', 'rawAnswers', 'date', 'receipt', 'version', 'discipline'
+  'quadrant', 'weakTags', 'rawAnswers', 'date', 'receipt', 'version', 'discipline', 'fieldScore'
 ];
 
 test('connect config has a valid shape', () => {

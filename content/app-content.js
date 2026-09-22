@@ -88,6 +88,9 @@
         disciplineSub: "เลือก 1 ข้อ เพื่อให้ตัวอย่างระหว่างทำและคำแนะนำท้ายผลตรงกับศาสตร์ของคุณ ข้ามได้ถ้าไม่ต้องการ",
         disciplineInsightLabel: "🎓 สาขาของคุณ",
         qExampleTag: "ในสายของคุณ",
+        fieldPill: "สถานการณ์ในสายของคุณ",
+        fieldCheckHead: "📌 สถานการณ์ในสายของคุณ",
+        fieldCheckScoreLabel: "คะแนนสถานการณ์ตามสาย",
         withoutAiHead: "🎓 ถ้าวันนี้ไม่มี AI",
         withoutAiIntro: "สองด้านนี้บอกว่าอะไรจะเหลืออยู่กับคุณเมื่อเครื่องมือถูกปิด — เช่น ในห้องสอบ",
         withoutAiLow: "ตอนนี้งานส่วนใหญ่ของคุณเดินได้เพราะ AI ในห้องสอบหรือหน้างานจริงที่ไม่มีเครื่องมือ คุณจะเหลือน้อยกว่าที่คะแนนงานบอก ลองเลือกสักหนึ่งเรื่องที่คุณต้องเก่งให้ได้จริง ๆ แล้วทำเองจนจบโดยไม่เปิด AI สักครั้ง",
@@ -315,6 +318,9 @@
         disciplineSub: "Pick one so the examples during the assessment and the guidance at the end match your field. You can skip this if you prefer.",
         disciplineInsightLabel: "🎓 Your field",
         qExampleTag: "IN YOUR FIELD",
+        fieldPill: "A situation in your field",
+        fieldCheckHead: "📌 Situations in your field",
+        fieldCheckScoreLabel: "Field scenario score",
         withoutAiHead: "🎓 If AI were switched off today",
         withoutAiIntro: "These two say what would still be yours when the tools are gone — in an exam room, for instance",
         withoutAiLow: "Right now most of your work moves because AI is moving it. In an exam, or anywhere the tools are not available, you will have less to draw on than your grades suggest. Pick one thing you genuinely need to be good at and do it end to end without opening AI.",
@@ -814,6 +820,82 @@
         hint: {th: "วิจิตรศิลป์ · สถาปัตยกรรมศาสตร์", en: "Fine Arts · Architecture"}
       }
     ],
+    fieldItems: {
+      health: [
+        {th: "ถ้า AI สรุปข้อมูลผู้ป่วยผิดไปหนึ่งจุด ฉันน่าจะจับได้ก่อนนำไปใช้", en: "If AI got one detail of a patient summary wrong, I would probably catch it before acting on it", reverse: false},
+        {th: "ฉันแยกได้ว่าคำแนะนำของ AI อันไหนมีหลักฐานทางคลินิกรองรับ อันไหนแค่ฟังดูดี", en: "I can tell which AI advice has clinical evidence behind it and which merely sounds right", reverse: false},
+        {th: "ฉันรู้ว่าข้อมูลผู้ป่วยแบบไหนห้ามพิมพ์ลงแชต AI แม้จะตัดชื่อออกแล้ว", en: "I know which patient data must never go into an AI chat, even with the name removed", reverse: false},
+        {th: "เวลาผู้ป่วยหรือญาติถาม ฉันตอบจากความเข้าใจของตัวเอง ไม่ใช่เปิด AI ตอบให้", en: "When a patient or a relative asks me something, I answer from my own understanding, not by opening AI", reverse: false},
+        {th: "ถ้าวันนี้ต้องดูแลเคสโดยไม่มี AI ช่วยเลย ฉันคงไม่มั่นใจเท่าที่ควร", en: "If I had to handle a case today with no AI at all, I would be less confident than I should be", reverse: true},
+        {th: "ฉันเคยใช้ข้อมูลจาก AI ในงานที่เกี่ยวกับผู้ป่วย โดยไม่ได้ตรวจกับแหล่งอ้างอิง", en: "I have used AI-sourced information in patient-related work without checking it against a reference", reverse: true}
+      ],
+      engtech: [
+        {th: "ถ้า AI เขียนโค้ดผิดตรรกะ (ไม่ใช่ error) ฉันน่าจะจับได้จากการอ่าน", en: "If AI wrote code with a logic error rather than a crash, I would probably catch it by reading", reverse: false},
+        {th: "ก่อนเอาโค้ดที่ AI เขียนไปใช้ ฉันอธิบายได้ว่ามันทำงานอย่างไรทุกบรรทัด", en: "Before I use AI-written code, I can explain what every line of it does", reverse: false},
+        {th: "ฉันรู้ว่าโค้ดหรือข้อมูลแบบไหนห้ามแปะลงแชต AI — คีย์ ข้อมูลผู้ใช้จริง โค้ดขององค์กร", en: "I know which code and data must never be pasted into an AI chat — keys, real user data, employer code", reverse: false},
+        {th: "ฉันทดสอบ edge case ด้วยตัวเองเสมอ ไม่ได้เชื่อแค่ว่ามันรันผ่าน", en: "I test the edge cases myself — I don't take 'it runs' as proof", reverse: false},
+        {th: "ถ้าต้องเขียนโค้ดสำคัญโดยไม่มีผู้ช่วย AI เลย ฉันคงช้าลงมากจนส่งไม่ทัน", en: "If I had to write something important with no AI assistant, I would slow down enough to miss the deadline", reverse: true},
+        {th: "มีโค้ดอยู่ในโปรเจกต์ของฉันที่ฉันอธิบายไม่ได้ว่ามันทำงานอย่างไร", en: "There is code in my project that I cannot explain the workings of", reverse: true}
+      ],
+      scienat: [
+        {th: "ถ้า AI เลือกวิธีวิเคราะห์ที่ไม่เหมาะกับข้อมูลของฉัน ฉันน่าจะรู้ตัว", en: "If AI chose an analysis method that didn't suit my data, I would probably notice", reverse: false},
+        {th: "ฉันตรวจสมมติฐานทางสถิติด้วยตัวเองก่อนเชื่อผลที่ AI คำนวณให้", en: "I check the statistical assumptions myself before trusting a result AI computed", reverse: false},
+        {th: "ฉันอธิบายได้ว่าตัวเลขทุกตัวในรายงานของฉันมาจากขั้นตอนอะไร", en: "I can account for every number in my report and the step it came from", reverse: false},
+        {th: "ฉันรู้ว่าข้อมูลดิบแบบไหนยังไม่ควรอัปโหลดให้ AI", en: "I know which raw data should not be uploaded to AI yet", reverse: false},
+        {th: "ถ้าต้องวิเคราะห์ข้อมูลเองทั้งหมดโดยไม่มี AI ฉันคงทำได้ไม่ถึงครึ่งของที่เคยส่ง", en: "If I had to run the whole analysis without AI, I couldn't produce half of what I have handed in", reverse: true},
+        {th: "ฉันเคยใส่ผลที่ AI วิเคราะห์ลงในรายงาน โดยไม่ได้ตรวจวิธีที่มันใช้", en: "I have put an AI-produced result into a report without checking the method behind it", reverse: true}
+      ],
+      bizpol: [
+        {th: "ถ้า AI อ้างตัวเลขหรือข้อกฎหมายผิด ฉันน่าจะจับได้จากการตามไปดูต้นฉบับ", en: "If AI cited a figure or a legal provision wrongly, I would probably catch it by checking the source", reverse: false},
+        {th: "ฉันตอบคำถามเจาะลึกเรื่องข้อเสนอของตัวเองได้ โดยไม่ต้องเปิดสคริปต์", en: "I can answer hard questions about my own recommendation without opening my notes", reverse: false},
+        {th: "ฉันรู้ว่าข้อมูลขององค์กรหรือลูกค้าแบบไหนห้ามให้ AI แตะ", en: "I know which company or client information AI must not touch", reverse: false},
+        {th: "ก่อนเชื่อบทวิเคราะห์ของ AI ฉันมักลองหาเหตุผลของฝั่งตรงข้ามด้วย", en: "Before trusting an AI analysis, I look for the case against it", reverse: false},
+        {th: "ถ้าต้องวิเคราะห์เคสสดโดยไม่มี AI ผลงานคงไม่ดีเท่าที่เคยส่งไป", en: "If I had to analyze a case live without AI, my work would not match what I have handed in", reverse: true},
+        {th: "ฉันเคยใช้ตัวเลขหรือข้ออ้างอิงจาก AI โดยไม่ได้ตามไปดูแหล่งที่มา", en: "I have used figures or citations from AI without following them back to the source", reverse: true}
+      ],
+      humsoc: [
+        {th: "ถ้า AI อ้างงานวิจัยหรือผู้แต่งที่ไม่มีอยู่จริง ฉันน่าจะจับได้", en: "If AI cited a study or an author that doesn't exist, I would probably catch it", reverse: false},
+        {th: "ข้อโต้แย้งหลักในงานเขียนของฉันมาจากการอ่านและการคิดของตัวเอง", en: "The central argument in my writing comes from my own reading and thinking", reverse: false},
+        {th: "ฉันปกป้องข้อมูลของผู้ให้ข้อมูลหรือผู้เรียนเสมอ ก่อนให้ AI แตะ", en: "I protect informants' or learners' data before AI touches any of it", reverse: false},
+        {th: "ฉันอธิบายทฤษฎีที่อ้างในงานด้วยคำของตัวเองได้", en: "I can explain the theory I cite in my own words", reverse: false},
+        {th: "ถ้าต้องเขียนงานวิเคราะห์สดในห้องสอบ คงเขียนได้ไม่ดีเท่างานที่ส่ง", en: "If I had to write an analysis live in an exam, it would not match the work I hand in", reverse: true},
+        {th: "ฉันเคยส่งงานที่ AI เรียบเรียงให้ ทั้งที่ยังไม่ได้อ่านต้นฉบับที่มันอ้าง", en: "I have handed in work AI composed without reading the sources it cited", reverse: true}
+      ],
+      artdes: [
+        {th: "ฉันแยกออกว่างานชิ้นไหนที่ AI สร้างให้ ใช้ส่งเป็นผลงานของตัวเองไม่ได้", en: "I can tell which AI-generated pieces cannot be submitted as my own work", reverse: false},
+        {th: "คอนเซ็ปต์ของงานที่ฉันส่ง มาจากความคิดของฉันเอง", en: "The concept behind the work I submit comes from my own thinking", reverse: false},
+        {th: "ฉันบอกได้ชัดเจนว่าในงานแต่ละชิ้นใช้ AI ช่วยตรงไหนบ้าง", en: "I can say plainly where AI helped in each piece", reverse: false},
+        {th: "ฉันยังฝึกทักษะพื้นฐานอย่างสม่ำเสมอ — วาด เขียนแบบ องค์ประกอบ", en: "I still practise the fundamentals regularly — drawing, drafting, composition", reverse: false},
+        {th: "ถ้าต้องร่างงานสดโดยไม่มี AI ฝีมือจริงของฉันจะต่างจากพอร์ตพอสมควร", en: "If I had to sketch live without AI, my real hand would differ noticeably from my portfolio", reverse: true},
+        {th: "ฉันเคยใช้ภาพหรือแบบที่ AI สร้างในงานส่ง โดยไม่ได้บอกใคร", en: "I have used AI-generated images or drawings in submitted work without telling anyone", reverse: true}
+      ]
+    },
+    fieldVerdict: {
+      health: {
+        high: {th: "ในสถานการณ์จริงของสายสุขภาพ คุณยังเป็นคนตัดสินใจและ AI เป็นเครื่องมือ — รักษาระยะนี้ไว้ เพราะความผิดพลาดในสายนี้มีคนรับผลจริง", en: "In real clinical situations you are still the one deciding and AI is the tool — hold that line, because in this field someone else lives with the mistakes"},
+        low: {th: "ในสถานการณ์จริงของสายสุขภาพ คุณยังพึ่ง AI มากกว่าที่ปลอดภัย ลองเลือกหนึ่งเรื่อง เช่น การตรวจขนาดยา หรือการซักประวัติ แล้วฝึกจนมั่นใจโดยไม่ต้องเปิด AI", en: "In real clinical situations you lean on AI more than is safe. Pick one thing — checking a dose, taking a history — and practise it until you are confident without AI"}
+      },
+      engtech: {
+        high: {th: "คุณอ่านและตรวจสิ่งที่ AI เขียนได้จริง ซึ่งเป็นสิ่งที่แยกวิศวกรออกจากคนที่กด accept — ใช้มันดันงานที่ยากขึ้นไปอีก", en: "You can actually read and check what AI writes, which is what separates an engineer from someone who presses accept — use it to take on harder work"},
+        low: {th: "ในงานจริงของสายคุณ โค้ดที่รันผ่านไม่ได้แปลว่าถูก ลองหยิบโค้ดที่ AI เขียนให้ล่าสุดมาอ่านทีละบรรทัดจนอธิบายได้ทั้งหมด", en: "In your field, code that runs is not code that's correct. Take the last thing AI wrote for you and read it line by line until you can explain all of it"}
+      },
+      scienat: {
+        high: {th: "คุณตรวจวิธีก่อนเชื่อผล ซึ่งเป็นหัวใจของงานวิทยาศาสตร์ — ใช้ AI ทุ่นแรงต่อไปได้โดยที่ความน่าเชื่อถือยังอยู่", en: "You check the method before trusting the result, which is the heart of science — keep letting AI carry the load without losing the rigour"},
+        low: {th: "ผลที่ดูสวยไม่ได้แปลว่าวิธีถูก ลองย้อนกลับไปหนึ่งรายงาน แล้วไล่ตรวจว่าทุกตัวเลขมาจากขั้นตอนอะไร", en: "A clean-looking result does not mean a sound method. Go back to one report and trace where every number came from"}
+      },
+      bizpol: {
+        high: {th: "คุณตรวจแหล่งที่มาและกล้าถามค้านข้อเสนอของตัวเอง ซึ่งเป็นสิ่งที่ทำให้คำแนะนำของคุณเชื่อถือได้", en: "You check your sources and are willing to argue against your own recommendation — that is what makes your advice trustworthy"},
+        low: {th: "ข้อเสนอที่ฟังดูดีแต่ตัวเลขผิด คือความเสี่ยงที่แพงที่สุดในสายนี้ ลองตามตัวเลขและข้ออ้างอิงในงานล่าสุดของคุณกลับไปถึงต้นฉบับทุกตัว", en: "A proposal that reads well with the numbers wrong is the costliest risk in your field. Trace every figure and citation in your latest work back to its source"}
+      },
+      humsoc: {
+        high: {th: "ความคิดในงานของคุณยังเป็นของคุณ และคุณตรวจสิ่งที่ AI อ้างได้ — นั่นคือสิ่งที่ทำให้งานอยู่รอดในห้องสอบและในการนำเสนอ", en: "The thinking in your work is still yours and you check what AI claims — that is what lets the work survive an exam and a defence"},
+        low: {th: "งานที่เขียนสวยแต่ไม่ใช่ความคิดคุณ จะอยู่ไม่ได้เมื่อถูกถาม ลองเขียนย่อหน้าสำคัญของงานถัดไปด้วยตัวเองก่อน แล้วค่อยให้ AI ช่วยขัด", en: "Work that reads beautifully but isn't your thinking will not survive questioning. Write the key paragraphs of your next piece yourself, then let AI polish"}
+      },
+      artdes: {
+        high: {th: "งานยังเป็นของคุณ และคุณบอกได้ว่า AI ช่วยตรงไหน ซึ่งเป็นสิ่งที่ทำให้พอร์ตของคุณเชื่อถือได้", en: "The work is still yours and you can say where AI helped — that is what keeps a portfolio credible"},
+        low: {th: "ถ้าพอร์ตสวยกว่าฝีมือจริง วันที่ต้องทำสดจะเป็นวันที่ลำบาก ลองกลับไปฝึกพื้นฐานสม่ำเสมอ และแยกให้ชัดว่าชิ้นไหนเป็นฝีมือคุณ", en: "If the portfolio outshines the hand, the day you have to work live will be a hard one. Go back to the fundamentals, and keep it clear which pieces are yours"}
+      }
+    },
     disciplineAdvice: {
       health: {
         novice: {

@@ -3,9 +3,10 @@
 **AiStyle** — bilingual Thai/English self-assessment measuring two axes:
 **AI Skill** (adapted from LinkedIn's AI Upskilling Framework) × **Human–AI
 Partnership** (original Human-in-the-Loop axis). The two axes combine into
-one of 4 usage patterns (quadrants). 28 questions total: 12 skill + 16
-partnership (v4 item set; rawAnswers length tells the vintage — 20 = v1,
-22 = v2, 24 = v3, 28 = v4).
+one of 4 usage patterns (quadrants). 28 scored core questions: 12 skill + 16
+partnership, plus a 6-item field block students answer after the core (v4 item
+set; rawAnswers length tells the vintage — 20 = v1, 22 = v2, 24 = v3,
+28 = v4 core, 34 = v4 core + field block).
 
 ## Architecture
 
@@ -70,10 +71,15 @@ partnership (v4 item set; rawAnswers length tells the vintage — 20 = v1,
   × quadrant (24 blocks). Student mode only: students have no job role, and a
   role *ceiling* would wrongly tell a CS student who reaches L3 that they have
   outgrown being a student
-- Every scored item (`levels[].items[]` L1–L3 and `partnership.subtraits[].items[]`)
+- Every core item (`levels[].items[]` L1–L3 and `partnership.subtraits[].items[]`)
   also carries one `examples` phrase per field group, shown under the question
-  in student mode only. The scored stems are identical for everyone, so scores
+  in student mode only. The core stems are identical for everyone, so scores
   stay comparable across fields and across the public version
+- **`fieldItems`** — 6 scenario statements per field group (2 reverse-scored),
+  appended to the quiz only in student mode with a field chosen, and scored on
+  their own into `fieldScore` (0–100). They never touch the placement, the
+  quadrant or the composite; **`fieldVerdict`** holds the high/low reading of
+  that score per field, shown in the `#rFieldCheck` card
 - **`scale`** — 5-point Likert, stored values `v: 0–4`, displayed 1–5
 - **`lang.th` / `lang.en`** — all UI strings; key sets must match exactly
   (validated). Template *functions* (`placementBlockedTpl` etc.) live in
@@ -104,8 +110,13 @@ one `#role` screen: students pick a **field of study** (`userDiscipline`,
 (`userRole`, `roles[]`). The two variables never hold a value at the same time.
 On the result screen `renderRoleVerdict` early-returns to
 `renderDisciplineAdvice()` in student mode — no `roleVerdict`, no `#rStretch`
-ceiling card, the `#rFieldAdvice` card instead. The payload field is
-`discipline`.
+ceiling card, the `#rFieldAdvice` card instead. The payload fields are
+`discipline` and `fieldScore`.
+
+`QS`/`TOTAL`/`answers` are rebuilt by `rebuildQuestionList()` whenever the
+field (or job role) is picked, since the field block changes the length.
+`CORE_COUNT` marks where the core stops — everything scored reads
+`answers.slice(0, CORE_COUNT)`.
 
 Result screen: quadrant hero → per-level skill bars → partnership bars with
 strength/gap → role verdict/stretch → next steps (skill + partnership) →
