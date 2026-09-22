@@ -142,27 +142,42 @@
   }
   .lvl-tag{font-family:"Chakra Petch",sans-serif;font-weight:600;font-size:.74rem;color:var(--teal);letter-spacing:.04em;margin-bottom:10px}
   .qtext{font-size:1.22rem;font-weight:500;line-height:1.5;min-height:2.4em}
-  .qexample{font-size:.92rem;line-height:1.45;color:var(--muted);margin-top:8px}
-  .scale{display:grid;gap:10px;margin-top:22px}
-  .opt{
-    display:flex;align-items:center;gap:14px;text-align:left;width:100%;
-    border:1.5px solid var(--line);background:#fff;border-radius:14px;
-    padding:14px 16px;cursor:pointer;font-family:inherit;font-size:1rem;color:var(--ink);
-    transition:.16s border-color,.16s background,.16s transform
+  .qexample{
+    margin-top:14px;padding:10px 14px;border-left:3px solid var(--teal);
+    background:#f3f8f7;border-radius:0 10px 10px 0;font-size:1rem;line-height:1.5;color:var(--ink)
   }
-  .opt:hover{border-color:var(--teal);background:#fbfdfc}
-  .opt:active{transform:scale(.99)}
-  .opt:disabled{cursor:default;opacity:.78}
-  .opt .dot{
-    flex:0 0 auto;width:30px;height:30px;border-radius:50%;border:2px solid var(--line);
-    display:grid;place-items:center;font-family:"Chakra Petch",sans-serif;font-weight:700;
-    font-size:.95rem;color:var(--muted);transition:.16s
+  .qexample .tagline{
+    display:block;font-family:"Chakra Petch",sans-serif;font-size:.7rem;font-weight:600;
+    letter-spacing:.06em;color:var(--teal);margin-bottom:2px
   }
-  .opt:hover .dot{border-color:var(--teal);color:var(--teal)}
-  .opt.sel{border-color:var(--teal);background:#eef6f4}
-  .opt.sel .dot{background:var(--teal);border-color:var(--teal);color:#fff}
-  .opt .lab{font-weight:500}
-  .opt .sub{display:block;font-size:.78rem;color:var(--muted);font-weight:400}
+  /* The five answers never change, so after a question or two the wording is
+     noise — the scale collapses to a row of taps with the two ends labelled. */
+  .scale{margin-top:22px}
+  .scale-row{display:grid;grid-template-columns:repeat(5,1fr);gap:8px}
+  .step{
+    min-height:58px;border:1.5px solid var(--line);background:#fff;border-radius:14px;
+    font-family:"Chakra Petch",sans-serif;font-weight:700;font-size:1.15rem;color:var(--muted);
+    cursor:pointer;transition:.16s border-color,.16s background,.16s color,.16s transform
+  }
+  .step:hover{border-color:var(--teal);color:var(--teal)}
+  .step:active{transform:scale(.97)}
+  .step:disabled{cursor:default}
+  .step.sel{background:var(--teal);border-color:var(--teal);color:#fff}
+  .scale-ends{display:flex;justify-content:space-between;gap:10px;margin-top:9px;font-size:.78rem;color:var(--muted)}
+  .scale-ends span:last-child{text-align:right}
+  .scale-legend{list-style:none;margin:14px 0 0;padding:0;display:grid;gap:6px;font-size:.85rem;color:var(--muted)}
+  .scale-legend li{display:flex;gap:9px;align-items:baseline}
+  .scale-legend .n{
+    flex:0 0 auto;width:20px;text-align:center;font-family:"Chakra Petch",sans-serif;
+    font-weight:700;color:var(--teal)
+  }
+  .scale-pick{margin:12px 0 0;min-height:1.5em;font-size:.9rem;font-weight:500;color:var(--teal-deep)}
+  @media (max-width:360px){
+    /* claw back side padding so each step stays a 44px-wide tap target */
+    .qcard{padding:22px 16px}
+    .scale-row{gap:5px}
+    .step{min-height:52px;font-size:1.05rem}
+  }
   .navrow{display:flex;gap:12px;margin-top:18px}
   .navrow .btn{flex:1}
   .navrow .btn.back{flex:0 0 auto;width:auto;padding-left:20px;padding-right:20px}
@@ -1084,7 +1099,7 @@
       <div class="lvl-tag" id="qLvlTag"></div>
       <div class="qtext" id="qText"></div>
       <p class="qexample" id="qExample" hidden></p>
-      <div class="scale" id="qScale"></div>
+      <div class="scale" id="qScale" role="radiogroup" aria-labelledby="qText"></div>
     </div>
 
     <div class="navrow">
@@ -1511,6 +1526,8 @@ let userName = '';
 let userRole = null;
 // Students pick a field of study instead of a job role; the two never mix.
 let userDiscipline = null;
+// how many questions spell out all five answer labels before collapsing
+const SCALE_LEGEND_QS = 2;
 let finishedAt = null;
 
 /* connect-mode state (Canvas LTI / Google Form).
@@ -1747,7 +1764,11 @@ function renderQExample(itemObj){
     ? itemObj.examples[userDiscipline.code]
     : null;
   if(!set){ box.hidden = true; box.textContent = ''; return; }
-  box.textContent = tx(set);
+  box.textContent = '';
+  const tag = document.createElement('span');
+  tag.className = 'tagline';
+  tag.textContent = t('qExampleTag');
+  box.append(tag, document.createTextNode(tx(set)));
   box.hidden = false;
 }
 function renderQ(){
@@ -1779,25 +1800,62 @@ function renderQ(){
   renderQExample(itemObj);
   document.getElementById('backBtn').style.visibility = idx===0 ? 'hidden':'visible';
 
-  const sc = document.getElementById('qScale'); sc.innerHTML='';
-  SCALE.forEach(s=>{
-    const b=document.createElement('button');
-    b.className='opt'+(answers[idx]===s.v?' sel':'');
+  renderScale();
+}
+
+/* The answer scale is the same five steps on every question, so spelling all
+   five out each time is reading work with no payoff. The first two questions
+   show the full legend; after that it is a row of five taps with the ends
+   labelled, and the chosen step's wording appears underneath. */
+function renderScale(){
+  const sc = document.getElementById('qScale');
+  if(!sc) return;
+  sc.innerHTML = '';
+  const row = document.createElement('div');
+  row.className = 'scale-row';
+  SCALE.forEach(s => {
+    const b = document.createElement('button');
+    b.type = 'button';
+    b.className = 'step' + (answers[idx] === s.v ? ' sel' : '');
     b.disabled = answerLocked;
-    const dot = document.createElement('span');
-    dot.className = 'dot';
-    dot.textContent = s.display;
-    const label = document.createElement('span');
-    label.className = 'lab';
-    label.append(document.createTextNode(tx(s.lab)));
-    const sub = document.createElement('span');
-    sub.className = 'sub';
-    sub.textContent = tx(s.sub);
-    label.appendChild(sub);
-    b.append(dot, label);
-    b.onclick=()=>choose(s.v);
-    sc.appendChild(b);
+    b.setAttribute('role', 'radio');
+    b.setAttribute('aria-checked', answers[idx] === s.v ? 'true' : 'false');
+    b.setAttribute('aria-label', `${s.display} — ${tx(s.lab)}`);
+    b.textContent = s.display;
+    b.onclick = () => choose(s.v);
+    row.appendChild(b);
   });
+  sc.appendChild(row);
+
+  const ends = document.createElement('div');
+  ends.className = 'scale-ends';
+  const low = document.createElement('span');
+  low.textContent = tx(SCALE[0].lab);
+  const high = document.createElement('span');
+  high.textContent = tx(SCALE[SCALE.length - 1].lab);
+  ends.append(low, high);
+  sc.appendChild(ends);
+
+  if(idx < SCALE_LEGEND_QS){
+    const legend = document.createElement('ul');
+    legend.className = 'scale-legend';
+    SCALE.forEach(s => {
+      const li = document.createElement('li');
+      const n = document.createElement('span');
+      n.className = 'n';
+      n.textContent = s.display;
+      li.append(n, document.createTextNode(tx(s.lab)));
+      legend.appendChild(li);
+    });
+    sc.appendChild(legend);
+  }
+
+  const pick = document.createElement('p');
+  pick.className = 'scale-pick';
+  pick.setAttribute('aria-live', 'polite');
+  const chosen = SCALE.find(s => s.v === answers[idx]);
+  pick.textContent = chosen ? `${tx(chosen.lab)} · ${tx(chosen.sub)}` : '';
+  sc.appendChild(pick);
 }
 function choose(v){
   if(answerLocked) return;
@@ -3426,6 +3484,12 @@ document.getElementById('feedbackModal').addEventListener('click', (e)=>{
   if(e.target.id === 'feedbackModal') closeFeedbackModal();
 });
 document.addEventListener('keydown', (e)=>{
+  const quiz = document.getElementById('quiz');
+  const typing = e.target && /^(INPUT|TEXTAREA|SELECT)$/.test(e.target.tagName);
+  if(quiz && quiz.classList.contains('active') && !typing && !answerLocked && /^[1-5]$/.test(e.key)){
+    const step = SCALE[Number(e.key) - 1];
+    if(step){ e.preventDefault(); choose(step.v); }
+  }
   if(e.key === 'Escape' && document.getElementById('imgModal').classList.contains('active')) closeImgModal();
   if(e.key === 'Escape' && document.getElementById('feedbackModal').classList.contains('active')) closeFeedbackModal();
 });
