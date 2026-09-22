@@ -111,3 +111,20 @@ test('editor draft restore only merges known keys with matching types', () => {
   assert.match(html, /typeof sv === typeof tv/);
   assert.doesNotMatch(html, /function deepMerge/);
 });
+
+test('the student path is gated on student mode and drops the role ceiling', () => {
+  assert.match(html, /function studentMode\(\)\{ return !!CONNECT_MODE \|\| demoCanvas\(\); \}/);
+  // the field screen reuses #role, so both halves must stay behind the gate
+  assert.match(html, /const options = student \? DISCIPLINES : ROLES;/);
+  assert.match(html, /if\(guideRow\) guideRow\.hidden = student;/);
+  // students never see the "you outgrew your role" card or the ceiling link
+  assert.match(html, /if\(studentMode\(\)\)\{\s*if\(stretchBox\) stretchBox\.hidden = true;\s*if\(ceilingLink\) ceilingLink\.hidden = true;\s*renderDisciplineAdvice\(\);\s*return;/);
+  assert.match(html, /id="rFieldAdvice" hidden/);
+});
+
+test('field of study and job role never overwrite each other', () => {
+  assert.match(html, /let userDiscipline = null;/);
+  assert.match(html, /userDiscipline = DISCIPLINES\.find\(d => d\.code === code\) \|\| null;\s*userRole = null;/);
+  assert.match(html, /userRole = ROLES\.find\(r => r\.code === code\) \|\| null;\s*userDiscipline = null;/);
+  assert.match(html, /discipline: userDiscipline \? userDiscipline\.code : '',/);
+});

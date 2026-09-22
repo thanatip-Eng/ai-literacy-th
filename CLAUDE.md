@@ -59,7 +59,12 @@ partnership (v3 item set; v1 rows have 20-value rawAnswers, v2 rows 22).
   personas (`novice`, `coach`, `autopilot`, `director`) with `blurb`,
   `nudge`, `partnershipNext[]`, `persona{who,strengths,watchouts,workshops}`
 - **`roles[]`** — 9 job roles with `code`, `floor`, `ceiling` for the role
-  verdict; **`roleStretch`** — champion/pivot paths per role
+  verdict; **`roleStretch`** — champion/pivot paths per role. Public mode only
+- **`disciplines[]`** — 3 CMU field groups (`health`, `scitech`, `humsoc`) with
+  `label` + `hint` (the faculties in each group); **`disciplineAdvice`** — one
+  `{focus, steps[2]}` block per field × quadrant (12 blocks). Student mode only:
+  students have no job role, and a role *ceiling* would wrongly tell a CS student
+  who reaches L3 that they have outgrown being a student
 - **`scale`** — 5-point Likert, stored values `v: 0–4`, displayed 1–5
 - **`lang.th` / `lang.en`** — all UI strings; key sets must match exactly
   (validated). Template *functions* (`placementBlockedTpl` etc.) live in
@@ -83,6 +88,15 @@ partnership (v3 item set; v1 rows have 20-value rawAnswers, v2 rows 22).
 `intro` → (`gate` if LTI mode without session) → `name` (+ student-ID field
 in form mode) → `role` → `quiz` (one question per screen, auto-advance) →
 `result`. `show(id)` toggles `.active` on one `.screen` at a time.
+
+`studentMode()` (`!!CONNECT_MODE || demoCanvas()`) splits two paths that share
+one `#role` screen: students pick a **field of study** (`userDiscipline`,
+`disciplines[]`, ceiling link hidden), everyone else picks a **job role**
+(`userRole`, `roles[]`). The two variables never hold a value at the same time.
+On the result screen `renderRoleVerdict` early-returns to
+`renderDisciplineAdvice()` in student mode — no `roleVerdict`, no `#rStretch`
+ceiling card, the `#rFieldAdvice` card instead. The payload field is
+`discipline`.
 
 Result screen: quadrant hero → per-level skill bars → partnership bars with
 strength/gap → role verdict/stretch → next steps (skill + partnership) →
@@ -125,6 +139,7 @@ strings for a concise Canvas-facing tone without touching the public copy.
 | Partnership cut (60) | `content.partnership.threshold` |
 | Quadrant skill cut (level ≥ 2) | `quadrantPlacement` default in `js/assessment-core.js` |
 | Roles / floors / ceilings | `content/app-content.js` → `roles` |
+| Field groups / per-field advice (students) | `content/app-content.js` → `disciplines`, `disciplineAdvice` |
 | Quadrant personas / workshops | `content/app-content.js` → `partnership.quadrants` |
 | Org tag format | `renderTags()` in index.html + `orgGuide*` strings |
 | Google Form / Canvas integration | `content/connect-config.js`, `api/`, `docs/connect-setup.md` |
