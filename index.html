@@ -178,6 +178,18 @@
     .scale-row{gap:5px}
     .step{min-height:52px;font-size:1.05rem}
   }
+  .without-ai{border-left:4px solid var(--amber)}
+  .without-ai-alert{background:#fdf4e7;border-color:#C9822F}
+  .without-ai-alert .without-ai-msg{font-weight:500}
+  .without-ai-head{margin:0 0 4px;font-size:1.05rem}
+  .without-ai-intro{margin:0 0 14px;font-size:.88rem;color:var(--muted);line-height:1.5}
+  .without-ai-rows{display:grid;gap:12px}
+  .wa-row{display:grid;grid-template-columns:1fr auto;gap:4px 10px;align-items:baseline}
+  .wa-name{font-weight:500}
+  .wa-pct{font-family:"Chakra Petch",sans-serif;font-weight:700}
+  .wa-bar{grid-column:1 / -1;height:8px;border-radius:99px;background:var(--line);overflow:hidden}
+  .wa-fill{height:100%;width:0;border-radius:99px;transition:width .6s cubic-bezier(.3,.7,.2,1)}
+  .without-ai-msg{margin:16px 0 0;line-height:1.6}
   .navrow{display:flex;gap:12px;margin-top:18px}
   .navrow .btn{flex:1}
   .navrow .btn.back{flex:0 0 auto;width:auto;padding-left:20px;padding-right:20px}
@@ -1150,6 +1162,14 @@
         <p class="ph-note" id="rPHVarianceNote" hidden></p>
       </div>
     </div>
+
+    <!-- Tier 1 · the question the whole assessment is built around -->
+    <div class="card without-ai" id="rWithoutAI" hidden>
+      <h4 class="without-ai-head" data-i18n="withoutAiHead">🎓 ถ้าวันนี้ไม่มี AI</h4>
+      <p class="without-ai-intro" data-i18n="withoutAiIntro">สองด้านนี้บอกว่าอะไรจะเหลืออยู่กับคุณเมื่อเครื่องมือถูกปิด — เช่น ในห้องสอบ</p>
+      <div class="without-ai-rows" id="rWithoutAiRows"></div>
+      <p class="without-ai-msg" id="rWithoutAiMsg"></p>
+    </div>
     <!-- Tier 1 · the single primary action: submit (Canvas) sits above download -->
     <div class="submit-cta" id="connectSubmitBox" hidden>
       <p class="submit-cta-hint" data-i18n="submitCtaHint">ขั้นตอนสำคัญ: ดูผลเสร็จแล้ว กดปุ่มนี้เพื่อส่งผลให้ผู้สอน</p>
@@ -1944,7 +1964,7 @@ function buildConnectPayload(pcts, placement, partnership){
     learning: subs.learning || 0,
     privacy: subs.privacy || 0,
     score_subtrait: scoreSubtrait,
-    version: 'v3',
+    version: 'v4',
     quadrant: partnership.quadrant,
     weakTags: weakTags,
     rawAnswers: answers.join(','),
@@ -2039,7 +2059,7 @@ async function submitMicroFeedback(){
     note: document.getElementById('mfbNote').value.trim().slice(0, 500),
     quadrant: (window.__res && window.__res.partnership) ? window.__res.partnership.quadrant : '',
     lang: currentLang,
-    version: 'v3',
+    version: 'v4',
     aud: canvasView() ? 'canvas' : 'public'
   };
   const form = new FormData();
@@ -2467,10 +2487,54 @@ function renderResult(pcts, placement, THRESH, partnership){
 
   renderHero(partnership, placement);
   renderPartnership(partnership, placement, pcts);
+  renderWithoutAI(partnership);
   renderQuadrantGrid('resultQuadrantGrid', partnership ? partnership.quadrant : null);
   renderRoleVerdict(pcts, THRESH);
   renderTags(pcts, placement, partnership);
   renderOrgGuide();
+}
+
+/* Students tell us they can hand in the homework and then fail the exam. These
+   two subtraits are the ones that notice: what you can still do, and whether you
+   are willing to stay with something hard. They get their own card because a bar
+   buried among eight says nothing, and this is the point of the whole thing. */
+const WITHOUT_AI_KEYS = ['self_reliance', 'effort'];
+function renderWithoutAI(partnership){
+  const box = document.getElementById('rWithoutAI');
+  const rows = document.getElementById('rWithoutAiRows');
+  if(!box || !rows || !partnership || !PARTNERSHIP) return;
+  const picked = WITHOUT_AI_KEYS
+    .map(key => {
+      const i = PARTNERSHIP.subtraits.findIndex(sub => sub.key === key);
+      return i < 0 ? null : {sub: PARTNERSHIP.subtraits[i], pct: partnership.subtraitScores[i] || 0};
+    })
+    .filter(Boolean);
+  if(!picked.length){ box.hidden = true; return; }
+
+  rows.innerHTML = '';
+  picked.forEach((entry, i) => {
+    const row = document.createElement('div'); row.className = 'wa-row';
+    const name = document.createElement('span'); name.className = 'wa-name';
+    name.textContent = tx(entry.sub.name);
+    const pct = document.createElement('span'); pct.className = 'wa-pct';
+    pct.style.color = PARTNERSHIP.color;
+    pct.textContent = `${entry.pct}%`;
+    const bar = document.createElement('div'); bar.className = 'wa-bar';
+    const fill = document.createElement('div'); fill.className = 'wa-fill';
+    fill.style.background = `linear-gradient(90deg,${PARTNERSHIP.color},${shade(PARTNERSHIP.color,25)})`;
+    bar.appendChild(fill);
+    row.append(name, pct, bar);
+    rows.appendChild(row);
+    setTimeout(()=>fill.style.width = entry.pct + '%', 240 + i*140);
+  });
+
+  const mean = Math.round(picked.reduce((sum, e) => sum + e.pct, 0) / picked.length);
+  const key = mean < 40 ? 'withoutAiLow' : (mean < 70 ? 'withoutAiMid' : 'withoutAiHigh');
+  document.getElementById('rWithoutAiMsg').textContent = t(key);
+  // a congratulatory quadrant above a hollow score here reads as approval —
+  // the card changes colour so the warning is not mistaken for a footnote
+  box.classList.toggle('without-ai-alert', mean < 40);
+  box.hidden = false;
 }
 
 function renderPartnership(partnership, placement, pcts){
@@ -3129,7 +3193,9 @@ async function generateResultImage(lang){
     human_lead: {th: "ทักษะคน", en: "Lead"},
     direction: {th: "นำ AI", en: "Direct"},
     learning: {th: "เรียนรู้", en: "Learn"},
-    privacy: {th: "ข้อมูล", en: "Privacy"}
+    privacy: {th: "ข้อมูล", en: "Privacy"},
+    self_reliance: {th: "ทำเอง", en: "Solo"},
+    effort: {th: "ลงแรง", en: "Effort"}
   };
   if(partnership && PARTNERSHIP){
     const scores = partnership.subtraitScores || [];
@@ -3258,13 +3324,13 @@ async function generateResultImage(lang){
 
       // pct above bar
       ctx.fillStyle = color;
-      ctx.font = '700 22px "Chakra Petch", sans-serif';
+      ctx.font = `700 ${n >= 8 ? 19 : 22}px "Chakra Petch", sans-serif`;
       ctx.textAlign = 'center';
       ctx.fillText(`${score}%`, cx, y - 10);
 
       // x-axis label (smaller font when many bars share the column)
       ctx.fillStyle = TEXT;
-      ctx.font = `500 ${n >= 6 ? 18 : 22}px "IBM Plex Sans Thai", "IBM Plex Sans", sans-serif`;
+      ctx.font = `500 ${n >= 8 ? 16 : (n >= 6 ? 18 : 22)}px "IBM Plex Sans Thai", "IBM Plex Sans", sans-serif`;
       ctx.fillText(truncateToWidth(ctx, labelFn(item, i), slot - 6), cx, labelY);
     });
   }

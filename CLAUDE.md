@@ -3,8 +3,9 @@
 **AiStyle** — bilingual Thai/English self-assessment measuring two axes:
 **AI Skill** (adapted from LinkedIn's AI Upskilling Framework) × **Human–AI
 Partnership** (original Human-in-the-Loop axis). The two axes combine into
-one of 4 usage patterns (quadrants). 24 questions total: 12 skill + 12
-partnership (v3 item set; v1 rows have 20-value rawAnswers, v2 rows 22).
+one of 4 usage patterns (quadrants). 28 questions total: 12 skill + 16
+partnership (v4 item set; rawAnswers length tells the vintage — 20 = v1,
+22 = v2, 24 = v3, 28 = v4).
 
 ## Architecture
 
@@ -51,10 +52,13 @@ partnership (v3 item set; v1 rows have 20-value rawAnswers, v2 rows 22).
   reference-only, shown in the framework diagram). Each level: `n`, `name`,
   `short`, `desc`, `color`, `items[]` (4 statements for assessable levels),
   `blurb`, `nextH`, `next[]`, `workshops[]`
-- **`partnership`** — 6 `subtraits` (keys `verify`, `restraint`,
-  `human_lead`, `direction`, `learning`, `privacy`), 2 items each; the second item of every
-  subtrait is reverse-scored (`reverse: true` — a test enforces exactly
-  one reverse item per subtrait, in second position).
+- **`partnership`** — 8 `subtraits` (keys `verify`, `restraint`,
+  `human_lead`, `direction`, `learning`, `privacy`, `self_reliance`, `effort`),
+  2 items each; the second item of every subtrait is reverse-scored
+  (`reverse: true` — a test enforces exactly one reverse item per subtrait, in
+  second position). `self_reliance` and `effort` are the answer to "they pass
+  the homework and fail the exam": they ask what is left when AI is off, and
+  they get their own `#rWithoutAI` card on the result page.
   `threshold` (60) is the quadrant partnership cut. `quadrants` holds the 4
   personas (`novice`, `coach`, `autopilot`, `director`) with `blurb`,
   `nudge`, `partnershipNext[]`, `persona{who,strengths,watchouts,workshops}`
