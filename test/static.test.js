@@ -160,3 +160,13 @@ test('submissions are tagged as the v4 item set', () => {
   assert.doesNotMatch(html, /version: 'v3'/);
   assert.match(html, /version: 'v4'/);
 });
+
+test('the field block is appended to the quiz and kept out of the core score', () => {
+  assert.match(html, /const CORE_COUNT = CORE_QS\.length;/);
+  assert.match(html, /function rebuildQuestionList\(\)\{/);
+  assert.match(html, /QS = CORE_QS\.concat\(extra\);/);
+  // scoring reads the core slice only, whatever the field block added
+  assert.match(html, /const partnershipAnswers = answers\.slice\(SKILL_COUNT, CORE_COUNT\);/);
+  assert.match(html, /answers\.slice\(CORE_COUNT, CORE_COUNT \+ items\.length\)/);
+  assert.match(html, /id="rFieldCheck" hidden/);
+});

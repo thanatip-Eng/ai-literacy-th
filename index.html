@@ -180,6 +180,8 @@
   }
   .without-ai{border-left:4px solid var(--amber)}
   .without-ai-alert{background:#fdf4e7;border-color:#C9822F}
+  .field-check{border-left:4px solid var(--teal)}
+  .field-check-alert{background:#fdf4e7;border-color:#C9822F}
   .without-ai-alert .without-ai-msg{font-weight:500}
   .without-ai-head{margin:0 0 4px;font-size:1.05rem}
   .without-ai-intro{margin:0 0 14px;font-size:.88rem;color:var(--muted);line-height:1.5}
@@ -1170,6 +1172,18 @@
       <div class="without-ai-rows" id="rWithoutAiRows"></div>
       <p class="without-ai-msg" id="rWithoutAiMsg"></p>
     </div>
+
+    <!-- Tier 1 · the scenarios written for the student's own field -->
+    <div class="card field-check" id="rFieldCheck" hidden>
+      <h4 class="without-ai-head" data-i18n="fieldCheckHead">📌 สถานการณ์ในสายของคุณ</h4>
+      <p class="without-ai-intro" id="rFieldCheckSub"></p>
+      <div class="wa-row">
+        <span class="wa-name" data-i18n="fieldCheckScoreLabel">คะแนนสถานการณ์ตามสาย</span>
+        <span class="wa-pct" id="rFieldCheckPct"></span>
+        <div class="wa-bar"><div class="wa-fill" id="rFieldCheckFill"></div></div>
+      </div>
+      <p class="without-ai-msg" id="rFieldCheckMsg"></p>
+    </div>
     <!-- Tier 1 · the single primary action: submit (Canvas) sits above download -->
     <div class="submit-cta" id="connectSubmitBox" hidden>
       <p class="submit-cta-hint" data-i18n="submitCtaHint">ขั้นตอนสำคัญ: ดูผลเสร็จแล้ว กดปุ่มนี้เพื่อส่งผลให้ผู้สอน</p>
@@ -1427,6 +1441,8 @@ const ROLES = CONTENT.roles || [];
 const ROLE_STRETCH = CONTENT.roleStretch || {};
 const DISCIPLINES = CONTENT.disciplines || [];
 const DISCIPLINE_ADVICE = CONTENT.disciplineAdvice || {};
+const FIELD_ITEMS = CONTENT.fieldItems || {};
+const FIELD_VERDICT = CONTENT.fieldVerdict || {};
 const PARTNERSHIP = CONTENT.partnership;
 const PARTNERSHIP_CUT = (PARTNERSHIP && typeof PARTNERSHIP.threshold === 'number') ? PARTNERSHIP.threshold : 60;
 
@@ -1537,11 +1553,17 @@ const SKILL_QS = CORE.buildQuestionList(ASSESSABLE).map(q => ({...q, kind: 'skil
 const PARTNERSHIP_QS = PARTNERSHIP
   ? CORE.buildPartnershipQuestionList(PARTNERSHIP).map(q => ({...q, kind: 'partnership'}))
   : [];
-const QS = SKILL_QS.concat(PARTNERSHIP_QS);
+const CORE_QS = SKILL_QS.concat(PARTNERSHIP_QS);
 const SKILL_COUNT = SKILL_QS.length;
-const TOTAL = QS.length;
+const CORE_COUNT = CORE_QS.length;
+/* Students who pick a field answer a short block of scenarios from that field
+   after the core. It is appended, never mixed in: the core stays the same 28
+   answers for everyone, so scores compare across fields and with the public
+   version, and the field block is scored on its own. */
+let QS = CORE_QS.slice();
+let TOTAL = QS.length;
 let idx = 0;
-const answers = new Array(TOTAL).fill(null);
+let answers = new Array(TOTAL).fill(null);
 let userName = '';
 let userRole = null;
 // Students pick a field of study instead of a job role; the two never mix.
@@ -1686,6 +1708,18 @@ function goToRolePick(){
    during the quiz and the guidance at the end. */
 function studentMode(){ return !!CONNECT_MODE || demoCanvas(); }
 
+function fieldItemsFor(discipline){
+  return (discipline && FIELD_ITEMS[discipline.code]) || [];
+}
+function rebuildQuestionList(){
+  const extra = fieldItemsFor(studentMode() ? userDiscipline : null)
+    .map((item, i) => ({kind: 'field', itemIndex: i}));
+  QS = CORE_QS.concat(extra);
+  TOTAL = QS.length;
+  answers = new Array(TOTAL).fill(null);
+  idx = 0;
+}
+
 function renderRoleOptions(){
   const box = document.getElementById('roleGrid');
   if(!box) return;
@@ -1729,11 +1763,13 @@ function pickRole(code){
     userRole = ROLES.find(r => r.code === code) || null;
     userDiscipline = null;
   }
+  rebuildQuestionList();
   startQuizFlow();
 }
 function skipRole(){
   userRole = null;
   userDiscipline = null;
+  rebuildQuestionList();
   startQuizFlow();
 }
 function startQuizFlow(){
@@ -1751,11 +1787,10 @@ function restart(){
     const db = document.getElementById('demoBanner');
     if(db) db.hidden = true;
   }
-  answers.fill(null);
-  idx = 0;
   userName = '';
   userRole = null;
   userDiscipline = null;
+  rebuildQuestionList();
   finishedAt = null;
   connectPayload = null;
   connectStatusKey = null;
@@ -1802,6 +1837,12 @@ function renderQ(){
     pillColor = PARTNERSHIP.color;
     lvlTagText = `${tx(sub.name)} · ${currentLang === 'th' ? sub.name.en : sub.name.th}`;
     qText = tx(itemObj);
+  } else if(item.kind === 'field'){
+    itemObj = fieldItemsFor(userDiscipline)[item.itemIndex];
+    pillText = t('fieldPill');
+    pillColor = PARTNERSHIP ? PARTNERSHIP.color : '#B5642A';
+    lvlTagText = userDiscipline ? tx(userDiscipline.label) : '';
+    qText = itemObj ? tx(itemObj) : '';
   } else {
     const L = ASSESSABLE[item.levelIndex];
     itemObj = L.items[item.itemIndex];
@@ -1899,9 +1940,40 @@ function back(){
 }
 
 /* ---------------- scoring ---------------- */
+/* Scored on its own and kept out of the placement, the quadrant and the
+   composite — the field block is about relevance, not about ranking students
+   from different faculties against each other. */
+function fieldBlockScore(){
+  const items = fieldItemsFor(userDiscipline);
+  if(!items.length) return null;
+  const given = answers.slice(CORE_COUNT, CORE_COUNT + items.length)
+    .map((a, i) => (a === null || a === undefined) ? null : (items[i].reverse ? 4 - a : a))
+    .filter(v => v !== null);
+  if(!given.length) return null;
+  const mean = given.reduce((sum, v) => sum + v, 0) / given.length;
+  return Math.round((mean / 4) * 100);
+}
+
+function renderFieldCheck(){
+  const box = document.getElementById('rFieldCheck');
+  if(!box) return;
+  const pct = fieldBlockScore();
+  if(pct === null || !userDiscipline){ box.hidden = true; return; }
+  document.getElementById('rFieldCheckSub').textContent = tx(userDiscipline.label);
+  document.getElementById('rFieldCheckPct').textContent = `${pct}%`;
+  const fill = document.getElementById('rFieldCheckFill');
+  fill.style.background = `linear-gradient(90deg,${PARTNERSHIP.color},${shade(PARTNERSHIP.color,25)})`;
+  setTimeout(()=>fill.style.width = pct + '%', 260);
+  const verdict = FIELD_VERDICT[userDiscipline.code];
+  const msg = verdict ? (pct >= 60 ? verdict.high : verdict.low) : null;
+  document.getElementById('rFieldCheckMsg').textContent = msg ? tx(msg) : '';
+  box.classList.toggle('field-check-alert', pct < 60);
+  box.hidden = false;
+}
+
 function finish(){
   const skillAnswers = answers.slice(0, SKILL_COUNT);
-  const partnershipAnswers = answers.slice(SKILL_COUNT);
+  const partnershipAnswers = answers.slice(SKILL_COUNT, CORE_COUNT);
   const pcts = CORE.levelPercentages(ASSESSABLE, skillAnswers);
   const THRESH = 70;
   const placement = CORE.cumulativePlacement(pcts, THRESH);
@@ -1965,6 +2037,7 @@ function buildConnectPayload(pcts, placement, partnership){
     privacy: subs.privacy || 0,
     score_subtrait: scoreSubtrait,
     version: 'v4',
+    fieldScore: fieldBlockScore() === null ? '' : String(fieldBlockScore()),
     quadrant: partnership.quadrant,
     weakTags: weakTags,
     rawAnswers: answers.join(','),
@@ -2488,6 +2561,7 @@ function renderResult(pcts, placement, THRESH, partnership){
   renderHero(partnership, placement);
   renderPartnership(partnership, placement, pcts);
   renderWithoutAI(partnership);
+  renderFieldCheck();
   renderQuadrantGrid('resultQuadrantGrid', partnership ? partnership.quadrant : null);
   renderRoleVerdict(pcts, THRESH);
   renderTags(pcts, placement, partnership);
@@ -3520,7 +3594,14 @@ function runDemo(profileKey){
     userRole = ROLES.find(r => r.code === 'student') || ROLES[0];
     userDiscipline = null;
   }
+  rebuildQuestionList();
   QS.forEach((q, i) => {
+    if(q.kind === 'field'){
+      const item = fieldItemsFor(userDiscipline)[q.itemIndex];
+      const strong = highPartnership ? 3 : 1;
+      answers[i] = item && item.reverse ? 4 - strong : strong;
+      return;
+    }
     if(q.kind === 'skill'){
       // high: pass all levels · low: pass only L1
       answers[i] = highSkill ? 3 : (q.levelIndex === 0 ? 3 : 1);
