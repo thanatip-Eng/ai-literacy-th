@@ -135,3 +135,14 @@ test('the per-field example line is gated on student mode', () => {
   assert.match(html, /studentMode\(\) && userDiscipline && itemObj && itemObj\.examples/);
   assert.match(html, /if\(!set\)\{ box\.hidden = true; box\.textContent = ''; return; \}/);
 });
+
+test('the answer scale is a single horizontal row that keeps its keyboard path', () => {
+  assert.match(html, /role="radiogroup"/);
+  assert.match(html, /b\.className = 'step' \+ \(answers\[idx\] === s\.v \? ' sel' : ''\);/);
+  assert.match(html, /\.scale-row\{display:grid;grid-template-columns:repeat\(5,1fr\)/);
+  // the full wording only appears while the pattern is still new
+  assert.match(html, /const SCALE_LEGEND_QS = 2;/);
+  assert.match(html, /if\(idx < SCALE_LEGEND_QS\)\{/);
+  // typing 1-5 answers, but never while a text field has focus or mid-advance
+  assert.match(html, /!typing && !answerLocked && \/\^\[1-5\]\$\/\.test\(e\.key\)/);
+});
