@@ -36,7 +36,8 @@ fields: {
   quadrant: "entry.1221995085",
   weakTags: "entry.36105660",
   rawAnswers: "entry.425412520",
-  // กลุ่มสาขาของนักศึกษา (health / scitech / humsoc) — ใส่ entry ID เมื่อเพิ่มคำถามในฟอร์ม
+  // กลุ่มสาขาของนักศึกษา (health / engtech / scienat / bizpol / humsoc / artdes)
+  // — ใส่ entry ID เมื่อเพิ่มคำถามในฟอร์ม
   discipline: "",
   date: "entry.370420129",
   receipt: "entry.1083670918"

@@ -3448,7 +3448,7 @@ function runDemo(profileKey){
   const highPartnership = key === 'coach' || key === 'director';
   userName = currentLang === 'th' ? 'ตัวอย่าง (Demo)' : 'Sample (Demo)';
   if(demoCanvas()){
-    userDiscipline = DISCIPLINES.find(d => d.code === 'scitech') || DISCIPLINES[0] || null;
+    userDiscipline = DISCIPLINES.find(d => d.code === 'engtech') || DISCIPLINES[0] || null;
     userRole = null;
   } else {
     userRole = ROLES.find(r => r.code === 'student') || ROLES[0];

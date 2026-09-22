@@ -34,7 +34,7 @@ Vercel → Project → Settings → Domains → Add (เช่น `testyouraisty
    | studentId (หรือ studentid) | รหัสนักศึกษา (โหมด form) |
    | email | อีเมลที่ยืนยันจาก Canvas (โหมด lti) |
    | role | รหัสบทบาท (admin / student / …) — เฉพาะเวอร์ชันสาธารณะ |
-   | discipline | กลุ่มสาขาของนักศึกษา (health / scitech / humsoc) — เฉพาะเวอร์ชันนักศึกษา |
+   | discipline | กลุ่มสาขาของนักศึกษา (health / engtech / scienat / bizpol / humsoc / artdes) — เฉพาะเวอร์ชันนักศึกษา |
    | lang | ภาษาที่ใช้ทำ (th / en) |
    | placement (หรือ level_cumulative) | ระดับทักษะสะสม 0–3 |
    | l1, l2, l3 | คะแนนรายระดับทักษะ 0–100 (3 ช่องแยก) |

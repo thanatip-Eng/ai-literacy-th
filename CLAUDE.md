@@ -60,15 +60,16 @@ partnership (v3 item set; v1 rows have 20-value rawAnswers, v2 rows 22).
   `nudge`, `partnershipNext[]`, `persona{who,strengths,watchouts,workshops}`
 - **`roles[]`** — 9 job roles with `code`, `floor`, `ceiling` for the role
   verdict; **`roleStretch`** — champion/pivot paths per role. Public mode only
-- **`disciplines[]`** — 3 CMU field groups (`health`, `scitech`, `humsoc`) with
-  `label` + `hint` (the faculties in each group); **`disciplineAdvice`** — one
-  `{focus, steps[2]}` block per field × quadrant (12 blocks). Student mode only:
-  students have no job role, and a role *ceiling* would wrongly tell a CS student
-  who reaches L3 that they have outgrown being a student
+- **`disciplines[]`** — 6 CMU field groups (`health`, `engtech`, `scienat`,
+  `bizpol`, `humsoc`, `artdes`), each with `label` + `hint` (the faculties in
+  that group); **`disciplineAdvice`** — one `{focus, steps[2]}` block per field
+  × quadrant (24 blocks). Student mode only: students have no job role, and a
+  role *ceiling* would wrongly tell a CS student who reaches L3 that they have
+  outgrown being a student
 - Every scored item (`levels[].items[]` L1–L3 and `partnership.subtraits[].items[]`)
-  also carries `examples: {health, scitech, humsoc}` — a one-phrase example shown
-  under the question in student mode only. The scored stems are identical for
-  everyone, so scores stay comparable across fields and across the public version
+  also carries one `examples` phrase per field group, shown under the question
+  in student mode only. The scored stems are identical for everyone, so scores
+  stay comparable across fields and across the public version
 - **`scale`** — 5-point Likert, stored values `v: 0–4`, displayed 1–5
 - **`lang.th` / `lang.en`** — all UI strings; key sets must match exactly
   (validated). Template *functions* (`placementBlockedTpl` etc.) live in
