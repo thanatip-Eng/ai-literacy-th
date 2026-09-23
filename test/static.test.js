@@ -179,3 +179,11 @@ test('both downloadable images carry the same credit line as the site footer', (
   // the card used to carry its own half-credit strings; they are gone for good
   assert.doesNotMatch(html, /imgAuthor|imgAffiliation/);
 });
+
+test('the open-ended comment is a labelled question and never blocks submitting', () => {
+  assert.match(html, /data-i18n="mfbQ4"/);
+  assert.match(html, /id="mfbNote"[^>]*maxlength="500"/);
+  assert.doesNotMatch(html, /id="mfbNote"[^>]*required/);
+  // only the three star answers gate the send button
+  assert.match(html, /const ok = \(mfbRating > 0 && mfbFit > 0 && mfbUseful > 0\) \|\| mfbSent;/);
+});
