@@ -170,3 +170,12 @@ test('the field block is appended to the quiz and kept out of the core score', (
   assert.match(html, /answers\.slice\(CORE_COUNT, CORE_COUNT \+ items\.length\)/);
   assert.match(html, /id="rFieldCheck" hidden/);
 });
+
+test('both downloadable images carry the same credit line as the site footer', () => {
+  // result card
+  assert.match(html, /wrapToLines\(ctx, L18\.footerCopy, IMG_W - PAD\*2, 2\)/);
+  // receipt
+  assert.match(html, /ctx\.fillText\(t\('footerCopy'\), W\/2, 796\);/);
+  // the card used to carry its own half-credit strings; they are gone for good
+  assert.doesNotMatch(html, /imgAuthor|imgAffiliation/);
+});

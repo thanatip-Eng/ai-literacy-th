@@ -3468,14 +3468,12 @@ async function generateResultImage(lang){
   ctx.beginPath(); ctx.moveTo(PAD, 1660); ctx.lineTo(IMG_W-PAD, 1660); ctx.stroke();
 
   // ----- 6) Footer (1660–1920)
+  // the same credit line the site footer and the receipt image carry, so a
+  // downloaded card is attributable on its own wherever it gets reposted
   ctx.fillStyle = TEXT;
-  ctx.font = '600 24px "IBM Plex Sans Thai", "IBM Plex Sans", sans-serif';
-  ctx.fillText(L18.imgAuthor, IMG_W/2, 1712);
-
-  ctx.fillStyle = MUTED;
-  ctx.font = '400 22px "IBM Plex Sans Thai", "IBM Plex Sans", sans-serif';
-  const affLines = wrapToLines(ctx, L18.imgAffiliation, IMG_W - PAD*2, 2);
-  affLines.forEach((ln, i) => ctx.fillText(ln, IMG_W/2, 1750 + i*28));
+  ctx.font = '600 22px "IBM Plex Sans Thai", "IBM Plex Sans", sans-serif';
+  const creditLines = wrapToLines(ctx, L18.footerCopy, IMG_W - PAD*2, 2);
+  creditLines.forEach((ln, i) => ctx.fillText(ln, IMG_W/2, 1716 + i*34));
 
   ctx.fillStyle = TEXT;
   ctx.font = '500 22px "IBM Plex Sans Thai", "IBM Plex Sans", sans-serif';
