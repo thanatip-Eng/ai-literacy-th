@@ -2037,7 +2037,7 @@ function buildConnectPayload(pcts, placement, partnership){
     learning: subs.learning || 0,
     privacy: subs.privacy || 0,
     score_subtrait: scoreSubtrait,
-    version: 'v4',
+    version: 'v5',
     fieldScore: fieldBlockScore() === null ? '' : String(fieldBlockScore()),
     quadrant: partnership.quadrant,
     weakTags: weakTags,
@@ -2133,7 +2133,7 @@ async function submitMicroFeedback(){
     note: document.getElementById('mfbNote').value.trim().slice(0, 500),
     quadrant: (window.__res && window.__res.partnership) ? window.__res.partnership.quadrant : '',
     lang: currentLang,
-    version: 'v4',
+    version: 'v5',
     aud: canvasView() ? 'canvas' : 'public'
   };
   const form = new FormData();
@@ -2573,7 +2573,7 @@ function renderResult(pcts, placement, THRESH, partnership){
    two subtraits are the ones that notice: what you can still do, and whether you
    are willing to stay with something hard. They get their own card because a bar
    buried among eight says nothing, and this is the point of the whole thing. */
-const WITHOUT_AI_KEYS = ['self_reliance', 'effort'];
+const WITHOUT_AI_KEYS = ['self_reliance', 'effort', 'self_trust'];
 function renderWithoutAI(partnership){
   const box = document.getElementById('rWithoutAI');
   const rows = document.getElementById('rWithoutAiRows');
@@ -3270,7 +3270,8 @@ async function generateResultImage(lang){
     learning: {th: "เรียนรู้", en: "Learn"},
     privacy: {th: "ข้อมูล", en: "Privacy"},
     self_reliance: {th: "ทำเอง", en: "Solo"},
-    effort: {th: "ลงแรง", en: "Effort"}
+    effort: {th: "ลงแรง", en: "Effort"},
+    self_trust: {th: "เชื่อตัวเอง", en: "Self-trust"}
   };
   if(partnership && PARTNERSHIP){
     const scores = partnership.subtraitScores || [];

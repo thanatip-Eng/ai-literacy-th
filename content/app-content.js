@@ -1234,12 +1234,12 @@
                   artdes: {th: "ร่างแบบหรือวาดสดต่อหน้าคณะกรรมการ", en: "sketching or drafting live in front of a jury"}
                 }},
             {th: "มีงานที่ฉันส่งผ่านมาได้เพราะ AI แต่ถ้าต้องทำสดในห้องสอบคงทำไม่ได้", en: "There is work I got through because of AI that I could not produce on my own in an exam room", reverse: true, examples: {
-                  health: {th: "รายงานเคสหรือแผนการดูแลที่ AI ร่างให้เกือบทั้งหมด", en: "a case report or care plan AI drafted almost entirely"},
-                  engtech: {th: "แอสไซน์เมนต์โค้ดที่ AI เขียนให้เกือบทั้งหมด", en: "a coding assignment AI wrote almost entirely"},
-                  scienat: {th: "รายงานแล็บที่ AI เขียนส่วนวิเคราะห์ให้", en: "a lab report whose analysis section AI wrote"},
-                  bizpol: {th: "บทวิเคราะห์หรือข้อสอบ take-home ที่ AI ทำให้เกือบหมด", en: "a brief or take-home exam AI did most of"},
-                  humsoc: {th: "เปเปอร์ที่ AI วางโครงและเขียนเนื้อหาหลักให้", en: "a paper whose structure and substance came from AI"},
-                  artdes: {th: "งานส่งที่ AI สร้างภาพหรือแบบให้เกือบทั้งชิ้น", en: "a submission whose images or drawings AI made almost entirely"}
+                  health: {th: "งานนำเสนอเคสที่พอถูกถามรายละเอียดแล้วตอบไม่ได้", en: "a case presentation you couldn't answer questions about"},
+                  engtech: {th: "สไลด์โปรเจกต์ที่อธิบายสถาปัตยกรรมในสไลด์ของตัวเองไม่ได้", en: "project slides whose architecture you couldn't explain"},
+                  scienat: {th: "สไลด์ผลการทดลองที่อธิบายวิธีวิเคราะห์ในนั้นไม่ได้", en: "result slides whose method you couldn't explain"},
+                  bizpol: {th: "สไลด์วิเคราะห์ที่พอถูกถามที่มาของตัวเลขแล้วตอบไม่ได้", en: "an analysis deck whose numbers you couldn't account for"},
+                  humsoc: {th: "สไลด์ที่อ้างทฤษฎีซึ่งตอบคำถามอาจารย์ไม่ได้", en: "slides citing theory you couldn't answer questions on"},
+                  artdes: {th: "งานที่ส่งคริติกแล้วอธิบายเหตุผลของการออกแบบไม่ได้", en: "a piece whose design decisions you couldn't justify in crit"}
                 }}
           ]
         },
@@ -1263,6 +1263,29 @@
                   bizpol: {th: "พอประเด็นกฎหมายเริ่มซับซ้อนก็ให้ AI ตอบให้", en: "when the legal issue gets tangled, you let AI answer it"},
                   humsoc: {th: "พอทฤษฎีเริ่มยากก็ให้ AI สรุปแทนการอ่านเอง", en: "when the theory gets hard, you let AI summarize instead of reading"},
                   artdes: {th: "พอร่างไม่ออกก็ให้ AI สร้างภาพให้แล้วใช้เลย", en: "when the sketch will not come, you have AI generate one and use it"}
+                }}
+          ]
+        },
+        {
+          key: "self_trust",
+          name: {th: "เชื่อตัวเองพอ ๆ กับเชื่อ AI", en: "Trust your own judgment"},
+          desc: {th: "เวลาที่คุณกับ AI เห็นไม่ตรงกัน คุณยังให้น้ำหนักกับความคิดตัวเอง", en: "When you and AI disagree, your own thinking still carries weight"},
+          items: [
+            {th: "เวลาที่ความเห็นของฉันต่างจาก AI ฉันหาข้อมูลเพิ่มก่อนตัดสิน ไม่ใช่เปลี่ยนตามมันทันที", en: "When my view differs from AI's, I look into it before deciding — I don't just switch to its answer", reverse: false, examples: {
+                  health: {th: "AI แนะนำต่างจากที่เรียนมา แล้วคุณไปเปิดแนวทางเวชปฏิบัติดูเอง", en: "AI suggests something different from what you were taught, so you check the guideline yourself"},
+                  engtech: {th: "AI บอกว่าโค้ดคุณผิด แต่คุณอ่านแล้วไม่เห็นด้วย เลยไล่ดูทีละขั้นเอง", en: "AI says your code is wrong, you don't agree, so you trace it yourself"},
+                  scienat: {th: "AI เสนอวิธีวิเคราะห์ที่คุณรู้สึกว่าไม่เหมาะกับข้อมูล เลยไปตรวจเงื่อนไขเอง", en: "AI proposes a method you doubt fits your data, so you check the assumptions yourself"},
+                  bizpol: {th: "AI สรุปข้อกฎหมายต่างจากที่คุณเข้าใจ เลยไปเปิดตัวบทอ่านเอง", en: "AI reads a provision differently from you, so you open the text yourself"},
+                  humsoc: {th: "AI ตีความข้อมูลต่างจากที่คุณเห็นในพื้นที่ เลยกลับไปดูบันทึกของตัวเอง", en: "AI reads your data differently from what you saw in the field, so you go back to your notes"},
+                  artdes: {th: "AI บอกว่างานควรไปอีกทาง แต่คุณเชื่อสายตาตัวเอง เลยลองทำทั้งสองแบบมาเทียบ", en: "AI says the piece should go another way; you trust your eye and try both to compare"}
+                }},
+            {th: "ถึงจะรู้สึกว่าไม่น่าใช่ แต่สุดท้ายฉันก็มักเชื่อ AI เพราะคิดว่ามันเก่งกว่าฉัน", en: "Even when something feels off, I usually go with AI because I assume it knows better than me", reverse: true, examples: {
+                  health: {th: "รู้สึกว่าคำอธิบายไม่น่าใช่ แต่ก็ใช้ตามเพราะคิดว่า AI รู้มากกว่า", en: "It felt off, but you used it anyway because AI must know more"},
+                  engtech: {th: "คิดว่าวิธีของตัวเองน่าจะถูก แต่สุดท้ายก็แก้ตามที่ AI บอก", en: "You thought your own approach was right, but changed it to AI's anyway"},
+                  scienat: {th: "สงสัยในผลที่ได้ แต่ไม่กล้าค้าน เลยรายงานตามที่ AI สรุป", en: "You doubted the result but didn't push back, so you reported AI's conclusion"},
+                  bizpol: {th: "ไม่เห็นด้วยกับข้อสรุป แต่ก็ใส่ลงสไลด์ไปตามนั้น", en: "You disagreed with the conclusion but put it on the slide anyway"},
+                  humsoc: {th: "รู้สึกว่าการตีความไม่ตรงกับที่อ่านมา แต่ก็เขียนตาม AI", en: "The reading felt wrong against what you had read, but you wrote AI's version"},
+                  artdes: {th: "ไม่ชอบทิศทางที่ AI เสนอ แต่ก็ทำตามเพราะคิดว่ามันรู้ว่าอะไรดีกว่า", en: "You didn't like AI's direction but followed it, assuming it knew better"}
                 }}
           ]
         }

@@ -3,10 +3,10 @@
 **AiStyle** — bilingual Thai/English self-assessment measuring two axes:
 **AI Skill** (adapted from LinkedIn's AI Upskilling Framework) × **Human–AI
 Partnership** (original Human-in-the-Loop axis). The two axes combine into
-one of 4 usage patterns (quadrants). 28 scored core questions: 12 skill + 16
-partnership, plus a 6-item field block students answer after the core (v4 item
-set; rawAnswers length tells the vintage — 20 = v1, 22 = v2, 24 = v3,
-28 = v4 core, 34 = v4 core + field block).
+one of 4 usage patterns (quadrants). 30 scored core questions: 12 skill + 18
+partnership, plus a 6-item field block students answer after the core (v5 item
+set; rawAnswers length tells the vintage — 20 = v1, 22 = v2, 24 = v3, 28/34 =
+v4, 30 = v5 core, 36 = v5 core + field block).
 
 ## Architecture
 
@@ -53,13 +53,16 @@ set; rawAnswers length tells the vintage — 20 = v1, 22 = v2, 24 = v3,
   reference-only, shown in the framework diagram). Each level: `n`, `name`,
   `short`, `desc`, `color`, `items[]` (4 statements for assessable levels),
   `blurb`, `nextH`, `next[]`, `workshops[]`
-- **`partnership`** — 8 `subtraits` (keys `verify`, `restraint`,
-  `human_lead`, `direction`, `learning`, `privacy`, `self_reliance`, `effort`),
-  2 items each; the second item of every subtrait is reverse-scored
-  (`reverse: true` — a test enforces exactly one reverse item per subtrait, in
-  second position). `self_reliance` and `effort` are the answer to "they pass
-  the homework and fail the exam": they ask what is left when AI is off, and
-  they get their own `#rWithoutAI` card on the result page.
+- **`partnership`** — 9 `subtraits` (keys `verify`, `restraint`,
+  `human_lead`, `direction`, `learning`, `privacy`, `self_reliance`, `effort`,
+  `self_trust`), 2 items each; the second item of every subtrait is
+  reverse-scored (`reverse: true` — a test enforces exactly one reverse item
+  per subtrait, in second position). `self_reliance`, `effort` and `self_trust`
+  are the answer to "they pass the homework and fail the exam": they ask what
+  is left when AI is off, and whether a student defers to AI against their own
+  judgment (Microsoft/CMU 2025 found confidence in AI tracks *less* critical
+  thinking, confidence in oneself *more*). The three share the `#rWithoutAI`
+  card on the result page.
   `threshold` (60) is the quadrant partnership cut. `quadrants` holds the 4
   personas (`novice`, `coach`, `autopilot`, `director`) with `blurb`,
   `nudge`, `partnershipNext[]`, `persona{who,strengths,watchouts,workshops}`
