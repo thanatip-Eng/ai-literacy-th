@@ -109,9 +109,9 @@
 ```
 แบบประเมิน AiStyle — สไตล์การใช้ AI ของฉัน
 
-แบบประเมินตนเอง 24 ข้อ ใช้เวลาประมาณ 5–7 นาที วัดสองมิติคือ "ทักษะ AI"
+แบบประเมินตนเอง 36 ข้อ ใช้เวลาประมาณ 8–10 นาที วัดสองมิติคือ "ทักษะ AI"
 และ "ความร่วมมือระหว่างคนกับ AI" แล้วสรุปออกมาเป็นรูปแบบการใช้ AI 1 ใน 4 แบบ
-พร้อมคำแนะนำที่เหมาะกับสายงานที่คุณเลือก
+พร้อมคำแนะนำที่เหมาะกับกลุ่มสาขาที่คุณเรียน
 
 ⚠️ ไม่มีคำตอบถูกหรือผิด — ตอบตามที่คุณทำจริง ๆ ผลจะได้สะท้อนตัวคุณและใช้พัฒนาต่อได้
 คะแนนของกิจกรรมนี้ให้จาก "การทำครบและส่งผล" ไม่ได้ให้ตามระดับทักษะที่ได้
@@ -119,7 +119,7 @@
 ขั้นตอน
 1. กดลิงก์ด้านล่างเพื่อเริ่ม (จะเปิดในแท็บใหม่)
 2. ทำแบบประเมินจนจบและดูผลของคุณ
-3. ให้ดาวประเมินความคิดเห็นสั้น ๆ 3 ข้อ (จำเป็น)
+3. ให้ดาวประเมินความคิดเห็นสั้น ๆ 3 ข้อ (จำเป็น) และข้อเขียนปลายเปิด 1 ข้อ (ไม่บังคับ)
 4. กดปุ่ม "📤 ส่งผลให้ผู้สอน" — ระบบจะขึ้นรหัสยืนยัน แคปหน้าจอเก็บไว้เป็นหลักฐาน
 
 หมายเหตุ: ผลของคุณถูกส่งให้ผู้สอนพร้อมอีเมลที่ Canvas ยืนยันแล้ว
@@ -131,9 +131,9 @@ English version:
 ```
 AiStyle Assessment — How I work with AI
 
-A 24-item self-assessment (about 5–7 minutes) measuring two dimensions —
+A 36-item self-assessment (about 8–10 minutes) measuring two dimensions —
 AI skill and human–AI partnership — and mapping you to one of four AI-use
-patterns, with guidance matched to the role you pick.
+patterns, with guidance matched to the field you study.
 
 ⚠️ There are no right or wrong answers. Answer honestly: your score here comes
 from completing and submitting, not from the level you land on.
@@ -141,7 +141,7 @@ from completing and submitting, not from the level you land on.
 Steps
 1. Open the link below (it opens in a new tab)
 2. Complete the assessment and review your result
-3. Rate the three short feedback questions (required)
+3. Rate the three short feedback questions (required) and the one open comment (optional)
 4. Press "📤 Send to instructor" — keep a screenshot of the confirmation code
 ```
 
@@ -176,6 +176,67 @@ AiStyle วัดและสะท้อนให้เห็น ส่วน "
    (ชุดคำถามพร้อมใช้ + วิธี prefill อยู่ใน `docs/connect-setup.md` หัวข้อ "งานสะท้อนคิด")
 4. ตรวจงานจากไฟล์ Excel ที่ export จากฟอร์ม — จับคู่คอลัมน์รหัสยืนยันกับ Google Sheet
    ของผลประเมินเพื่อยืนยันว่าทำจริง
+
+### คำอธิบาย Assignment งานสะท้อนคิด (คัดลอกไปวางได้เลย)
+
+```
+งานสะท้อนคิด — สิ่งที่ AI ทำแทนฉันไม่ได้
+
+ต่อจากแบบประเมิน AiStyle คราวนี้เป็นงานที่ได้คะแนนจาก "การคิด" ไม่ใช่การกรอกแบบสอบถาม
+หน้าผลของคุณสร้างคำถามสะท้อนคิดขึ้นมาเฉพาะของคุณเอง (ตามด้านที่คะแนนยังต่ำ) —
+ของแต่ละคนไม่เหมือนกัน และนั่นคือคำถามที่คุณต้องตอบในงานนี้
+
+⚠️ งานนี้ไม่มีคำตอบที่ถูก และไม่ได้ให้คะแนนจากการที่คุณ "ดูดี"
+คะแนนมาจากความตรงไปตรงมาและความเฉพาะเจาะจง — คำตอบที่เขียนกว้าง ๆ แบบที่ใครก็เขียนได้
+(หรือให้ AI เขียนให้) จะได้คะแนนน้อยกว่าคำตอบสั้น ๆ ที่เป็นเรื่องของคุณจริง
+
+ต้องทำแบบประเมิน AiStyle (งานก่อนหน้า) ให้เสร็จก่อน เพราะต้องใช้ "รหัสยืนยัน 8 ตัวอักษร"
+
+ขั้นตอน
+1. เปิดหน้าผล AiStyle ของคุณ กดปุ่ม "คัดลอกคำถาม" ในการ์ดคำถามสะท้อนคิด
+2. ในกล่องรหัสยืนยัน กดปุ่ม "เปิดแบบสะท้อนคิด" (รหัสจะถูกกรอกให้อัตโนมัติ)
+   — ถ้าปิดหน้าไปแล้ว ใช้ลิงก์ด้านล่างแล้วพิมพ์รหัสเอง
+3. วางคำถามที่คัดลอกมา แล้วตอบคำถามเหล่านั้น
+4. ตอบข้อสุดท้ายเรื่องแนวทางพัฒนาตัวเอง — ข้อนี้เป็นหัวใจของงาน ให้เวลากับมัน
+5. กดส่ง
+
+เขียนเป็นภาษาไทยหรืออังกฤษก็ได้ ไม่มีกำหนดความยาวขั้นต่ำ — เขียนให้ชัดพอที่คนอ่าน
+จะรู้ว่าคุณจะทำอะไรจริง ๆ
+
+คำตอบของคุณผู้สอนอ่าน ไม่เผยแพร่ และไม่นำไปเทียบกับเพื่อนในชั้น
+```
+
+English version:
+
+```
+Reflection — What AI cannot do for me
+
+The AiStyle assessment measured and showed you something. This assignment is the
+one you get marked on for thinking. Your result page generated reflection
+questions from your own scores — the dimensions where you came out lowest — so
+everyone's questions are different. Those are the questions you answer here.
+
+⚠️ There is no right answer, and no marks for looking good. Marks come from
+honesty and specificity: a general answer anyone could have written (or had AI
+write) scores lower than a short answer that is clearly about you.
+
+Finish the AiStyle assessment first — you need the 8-character confirmation code.
+
+Steps
+1. On your AiStyle result page, press "Copy questions" in the reflection card
+2. In the confirmation box, press "Open reflection form" (your code is filled in
+   automatically) — if you closed the page, use the link below and type the code
+3. Paste the questions, then answer them
+4. Answer the last question about how you will develop yourself — this is the
+   heart of the assignment, give it time
+5. Submit
+
+Write in Thai or English. There is no minimum length — just be specific enough
+that a reader knows what you will actually do.
+
+Your answers are read by your instructor, not published, and not compared with
+your classmates.
+```
 
 ## เช็กลิสต์ต่อ 1 วิชา
 
