@@ -94,7 +94,7 @@
         evidenceLink: "ดูหลักฐานทั้งหมด →",
         partnershipGroupHead: "ความสัมพันธ์ของคุณกับ AI — 3 กลุ่ม",
         partnershipDetailToggle: "ดูรายด้าน",
-        partnershipDetailNote: "อีก 3 ด้าน (ทำเองได้เมื่อไม่มี AI · ยอมลำบากเพื่อให้เก่งขึ้น · เชื่อตัวเองพอ ๆ กับเชื่อ AI) อยู่ในการ์ด \"ถ้าวันนี้ไม่มี AI\" ด้านบน",
+        partnershipDetailNote: "อีก 3 ด้าน (ทำเองได้เมื่อไม่มี AI · ยอมลำบากเพื่อให้เก่งขึ้น · เชื่อตัวเองพอ ๆ กับเชื่อ AI) ดูได้ที่การ์ดด้านบน",
         receiptReflectHint: "ขั้นต่อไป: ส่งงานสะท้อนคิด โดยใช้รหัสยืนยันด้านบน",
         outsideViewHead: "🪞 คนอื่นเห็นอะไร",
         outsideViewIntro: "ผลแบบนี้ เวลาคนอื่นมองเข้ามา เขาอ่านออกมาเป็นแบบนี้",
@@ -108,7 +108,7 @@
         reflectOpen: "เปิดแบบสะท้อนคิด →",
         withoutAiHead: "🎓 ถ้าวันนี้ไม่มี AI",
         withoutAiIntro: "สามด้านนี้บอกว่าอะไรจะเหลืออยู่กับคุณเมื่อเครื่องมือถูกปิด — เช่น ในห้องสอบ",
-        withoutAiLow: "ตอนนี้งานส่วนใหญ่ของคุณเดินได้เพราะ AI ในห้องสอบหรือหน้างานจริงที่ไม่มีเครื่องมือ คุณจะเหลือน้อยกว่าที่คะแนนงานบอก ลองเลือกสักหนึ่งเรื่องที่คุณต้องเก่งให้ได้จริง ๆ แล้วทำเองจนจบโดยไม่เปิด AI สักครั้ง",
+        withoutAiLow: "ตอนนี้งานของคุณเดินได้เพราะ AI เป็นหลัก พอถึงห้องสอบหรือเวลาที่ไม่มีเครื่องมือ คุณจะทำได้น้อยกว่าที่เกรดบอกไว้ ลองเลือกหนึ่งเรื่องที่คุณต้องเก่งให้ได้จริง แล้วทำเองจนจบสักครั้งโดยไม่เปิด AI",
         withoutAiMid: "คุณยังทำเองได้ในหลายเรื่อง แต่มีบางส่วนที่พึ่ง AI จนไม่แน่ใจว่าทำเองได้ไหม ลองทดสอบดู: หยิบงานที่เพิ่งส่งไป แล้วอธิบายหรือทำใหม่โดยไม่เปิด AI ตรงที่ติดคือตรงที่ต้องฝึก",
         withoutAiHigh: "คุณใช้ AI โดยที่ทักษะยังเป็นของคุณจริง ๆ นี่คือสิ่งที่ทำให้ต่างจากคนที่ใช้ AI เก่งแต่ทำเองไม่ได้ — รักษาไว้ แล้วใช้ AI ดันเพดานตัวเองให้สูงขึ้นอีก",
         disciplineAdviceHead: "🎓 คำแนะนำสำหรับสายของคุณ",
@@ -837,13 +837,13 @@
     ],
     outsideView: {
       low: {
-        exam: {th: "สิ่งที่คุณส่งได้ตลอดเทอม กับสิ่งที่คุณทำได้จริงในห้องสอบ ตอนนี้ยังห่างกันอยู่ — และข้อสอบคือจุดที่ช่องว่างนี้โผล่มาพร้อมกันทั้งหมด", en: "What you can hand in all term and what you can do in an exam room are not the same thing yet — and the exam is where that gap shows up all at once"},
+        exam: {th: "สิ่งที่คุณส่งได้ตลอดเทอม กับสิ่งที่คุณทำเองได้จริง ตอนนี้ยังห่างกันอยู่ — และวันสอบคือวันที่คุณจะเจอทุกเรื่องที่ยังทำเองไม่ได้พร้อมกัน", en: "What you can hand in all term and what you can do on your own are not the same thing yet — and exam day is when you meet everything you still can't do, all at once"},
         teacher: {th: "งานที่ดีเกินกว่าที่เจ้าของงานอธิบายได้ เป็นสิ่งที่คนสอนดูออกตั้งแต่คำถามแรก ไม่ใช่เพราะจับผิด แต่เพราะเขาฟังเหตุผลของคุณมาทั้งเทอม", en: "Work that outruns what its author can explain is clear to a teacher from the first question — not from suspicion, but from having heard you reason all term"},
         hiring: {th: "ถ้าสิ่งที่คุณทำได้คือสิ่งที่ AI ทำได้อยู่แล้ว คำถามที่คนจ้างต้องตอบให้ได้คือ “แล้วทำไมต้องจ้างคุณ” — ข่าวดีคือคุณยังมีเวลาทั้งหลักสูตรที่จะทำให้คำตอบนั้นชัด", en: "If what you can do is what AI already does, the person hiring has to answer “then why you?” — the good news is you still have a whole degree to make that answer obvious"}
       },
       mid: {
         exam: {th: "หลายเรื่องคุณทำเองได้ แต่มีบางส่วนที่ยังไม่แน่ใจว่าทำได้ไหมถ้าไม่มี AI — ลองหาให้เจอว่าส่วนไหน ก่อนที่ข้อสอบจะหาให้", en: "You can do plenty yourself, but some of it you are not sure about without AI — find which parts before an exam finds them for you"},
-        teacher: {th: "ตอนนี้คุณยังอธิบายงานของตัวเองได้เป็นส่วนใหญ่ ซึ่งเป็นสิ่งที่ทำให้คำพูดของคุณมีน้ำหนักในห้อง — ส่วนที่อธิบายไม่ได้คือส่วนที่ต้องดึงกลับมา", en: "You can still account for most of your work, which is what gives what you say weight in class — the part you can't account for is the part to take back"},
+        teacher: {th: "ตอนนี้คุณยังอธิบายงานของตัวเองได้เป็นส่วนใหญ่ ซึ่งทำให้สิ่งที่คุณพูดในห้องน่าเชื่อถือ — ถ้ามีตรงไหนที่อธิบายไม่ได้ ให้กลับไปทำตรงนั้นเองจนเข้าใจ", en: "You can still account for most of your work, which is what makes what you say in class worth hearing — if there is a part you can't account for, go back and do that part yourself until you can"},
         hiring: {th: "สิ่งที่ทำให้คุณต่างจากคนอื่นไม่ใช่การใช้ AI คล่อง เพราะอีกไม่นานทุกคนก็ใช้คล่อง แต่คือการที่คุณรู้ว่าเมื่อไรมันผิด", en: "What sets you apart won't be being fluent with AI — soon everyone will be — it will be knowing when it is wrong"}
       },
       high: {
