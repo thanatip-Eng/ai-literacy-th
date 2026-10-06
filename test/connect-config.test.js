@@ -93,7 +93,7 @@ test('reflect block, when present, is a link with prefill ids', () => {
   assert.equal(typeof config.reflect.url, 'string');
   // an empty url simply hides the button; a real one must be a link
   if (config.reflect.url) assert.match(config.reflect.url, /^https:\/\//);
-  const ALLOWED = ['quadrant', 'placement', 'discipline', 'lang'];
+  const ALLOWED = ['receipt', 'quadrant', 'placement', 'discipline', 'lang'];
   for (const [field, id] of Object.entries(config.reflect.params || {})) {
     assert.ok(ALLOWED.includes(field), `unknown reflect prefill field "${field}"`);
     assert.equal(typeof id, 'string');
