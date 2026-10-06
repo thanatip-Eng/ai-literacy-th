@@ -16,19 +16,20 @@ test('canonical content is complete and bilingual', () => {
   assert.deepEqual(content.scale.map(choice => choice.display), [1, 2, 3, 4, 5]);
 });
 
-test('partnership block has eight subtraits with two items each', () => {
+test('partnership block has nine subtraits with two items each', () => {
   const p = content.partnership;
   assert.ok(p, 'partnership block is required');
-  assert.equal(p.subtraits.length, 8);
+  assert.equal(p.subtraits.length, 9);
   // self_reliance and effort are the two that ask what is left when AI is off —
   // they are why a student who outsources everything cannot score well here
   assert.deepEqual(p.subtraits.map(sub => sub.key),
-    ['verify', 'restraint', 'human_lead', 'direction', 'learning', 'privacy', 'self_reliance', 'effort']);
+    ['verify', 'restraint', 'human_lead', 'direction', 'learning', 'privacy',
+     'self_reliance', 'effort', 'self_trust']);
   for (const sub of p.subtraits) {
     assert.equal(sub.items.length, 2, `subtrait ${sub.key} must have exactly 2 items`);
   }
   const totalItems = p.subtraits.reduce((sum, sub) => sum + sub.items.length, 0);
-  assert.equal(totalItems, 16);
+  assert.equal(totalItems, 18);
   assert.deepEqual(Object.keys(p.quadrants), ['novice', 'coach', 'autopilot', 'director']);
 });
 
@@ -221,7 +222,7 @@ test('field scenarios never become part of the scored core', () => {
   // the core is 12 skill + 16 partnership; the field block sits after it
   const skillItems = content.levels.filter(l => l.assessable).reduce((n, l) => n + l.items.length, 0);
   const partnershipItems = content.partnership.subtraits.reduce((n, s) => n + s.items.length, 0);
-  assert.equal(skillItems + partnershipItems, 28);
+  assert.equal(skillItems + partnershipItems, 30);
   for (const items of Object.values(content.fieldItems)) {
     for (const item of items) {
       assert.equal(item.examples, undefined,

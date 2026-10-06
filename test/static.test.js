@@ -149,16 +149,16 @@ test('the answer scale is a single horizontal row that keeps its keyboard path',
 
 test('the without-AI card is rendered from its own two subtraits', () => {
   assert.match(html, /id="rWithoutAI" hidden/);
-  assert.match(html, /const WITHOUT_AI_KEYS = \['self_reliance', 'effort'\];/);
+  assert.match(html, /const WITHOUT_AI_KEYS = \['self_reliance', 'effort', 'self_trust'\];/);
   assert.match(html, /renderWithoutAI\(partnership\);/);
   // a low score must not read as a footnote under a congratulatory quadrant
   assert.match(html, /box\.classList\.toggle\('without-ai-alert', mean < 40\);/);
   assert.match(html, /mean < 40 \? 'withoutAiLow' : \(mean < 70 \? 'withoutAiMid' : 'withoutAiHigh'\)/);
 });
 
-test('submissions are tagged as the v4 item set', () => {
-  assert.doesNotMatch(html, /version: 'v3'/);
-  assert.match(html, /version: 'v4'/);
+test('submissions are tagged as the v5 item set', () => {
+  assert.doesNotMatch(html, /version: 'v[1-4]'/);
+  assert.match(html, /version: 'v5'/);
 });
 
 test('the field block is appended to the quiz and kept out of the core score', () => {
