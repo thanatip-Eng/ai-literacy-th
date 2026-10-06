@@ -184,6 +184,11 @@
   .outside-view{border-left:4px solid var(--ink)}
   .ov-rows{display:grid;gap:14px}
   .ov-row p{margin:4px 0 0;line-height:1.6}
+  .ov-evidence{
+    margin:16px 0 0;padding-top:14px;border-top:1px dashed var(--line);
+    font-size:.84rem;line-height:1.55;color:var(--muted)
+  }
+  .ov-evidence a{color:var(--teal);font-weight:500;white-space:nowrap}
   .ov-label{
     font-family:"Chakra Petch",sans-serif;font-size:.72rem;font-weight:600;
     letter-spacing:.06em;color:var(--muted)
@@ -1210,6 +1215,10 @@
         <div class="ov-row"><span class="ov-label" data-i18n="outsideTeacherLabel">ในสายตาอาจารย์</span><p id="rOvTeacher"></p></div>
         <div class="ov-row"><span class="ov-label" data-i18n="outsideHiringLabel">ตอนสมัครงาน</span><p id="rOvHiring"></p></div>
       </div>
+      <p class="ov-evidence">
+        <span data-i18n="evidenceLine">งานวิจัยปี 2025 กับผู้ทำงาน 319 คน พบว่า ยิ่งเชื่อมั่นใน AI มาก ยิ่งคิดวิเคราะห์น้อยลง — ส่วนคนที่มั่นใจในความสามารถของตัวเอง กลับคิดวิเคราะห์มากขึ้น</span>
+        <a href="frameworks.html#gsr2026" target="_blank" rel="noopener" data-i18n="evidenceLink">ดูหลักฐานทั้งหมด →</a>
+      </p>
     </div>
 
     <!-- Tier 1 · the assignment itself: questions written from this result -->
