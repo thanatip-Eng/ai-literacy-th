@@ -28,6 +28,8 @@ v4, 30 = v5 core, 36 = v5 core + field block).
   security, static regression guards)
 - **`docs/`** — `connect-setup.md` (Canvas/Google Form setup),
   `canvas-course-setup.md` (per-course Canvas checklist for instructors),
+  `go-live-checklist.md` (what must pass before opening to students, and the
+  one-line fallback to form mode),
   `question-review.md` (item-quality review), `ailit-mapping.md`
   (AiStyle ↔ OECD/EU AILit mapping), `items-v2-draft.md` (v2 item history)
 - **`frameworks.html`** — standalone bilingual knowledge page summarizing

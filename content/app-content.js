@@ -88,8 +88,8 @@
         disciplineInsightLabel: "🎓 สาขาของคุณ",
         qExampleTag: "ในสายของคุณ",
         fieldPill: "สถานการณ์ในสายของคุณ",
-        fieldCheckHead: "📌 สถานการณ์ในสายงานของคุณ",
-        fieldCheckScoreLabel: "คะแนนสถานการณ์ตามสายงาน",
+        fieldCheckHead: "📌 สถานการณ์ในสาขาที่คุณเรียน",
+        fieldCheckScoreLabel: "คะแนนสถานการณ์ตามสาขาที่เรียน",
         evidenceLine: "งานวิจัยปี 2025 กับผู้ทำงาน 319 คน พบว่า ยิ่งเชื่อมั่นใน AI มาก ยิ่งคิดวิเคราะห์น้อยลง — ส่วนคนที่มั่นใจในความสามารถของตัวเอง กลับคิดวิเคราะห์มากขึ้น",
         evidenceLink: "ดูหลักฐานทั้งหมด →",
         partnershipGroupHead: "ความสัมพันธ์ของคุณกับ AI — 3 กลุ่ม",
@@ -333,7 +333,7 @@
         disciplineInsightLabel: "🎓 Your field",
         qExampleTag: "IN YOUR FIELD",
         fieldPill: "A situation in your field",
-        fieldCheckHead: "📌 Situations in your field",
+        fieldCheckHead: "📌 Situations in your field of study",
         fieldCheckScoreLabel: "Field scenario score",
         evidenceLine: "A 2025 study of 319 workers found that more confidence in AI went with less critical thinking — while people confident in their own ability thought harder, not less",
         evidenceLink: "See the evidence →",
@@ -944,7 +944,7 @@
     },
     fieldVerdict: {
       health: {
-        high: {th: "ในสถานการณ์จริงของสายสุขภาพ คุณยังเป็นคนตัดสินใจและ AI เป็นเครื่องมือ — รักษาระยะนี้ไว้ เพราะความผิดพลาดในสายงานนี้จะเกิดผลกระทบกับคนจริงๆ", en: "In real clinical situations you are still the one deciding and AI is the tool — hold that line, because in this field someone else lives with the mistakes"},
+        high: {th: "ในสถานการณ์จริงของสายสุขภาพ คุณยังเป็นคนตัดสินใจและ AI เป็นเครื่องมือ — รักษาระยะนี้ไว้ เพราะความผิดพลาดในสาขานี้จะเกิดผลกระทบกับคนจริง ๆ", en: "In real clinical situations you are still the one deciding and AI is the tool — hold that line, because in this field someone else lives with the mistakes"},
         low: {th: "ในสถานการณ์จริงของสายสุขภาพ คุณยังพึ่ง AI มากเกินไป ลองเลือกหนึ่งเรื่อง เช่น การตรวจขนาดยา หรือการซักประวัติ แล้วลองฝึกจนมั่นใจโดยไม่ต้องเปิด AI", en: "In real clinical situations you lean on AI more than is safe. Pick one thing — checking a dose, taking a history — and practise it until you are confident without AI"}
       },
       engtech: {
