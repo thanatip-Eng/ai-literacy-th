@@ -187,3 +187,13 @@ test('the open-ended comment is a labelled question and never blocks submitting'
   // only the three star answers gate the send button
   assert.match(html, /const ok = \(mfbRating > 0 && mfbFit > 0 && mfbUseful > 0\) \|\| mfbSent;/);
 });
+
+test('the outside view and the reflection prompts come from the result', () => {
+  assert.match(html, /id="rOutsideView" hidden/);
+  assert.match(html, /const keys = \['self_reliance', 'effort', 'self_trust', 'verify'\];/);
+  assert.match(html, /id="rReflect" hidden/);
+  assert.match(html, /entry\.pct !== null && entry\.pct < PARTNERSHIP_CUT/);
+  // the reflection form is external and opt-in: no config, no button
+  assert.match(html, /if\(!cfg \|\| !cfg\.url\) return '';/);
+  assert.match(html, /id="reflectOpenBtn"[^>]*hidden/);
+});

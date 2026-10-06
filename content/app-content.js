@@ -90,6 +90,16 @@
         fieldPill: "สถานการณ์ในสายของคุณ",
         fieldCheckHead: "📌 สถานการณ์ในสายของคุณ",
         fieldCheckScoreLabel: "คะแนนสถานการณ์ตามสาย",
+        outsideViewHead: "🪞 คนอื่นเห็นอะไร",
+        outsideViewIntro: "ผลแบบนี้ เวลาคนอื่นมองเข้ามา เขาอ่านออกมาเป็นแบบนี้",
+        outsideExamLabel: "ในห้องสอบ",
+        outsideTeacherLabel: "ในสายตาอาจารย์",
+        outsideHiringLabel: "ตอนสมัครงาน",
+        reflectHead: "✍️ คำถามสะท้อนคิดของคุณ",
+        reflectIntro: "สามข้อนี้สร้างจากผลของคุณเอง ใช้ตอบในงานสะท้อนคิดได้เลย",
+        reflectCopy: "คัดลอกคำถาม",
+        reflectCopied: "คัดลอกแล้ว ✓",
+        reflectOpen: "เปิดแบบสะท้อนคิด →",
         withoutAiHead: "🎓 ถ้าวันนี้ไม่มี AI",
         withoutAiIntro: "สองด้านนี้บอกว่าอะไรจะเหลืออยู่กับคุณเมื่อเครื่องมือถูกปิด — เช่น ในห้องสอบ",
         withoutAiLow: "ตอนนี้งานส่วนใหญ่ของคุณเดินได้เพราะ AI ในห้องสอบหรือหน้างานจริงที่ไม่มีเครื่องมือ คุณจะเหลือน้อยกว่าที่คะแนนงานบอก ลองเลือกสักหนึ่งเรื่องที่คุณต้องเก่งให้ได้จริง ๆ แล้วทำเองจนจบโดยไม่เปิด AI สักครั้ง",
@@ -319,6 +329,16 @@
         fieldPill: "A situation in your field",
         fieldCheckHead: "📌 Situations in your field",
         fieldCheckScoreLabel: "Field scenario score",
+        outsideViewHead: "🪞 What other people see",
+        outsideViewIntro: "Here is how a result like this reads from the outside",
+        outsideExamLabel: "In an exam",
+        outsideTeacherLabel: "To your teachers",
+        outsideHiringLabel: "When you apply for work",
+        reflectHead: "✍️ Your reflection questions",
+        reflectIntro: "These three come from your own result — answer them in your reflection task",
+        reflectCopy: "Copy the questions",
+        reflectCopied: "Copied ✓",
+        reflectOpen: "Open the reflection form →",
         withoutAiHead: "🎓 If AI were switched off today",
         withoutAiIntro: "These two say what would still be yours when the tools are gone — in an exam room, for instance",
         withoutAiLow: "Right now most of your work moves because AI is moving it. In an exam, or anywhere the tools are not available, you will have less to draw on than your grades suggest. Pick one thing you genuinely need to be good at and do it end to end without opening AI.",
@@ -785,6 +805,31 @@
           en: "Build a portfolio that reflects your real level and apply for AI-track jobs/internships that match"
         }
       }
+    },
+    outsideView: {
+      low: {
+        exam: {th: "สิ่งที่คุณส่งได้ตลอดเทอม กับสิ่งที่คุณทำได้จริงในห้องสอบ ตอนนี้ยังห่างกันอยู่ — และข้อสอบคือจุดที่ช่องว่างนี้โผล่มาพร้อมกันทั้งหมด", en: "What you can hand in all term and what you can do in an exam room are not the same thing yet — and the exam is where that gap shows up all at once"},
+        teacher: {th: "งานที่ดีเกินกว่าที่เจ้าของงานอธิบายได้ เป็นสิ่งที่คนสอนดูออกตั้งแต่คำถามแรก ไม่ใช่เพราะจับผิด แต่เพราะเขาฟังเหตุผลของคุณมาทั้งเทอม", en: "Work that outruns what its author can explain is clear to a teacher from the first question — not from suspicion, but from having heard you reason all term"},
+        hiring: {th: "ถ้าสิ่งที่คุณทำได้คือสิ่งที่ AI ทำได้อยู่แล้ว คำถามที่คนจ้างต้องตอบให้ได้คือ “แล้วทำไมต้องจ้างคุณ” — ข่าวดีคือคุณยังมีเวลาทั้งหลักสูตรที่จะทำให้คำตอบนั้นชัด", en: "If what you can do is what AI already does, the person hiring has to answer “then why you?” — the good news is you still have a whole degree to make that answer obvious"}
+      },
+      mid: {
+        exam: {th: "หลายเรื่องคุณทำเองได้ แต่มีบางส่วนที่ยังไม่แน่ใจว่าทำได้ไหมถ้าไม่มี AI — ลองหาให้เจอว่าส่วนไหน ก่อนที่ข้อสอบจะหาให้", en: "You can do plenty yourself, but some of it you are not sure about without AI — find which parts before an exam finds them for you"},
+        teacher: {th: "ตอนนี้คุณยังอธิบายงานของตัวเองได้เป็นส่วนใหญ่ ซึ่งเป็นสิ่งที่ทำให้คำพูดของคุณมีน้ำหนักในห้อง — ส่วนที่อธิบายไม่ได้คือส่วนที่ต้องดึงกลับมา", en: "You can still account for most of your work, which is what gives what you say weight in class — the part you can't account for is the part to take back"},
+        hiring: {th: "สิ่งที่ทำให้คุณต่างจากคนอื่นไม่ใช่การใช้ AI คล่อง เพราะอีกไม่นานทุกคนก็ใช้คล่อง แต่คือการที่คุณรู้ว่าเมื่อไรมันผิด", en: "What sets you apart won't be being fluent with AI — soon everyone will be — it will be knowing when it is wrong"}
+      },
+      high: {
+        exam: {th: "คุณไม่ต้องกลัววันที่เครื่องมือถูกปิด เพราะสิ่งที่คุณทำได้เป็นของคุณจริง ๆ", en: "You have nothing to fear from the day the tools are switched off, because what you can do is genuinely yours"},
+        teacher: {th: "คนที่อธิบายงานของตัวเองได้ทุกบรรทัด คือคนที่อาจารย์นึกถึงเวลามีโอกาสดี ๆ เข้ามา", en: "The student who can account for every line of their work is the one a teacher thinks of when an opportunity comes up"},
+        hiring: {th: "คุณใช้ AI ได้โดยที่เหตุผลยังเป็นของตัวเอง — นั่นคือเหตุผลที่คนจะเลือกคุณ ไม่ใช่เลือกเครื่องมือ", en: "You use AI and the reasoning stays yours — that is the reason someone picks you rather than the tool"}
+      }
+    },
+    reflectPrompts: {
+      selfReliance: {th: "นึกถึงงานชิ้นล่าสุดที่คุณให้ AI ช่วยมากที่สุด ถ้าต้องทำใหม่ในห้องสอบโดยไม่มี AI คุณจะติดตรงไหน และจะฝึกตรงนั้นอย่างไรภายในสองสัปดาห์นี้", en: "Think of the last piece of work you leaned on AI for most. If you had to redo it in an exam room with no AI, where would you get stuck — and how will you practise that part in the next two weeks?"},
+      selfTrust: {th: "เล่าครั้งที่คุณไม่เห็นด้วยกับ AI แต่สุดท้ายก็เชื่อมัน ตอนนั้นคุณคิดอะไรอยู่ และถ้าย้อนกลับไปได้จะทำต่างออกไปอย่างไร", en: "Describe a time you disagreed with AI and went along with it anyway. What were you thinking at that moment, and what would you do differently now?"},
+      verify: {th: "ยกตัวอย่างสิ่งที่ AI ให้คุณมาแล้วคุณใช้ต่อโดยไม่ได้ตรวจ ถ้ามันผิดขึ้นมา ผลจะตกอยู่กับใครบ้าง", en: "Give an example of something AI gave you that you used without checking. If it had been wrong, who would have carried the consequences?"},
+      effort: {th: "มีเรื่องไหนที่คุณรู้ว่าต้องเก่งให้ได้ในสายของคุณ แต่ทุกครั้งที่มันยากคุณก็ส่งต่อให้ AI — เลือกมาหนึ่งเรื่อง แล้วบอกว่าจะเริ่มฝึกเองอย่างไร", en: "Name something you know you need to be good at in your field but hand to AI whenever it gets hard. Pick one, and say how you will start practising it yourself."},
+      strong: {th: "สิ่งที่คุณทำอยู่ตอนนี้ — ตรวจสอบ ตั้งคำถาม และลงมือเองในส่วนที่สำคัญ — มาจากนิสัยหรือวิธีคิดแบบไหน และคุณจะส่งต่อให้เพื่อนในกลุ่มได้อย่างไร", en: "What you already do — checking, questioning, doing the important parts yourself — comes from some habit or way of thinking. What is it, and how could you pass it on to your group?"},
+      always: {th: "มีอะไรในผลนี้ที่ตรงกับตัวคุณจนสะดุดไหม และเทอมนี้คุณจะเปลี่ยนอะไรหนึ่งอย่าง", en: "Was there anything in this result that landed a little too close? And what is the one thing you will change this term?"}
     },
     disciplines: [
       {

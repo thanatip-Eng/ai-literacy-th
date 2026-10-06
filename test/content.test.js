@@ -230,3 +230,31 @@ test('field scenarios never become part of the scored core', () => {
     }
   }
 });
+
+test('the outside view reads the same result at three levels, in both languages', () => {
+  const view = content.outsideView;
+  assert.ok(view, 'outsideView block is required');
+  assert.deepEqual(Object.keys(view), ['low', 'mid', 'high']);
+  for (const [tier, rows] of Object.entries(view)) {
+    assert.deepEqual(Object.keys(rows), ['exam', 'teacher', 'hiring'],
+      `${tier} must cover the exam room, the teacher and the hiring decision`);
+    for (const [where, text] of Object.entries(rows)) {
+      for (const lang of ['th', 'en']) {
+        assert.ok(text[lang] && text[lang].trim(), `outsideView.${tier}.${where}.${lang}`);
+      }
+    }
+  }
+});
+
+test('reflection prompts cover every trigger the result page can pick', () => {
+  const prompts = content.reflectPrompts;
+  assert.ok(prompts, 'reflectPrompts block is required');
+  // the four weak-dimension triggers, the one for a strong result, and the
+  // closing question everyone gets
+  for (const key of ['selfReliance', 'selfTrust', 'verify', 'effort', 'strong', 'always']) {
+    for (const lang of ['th', 'en']) {
+      assert.ok(prompts[key] && prompts[key][lang] && prompts[key][lang].trim(),
+        `reflectPrompts.${key}.${lang}`);
+    }
+  }
+});

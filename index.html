@@ -181,6 +181,22 @@
   .without-ai{border-left:4px solid var(--amber)}
   .without-ai-alert{background:#fdf4e7;border-color:#C9822F}
   .field-check{border-left:4px solid var(--teal)}
+  .outside-view{border-left:4px solid var(--ink)}
+  .ov-rows{display:grid;gap:14px}
+  .ov-row p{margin:4px 0 0;line-height:1.6}
+  .ov-label{
+    font-family:"Chakra Petch",sans-serif;font-size:.72rem;font-weight:600;
+    letter-spacing:.06em;color:var(--muted)
+  }
+  .reflect-card{border-left:4px solid var(--amber)}
+  /* the card's generic bullet is replaced here: these are numbered questions */
+  .card ol.reflect-list{margin:0;padding-left:1.4em;display:grid;gap:12px;line-height:1.6;list-style:decimal}
+  .card ol.reflect-list li{display:list-item}
+  .card ol.reflect-list li::before{content:none}
+  .card ol.reflect-list li::marker{font-family:"Chakra Petch",sans-serif;font-weight:700;color:var(--teal)}
+  .reflect-actions{display:flex;flex-wrap:wrap;gap:10px;margin-top:16px}
+  .reflect-actions .btn{flex:1 1 180px}
+  a.reflect-open{display:inline-flex;align-items:center;justify-content:center;text-decoration:none;white-space:nowrap}
   .field-check-alert{background:#fdf4e7;border-color:#C9822F}
   .without-ai-alert .without-ai-msg{font-weight:500}
   .without-ai-head{margin:0 0 4px;font-size:1.05rem}
@@ -1184,6 +1200,28 @@
       </div>
       <p class="without-ai-msg" id="rFieldCheckMsg"></p>
     </div>
+
+    <!-- Tier 1 · the same result, read from the outside -->
+    <div class="card outside-view" id="rOutsideView" hidden>
+      <h4 class="without-ai-head" data-i18n="outsideViewHead">🪞 คนอื่นเห็นอะไร</h4>
+      <p class="without-ai-intro" data-i18n="outsideViewIntro">ผลแบบนี้ เวลาคนอื่นมองเข้ามา เขาอ่านออกมาเป็นแบบนี้</p>
+      <div class="ov-rows">
+        <div class="ov-row"><span class="ov-label" data-i18n="outsideExamLabel">ในห้องสอบ</span><p id="rOvExam"></p></div>
+        <div class="ov-row"><span class="ov-label" data-i18n="outsideTeacherLabel">ในสายตาอาจารย์</span><p id="rOvTeacher"></p></div>
+        <div class="ov-row"><span class="ov-label" data-i18n="outsideHiringLabel">ตอนสมัครงาน</span><p id="rOvHiring"></p></div>
+      </div>
+    </div>
+
+    <!-- Tier 1 · the assignment itself: questions written from this result -->
+    <div class="card reflect-card" id="rReflect" hidden>
+      <h4 class="without-ai-head" data-i18n="reflectHead">✍️ คำถามสะท้อนคิดของคุณ</h4>
+      <p class="without-ai-intro" data-i18n="reflectIntro">สามข้อนี้สร้างจากผลของคุณเอง ใช้ตอบในงานสะท้อนคิดได้เลย</p>
+      <ol class="reflect-list" id="rReflectList"></ol>
+      <div class="reflect-actions">
+        <button class="btn ghost" type="button" id="reflectCopyBtn" onclick="copyReflectPrompts()" data-i18n="reflectCopy">คัดลอกคำถาม</button>
+        <a class="btn reflect-open" id="reflectOpenBtn" target="_blank" rel="noopener" hidden data-i18n="reflectOpen">เปิดแบบสะท้อนคิด →</a>
+      </div>
+    </div>
     <!-- Tier 1 · the single primary action: submit (Canvas) sits above download -->
     <div class="submit-cta" id="connectSubmitBox" hidden>
       <p class="submit-cta-hint" data-i18n="submitCtaHint">ขั้นตอนสำคัญ: ดูผลเสร็จแล้ว กดปุ่มนี้เพื่อส่งผลให้ผู้สอน</p>
@@ -1444,6 +1482,8 @@ const DISCIPLINES = CONTENT.disciplines || [];
 const DISCIPLINE_ADVICE = CONTENT.disciplineAdvice || {};
 const FIELD_ITEMS = CONTENT.fieldItems || {};
 const FIELD_VERDICT = CONTENT.fieldVerdict || {};
+const OUTSIDE_VIEW = CONTENT.outsideView || {};
+const REFLECT_PROMPTS = CONTENT.reflectPrompts || {};
 const PARTNERSHIP = CONTENT.partnership;
 const PARTNERSHIP_CUT = (PARTNERSHIP && typeof PARTNERSHIP.threshold === 'number') ? PARTNERSHIP.threshold : 60;
 
@@ -2563,6 +2603,8 @@ function renderResult(pcts, placement, THRESH, partnership){
   renderPartnership(partnership, placement, pcts);
   renderWithoutAI(partnership);
   renderFieldCheck();
+  renderOutsideView(partnership);
+  renderReflect(partnership);
   renderQuadrantGrid('resultQuadrantGrid', partnership ? partnership.quadrant : null);
   renderRoleVerdict(pcts, THRESH);
   renderTags(pcts, placement, partnership);
@@ -2610,6 +2652,125 @@ function renderWithoutAI(partnership){
   // the card changes colour so the warning is not mistaken for a footnote
   box.classList.toggle('without-ai-alert', mean < 40);
   box.hidden = false;
+}
+
+/* Students rarely get told what their own pattern looks like from outside —
+   what an exam will expose, what a teacher already notices, what the person
+   hiring has to justify. Direct, but no verdict on them as a person: every
+   line names something that can still change while they are here. */
+function subPct(partnership, key){
+  const i = PARTNERSHIP ? PARTNERSHIP.subtraits.findIndex(sub => sub.key === key) : -1;
+  return i < 0 ? null : (partnership.subtraitScores[i] || 0);
+}
+
+function renderOutsideView(partnership){
+  const box = document.getElementById('rOutsideView');
+  if(!box || !partnership) return;
+  const keys = ['self_reliance', 'effort', 'self_trust', 'verify'];
+  const scores = keys.map(k => subPct(partnership, k)).filter(v => v !== null);
+  if(!scores.length){ box.hidden = true; return; }
+  const mean = Math.round(scores.reduce((sum, v) => sum + v, 0) / scores.length);
+  const tier = mean < 40 ? 'low' : (mean < 70 ? 'mid' : 'high');
+  const copy = OUTSIDE_VIEW[tier];
+  if(!copy){ box.hidden = true; return; }
+  document.getElementById('rOvExam').textContent = tx(copy.exam);
+  document.getElementById('rOvTeacher').textContent = tx(copy.teacher);
+  document.getElementById('rOvHiring').textContent = tx(copy.hiring);
+  box.hidden = false;
+}
+
+/* The assignment is the reflection, not the score. The prompts are picked from
+   whichever dimensions actually came out low, so two students never take the
+   same three questions away. */
+let reflectPromptTexts = [];
+function renderReflect(partnership){
+  const box = document.getElementById('rReflect');
+  const list = document.getElementById('rReflectList');
+  if(!box || !list || !partnership) return;
+  const weak = [
+    ['self_reliance', 'selfReliance'],
+    ['self_trust', 'selfTrust'],
+    ['verify', 'verify'],
+    ['effort', 'effort']
+  ]
+    .map(([key, prompt]) => ({prompt, pct: subPct(partnership, key)}))
+    // 60 is the partnership cut: anything under it is worth reflecting on,
+    // not only the dimensions that came out badly
+    .filter(entry => entry.pct !== null && entry.pct < PARTNERSHIP_CUT)
+    .sort((a, b) => a.pct - b.pct)
+    .slice(0, 2)
+    .map(entry => entry.prompt);
+  const picked = (weak.length ? weak : ['strong']).concat('always');
+  reflectPromptTexts = picked
+    .map(key => REFLECT_PROMPTS[key])
+    .filter(Boolean)
+    .map(tx);
+  if(!reflectPromptTexts.length){ box.hidden = true; return; }
+
+  list.innerHTML = '';
+  reflectPromptTexts.forEach(text => {
+    const li = document.createElement('li');
+    li.textContent = text;
+    list.appendChild(li);
+  });
+
+  const open = document.getElementById('reflectOpenBtn');
+  const url = buildReflectUrl();
+  if(open){
+    if(url){ open.href = url; open.hidden = false; }
+    else { open.removeAttribute('href'); open.hidden = true; }
+  }
+  box.hidden = false;
+}
+
+/* The reflection form lives outside this app (Canvas, MS Forms, anything with
+   a URL). Params prefill it from the result so the instructor's export has the
+   scores and the writing on one row. No config, no button, no network. */
+function buildReflectUrl(){
+  const cfg = CONNECT && CONNECT.reflect;
+  if(!cfg || !cfg.url) return '';
+  const values = {
+    quadrant: (window.__res && window.__res.partnership) ? window.__res.partnership.quadrant : '',
+    placement: (window.__res && typeof window.__res.placement === 'number') ? String(window.__res.placement) : '',
+    discipline: userDiscipline ? userDiscipline.code : '',
+    lang: currentLang
+  };
+  const params = [];
+  Object.entries(cfg.params || {}).forEach(([field, id]) => {
+    if(!id || !values[field]) return;
+    params.push(`${encodeURIComponent(id)}=${encodeURIComponent(values[field])}`);
+  });
+  if(!params.length) return cfg.url;
+  return cfg.url + (cfg.url.includes('?') ? '&' : '?') + params.join('&');
+}
+
+function copyReflectPrompts(){
+  if(!reflectPromptTexts.length) return;
+  const text = reflectPromptTexts.map((line, i) => `${i + 1}. ${line}`).join('\n\n');
+  const btn = document.getElementById('reflectCopyBtn');
+  const done = () => {
+    if(!btn) return;
+    const original = btn.textContent;
+    btn.textContent = t('reflectCopied');
+    setTimeout(()=>{ btn.textContent = original; }, 1800);
+  };
+  try {
+    navigator.clipboard.writeText(text).then(done, () => fallbackCopy(text, done));
+  } catch(_){
+    fallbackCopy(text, done);
+  }
+}
+
+function fallbackCopy(text, done){
+  const area = document.createElement('textarea');
+  area.value = text;
+  area.setAttribute('readonly', '');
+  area.style.position = 'fixed';
+  area.style.opacity = '0';
+  document.body.appendChild(area);
+  area.select();
+  try { document.execCommand('copy'); done(); } catch(_){}
+  area.remove();
 }
 
 function renderPartnership(partnership, placement, pcts){
