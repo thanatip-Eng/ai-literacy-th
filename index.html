@@ -2239,6 +2239,18 @@ function renderConnectWhoami(){
   }
 }
 
+/* Form mode has no server to sign a receipt, so the browser mints one: eight
+   random hex characters, the same shape as the LTI code. It proves nothing on
+   its own — anyone could type one — but it is written into the Sheet row and
+   prefilled into the reflection form from the same submission, which is what
+   the second assignment actually needs: a key that matches the two exports
+   row for row. Identity in form mode comes from the student-ID field. */
+function makeFormReceipt(){
+  const bytes = new Uint8Array(4);
+  crypto.getRandomValues(bytes);
+  return Array.from(bytes, b => b.toString(16).padStart(2, '0')).join('').toUpperCase();
+}
+
 async function submitConnectResult(){
   if(demoCanvas()){
     // simulated send: same screens, no request, sample confirmation code
@@ -2269,6 +2281,9 @@ async function submitConnectResult(){
       receiptInfo = {receipt: j.receipt || '', stamp: j.stamp || '', email: j.email || '', graded: !!j.graded};
     } else {
       if(!CONNECT.formUrl) throw new Error('no form url');
+      const stamp = new Date().toISOString();
+      const code = makeFormReceipt();
+      connectPayload.receipt = code;   // the same code reaches the Sheet
       const form = new FormData();
       Object.entries(CONNECT.fields || {}).forEach(([field, entryId]) => {
         if(typeof entryId !== 'string' || !entryId.startsWith('entry.')) return;
@@ -2277,7 +2292,7 @@ async function submitConnectResult(){
         form.append(entryId, String(value));
       });
       await fetch(CONNECT.formUrl, {method: 'POST', mode: 'no-cors', body: form});
-      receiptInfo = {receipt: '', stamp: new Date().toISOString(), email: ''};
+      receiptInfo = {receipt: code, stamp, email: ''};
     }
     connectStatusKey = null; // the receipt box is the success state
     renderConnectStatus();

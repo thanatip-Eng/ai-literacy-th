@@ -218,3 +218,13 @@ test('the reflection form opens from the receipt, carrying its code', () => {
   // the button lives in the receipt box now, not in the reflection card
   assert.doesNotMatch(html, /reflect-actions"[\s\S]{0,200}reflectOpenBtn/);
 });
+
+test('form mode mints its own receipt code so the two exports can be matched', () => {
+  assert.match(html, /function makeFormReceipt/);
+  assert.match(html, /crypto\.getRandomValues/);
+  // the code the student sees is the code the Sheet row carries
+  assert.match(html, /connectPayload\.receipt = code;/);
+  assert.match(html, /receiptInfo = \{receipt: code, stamp, email: ''\};/);
+  // and it must not be the empty string that used to be sent
+  assert.doesNotMatch(html, /receiptInfo = \{receipt: '', stamp/);
+});
