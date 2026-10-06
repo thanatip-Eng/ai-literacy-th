@@ -1442,7 +1442,7 @@
           }
         },
         autopilot: {
-          name: {th: "ผู้ส่งต่อคำตอบ", en: "Auto-pilot User"},
+          name: {th: "ผู้ใช้โหมดอัตโนมัติ", en: "Auto-pilot User"},
           short: {th: "ใช้ AI คล่อง แต่บางครั้งอาจปล่อยให้ AI คิดแทน", en: "Fluent with AI, but sometimes lets AI do the thinking"},
           color: "#C8862E",
           blurb: {
@@ -1450,10 +1450,10 @@
             en: "You're skilled with AI — using it often and fluently. But pause to check yourself before following AI. Your thinking, creativity, and judgment are what AI can't replace — keep them alive even as you use AI."
           },
           nudge: {
-            th: "ลองคิดคำตอบของตัวเองก่อนเปิด AI สัก 1–2 นาที และตรวจคำตอบที่ AI ให้ทุกครั้งในงานสำคัญ — งานที่คุณส่งควรมีความคิดของคุณอยู่ในนั้น ไม่ใช่แค่ส่งต่อคำตอบที่ได้มา",
-            en: "Try thinking your own answer for 1–2 minutes before opening AI, and verify AI output on important work — what you hand in should carry your own thinking, not just relay what you were given."
+            th: "ลองคิดคำตอบของตัวเองก่อนเปิด AI สัก 1–2 นาที และตรวจสอบคำตอบ AI ทุกครั้งในงานสำคัญ คุณคือคนขับ ไม่ใช่ผู้โดยสาร",
+            en: "Try thinking your own answer for 1–2 minutes before opening AI, and verify AI outputs on important work. You're the driver, not the passenger."
           },
-          partnershipNextH: {th: "ให้งานมีความคิดของคุณอยู่ในนั้น", en: "Put your own thinking back in the work"},
+          partnershipNextH: {th: "ดึงตัวเองกลับมาเป็นผู้ขับ", en: "Take the driver's seat back"},
           partnershipNext: [
             {th: "ก่อนเปิด AI ลองคิดคำตอบของตัวเองก่อน 1–2 นาทีทุกครั้ง", en: "Before opening AI, try your own answer for 1–2 minutes every time"},
             {th: "งานสำคัญ ตรวจสอบผลของ AI กับแหล่งอื่นอย่างน้อย 1 แหล่ง", en: "For important work, verify AI output against at least one other source"},
