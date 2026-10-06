@@ -88,16 +88,16 @@
         disciplineInsightLabel: "🎓 สาขาของคุณ",
         qExampleTag: "ในสายของคุณ",
         fieldPill: "สถานการณ์ในสายของคุณ",
-        fieldCheckHead: "📌 สถานการณ์ในสายของคุณ",
-        fieldCheckScoreLabel: "คะแนนสถานการณ์ตามสาย",
+        fieldCheckHead: "📌 สถานการณ์ในสายงานของคุณ",
+        fieldCheckScoreLabel: "คะแนนสถานการณ์ตามสายงาน",
         evidenceLine: "งานวิจัยปี 2025 กับผู้ทำงาน 319 คน พบว่า ยิ่งเชื่อมั่นใน AI มาก ยิ่งคิดวิเคราะห์น้อยลง — ส่วนคนที่มั่นใจในความสามารถของตัวเอง กลับคิดวิเคราะห์มากขึ้น",
         evidenceLink: "ดูหลักฐานทั้งหมด →",
         partnershipGroupHead: "ความสัมพันธ์ของคุณกับ AI — 3 กลุ่ม",
         partnershipDetailToggle: "ดูรายด้าน",
         partnershipDetailNote: "อีก 3 ด้าน (ทำเองได้เมื่อไม่มี AI · ยอมลำบากเพื่อให้เก่งขึ้น · เชื่อตัวเองพอ ๆ กับเชื่อ AI) ดูได้ที่การ์ดด้านบน",
         receiptReflectHint: "ขั้นต่อไป: ส่งงานสะท้อนคิด โดยใช้รหัสยืนยันด้านบน",
-        outsideViewHead: "🪞 คนอื่นเห็นอะไร",
-        outsideViewIntro: "ผลแบบนี้ เวลาคนอื่นมองเข้ามา เขาอ่านออกมาเป็นแบบนี้",
+        outsideViewHead: "🪞 คนอื่นมองคุณอย่างไร",
+        outsideViewIntro: "เมื่อคนอื่นมองคุณ",
         outsideExamLabel: "ในห้องสอบ",
         outsideTeacherLabel: "ในสายตาอาจารย์",
         outsideHiringLabel: "ตอนสมัครงาน",
@@ -107,10 +107,10 @@
         reflectCopied: "คัดลอกแล้ว ✓",
         reflectOpen: "เปิดแบบสะท้อนคิด →",
         withoutAiHead: "🎓 ถ้าวันนี้ไม่มี AI",
-        withoutAiIntro: "สามด้านนี้บอกว่าอะไรจะเหลืออยู่กับคุณเมื่อเครื่องมือถูกปิด — เช่น ในห้องสอบ",
-        withoutAiLow: "ตอนนี้งานของคุณเดินได้เพราะ AI เป็นหลัก พอถึงห้องสอบหรือเวลาที่ไม่มีเครื่องมือ คุณจะทำได้น้อยกว่าที่เกรดบอกไว้ ลองเลือกหนึ่งเรื่องที่คุณต้องเก่งให้ได้จริง แล้วทำเองจนจบสักครั้งโดยไม่เปิด AI",
-        withoutAiMid: "คุณยังทำเองได้ในหลายเรื่อง แต่มีบางส่วนที่พึ่ง AI จนไม่แน่ใจว่าทำเองได้ไหม ลองทดสอบดู: หยิบงานที่เพิ่งส่งไป แล้วอธิบายหรือทำใหม่โดยไม่เปิด AI ตรงที่ติดคือตรงที่ต้องฝึก",
-        withoutAiHigh: "คุณใช้ AI โดยที่ทักษะยังเป็นของคุณจริง ๆ นี่คือสิ่งที่ทำให้ต่างจากคนที่ใช้ AI เก่งแต่ทำเองไม่ได้ — รักษาไว้ แล้วใช้ AI ดันเพดานตัวเองให้สูงขึ้นอีก",
+        withoutAiIntro: "สามด้านนี้ชี้ให้เห็นว่า คุณจะเหลืออะไรอยู่บ้าง ถ้าหากไม่มี AI ให้คุณใช้ — เช่น ในห้องสอบ",
+        withoutAiLow: "ตอนนี้งานของคุณเดินได้เพราะ AI เป็นหลัก พอถึงห้องสอบหรือเวลาที่ไม่มีเครื่องมือ คุณจะทำได้น้อยกว่าที่เกรดบอกไว้ ลองเลือกหนึ่งเรื่องที่คุณต้องเก่งให้ได้จริง แล้วทำเองจนจบสักครั้งโดยไม่ใช้ AI ช่วย",
+        withoutAiMid: "คุณยังทำเองได้ในหลายเรื่อง แต่มีบางส่วนที่คุณพึ่ง AI จนไม่แน่ใจว่าตัวเองทำเองได้ไหม ชวนคุณลองทดสอบโดย: หยิบงานที่เพิ่งส่งไป แล้วอธิบายหรือทำใหม่โดยไม่เปิด AI จุดไหนที่ติดขัดทำไม่ได้ นั่นคือสิ่งที่คุณต้องฝึกฝนพัฒนา",
+        withoutAiHigh: "คุณใช้ AI โดยที่ทักษะยังเป็นของคุณจริง ๆ นี่คือสิ่งที่ทำให้คุณต่างจากคนที่ใช้ AI เก่งแต่ถ้าต้องทำเองเขาทำไม่ได้: ขอให้รักษาไว้ แล้วใช้ AI ดันศักยภาพตัวเองให้สูงขึ้นไปอีก",
         disciplineAdviceHead: "🎓 คำแนะนำสำหรับสายของคุณ",
         disciplineAdviceIntro: "อิงจากกลุ่มสาขาที่คุณเลือก และรูปแบบการใช้ AI ที่ออกมา",
         verdictHead: "บทบาทกับสไตล์การใช้ AI ของคุณ",
@@ -137,7 +137,7 @@
         partnershipSub: "ทักษะ = \"คุณใช้ AI ทำอะไรได้\" · ความสัมพันธ์ = \"คุณใช้ AI ยังไง\"",
         partnershipStrengthLabel: "💪 จุดแข็ง",
         partnershipGapLabel: "🎯 จุดที่ฉุด",
-        insightHead: "สรุปของคุณแบบสั้น",
+        insightHead: "สรุปของคุณอย่างย่อ",
         demoBanner: "🔍 โหมดตัวอย่าง — ผลด้านล่างเป็นข้อมูลจำลอง ไม่ใช่ผลจริง",
         firstStepLabel: "👉 ก้าวแรก",
         roleInsightLabel: "🏁 บทบาท",
@@ -339,10 +339,10 @@
         evidenceLink: "See the evidence →",
         partnershipGroupHead: "Your partnership with AI — 3 groups",
         partnershipDetailToggle: "See each dimension",
-        partnershipDetailNote: "The other three (standing on your own, willingness to struggle, trusting your own judgment) are in the \"If AI were switched off today\" card above",
+        partnershipDetailNote: "The other three (standing on your own, willingness to struggle, trusting your own judgment) are in the card above",
         receiptReflectHint: "Next: hand in your reflection, using the code above",
-        outsideViewHead: "🪞 What other people see",
-        outsideViewIntro: "Here is how a result like this reads from the outside",
+        outsideViewHead: "🪞 How other people see you",
+        outsideViewIntro: "When other people look at you",
         outsideExamLabel: "In an exam",
         outsideTeacherLabel: "To your teachers",
         outsideHiringLabel: "When you apply for work",
@@ -826,7 +826,7 @@
       },
       {
         key: "lead",
-        name: {th: "นำ AI ไม่ใช่ตามมัน", en: "Lead it, don't follow it"},
+        name: {th: "เดินนำ AI ไม่ใช่เดินตามมัน", en: "Lead it, don't follow it"},
         subtraits: ["restraint", "human_lead", "direction"]
       },
       {
@@ -837,19 +837,19 @@
     ],
     outsideView: {
       low: {
-        exam: {th: "สิ่งที่คุณส่งได้ตลอดเทอม กับสิ่งที่คุณทำเองได้จริง ตอนนี้ยังห่างกันอยู่ — และวันสอบคือวันที่คุณจะเจอทุกเรื่องที่ยังทำเองไม่ได้พร้อมกัน", en: "What you can hand in all term and what you can do on your own are not the same thing yet — and exam day is when you meet everything you still can't do, all at once"},
-        teacher: {th: "งานที่ดีเกินกว่าที่เจ้าของงานอธิบายได้ เป็นสิ่งที่คนสอนดูออกตั้งแต่คำถามแรก ไม่ใช่เพราะจับผิด แต่เพราะเขาฟังเหตุผลของคุณมาทั้งเทอม", en: "Work that outruns what its author can explain is clear to a teacher from the first question — not from suspicion, but from having heard you reason all term"},
-        hiring: {th: "ถ้าสิ่งที่คุณทำได้คือสิ่งที่ AI ทำได้อยู่แล้ว คำถามที่คนจ้างต้องตอบให้ได้คือ “แล้วทำไมต้องจ้างคุณ” — ข่าวดีคือคุณยังมีเวลาทั้งหลักสูตรที่จะทำให้คำตอบนั้นชัด", en: "If what you can do is what AI already does, the person hiring has to answer “then why you?” — the good news is you still have a whole degree to make that answer obvious"}
+        exam: {th: "สิ่งที่คุณส่งตลอดเทอม กับสิ่งที่คุณทำเองได้จริง ตอนนี้ยังห่างกันอยู่ — และวันสอบคือวันที่คุณจะเจอทุกเรื่องที่คุณยังทำเองไม่ได้พร้อมกัน", en: "What you can hand in all term and what you can do on your own are not the same thing yet — and exam day is when you meet everything you still can't do, all at once"},
+        teacher: {th: "งานที่ดีแต่เจ้าของงานอธิบายไม่ได้ เป็นสิ่งที่ผู้สอนดูออกตั้งแต่คำถามแรก เพราะเขาได้เห็นนักศึกษาหลากหลายระดับ และรู้ว่าใครลงมือทำจริง ใครเข้าใจทำได้จริง", en: "Work that outruns what its author can explain is clear to a teacher from the first question — they have taught students at every level and can tell who did the work and who actually understands it"},
+        hiring: {th: "ถ้าสิ่งที่คุณทำได้คือสิ่งที่ AI ทำได้อยู่แล้ว คำถามที่คนจ้างต้องตอบให้ได้คือ “แล้วทำไมเขาต้องจ้างคุณ” — ข่าวดีคือคุณยังมีเวลาทั้งหลักสูตรที่จะทำให้คำตอบนั้นชัด", en: "If what you can do is what AI already does, the person hiring has to answer “then why you?” — the good news is you still have a whole degree to make that answer obvious"}
       },
       mid: {
-        exam: {th: "หลายเรื่องคุณทำเองได้ แต่มีบางส่วนที่ยังไม่แน่ใจว่าทำได้ไหมถ้าไม่มี AI — ลองหาให้เจอว่าส่วนไหน ก่อนที่ข้อสอบจะหาให้", en: "You can do plenty yourself, but some of it you are not sure about without AI — find which parts before an exam finds them for you"},
-        teacher: {th: "ตอนนี้คุณยังอธิบายงานของตัวเองได้เป็นส่วนใหญ่ ซึ่งทำให้สิ่งที่คุณพูดในห้องน่าเชื่อถือ — ถ้ามีตรงไหนที่อธิบายไม่ได้ ให้กลับไปทำตรงนั้นเองจนเข้าใจ", en: "You can still account for most of your work, which is what makes what you say in class worth hearing — if there is a part you can't account for, go back and do that part yourself until you can"},
-        hiring: {th: "สิ่งที่ทำให้คุณต่างจากคนอื่นไม่ใช่การใช้ AI คล่อง เพราะอีกไม่นานทุกคนก็ใช้คล่อง แต่คือการที่คุณรู้ว่าเมื่อไรมันผิด", en: "What sets you apart won't be being fluent with AI — soon everyone will be — it will be knowing when it is wrong"}
+        exam: {th: "หลายเรื่องคุณทำเองได้ แต่มีบางส่วนที่ยังไม่แน่ใจว่าทำได้ไหมถ้าไม่มี AI — ลองหาให้เจอว่าส่วนไหนให้ทันก่อนสอบ", en: "You can do plenty yourself, but some of it you are not sure about without AI — find which parts before an exam finds them for you"},
+        teacher: {th: "ตอนนี้คุณยังอธิบายงานของตัวเองได้เป็นส่วนใหญ่ ซึ่งทำให้สิ่งที่คุณพูดในห้องน่าเชื่อถือ — ถ้ามีตรงไหนที่อธิบายไม่ได้ ให้กลับไปทำความเข้าใจส่วนนั้นใหม่", en: "You can still account for most of your work, which is what makes what you say in class worth hearing — if there is a part you can't account for, go back and work through it until you understand it"},
+        hiring: {th: "สิ่งที่ทำให้คุณต่างจากคนอื่นไม่ใช่การใช้ AI คล่อง เพราะอีกไม่นานทุกคนก็ใช้คล่องกันทั่วโลก แต่จุดเด่นของคุณคือการที่คุณวิเคราะห์และระบุได้ว่าตอนไหนที่ AI ทำผิดและไม่น่าเชื่อถือ", en: "What sets you apart won't be being fluent with AI, because soon everyone everywhere will be — it will be that you can work out and point to where AI got it wrong and cannot be trusted"}
       },
       high: {
-        exam: {th: "คุณไม่ต้องกลัววันที่เครื่องมือถูกปิด เพราะสิ่งที่คุณทำได้เป็นของคุณจริง ๆ", en: "You have nothing to fear from the day the tools are switched off, because what you can do is genuinely yours"},
+        exam: {th: "คุณไม่ต้องกลัวเรื่องไม่มี AI ใช้ เพราะสิ่งที่คุณทำได้เป็นทักษะของคุณจริง ๆ ไม่ได้ขึ้นกับใคร", en: "You have nothing to fear from a day without AI, because what you can do is genuinely your own skill and depends on no one else"},
         teacher: {th: "คนที่อธิบายงานของตัวเองได้ทุกบรรทัด คือคนที่อาจารย์นึกถึงเวลามีโอกาสดี ๆ เข้ามา", en: "The student who can account for every line of their work is the one a teacher thinks of when an opportunity comes up"},
-        hiring: {th: "คุณใช้ AI ได้โดยที่เหตุผลยังเป็นของตัวเอง — นั่นคือเหตุผลที่คนจะเลือกคุณ ไม่ใช่เลือกเครื่องมือ", en: "You use AI and the reasoning stays yours — that is the reason someone picks you rather than the tool"}
+        hiring: {th: "บริษัท/ผู้จ้างงานอยากเลือกคุณเข้าทำงาน เพราะ \"คุณใช้ AI ได้โดยที่เหตุผลยังเป็นของตัวเอง\" ซึ่งเป็นทักษะที่ผู้จ้างงานต้องการมากจากนักศึกษา", en: "An employer wants to hire you because you use AI and the reasoning stays yours — which is exactly the skill they are looking for in graduates"}
       }
     },
     reflectPrompts: {
@@ -944,24 +944,24 @@
     },
     fieldVerdict: {
       health: {
-        high: {th: "ในสถานการณ์จริงของสายสุขภาพ คุณยังเป็นคนตัดสินใจและ AI เป็นเครื่องมือ — รักษาระยะนี้ไว้ เพราะความผิดพลาดในสายนี้มีคนรับผลจริง", en: "In real clinical situations you are still the one deciding and AI is the tool — hold that line, because in this field someone else lives with the mistakes"},
-        low: {th: "ในสถานการณ์จริงของสายสุขภาพ คุณยังพึ่ง AI มากกว่าที่ปลอดภัย ลองเลือกหนึ่งเรื่อง เช่น การตรวจขนาดยา หรือการซักประวัติ แล้วฝึกจนมั่นใจโดยไม่ต้องเปิด AI", en: "In real clinical situations you lean on AI more than is safe. Pick one thing — checking a dose, taking a history — and practise it until you are confident without AI"}
+        high: {th: "ในสถานการณ์จริงของสายสุขภาพ คุณยังเป็นคนตัดสินใจและ AI เป็นเครื่องมือ — รักษาระยะนี้ไว้ เพราะความผิดพลาดในสายงานนี้จะเกิดผลกระทบกับคนจริงๆ", en: "In real clinical situations you are still the one deciding and AI is the tool — hold that line, because in this field someone else lives with the mistakes"},
+        low: {th: "ในสถานการณ์จริงของสายสุขภาพ คุณยังพึ่ง AI มากเกินไป ลองเลือกหนึ่งเรื่อง เช่น การตรวจขนาดยา หรือการซักประวัติ แล้วลองฝึกจนมั่นใจโดยไม่ต้องเปิด AI", en: "In real clinical situations you lean on AI more than is safe. Pick one thing — checking a dose, taking a history — and practise it until you are confident without AI"}
       },
       engtech: {
-        high: {th: "คุณอ่านและตรวจสิ่งที่ AI เขียนได้จริง ซึ่งเป็นสิ่งที่แยกวิศวกรออกจากคนที่กด accept — ใช้มันดันงานที่ยากขึ้นไปอีก", en: "You can actually read and check what AI writes, which is what separates an engineer from someone who presses accept — use it to take on harder work"},
-        low: {th: "ในงานจริงของสายคุณ โค้ดที่รันผ่านไม่ได้แปลว่าถูก ลองหยิบโค้ดที่ AI เขียนให้ล่าสุดมาอ่านทีละบรรทัดจนอธิบายได้ทั้งหมด", en: "In your field, code that runs is not code that's correct. Take the last thing AI wrote for you and read it line by line until you can explain all of it"}
+        high: {th: "คุณอ่านและตรวจสิ่งที่ AI เขียนได้จริง ซึ่งเป็นสิ่งที่แยกคนที่ทำงานเก่งจริงออกจากคนที่ใช้งานได้ แต่ทำเองไม่เป็น: จงใช้ AI ช่วยดันศักยภาพคุณให้ทำงานที่ยากขึ้นไปได้อีกขั้น", en: "You can actually read and check what AI writes, which is what separates someone genuinely good at the work from someone who can only operate the tool — use it to take on harder work"},
+        low: {th: "ในงานจริงของสายคุณ โค้ดที่รันผ่านไม่ได้แปลว่ามีประสิทธิภาพ ลองฝึกหยิบโค้ดที่ AI เขียนให้ล่าสุดมาอ่านทีละบรรทัดจนคุณอธิบายได้ทั้งหมด", en: "In your field, code that runs is not code that is any good. Take the last thing AI wrote for you and read it line by line until you can explain all of it"}
       },
       scienat: {
-        high: {th: "คุณตรวจวิธีก่อนเชื่อผล ซึ่งเป็นหัวใจของงานวิทยาศาสตร์ — ใช้ AI ทุ่นแรงต่อไปได้โดยที่ความน่าเชื่อถือยังอยู่", en: "You check the method before trusting the result, which is the heart of science — keep letting AI carry the load without losing the rigour"},
-        low: {th: "ผลที่ดูสวยไม่ได้แปลว่าวิธีถูก ลองย้อนกลับไปหนึ่งรายงาน แล้วไล่ตรวจว่าทุกตัวเลขมาจากขั้นตอนอะไร", en: "A clean-looking result does not mean a sound method. Go back to one report and trace where every number came from"}
+        high: {th: "คุณตรวจสิ่งที่ได้ก่อนเชื่อผล ซึ่งเป็นหัวใจของคนสายวิทย์: ใช้ AI ทุ่นแรงต่อไปได้โดยมีคุณเป็นผู้ตัดสินใจและยืนยันความน่าเชื่อถือ", en: "You check what you get before you trust the result, which is the heart of working in science — keep letting AI carry the load, with you as the one who decides and vouches for it"},
+        low: {th: "ผลที่ออกมาดูสวยจาก AI ไม่ได้แปลว่าวิธีการที่ใช้ถูกต้องเสมอไป ลองฝึกด้วยการย้อนกลับไปดูงาน/การบ้านที่เคยส่งล่าสุด แล้วไล่ตรวจว่าตัวเลขทุกตัวในโจทย์มาจากขั้นตอนอะไร คุณตอบได้ไหมว่าทำไมจึงเป็นแบบนั้น", en: "A clean-looking result from AI does not always mean the method was right. Go back to the last piece of work you handed in and trace where every number came from — can you say why it is what it is?"}
       },
       bizpol: {
         high: {th: "คุณตรวจแหล่งที่มาและกล้าถามค้านข้อเสนอของตัวเอง ซึ่งเป็นสิ่งที่ทำให้คำแนะนำของคุณเชื่อถือได้", en: "You check your sources and are willing to argue against your own recommendation — that is what makes your advice trustworthy"},
-        low: {th: "ข้อเสนอที่ฟังดูดีแต่ตัวเลขผิด คือความเสี่ยงที่แพงที่สุดในสายนี้ ลองตามตัวเลขและข้ออ้างอิงในงานล่าสุดของคุณกลับไปถึงต้นฉบับทุกตัว", en: "A proposal that reads well with the numbers wrong is the costliest risk in your field. Trace every figure and citation in your latest work back to its source"}
+        low: {th: "ข้อเสนอที่ฟังดูดีแต่ตัวเลขผิด คือความเสี่ยงที่แพงที่สุดในสายนี้ ลองฝึกด้วยการย้อนกลับไปดูงาน/การบ้านที่เคยส่งล่าสุด แล้วไล่ตรวจว่าตัวเลขทุกตัวในโจทย์มาจากขั้นตอนอะไร คุณตอบได้ไหมว่าทำไมจึงเป็นแบบนั้น", en: "A proposal that reads well with the numbers wrong is the costliest risk in your field. Go back to the last piece of work you handed in and trace where every number came from — can you say why it is what it is?"}
       },
       humsoc: {
-        high: {th: "ความคิดในงานของคุณยังเป็นของคุณ และคุณตรวจสิ่งที่ AI อ้างได้ — นั่นคือสิ่งที่ทำให้งานอยู่รอดในห้องสอบและในการนำเสนอ", en: "The thinking in your work is still yours and you check what AI claims — that is what lets the work survive an exam and a defence"},
-        low: {th: "งานที่เขียนสวยแต่ไม่ใช่ความคิดคุณ จะอยู่ไม่ได้เมื่อถูกถาม ลองเขียนย่อหน้าสำคัญของงานถัดไปด้วยตัวเองก่อน แล้วค่อยให้ AI ช่วยขัด", en: "Work that reads beautifully but isn't your thinking will not survive questioning. Write the key paragraphs of your next piece yourself, then let AI polish"}
+        high: {th: "ความคิดในงานของคุณยังเป็นของคุณ และคุณตรวจสิ่งที่ AI อ้างได้ — นั่นคือสิ่งที่ทำให้คุณทำได้ดีในห้องสอบและในการนำเสนอ", en: "The thinking in your work is still yours and you check what AI claims — that is what lets you do well in an exam and in a presentation"},
+        low: {th: "งานที่เขียนสวยแต่ไม่ใช่ความคิดคุณ จะอยู่ไม่ได้เมื่อมีคนตั้งคำถามคุณ ลองฝึกโดย ในงาน/การบ้านครั้งหน้า ลองเขียนย่อหน้าสำคัญของงานด้วยตัวเองก่อน แล้วค่อยให้ AI ช่วยเกลา", en: "Work that reads beautifully but isn't your thinking will not survive being questioned. In your next piece of work, write the key paragraphs yourself first, then let AI polish them"}
       },
       artdes: {
         high: {th: "งานยังเป็นของคุณ และคุณบอกได้ว่า AI ช่วยตรงไหน ซึ่งเป็นสิ่งที่ทำให้พอร์ตของคุณเชื่อถือได้", en: "The work is still yours and you can say where AI helped — that is what keeps a portfolio credible"},
@@ -1105,9 +1105,9 @@
           ]
         },
         autopilot: {
-          focus: {th: "งานที่เขียนสวยแต่ไม่ใช่ความคิดคุณ คืองานที่สอบปากเปล่าแล้วอยู่ไม่ได้", en: "Work that reads beautifully but isn't your thinking will not survive a viva"},
+          focus: {th: "งานที่เขียนสวยแต่ไม่ใช่ความคิดคุณ คืองานที่ผู้ฟังจับทางได้ไม่ยากว่าทำเองหรือใช้ AI", en: "Work that reads beautifully but isn't your thinking is work an audience can tell you didn't do yourself"},
           steps: [
-            {th: "ตรวจทุกการอ้างอิงที่ AI ให้มา ชื่อผู้แต่ง ปี และข้อความที่ยกมา — มันสร้างงานวิจัยปลอมได้", en: "Verify every citation AI gives you — author, year, quotation; it fabricates references"},
+            {th: "ตรวจทุกการอ้างอิงที่ AI ให้มา ชื่อผู้แต่ง ปี และข้อความที่ยกมา เพราะสร้างงานวิจัยปลอมได้", en: "Verify every citation AI gives you — author, year, quotation; it fabricates references"},
             {th: "เขียนย่อหน้าสำคัญของงานด้วยตัวเองก่อนเสมอ แล้วค่อยให้ AI ช่วยขัดสำนวน", en: "Write the key paragraphs yourself first, and only then let AI polish the prose"}
           ]
         },
@@ -1128,7 +1128,7 @@
           ]
         },
         coach: {
-          focus: {th: "คุณยังรักษาลายมือของตัวเองไว้ได้ เหลือใช้ AI ให้เร็วขึ้นในขั้นคิด", en: "Your hand is still in the work — now let AI speed up the thinking stage"},
+          focus: {th: "คุณยังรักษาเอกลักษณ์ของตัวเองไว้ได้ เหลือใช้ AI ให้เร็วขึ้นในขั้นคิด", en: "Your own identity is still in the work — now let AI speed up the thinking stage"},
           steps: [
             {th: "ใช้ AI ทำ mood board หรือลองหลายทางเลือกของงานออกแบบ ก่อนเลือกทางที่จะทำจริง", en: "Use AI for mood boards or to try many design directions before you commit to one"},
             {th: "ให้ AI ช่วยเขียนคำอธิบายผลงาน (artist statement) แล้วเขียนทับด้วยเสียงของตัวเอง", en: "Let AI draft an artist statement, then rewrite it in your own voice"}
@@ -1138,7 +1138,7 @@
           focus: {th: "ถ้าเอาท์พุตสวยแต่คุณทำเองไม่ได้ พอร์ตของคุณจะไม่ตรงกับฝีมือจริง", en: "If the output is beautiful but you couldn't make it yourself, your portfolio no longer matches your hand"},
           steps: [
             {th: "แยกให้ชัดว่าชิ้นไหนคือฝีมือคุณ ชิ้นไหน AI ทำ และอย่าให้สองอย่างปนกันในพอร์ต", en: "Keep it clear which pieces are your hand and which AI made — never blur the two in a portfolio"},
-            {th: "ฝึกทักษะพื้นฐาน (drawing, composition, การเขียนแบบ) ต่อไป เพราะมันคือสิ่งที่ตรวจได้ในห้องสอบและในสตูดิโอ", en: "Keep drilling fundamentals — drawing, composition, technical drafting — they are what gets tested in a studio"}
+            {th: "ฝึกทักษะพื้นฐาน (drawing, composition, การเขียนแบบ) ต่อไป เพราะนี่คือสิ่งที่ตรวจได้ในห้องสอบและในสตูดิโอ", en: "Keep drilling fundamentals — drawing, composition, technical drafting — they are what gets tested in a studio"}
           ]
         },
         director: {
@@ -1366,16 +1366,16 @@
       ],
       quadrants: {
         novice: {
-          name: {th: "ผู้เริ่มสำรวจ", en: "Curious Beginner"},
-          short: {th: "ทักษะเริ่มต้น + กำลังเรียนรู้สไตล์การใช้ AI", en: "Building skill and learning to partner with AI"},
+          name: {th: "น้องใหม่ยุค AI", en: "AI-Era Newcomer"},
+          short: {th: "ทักษะพื้นฐาน+กำลังเรียนรู้การใช้งาน AI", en: "Foundational skills — still learning how to work with AI"},
           color: "#9A8C5A",
           blurb: {
-            th: "คุณกำลังเริ่มต้นทั้งทักษะ AI และสไตล์การใช้งาน เปิดใจเรียนรู้พื้นฐานพร้อมฝึกตั้งคำถามและตรวจสอบไปด้วยกัน — ค่อย ๆ สร้างทั้งสองด้านไปพร้อม ๆ กัน",
-            en: "You're at the start of both your AI skill journey and your partnership style. Build foundational skills while practicing verification and questioning — grow both sides together."
+            th: "คุณกำลังเริ่มต้นทั้งทักษะการใช้ AI และสไตล์การใช้งาน เปิดใจเรียนรู้สองด้านไปพร้อมๆกัน คือ พื้นฐาน AI และพร้อมฝึกตั้งคำถามและตรวจสอบ",
+            en: "You are at the start of both your AI skills and your style of using them. Keep learning the two together: the basics of AI, and the habit of questioning and checking what it gives you."
           },
           nudge: {
-            th: "เริ่มจากรู้จัก AI และฝึกถาม 'ทำไม' กับคำตอบที่ AI ให้ทุกครั้ง",
-            en: "Start by getting to know AI, and practice asking 'why' every time AI gives you an answer"
+            th: "เริ่มจากรู้จักการใช้ AI และฝึกตั้งคำถาม 'เอ๊ะ!' 'ทำไม?' 'จริงไหม?' กับคำตอบที่ได้ AI ทุกครั้ง",
+            en: "Start by getting to know AI, and practise asking 'wait — why? is that true?' of every answer it gives you"
           },
           partnershipNextH: {th: "ขยับสไตล์การใช้ AI", en: "Grow your AI partnership style"},
           partnershipNext: [
@@ -1408,11 +1408,11 @@
           short: {th: "สไตล์การใช้ AI ดีอยู่แล้ว แค่ขยับทักษะให้คล่องขึ้น", en: "Already partnering well — just build tool fluency"},
           color: "#0E6E63",
           blurb: {
-            th: "คุณมีสไตล์การใช้ AI ที่ดี — ตรวจสอบ ตั้งคำถาม และใช้ความคิดของตัวเองเป็นแกน เหลือแค่ขยับทักษะ AI ให้คล่องขึ้น สไตล์ดี ๆ ของคุณจะเป็นเกราะป้องกันไม่ให้พลาดเมื่อใช้มากขึ้น",
+            th: "คุณมีสไตล์การใช้ AI ที่ดี: ตรวจสอบ ตั้งคำถาม และใช้ความคิดของตัวเองเป็นแกน เหลือแค่ขยับทักษะ AI ให้คล่องขึ้น สไตล์ดี ๆ ของคุณจะเป็นเกราะป้องกันไม่ให้คุณพลาดเมื่อใช้ AI มากขึ้น",
             en: "You already partner thoughtfully with AI — verifying, questioning, and keeping your own thinking at the center. Now build tool fluency. Your strong mindset will protect you as your usage grows."
           },
           nudge: {
-            th: "ลองเครื่องมือ AI ใหม่ ๆ ในงานประจำสัปดาห์ละ 1–2 ครั้ง สไตล์ดี ๆ ของคุณพร้อมรับการขยับทักษะแล้ว",
+            th: "ลองเครื่องมือ AI ใหม่ ๆ ในงานประจำสัปดาห์ละ 1–2 ครั้ง เพราะสไตล์ดี ๆ ของคุณพร้อมรับการขยับทักษะแล้ว",
             en: "Try new AI tools on real tasks 1–2 times a week — your thoughtful style is ready for tool fluency"
           },
           partnershipNextH: {th: "รักษาสไตล์ดี ๆ และต่อยอด", en: "Keep your style and extend it"},
@@ -1446,12 +1446,12 @@
           short: {th: "ใช้ AI คล่อง แต่บางครั้งอาจปล่อยให้ AI คิดแทน", en: "Fluent with AI, but sometimes lets AI do the thinking"},
           color: "#C8862E",
           blurb: {
-            th: "คุณใช้ AI ได้เก่ง — ใช้บ่อย ใช้คล่อง แต่ลองชวนตัวเองหยุดคิดสักนิดก่อนทำตาม AI ดู ทักษะการคิด ความสร้างสรรค์ และวิจารณญาณของคุณคือสิ่งที่ AI ทดแทนไม่ได้ ลองรักษามันไว้ขณะที่ใช้ AI",
-            en: "You're skilled with AI — using it often and fluently. But pause to check yourself before following AI. Your thinking, creativity, and judgment are what AI can't replace — keep them alive even as you use AI."
+            th: "คุณใช้ AI ได้เก่ง: ใช้บ่อย ใช้คล่อง แต่ลองชวนให้คุณหยุดคิดสักนิดก่อนทำตาม AI เพราะทักษะการคิด ความสร้างสรรค์ และวิจารณญาณของคุณคือสิ่งที่ AI ทดแทนไม่ได้",
+            en: "You're skilled with AI — using it often and fluently. But pause before you follow what it says, because your thinking, creativity and judgment are what AI cannot replace."
           },
           nudge: {
-            th: "ลองคิดคำตอบของตัวเองก่อนเปิด AI สัก 1–2 นาที และตรวจสอบคำตอบ AI ทุกครั้งในงานสำคัญ คุณคือคนขับ ไม่ใช่ผู้โดยสาร",
-            en: "Try thinking your own answer for 1–2 minutes before opening AI, and verify AI outputs on important work. You're the driver, not the passenger."
+            th: "ลองคิดคำตอบของตัวเองก่อนเริ่มถาม AI สัก 1–2 นาที และตรวจสอบคำตอบที่ได้จาก AI ทุกครั้งในงานสำคัญ จำไว้ว่า \"คุณคือคนควบคุมเครื่องมือ คุณไม่ใช่ messenger ที่แค่ส่งและรับข้อความจาก AI โดยไม่ได้ใช้ความคิดตัวเองเลย\"",
+            en: "Try thinking your own answer for 1–2 minutes before you start asking AI, and check what it gives you every time on work that matters. Remember: you are the one operating the tool — not a messenger who just passes messages to and from AI without using your own mind."
           },
           partnershipNextH: {th: "ดึงตัวเองกลับมาเป็นผู้ขับ", en: "Take the driver's seat back"},
           partnershipNext: [
@@ -1482,10 +1482,10 @@
         },
         director: {
           name: {th: "ผู้นำ AI", en: "AI Director"},
-          short: {th: "ทักษะกับสไตล์การใช้งานสมดุล — เป้าหมายที่อยากไปให้ถึง", en: "Skilled and judgment-led — the destination to aim for"},
+          short: {th: "ทักษะการใช้ AI กับสไตล์การใช้งานมีความสมดุล พาไปสู่เป้าหมายที่อยากไปถึงได้", en: "Skill and style in balance — enough to take you where you want to go"},
           color: "#15827A",
           blurb: {
-            th: "คุณใช้ AI ได้เก่งและนำ AI ได้ดี — ทักษะกับสไตล์การใช้งานของคุณสมดุลกัน รักษาสไตล์นี้ไว้ และเป็นต้นแบบให้คนรอบข้างได้เห็นว่าใช้ AI อย่างมีสติเป็นยังไง",
+            th: "คุณใช้ AI ได้เก่งและนำ AI ได้ดี: ทักษะกับสไตล์การใช้งานของคุณสมดุลกัน ขอให้รักษาสไตล์นี้ไว้ และเป็นต้นแบบให้คนรอบข้างได้เห็นว่าใช้ AI อย่างมีสติเป็นยังไง",
             en: "You're skilled with AI and lead it well — your fluency and partnership style are in balance. Keep this style and become a model for others on what thoughtful AI use looks like."
           },
           nudge: {
