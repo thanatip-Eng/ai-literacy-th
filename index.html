@@ -178,6 +178,14 @@
     .scale-row{gap:5px}
     .step{min-height:52px;font-size:1.05rem}
   }
+  .sub-details{margin-top:10px}
+  .sub-details summary{
+    list-style:none;cursor:pointer;font-size:.86rem;font-weight:500;color:var(--teal);
+    padding:8px 0
+  }
+  .sub-details summary::-webkit-details-marker{display:none}
+  .sub-details summary::before{content:"▸ ";font-size:.8em}
+  .sub-details[open] summary::before{content:"▾ "}
   .without-ai{border-left:4px solid var(--amber)}
   .without-ai-alert{background:#fdf4e7;border-color:#C9822F}
   .field-check{border-left:4px solid var(--teal)}
@@ -202,6 +210,8 @@
   .reflect-actions{display:flex;flex-wrap:wrap;gap:10px;margin-top:16px}
   .reflect-actions .btn{flex:1 1 180px}
   a.reflect-open{display:inline-flex;align-items:center;justify-content:center;text-decoration:none;white-space:nowrap}
+  .receipt-box a.reflect-open{width:100%;margin-top:10px}
+  .receipt-reflect-hint{margin:14px 0 0;font-size:.88rem;font-weight:500;color:var(--teal-deep)}
   .field-check-alert{background:#fdf4e7;border-color:#C9822F}
   .without-ai-alert .without-ai-msg{font-weight:500}
   .without-ai-head{margin:0 0 4px;font-size:1.05rem}
@@ -1228,7 +1238,6 @@
       <ol class="reflect-list" id="rReflectList"></ol>
       <div class="reflect-actions">
         <button class="btn ghost" type="button" id="reflectCopyBtn" onclick="copyReflectPrompts()" data-i18n="reflectCopy">คัดลอกคำถาม</button>
-        <a class="btn reflect-open" id="reflectOpenBtn" target="_blank" rel="noopener" hidden data-i18n="reflectOpen">เปิดแบบสะท้อนคิด →</a>
       </div>
     </div>
     <!-- Tier 1 · the single primary action: submit (Canvas) sits above download -->
@@ -1250,6 +1259,8 @@
         <span class="receipt-label" data-i18n="receiptCodeLabel">รหัสยืนยัน</span><span class="receipt-code" id="receiptCode">—</span>
       </div>
       <p class="receipt-graded" id="receiptGraded" hidden data-i18n="receiptGraded">✓ บันทึกคะแนนใน Canvas ให้อัตโนมัติแล้ว</p>
+      <p class="receipt-reflect-hint" id="receiptReflectHint" hidden data-i18n="receiptReflectHint">ขั้นต่อไป: ส่งงานสะท้อนคิด โดยใช้รหัสยืนยันด้านบน</p>
+      <a class="btn reflect-open" id="reflectOpenBtn" target="_blank" rel="noopener" hidden data-i18n="reflectOpen">เปิดแบบสะท้อนคิด →</a>
       <p class="receipt-hint" data-i18n="receiptHint">📸 แคปหน้าจอกล่องนี้เก็บไว้เป็นหลักฐานการส่งของคุณ</p>
       <button class="btn ghost receipt-dl-btn" id="receiptDownloadBtn" type="button" onclick="downloadReceiptImage()" data-i18n="receiptDownloadBtn">💾 ดาวน์โหลดภาพยืนยัน</button>
     </div>
@@ -1288,7 +1299,12 @@
             <span data-i18n="partnershipHead">ภาพรวมความสัมพันธ์ของคุณกับ AI</span>
           </div>
           <div class="profile" id="rPartnershipComposite"></div>
-          <div class="profile partnership-subs" id="rPartnershipBars"></div>
+          <div class="profile partnership-groups" id="rPartnershipGroups"></div>
+          <details class="sub-details" id="rPartnershipDetail">
+            <summary data-i18n="partnershipDetailToggle">ดูรายด้าน</summary>
+            <div class="profile partnership-subs" id="rPartnershipBars"></div>
+            <p class="mini" data-i18n="partnershipDetailNote"></p>
+          </details>
         </div>
       </div>
     </details>
@@ -1491,6 +1507,7 @@ const DISCIPLINES = CONTENT.disciplines || [];
 const DISCIPLINE_ADVICE = CONTENT.disciplineAdvice || {};
 const FIELD_ITEMS = CONTENT.fieldItems || {};
 const FIELD_VERDICT = CONTENT.fieldVerdict || {};
+const PARTNERSHIP_GROUPS = CONTENT.partnershipGroups || [];
 const OUTSIDE_VIEW = CONTENT.outsideView || {};
 const REFLECT_PROMPTS = CONTENT.reflectPrompts || {};
 const PARTNERSHIP = CONTENT.partnership;
@@ -2286,6 +2303,7 @@ function renderReceipt(info){
   document.getElementById('receiptCode').textContent = info.receipt || '—';
   const graded = document.getElementById('receiptGraded');
   if(graded) graded.hidden = !info.graded;
+  renderReflectLink();
   box.hidden = false;
 }
 
@@ -2723,13 +2741,26 @@ function renderReflect(partnership){
     list.appendChild(li);
   });
 
-  const open = document.getElementById('reflectOpenBtn');
-  const url = buildReflectUrl();
-  if(open){
-    if(url){ open.href = url; open.hidden = false; }
-    else { open.removeAttribute('href'); open.hidden = true; }
-  }
   box.hidden = false;
+}
+
+/* The link to the reflection form waits for the receipt: the code it carries is
+   what ties the writing back to this attempt, so there is nothing to open
+   before the result has been sent. */
+function renderReflectLink(){
+  const open = document.getElementById('reflectOpenBtn');
+  const hint = document.getElementById('receiptReflectHint');
+  if(!open) return;
+  const url = buildReflectUrl();
+  if(url){
+    open.href = url;
+    open.hidden = false;
+    if(hint) hint.hidden = false;
+  } else {
+    open.removeAttribute('href');
+    open.hidden = true;
+    if(hint) hint.hidden = true;
+  }
 }
 
 /* The reflection form lives outside this app (Canvas, MS Forms, anything with
@@ -2739,6 +2770,7 @@ function buildReflectUrl(){
   const cfg = CONNECT && CONNECT.reflect;
   if(!cfg || !cfg.url) return '';
   const values = {
+    receipt: (connectReceiptInfo && connectReceiptInfo.receipt) || '',
     quadrant: (window.__res && window.__res.partnership) ? window.__res.partnership.quadrant : '',
     placement: (window.__res && typeof window.__res.placement === 'number') ? String(window.__res.placement) : '',
     discipline: userDiscipline ? userDiscipline.code : '',
@@ -2782,6 +2814,32 @@ function fallbackCopy(text, done){
   area.remove();
 }
 
+/* Nine bars is a wall. The detail is still here, but what reads first is the
+   three groups the dimensions belong to — and the three that already have
+   their own card above are not repeated down here. */
+function drawBar(container, label, secondary, pct, delay){
+  const row = document.createElement('div'); row.className = 'prow';
+  const top = document.createElement('div'); top.className = 'ptop';
+  const name = document.createElement('span'); name.className = 'pname';
+  name.append(document.createTextNode(label + ' '));
+  if(secondary){
+    const small = document.createElement('small');
+    small.textContent = `· ${secondary}`;
+    name.appendChild(small);
+  }
+  const value = document.createElement('span'); value.className = 'ppct';
+  value.style.color = PARTNERSHIP.color;
+  value.textContent = `${pct}%`;
+  top.append(name, value);
+  const bar = document.createElement('div'); bar.className = 'pbar';
+  const fill = document.createElement('div'); fill.className = 'pfill';
+  fill.style.background = `linear-gradient(90deg,${PARTNERSHIP.color},${shade(PARTNERSHIP.color,25)})`;
+  bar.appendChild(fill);
+  row.append(top, bar);
+  container.appendChild(row);
+  setTimeout(()=>fill.style.width = pct + '%', delay);
+}
+
 function renderPartnership(partnership, placement, pcts){
   const wrap = document.getElementById('rPartnershipWrap');
   if(!wrap || !PARTNERSHIP || !partnership) return;
@@ -2790,31 +2848,29 @@ function renderPartnership(partnership, placement, pcts){
   const compositeEl = document.getElementById('rPartnershipComposite');
   if(compositeEl) compositeEl.innerHTML = '';
 
-  // sub-trait bars
+  // group bars — the average of the dimensions in each group, so the composite
+  // underneath is still the mean of all nine
+  const groups = document.getElementById('rPartnershipGroups');
+  if(groups){
+    groups.innerHTML = '';
+    PARTNERSHIP_GROUPS.forEach((group, i) => {
+      const scores = group.subtraits
+        .map(key => subPct(partnership, key))
+        .filter(v => v !== null);
+      if(!scores.length) return;
+      const pct = Math.round(scores.reduce((sum, v) => sum + v, 0) / scores.length);
+      drawBar(groups, tx(group.name), currentLang === 'th' ? group.name.en : group.name.th,
+        pct, 200 + i*110);
+    });
+  }
+
+  // per-dimension, minus whatever the without-AI card already showed
   const bars = document.getElementById('rPartnershipBars');
   bars.innerHTML = '';
   PARTNERSHIP.subtraits.forEach((sub, i) => {
-    const p = partnership.subtraitScores[i] || 0;
-    const row = document.createElement('div'); row.className = 'prow';
-    const primary = tx(sub.name);
-    const secondary = currentLang === 'th' ? sub.name.en : sub.name.th;
-    const stop = document.createElement('div'); stop.className = 'ptop';
-    const sname = document.createElement('span'); sname.className = 'pname';
-    sname.append(document.createTextNode(primary + ' '));
-    const secLabel = document.createElement('small');
-    secLabel.textContent = `· ${secondary}`;
-    sname.appendChild(secLabel);
-    const spct = document.createElement('span'); spct.className = 'ppct';
-    spct.style.color = PARTNERSHIP.color;
-    spct.textContent = `${p}%`;
-    stop.append(sname, spct);
-    const sbar = document.createElement('div'); sbar.className = 'pbar';
-    const sfill = document.createElement('div'); sfill.className = 'pfill';
-    sfill.style.background = `linear-gradient(90deg,${PARTNERSHIP.color},${shade(PARTNERSHIP.color,25)})`;
-    sbar.appendChild(sfill);
-    row.append(stop, sbar);
-    bars.appendChild(row);
-    setTimeout(()=>sfill.style.width = p + '%', 200 + i*110);
+    if(WITHOUT_AI_KEYS.includes(sub.key)) return;
+    drawBar(bars, tx(sub.name), currentLang === 'th' ? sub.name.en : sub.name.th,
+      partnership.subtraitScores[i] || 0, 120 + i*90);
   });
 
   renderPartnershipHighlights(partnership);

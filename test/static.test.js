@@ -202,3 +202,19 @@ test('the outside view cites its evidence and links to the source page', () => {
   assert.match(html, /data-i18n="evidenceLine"/);
   assert.match(html, /href="frameworks\.html#gsr2026"/);
 });
+
+test('the score section leads with groups and never repeats the without-AI three', () => {
+  assert.match(html, /id="rPartnershipGroups"/);
+  assert.match(html, /PARTNERSHIP_GROUPS\.forEach/);
+  // the per-dimension list skips whatever the card above already showed
+  assert.match(html, /if\(WITHOUT_AI_KEYS\.includes\(sub\.key\)\) return;/);
+  assert.match(html, /id="rPartnershipDetail"/);
+});
+
+test('the reflection form opens from the receipt, carrying its code', () => {
+  assert.match(html, /function renderReflectLink/);
+  assert.match(html, /renderReflectLink\(\);\s*\n\s*box\.hidden = false;/);
+  assert.match(html, /receipt: \(connectReceiptInfo && connectReceiptInfo\.receipt\) \|\| '',/);
+  // the button lives in the receipt box now, not in the reflection card
+  assert.doesNotMatch(html, /reflect-actions"[\s\S]{0,200}reflectOpenBtn/);
+});

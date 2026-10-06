@@ -258,3 +258,26 @@ test('reflection prompts cover every trigger the result page can pick', () => {
     }
   }
 });
+
+test('partnership groups cover every subtrait exactly once', () => {
+  const groups = content.partnershipGroups;
+  assert.ok(Array.isArray(groups) && groups.length, 'partnershipGroups block is required');
+  const keys = content.partnership.subtraits.map(sub => sub.key);
+  const grouped = groups.flatMap(group => group.subtraits);
+  // a dimension in two groups would be double-counted; one in none would vanish
+  assert.deepEqual([...grouped].sort(), [...keys].sort());
+  for (const group of groups) {
+    for (const lang of ['th', 'en']) {
+      assert.ok(group.name[lang] && group.name[lang].trim(), `group ${group.key} name.${lang}`);
+    }
+  }
+});
+
+test('no group is named after one of its own dimensions', () => {
+  // both show on the same screen; identical labels read as a duplicate bar
+  const subNames = content.partnership.subtraits.map(sub => sub.name.th);
+  for (const group of content.partnershipGroups) {
+    assert.ok(!subNames.includes(group.name.th),
+      `group "${group.name.th}" shares its name with a dimension`);
+  }
+});

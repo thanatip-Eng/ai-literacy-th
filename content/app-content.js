@@ -92,18 +92,22 @@
         fieldCheckScoreLabel: "คะแนนสถานการณ์ตามสาย",
         evidenceLine: "งานวิจัยปี 2025 กับผู้ทำงาน 319 คน พบว่า ยิ่งเชื่อมั่นใน AI มาก ยิ่งคิดวิเคราะห์น้อยลง — ส่วนคนที่มั่นใจในความสามารถของตัวเอง กลับคิดวิเคราะห์มากขึ้น",
         evidenceLink: "ดูหลักฐานทั้งหมด →",
+        partnershipGroupHead: "ความสัมพันธ์ของคุณกับ AI — 3 กลุ่ม",
+        partnershipDetailToggle: "ดูรายด้าน",
+        partnershipDetailNote: "อีก 3 ด้าน (ทำเองได้เมื่อไม่มี AI · ยอมลำบากเพื่อให้เก่งขึ้น · เชื่อตัวเองพอ ๆ กับเชื่อ AI) อยู่ในการ์ด \"ถ้าวันนี้ไม่มี AI\" ด้านบน",
+        receiptReflectHint: "ขั้นต่อไป: ส่งงานสะท้อนคิด โดยใช้รหัสยืนยันด้านบน",
         outsideViewHead: "🪞 คนอื่นเห็นอะไร",
         outsideViewIntro: "ผลแบบนี้ เวลาคนอื่นมองเข้ามา เขาอ่านออกมาเป็นแบบนี้",
         outsideExamLabel: "ในห้องสอบ",
         outsideTeacherLabel: "ในสายตาอาจารย์",
         outsideHiringLabel: "ตอนสมัครงาน",
         reflectHead: "✍️ คำถามสะท้อนคิดของคุณ",
-        reflectIntro: "สามข้อนี้สร้างจากผลของคุณเอง ใช้ตอบในงานสะท้อนคิดได้เลย",
+        reflectIntro: "คำถามเหล่านี้สร้างจากผลของคุณเอง ใช้ตอบในงานสะท้อนคิดได้เลย",
         reflectCopy: "คัดลอกคำถาม",
         reflectCopied: "คัดลอกแล้ว ✓",
         reflectOpen: "เปิดแบบสะท้อนคิด →",
         withoutAiHead: "🎓 ถ้าวันนี้ไม่มี AI",
-        withoutAiIntro: "สองด้านนี้บอกว่าอะไรจะเหลืออยู่กับคุณเมื่อเครื่องมือถูกปิด — เช่น ในห้องสอบ",
+        withoutAiIntro: "สามด้านนี้บอกว่าอะไรจะเหลืออยู่กับคุณเมื่อเครื่องมือถูกปิด — เช่น ในห้องสอบ",
         withoutAiLow: "ตอนนี้งานส่วนใหญ่ของคุณเดินได้เพราะ AI ในห้องสอบหรือหน้างานจริงที่ไม่มีเครื่องมือ คุณจะเหลือน้อยกว่าที่คะแนนงานบอก ลองเลือกสักหนึ่งเรื่องที่คุณต้องเก่งให้ได้จริง ๆ แล้วทำเองจนจบโดยไม่เปิด AI สักครั้ง",
         withoutAiMid: "คุณยังทำเองได้ในหลายเรื่อง แต่มีบางส่วนที่พึ่ง AI จนไม่แน่ใจว่าทำเองได้ไหม ลองทดสอบดู: หยิบงานที่เพิ่งส่งไป แล้วอธิบายหรือทำใหม่โดยไม่เปิด AI ตรงที่ติดคือตรงที่ต้องฝึก",
         withoutAiHigh: "คุณใช้ AI โดยที่ทักษะยังเป็นของคุณจริง ๆ นี่คือสิ่งที่ทำให้ต่างจากคนที่ใช้ AI เก่งแต่ทำเองไม่ได้ — รักษาไว้ แล้วใช้ AI ดันเพดานตัวเองให้สูงขึ้นอีก",
@@ -333,18 +337,22 @@
         fieldCheckScoreLabel: "Field scenario score",
         evidenceLine: "A 2025 study of 319 workers found that more confidence in AI went with less critical thinking — while people confident in their own ability thought harder, not less",
         evidenceLink: "See the evidence →",
+        partnershipGroupHead: "Your partnership with AI — 3 groups",
+        partnershipDetailToggle: "See each dimension",
+        partnershipDetailNote: "The other three (standing on your own, willingness to struggle, trusting your own judgment) are in the \"If AI were switched off today\" card above",
+        receiptReflectHint: "Next: hand in your reflection, using the code above",
         outsideViewHead: "🪞 What other people see",
         outsideViewIntro: "Here is how a result like this reads from the outside",
         outsideExamLabel: "In an exam",
         outsideTeacherLabel: "To your teachers",
         outsideHiringLabel: "When you apply for work",
         reflectHead: "✍️ Your reflection questions",
-        reflectIntro: "These three come from your own result — answer them in your reflection task",
+        reflectIntro: "These come from your own result — answer them in your reflection task",
         reflectCopy: "Copy the questions",
         reflectCopied: "Copied ✓",
         reflectOpen: "Open the reflection form →",
         withoutAiHead: "🎓 If AI were switched off today",
-        withoutAiIntro: "These two say what would still be yours when the tools are gone — in an exam room, for instance",
+        withoutAiIntro: "These three say what would still be yours when the tools are gone — in an exam room, for instance",
         withoutAiLow: "Right now most of your work moves because AI is moving it. In an exam, or anywhere the tools are not available, you will have less to draw on than your grades suggest. Pick one thing you genuinely need to be good at and do it end to end without opening AI.",
         withoutAiMid: "You can still do plenty yourself, but parts of your work lean on AI enough that you are not sure. Test it: take something you just handed in and explain it, or redo it, with AI closed. Wherever you get stuck is what needs practice.",
         withoutAiHigh: "You use AI and the skill is still genuinely yours. That is the difference between you and someone who is good with AI but cannot work without it — keep it, and use AI to push your own ceiling higher.",
@@ -810,6 +818,23 @@
         }
       }
     },
+    partnershipGroups: [
+      {
+        key: "own",
+        name: {th: "รับผิดชอบผลงานของตัวเอง", en: "Owning your output"},
+        subtraits: ["verify", "privacy"]
+      },
+      {
+        key: "lead",
+        name: {th: "นำ AI ไม่ใช่ตามมัน", en: "Lead it, don't follow it"},
+        subtraits: ["restraint", "human_lead", "direction"]
+      },
+      {
+        key: "yours",
+        name: {th: "ทักษะยังเป็นของคุณ", en: "The skill is still yours"},
+        subtraits: ["learning", "self_reliance", "effort", "self_trust"]
+      }
+    ],
     outsideView: {
       low: {
         exam: {th: "สิ่งที่คุณส่งได้ตลอดเทอม กับสิ่งที่คุณทำได้จริงในห้องสอบ ตอนนี้ยังห่างกันอยู่ — และข้อสอบคือจุดที่ช่องว่างนี้โผล่มาพร้อมกันทั้งหมด", en: "What you can hand in all term and what you can do in an exam room are not the same thing yet — and the exam is where that gap shows up all at once"},
