@@ -150,6 +150,18 @@
     <p class="ref" id="cmuRef"></p>
   </section>
 
+  <section class="card" id="gsr2026">
+    <h2 data-i18n="gsrHead">โลกกำลังวัดอะไรอยู่ (Global Skills Report 2026)</h2>
+    <p class="subtitle" data-i18n="gsrSub">หลักฐานว่าเรื่องนี้ไม่ใช่แค่อาจารย์บ่น</p>
+    <p data-i18n="gsrBody"></p>
+    <ul id="gsrList"></ul>
+    <div class="used">
+      <p data-i18n="gsrSynergyLabel">AI-Human Skills Synergy Index กับ AiStyle ต่างกันอย่างไร</p>
+      <ul id="gsrSynergy"></ul>
+    </div>
+    <p class="ref" id="gsrRef"></p>
+  </section>
+
   <section class="card">
     <h2 data-i18n="s4Head">ส่วนที่ AiStyle ออกแบบเอง</h2>
     <p class="subtitle" data-i18n="s4Sub">สิ่งที่ไม่มีในแหล่งใดข้างต้น</p>
@@ -245,6 +257,24 @@ const L = {
       "บทบาท Personal tutor / Socratic opponent ในภาคผนวก ตรงกับมิติที่ห้า \"เรียนรู้ ไม่ใช่แค่ได้คำตอบ\" ของชุดข้อคำถาม v2"
     ],
     cmuRefHtml: "อ้างอิง: ประกาศมหาวิทยาลัยเชียงใหม่ เรื่อง นโยบายการใช้เทคโนโลยีปัญญาประดิษฐ์แบบเจเนอเรทิฟ (Generative Artificial Intelligence) — มติคณะกรรมการบริหารมหาวิทยาลัย ครั้งที่ 18/2566 (18 ตุลาคม 2566), CMU e-Document รหัสอ้างอิง BEE564-7F1-220",
+    gsrHead: "โลกกำลังวัดอะไรอยู่ (Global Skills Report 2026)",
+    gsrSub: "หลักฐานว่าเรื่องนี้ไม่ใช่แค่อาจารย์บ่น",
+    gsrBody: "รายงานทักษะประจำปีของ Coursera และ Udemy (ปี 2026 ใช้ข้อมูลผู้เรียนกว่า 300 ล้านคนใน 98 ประเทศ) ชี้ไปทางเดียวกับสิ่งที่แบบประเมินนี้วัด คือ ทักษะการใช้ AI อย่างเดียวไม่พอ ต้องมาคู่กับทักษะมนุษย์ที่ทำให้ใช้มันได้ดี:",
+    gsrList: [
+      "ทักษะมนุษย์ที่คนทั้งโลกเรียนมากที่สุดอันดับ 1 คือ critical thinking และการใช้วิจารณญาณ — ยอดลงเรียนเพิ่มขึ้น 107% ในหนึ่งปี",
+      "งานวิจัย Microsoft ปี 2025 (ผู้ทำงาน 319 คน 936 งานที่ใช้ GenAI): ยิ่งเชื่อมั่นใน AI มาก ยิ่งคิดวิเคราะห์น้อยลง ส่วนยิ่งเชื่อมั่นในความสามารถของตัวเอง ยิ่งคิดวิเคราะห์มากขึ้น",
+      "ผู้ใช้ AI ระดับสูงจัดอันดับทักษะมนุษย์ที่จำเป็นที่สุดสองอันดับแรกว่าคือ การตรวจสอบคุณภาพผลลัพธ์ของ AI (50%) และการคิดวิเคราะห์ (46%)",
+      "PwC พบว่า 52% ของทักษะใหม่ที่ตำแหน่งระดับเริ่มต้น (ประสบการณ์ 0–2 ปี) ต้องการ เป็นทักษะที่เคยเป็นของระดับอาวุโส เทียบกับเพียง 7% ในงานที่ AI กระทบน้อย",
+      "ไทยอยู่อันดับ 24 จาก 98 ประเทศใน AI-Human Skills Synergy Index (กลุ่ม Leading)",
+      "ข้อเสนอของรายงานต่อสถาบันอุดมศึกษา: ให้นักศึกษาวิจารณ์งานที่ AI ช่วยทำ ตรวจหลักฐาน อธิบายเหตุผลของตัวเอง และรับผิดชอบผลเชิงจริยธรรม — และใช้การประเมินทำให้ทักษะมนุษย์เหล่านี้ \"มองเห็นได้\""
+    ],
+    gsrSynergyLabel: "AI-Human Skills Synergy Index กับ AiStyle ต่างกันอย่างไร",
+    gsrSynergy: [
+      "Synergy Index วัดระดับ \"ประเทศ\" — พฤติกรรมการเรียนบนแพลตฟอร์ม 60% + ดัชนีความพร้อมด้าน AI ของภาครัฐจาก Oxford Insights 40%",
+      "AiStyle วัดระดับ \"บุคคล\" จากพฤติกรรมที่ผู้ทำรายงานเอง — คนละหน่วยวิเคราะห์ เทียบคะแนนกันตรง ๆ ไม่ได้",
+      "แต่ตั้งอยู่บนสมมติฐานเดียวกัน คือทักษะ AI ต้องมาคู่กับทักษะมนุษย์ ซึ่งเป็นเหตุผลที่แบบประเมินนี้มีสองแกนตั้งแต่ต้น"
+    ],
+    gsrRefHtml: "อ้างอิง: Coursera &amp; Udemy (2026). <i>Global Skills Report 2026</i> — รวมงานวิจัยของ Microsoft (2025), Microsoft Work Trend Index (2026), PwC และ Oxford Insights Government AI Readiness Index 2025 · ตัวเลขทั้งหมดอ้างตามที่รายงานระบุ",
     s4Head: "ส่วนที่ AiStyle ออกแบบเอง",
     s4Sub: "สิ่งที่ไม่มีในแหล่งใดข้างต้น",
     s4List: [
@@ -345,6 +375,24 @@ const L = {
       "The Personal tutor / Socratic opponent roles in its appendix converge with the fifth v2 subtrait, \"Learn, not just answers\""
     ],
     cmuRefHtml: "Reference: Chiang Mai University Announcement on the Policy for the Use of Generative Artificial Intelligence — University Executive Board resolution 18/2566 (18 October 2023), CMU e-Document ref. BEE564-7F1-220",
+    gsrHead: "What the world is measuring (Global Skills Report 2026)",
+    gsrSub: "Evidence that this is not just your lecturer complaining",
+    gsrBody: "The annual skills report from Coursera and Udemy (2026 edition, drawing on over 300 million learners across 98 countries) points the same way this assessment does: AI skill alone is not the thing — it has to come with the human skills that make it usable.",
+    gsrList: [
+      "The most-studied human skill in the world is critical thinking and judgment — enrollments up 107% year over year",
+      "A 2025 Microsoft study (319 workers, 936 GenAI-assisted tasks): more confidence in AI went with less critical thinking, while more confidence in one's own ability went with more of it",
+      "Advanced AI users name quality-checking AI output (50%) and critical thinking (46%) as the two most necessary human skills alongside the tools",
+      "PwC found 52% of newly required skills in entry-level roles (0–2 years) were ones traditionally associated with senior roles — against just 7% in low-AI-exposure work",
+      "Thailand ranks 24th of 98 countries in the AI-Human Skills Synergy Index (Leading tier)",
+      "What the report asks of universities: have students critique AI-supported work, verify evidence, explain their reasoning and address ethical consequences — and use assessment to make those human capabilities visible"
+    ],
+    gsrSynergyLabel: "How the AI-Human Skills Synergy Index differs from AiStyle",
+    gsrSynergy: [
+      "The Synergy Index scores countries — 60% platform learning behaviour, 40% the Oxford Insights Government AI Readiness Index",
+      "AiStyle scores a person, from behaviour they report themselves — a different unit of analysis, so the two scores are not comparable",
+      "They rest on the same bet, though: AI skill has to be paired with human skill. That is why this assessment has had two axes from the start"
+    ],
+    gsrRefHtml: "Source: Coursera &amp; Udemy (2026). <i>Global Skills Report 2026</i> — which in turn cites Microsoft (2025), the Microsoft Work Trend Index (2026), PwC, and the Oxford Insights Government AI Readiness Index 2025. Figures are reported as the report states them.",
     s4Head: "What AiStyle adds on top",
     s4Sub: "Not found in any of the sources above",
     s4List: [
@@ -404,11 +452,13 @@ function applyLang(){
   fillList('s3List', t.s3List); fillList('s3Used', t.s3Used);
   fillList('cmuList', t.cmuList); fillList('cmuUsed', t.cmuUsed);
   fillList('s4List', t.s4List);
+  fillList('gsrList', t.gsrList); fillList('gsrSynergy', t.gsrSynergy);
   setRefHtml('s1Ref', t.s1RefHtml);
   setRefHtml('s2Ref', t.s2RefHtml);
   setRefHtml('s3Ref', t.s3RefHtml);
   setRefHtml('cmuRef', t.cmuRefHtml);
   setRefHtml('s4Ref', t.s4RefHtml);
+  setRefHtml('gsrRef', t.gsrRefHtml);
   fillList('aiTAiList', t.aiTAiList); fillList('aiTHumanList', t.aiTHumanList);
   setRefHtml('aiTRef', t.aiTRefHtml);
   document.getElementById('langTH').classList.toggle('active', currentLang === 'th');

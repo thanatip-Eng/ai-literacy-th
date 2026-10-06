@@ -197,3 +197,8 @@ test('the outside view and the reflection prompts come from the result', () => {
   assert.match(html, /if\(!cfg \|\| !cfg\.url\) return '';/);
   assert.match(html, /id="reflectOpenBtn"[^>]*hidden/);
 });
+
+test('the outside view cites its evidence and links to the source page', () => {
+  assert.match(html, /data-i18n="evidenceLine"/);
+  assert.match(html, /href="frameworks\.html#gsr2026"/);
+});
