@@ -121,7 +121,14 @@ field (or job role) is picked, since the field block changes the length.
 `CORE_COUNT` marks where the core stops — everything scored reads
 `answers.slice(0, CORE_COUNT)`.
 
-Result screen: quadrant hero → per-level skill bars → partnership bars with
+Result screen (Tier 1 cards, in order): quadrant hero → 3-line insight strip →
+`#rWithoutAI` (self_reliance/effort/self_trust) → `#rFieldCheck` (field block) →
+`#rOutsideView` (the same result as an exam, a teacher and a hiring decision
+read it) → `#rReflect` (3 prompts picked from the dimensions that came out
+below the partnership cut, copyable, with an optional link to an external
+reflection form via `connect-config.js → reflect`).
+
+Then: quadrant hero → per-level skill bars → partnership bars with
 strength/gap → role verdict/stretch → next steps (skill + partnership) →
 workshop chips (quadrant-driven via `resolveResultWorkshops`) → org tag
 block → download image (1080×1920 canvas) / restart.
