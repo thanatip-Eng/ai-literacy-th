@@ -60,7 +60,7 @@ feedback: {
 // params: จับคู่ข้อมูลผลกับรหัส prefill ของฟอร์ม (MS Forms ใช้รูปแบบ rXXXXXXXX)
 // url ว่าง = ไม่แสดงปุ่ม — คำถามสะท้อนคิดยังขึ้นบนหน้าผลและกดคัดลอกได้เหมือนเดิม
 reflect: {
-  url: "",
+  url: "https://forms.cloud.microsoft/Pages/ResponsePage.aspx?id=3_GBz1neKUyR2qLf0EqnUbFHRhMYatJPpRAlFIPHozxUM09YMVZNQVlPWUdTOEhPWktVM0dZVkRORiQlQCNjPTEu",
   params: {
     receipt: "",
     quadrant: "",
