@@ -180,6 +180,7 @@ strings for a concise Canvas-facing tone without touching the public copy.
 | Google Form / Canvas integration | `content/connect-config.js`, `api/`, `docs/connect-setup.md` |
 | Downloaded image layout | canvas code in index.html (~line 2000–2400) |
 | Validate everything | `npm test` |
+| Reword the result page with the owner | `node tools/copy-script-export.js out.csv` → upload as a Google Sheet → they fill the "แก้เป็น" column → `node tools/copy-script-apply.js edited.csv [--dry]` (patches strings in place by reference path; English still needs matching by hand) |
 
 ## Rules
 
