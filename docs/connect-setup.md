@@ -87,21 +87,60 @@ fields: {
 
 ## งานสะท้อนคิด (assignment ตัวที่สอง)
 
-หน้าผลสร้าง **คำถามสะท้อนคิด 3 ข้อจากผลของนักศึกษาเอง** เสมอ (กดคัดลอกได้) และจะแสดง
-ปุ่ม "เปิดแบบสะท้อนคิด" เมื่อใส่ `reflect.url` ใน `content/connect-config.js`
+หน้าผลสร้าง **คำถามสะท้อนคิดจากผลของนักศึกษาเอง** เสมอ (กดคัดลอกได้) และหลังกดส่งผล
+**ในกล่องรหัสยืนยันจะมีปุ่ม "เปิดแบบสะท้อนคิด"** ซึ่งพาไปยังฟอร์มภายนอกพร้อม prefill
+รหัสยืนยัน · ปุ่มจะแสดงเมื่อใส่ `reflect.url` ใน `content/connect-config.js` เท่านั้น
 
 แนะนำ **Microsoft Forms** ของมหาวิทยาลัยมากกว่า Canvas Text Entry เพราะกด Export เป็น
 Excel ได้ทันที (แถวละคน คอลัมน์ละคำถาม) ส่วน Canvas ต้องดึงผ่าน API หรือดาวน์โหลดทีละไฟล์
 และข้อมูลอยู่ใน tenant ของมหาวิทยาลัยซึ่งตอบโจทย์ PDPA มากกว่า
 
-1. สร้าง MS Form: คำถามข้อเขียน 3 ข้อ + คำถามสั้นอีก 3–4 ข้อสำหรับ `quadrant`,
-   `placement`, `discipline`, `lang` (ไว้เชื่อมกับผลประเมิน) · ตั้งให้ตอบได้เฉพาะคนในองค์กร
-2. กด **Collect responses → Get a link to prefill answers** กรอกค่าอะไรก็ได้ แล้วคัดลอกลิงก์
-   จะเห็นรหัสรูปแบบ `rXXXXXXXX=` ของแต่ละคำถาม
-3. ใส่ลิงก์ (ตัดส่วน `&rXXXX=...` ออก) ลงใน `reflect.url` และใส่รหัสแต่ละตัวใน `reflect.params`
-4. ใน Canvas สร้าง assignment ตัวที่สองแบบ **External URL** ชี้ไปที่ฟอร์ม — ส่วนคะแนน
-   ความสำเร็จของการทำแบบประเมินยังมาจาก assignment ตัวแรก (External Tool) ที่ส่งคะแนน
-   กลับอัตโนมัติอยู่แล้ว
+### คำถามในฟอร์ม (คัดลอกไปใช้ได้เลย)
+
+| # | คำถาม | ชนิด | หมายเหตุ |
+|---|---|---|---|
+| 1 | รหัสยืนยันการส่งผล (8 ตัวอักษร จากหน้าผล) | Short answer · บังคับ | prefill อัตโนมัติ → `reflect.params.receipt` |
+| 2 | รูปแบบการใช้ AI ของคุณ | Short answer | prefill → `quadrant` |
+| 3 | ระดับทักษะ (0–3) | Short answer | prefill → `placement` |
+| 4 | กลุ่มสาขา | Short answer | prefill → `discipline` |
+| 5 | คำถามสะท้อนคิดที่ระบบสร้างให้คุณ (กดปุ่ม "คัดลอกคำถาม" ในหน้าผล แล้ววางที่นี่) | Long answer | คำถามต่างกันไปตามผลของแต่ละคน |
+| 6 | คำตอบของคุณต่อคำถามเหล่านั้น | Long answer · บังคับ | |
+| 7 | **แนวทางพัฒนาตัวเอง** (ข้อความเต็มด้านล่าง) | Long answer · บังคับ | ข้อที่ตั้งใจให้สะดุด |
+
+**ข้อ 7 — ฉบับภาษาไทย** (ใส่ย่อหน้าแรกเป็นคำอธิบายใต้หัวข้อคำถาม):
+
+> ถ้าสิ่งที่คุณทำได้ คือการส่งคำสั่งให้ AI แล้วส่งงานต่อ — องค์กรก็จ้าง AI ตรง ๆ ได้ ไม่ต้องจ้างคุณ
+> และถ้าคุณมานั่งเรียนแล้วให้ AI ทำทุกอย่างแทน อาจารย์ก็สอน AI ก็ได้ ไม่ต้องสอนคุณ
+>
+> อีกไม่กี่ปีตอนคุณเรียนจบ **อะไรคือสิ่งที่คุณทำได้ซึ่ง AI ทำแทนไม่ได้** — เขียนมาหนึ่งอย่าง
+> ที่คุณจะเริ่มสร้างในเทอมนี้ บอกให้ชัดว่าจะทำอะไร สัปดาห์ละกี่ครั้ง และจะรู้ได้อย่างไรว่า
+> คุณทำได้จริงแล้ว (ไม่ใช่แค่รู้สึกว่าทำได้)
+
+**ข้อ 7 — English version:**
+
+> If all you can do is pass instructions to AI and hand in what comes back, an
+> employer can hire the AI directly — there is no reason to hire you. And if you
+> sit in class and let AI do the work, your lecturer could just teach the AI
+> instead of teaching you.
+>
+> In a few years, when you graduate, **what will you be able to do that AI cannot
+> do for you?** Name one thing you will start building this term: what exactly you
+> will do, how often, and how you will know you can actually do it — not just feel
+> that you can.
+
+### ขั้นตอนตั้งค่า
+
+1. สร้าง MS Form ตามตารางด้านบน · ตั้งให้ตอบได้เฉพาะคนในองค์กร (บันทึกอีเมลอัตโนมัติ)
+2. กด **Collect responses → Get a link to prefill answers** กรอกค่าอะไรก็ได้ในข้อ 1–4
+   แล้วคัดลอกลิงก์ จะเห็นรหัสรูปแบบ `rXXXXXXXX=` ของแต่ละข้อ
+3. ใส่ลิงก์ (ตัดส่วน `&rXXXX=...` ออกให้หมด) ลงใน `reflect.url` และใส่รหัสแต่ละตัวใน
+   `reflect.params` → `receipt`, `quadrant`, `placement`, `discipline`, `lang`
+4. ใน Canvas สร้าง assignment ตัวที่สองแบบ **External URL** ชี้ไปที่ฟอร์ม — คะแนนการทำ
+   แบบประเมินยังมาจาก assignment ตัวแรก (External Tool) ที่ส่งคะแนนกลับอัตโนมัติอยู่แล้ว
+
+> **ข้อควรรู้**: MS Forms ไม่ล็อกช่องที่ prefill มา นักศึกษาแก้ได้ ถ้าต้องการตรวจจริงจัง
+> ให้จับคู่ **รหัสยืนยัน** ในไฟล์ Excel กับคอลัมน์ `receipt` ใน Google Sheet ของผลประเมิน
+> ซึ่งระบบเขียนไว้ฝั่งเซิร์ฟเวอร์ แก้ไม่ได้
 
 `reflect.url` ว่าง = ไม่มีปุ่ม (คำถามยังขึ้นและคัดลอกได้) — โดเมนสาธารณะไม่แสดงปุ่มนี้อยู่แล้ว
 
