@@ -864,12 +864,12 @@
       {
         code: "health",
         label: {th: "สุขภาพและการแพทย์", en: "Health & Medicine"},
-        hint: {th: "แพทยศาสตร์ · ทันตแพทยศาสตร์ · เภสัชศาสตร์ · พยาบาลศาสตร์ · เทคนิคการแพทย์ · สัตวแพทยศาสตร์ · สาธารณสุขศาสตร์", en: "Medicine · Dentistry · Pharmacy · Nursing · Associated Medical Sciences · Veterinary · Public Health"}
+        hint: {th: "แพทยศาสตร์ · ทันตแพทยศาสตร์ · เภสัชศาสตร์ · พยาบาลศาสตร์ · เทคนิคการแพทย์ · สัตวแพทยศาสตร์ · สาธารณสุขศาสตร์", en: "Medicine · Dentistry · Pharmacy · Nursing · Associated Medical Sciences (AMS) · Veterinary Medicine · Public Health"}
       },
       {
         code: "engtech",
         label: {th: "วิศวกรรมและเทคโนโลยีดิจิทัล", en: "Engineering & Digital Technology"},
-        hint: {th: "วิศวกรรมศาสตร์ · วิทยาลัยศิลปะ สื่อ และเทคโนโลยี (CAMT) · วิทยาลัยนานาชาตินวัตกรรมดิจิทัล", en: "Engineering · College of Arts, Media & Technology · International College of Digital Innovation"}
+        hint: {th: "วิศวกรรมศาสตร์ · วิทยาลัยศิลปะ สื่อ และเทคโนโลยี (CAMT) · วิทยาลัยนานาชาตินวัตกรรมดิจิทัล (ICDI)", en: "Engineering · College of Arts, Media & Technology (CAMT) · International College of Digital Innovation (ICDI)"}
       },
       {
         code: "scienat",
