@@ -736,6 +736,8 @@
     font-size:.82rem;color:var(--muted);font-style:italic;margin:4px 0 0;
     border-top:1px dashed var(--line);padding-top:8px;line-height:1.5;
   }
+  /* deliberately quiet: it frames the numbers, it is not a warning about them */
+  .result-disclaimer{margin-top:16px;padding:13px 16px;font-size:.88rem;line-height:1.6;color:var(--muted)}
   /* Tier-1 insight strip: strength / drag / first step */
   .insight-card{margin-top:16px;padding:16px 18px}
   .insight-card .insight-head{margin:0 0 4px;font-size:1rem;color:var(--teal-deep)}
@@ -1166,6 +1168,11 @@
       <p class="quadrant-hero-blurb" id="rQuadrantHeroBlurb"></p>
       <div class="res-meta" id="rMeta"></div>
     </div>
+
+    <!-- Framing, and it has to come before the numbers: a student who is going
+         to fixate on a percentage has already done it by the time a footnote
+         at the bottom of the page would reach them. -->
+    <p class="card result-disclaimer" id="rDisclaimer" data-i18n="resultDisclaimer">ตัวเลขพวกนี้ไม่ใช่คะแนนสอบ — มันสะท้อนสิ่งที่คุณตอบเกี่ยวกับตัวเองในวันนี้ ใช้เป็นจุดตั้งต้นในการมองตัวเอง ไม่ใช่เป้าที่ต้องไล่ให้สูงขึ้น ถ้าทำใหม่แล้วตอบตรงกว่าเดิมจนตัวเลขลดลง นั่นแปลว่าแบบประเมินกำลังทำงาน</p>
 
     <!-- Tier 1 · the three-line insight strip: strength / drag / first step -->
     <div class="card insight-card" id="rInsightCard">
@@ -3705,6 +3712,11 @@ async function generateResultImage(lang){
   ctx.font = '600 22px "IBM Plex Sans Thai", "IBM Plex Sans", sans-serif';
   const creditLines = wrapToLines(ctx, L18.footerCopy, IMG_W - PAD*2, 2);
   creditLines.forEach((ln, i) => ctx.fillText(ln, IMG_W/2, 1716 + i*34));
+
+  // Between the credit (1716, two lines at most → 1750) and the licence (1832).
+  ctx.fillStyle = MUTED;
+  ctx.font = '400 22px "IBM Plex Sans Thai", "IBM Plex Sans", sans-serif';
+  ctx.fillText(L18.imgDisclaimer, IMG_W/2, 1790);
 
   ctx.fillStyle = TEXT;
   ctx.font = '500 22px "IBM Plex Sans Thai", "IBM Plex Sans", sans-serif';
