@@ -2,6 +2,8 @@ const test = require('node:test');
 const assert = require('node:assert/strict');
 const config = require('../content/connect-config');
 const content = require('../content/app-content');
+const fs = require('node:fs');
+const path = require('node:path');
 
 // Every key the payload built in index.html (buildConnectPayload) can supply.
 // Config may map any subset of these; unknown keys would be silently dropped
@@ -93,9 +95,18 @@ test('reflect block, when present, is a link with prefill ids', () => {
   assert.equal(typeof config.reflect.url, 'string');
   // an empty url simply hides the button; a real one must be a link
   if (config.reflect.url) assert.match(config.reflect.url, /^https:\/\//);
-  const ALLOWED = ['receipt', 'quadrant', 'placement', 'discipline', 'lang'];
+  const ALLOWED = ['receipt', 'quadrant', 'placement', 'discipline', 'promptKeys', 'lang'];
   for (const [field, id] of Object.entries(config.reflect.params || {})) {
     assert.ok(ALLOWED.includes(field), `unknown reflect prefill field "${field}"`);
     assert.equal(typeof id, 'string');
+  }
+  // The list above is only true if buildReflectUrl can actually produce each
+  // one: a field it does not build is dropped without a word at prefill time.
+  const page = fs.readFileSync(path.join(__dirname, '..', 'index.html'), 'utf8');
+  const values = page.match(/function buildReflectUrl\(\)\{[\s\S]*?\n  \};/);
+  assert.ok(values, 'buildReflectUrl not found in index.html');
+  for (const field of ALLOWED) {
+    assert.match(values[0], new RegExp(`\\n\\s*${field}:`),
+      `buildReflectUrl does not build "${field}"`);
   }
 });

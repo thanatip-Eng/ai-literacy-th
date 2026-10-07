@@ -66,6 +66,10 @@ reflect: {
     quadrant: "rbebade7353b24aa2ac4fefa93349dbc9",
     placement: "rb02e89fbcb9b427b8e30275a0c96c148",
     discipline: "r6c9fd1aa2bd04c4daee72c881cf9b548",
+    // ข้อ 5 — รหัสชุดคำถามสะท้อนคิดที่ระบบเลือกให้คนนี้ (เช่น effort+selfTrust+always)
+    // ใส่ตัวเต็มของคำถามไม่ได้ — สามข้อภาษาไทยยาว 2,400-3,000 ตัวอักษรหลัง encode
+    // แต่ MS Forms รับ prefill URL ได้ราว 2,000 เท่านั้น ลิงก์จะพังทั้งเส้น
+    promptKeys: "",
     lang: ""
   }
 },
