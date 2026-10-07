@@ -21,17 +21,43 @@ test('uses stored answer values from zero to four', () => {
   assert.deepEqual(core.levelPercentages(levels, [4, 4, 4, 4, 4]), [100]);
 });
 
+// These are tests of the arithmetic, so they state the cut every time. Leaning
+// on the default made them tests of the policy too, and they broke the day the
+// policy moved.
 test('placement stops at the first level below threshold', () => {
-  assert.equal(core.cumulativePlacement([80, 75, 65, 100, 100]), 2);
-  assert.equal(core.cumulativePlacement([65, 100, 100]), 0);
-  assert.equal(core.cumulativePlacement([65, 65, 70, 50, 75]), 0);
-  assert.equal(core.cumulativePlacement([70, 70, 70]), 3);
+  assert.equal(core.cumulativePlacement([80, 75, 65, 100, 100], 70), 2);
+  assert.equal(core.cumulativePlacement([65, 100, 100], 70), 0);
+  assert.equal(core.cumulativePlacement([65, 65, 70, 50, 75], 70), 0);
+  assert.equal(core.cumulativePlacement([70, 70, 70], 70), 3);
+  // the same percentages, read against a lower cut
+  assert.equal(core.cumulativePlacement([80, 75, 65, 100, 100], 65), 5);
+  assert.equal(core.cumulativePlacement([65, 100, 100], 65), 3);
 });
 
 test('highest passing level ignores gaps', () => {
-  assert.equal(core.highestPassingLevel([80, 75, 65, 90, 100]), 5);
-  assert.equal(core.highestPassingLevel([50, 60, 65]), 0);
-  assert.equal(core.highestPassingLevel([70, 60, 70]), 3);
+  assert.equal(core.highestPassingLevel([80, 75, 65, 90, 100], 70), 5);
+  assert.equal(core.highestPassingLevel([50, 60, 65], 70), 0);
+  assert.equal(core.highestPassingLevel([70, 60, 70], 70), 3);
+  assert.equal(core.highestPassingLevel([50, 60, 65], 65), 3);
+});
+
+// A level is 4 items scored 0-4, so only 17 percentages exist and nothing sits
+// between 69 and 75. The cut is a choice of raw score, not of percent: these
+// are the three answer shapes that choice actually decides between.
+test('the live cut forgives one weak answer in four, not two', () => {
+  const pct = sum => Math.round((sum / 16) * 100);
+  const cut = content.skillThreshold;
+  assert.equal(core.cumulativePlacement([pct(12)], cut), 1, 'four strong answers pass');
+  assert.equal(core.cumulativePlacement([pct(11)], cut), 1, 'three strong and one weak pass');
+  assert.equal(core.cumulativePlacement([pct(10)], cut), 0, 'two weak answers do not');
+  assert.equal(core.cumulativePlacement([pct(8)], cut), 0, 'answering down the middle does not');
+});
+
+// Two copies of a policy number drift. The module keeps a default so it can be
+// used on its own; this holds that default to what the app actually runs.
+test('the core default matches the threshold the app reads from content', () => {
+  assert.equal(core.cumulativePlacement([content.skillThreshold]), 1);
+  assert.equal(core.cumulativePlacement([content.skillThreshold - 1]), 0);
 });
 
 test('role verdict reports agnostic when no role given', () => {

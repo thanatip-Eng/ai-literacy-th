@@ -148,6 +148,16 @@ test('the answer scale is a single horizontal row that keeps its keyboard path',
   assert.match(html, /!typing && !answerLocked && \/\^\[1-5\]\$\/\.test\(e\.key\)/);
 });
 
+test('the skill cut is read from content, never typed into the page', () => {
+  assert.match(html, /const SKILL_CUT = \(typeof CONTENT\.skillThreshold === 'number'\)/);
+  // It used to be written out at six call sites, and two of them already
+  // disagreed with finish(). A bare number here means the next change to the
+  // cut lands in some places and not others.
+  assert.doesNotMatch(html, /const THRESH = \d+/, 'the cut must come from SKILL_CUT');
+  assert.doesNotMatch(html, /roleVerdict\([^)]*,\s*\d+\)/, 'roleVerdict must be passed SKILL_CUT');
+  assert.doesNotMatch(html, /placementCompleteTpl\(\d+\)/, 'the placement note must use SKILL_CUT');
+});
+
 test('the result disclaimer frames the numbers instead of following them', () => {
   assert.match(html, /id="rDisclaimer" data-i18n="resultDisclaimer"/);
   // Order is the whole point. A disclaimer under the last chart is a disclaimer
