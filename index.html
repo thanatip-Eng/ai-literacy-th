@@ -2805,7 +2805,13 @@ function buildReflectUrl(){
 
 function copyReflectPrompts(){
   if(!reflectPromptTexts.length) return;
-  const text = reflectPromptTexts.map((line, i) => `${i + 1}. ${line}`).join('\n\n');
+  /* A skeleton, not a list. Pasting this into the form leaves each question as
+     its own heading with somewhere to write underneath, which is what the
+     instructions used to ask the student to build by hand on a phone. */
+  const label = t('reflectAnswerLabel');
+  const text = reflectPromptTexts
+    .map((line, i) => `${i + 1}. ${line}\n${label}\n`)
+    .join('\n');
   const btn = document.getElementById('reflectCopyBtn');
   const done = () => {
     if(!btn) return;

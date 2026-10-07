@@ -167,6 +167,19 @@ test('the skill cut is read from content, never typed into the page', () => {
   assert.doesNotMatch(html, /placementCompleteTpl\(\d+\)/, 'the placement note must use SKILL_CUT');
 });
 
+test('the copy button hands over a skeleton, not a bare list of questions', () => {
+  // The student used to be told to lay this out by hand in the form, on a
+  // phone. If the "Answer:" line stops being copied, that instruction has to
+  // come back, so the shape of the copied text is the thing worth pinning.
+  assert.match(html, /\$\{i \+ 1\}\. \$\{line\}\\n\$\{label\}\\n/);
+  assert.match(html, /const label = t\('reflectAnswerLabel'\);/);
+  const content = require('../content/app-content.js');
+  for (const lang of ['th', 'en']) {
+    assert.ok((content.lang[lang].reflectAnswerLabel || '').trim(),
+      `reflectAnswerLabel missing in ${lang}`);
+  }
+});
+
 test('the result disclaimer frames the numbers instead of following them', () => {
   assert.match(html, /id="rDisclaimer" data-i18n="resultDisclaimer"/);
   // Order is the whole point. A disclaimer under the last chart is a disclaimer
