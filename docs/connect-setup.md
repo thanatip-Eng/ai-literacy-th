@@ -152,10 +152,11 @@ Excel ได้ทันที (แถวละคน คอลัมน์ล�
 >
 > ❌ ยังไม่ผ่าน: *“จะฝึกคิดวิเคราะห์ให้มากขึ้น ไม่พึ่ง AI มากเกินไป”*
 >
-> ✅ ผ่าน: *“วาดมือเปล่าจากของจริงสัปดาห์ละ 2 ครั้ง ครั้งละ 30 นาที ไม่ใช้ภาพอ้างอิงจาก AI ·
-> ทุกวันอังคารกับวันเสาร์ · รู้ว่าทำได้เมื่อวาดมือคนจากการมองจริงได้ใน 10 นาทีโดยสัดส่วนไม่เพี้ยน”*
+> ✅ ผ่าน: *“เขียนเหตุผลว่าทำไมข้อมูลชุดนี้เหมาะกับวิธีวิเคราะห์ที่เลือก ลงสมุดก่อนเปิด AI ทุกครั้ง ·
+> ทุกครั้งที่ได้ข้อมูลชุดใหม่ อย่างน้อยสัปดาห์ละ 1 ครั้ง · รู้ว่าทำได้เมื่ออาจารย์ถามว่าทำไมไม่ใช้
+> วิธีอื่น แล้วตอบได้โดยไม่เปิดโน้ต”*
 >
-> (ตัวอย่างข้างบนมาจากสายวิจิตรศิลป์ — มีไว้ให้เห็นว่าคำตอบที่ใช้ได้หน้าตาเป็นอย่างไร ของคุณต้องมาจากสายคุณเอง)
+> (ตัวอย่างข้างบนมาจากสายวิทยาศาสตร์ — มีไว้ให้เห็นว่าคำตอบที่ใช้ได้หน้าตาเป็นอย่างไร ของคุณต้องมาจากสายคุณเอง)
 
 **ข้อ 7 — English version:**
 
@@ -176,11 +177,12 @@ Excel ได้ทันที (แถวละคน คอลัมน์ล�
 >
 > ❌ Not enough: *“I will practise critical thinking more and rely on AI less.”*
 >
-> ✅ Enough: *“Draw from life by hand twice a week, 30 minutes, no AI reference
-> images · Tuesdays and Saturdays · I will know when I can draw a human hand from
-> observation in 10 minutes with the proportions right.”*
+> ✅ Enough: *“Write down why this data set suits the analysis method I picked, in
+> my notebook, before opening AI · every time new data comes in, at least once a
+> week · I will know when my supervisor asks why not another method and I can
+> answer without opening my notes.”*
 >
-> (That example is from fine arts — it is there to show the shape of a usable
+> (That example is from the sciences — it is there to show the shape of a usable
 > answer. Yours has to come from your own field.)
 
 ### ขั้นตอนตั้งค่า
