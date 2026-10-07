@@ -68,7 +68,7 @@
 
 ระดับที่ 4 (Training & Maintaining Models) และระดับที่ 5 (Deeply Specializing) ในกรอบต้นฉบับถูกรวมเป็นกลุ่ม "ผู้เชี่ยวชาญขั้นสูง" ซึ่งอยู่นอกขอบเขตของการประเมินนี้ เนื่องจากเป็นทักษะเฉพาะทางสำหรับวิศวกรหรือนักวิจัยด้าน AI โดยตรง
 
-การคำนวณผลใช้กลไก **cumulative placement** ที่กำหนดว่าผู้ใช้ต้องผ่านระดับล่างก่อน (คะแนน ≥ 70%) จึงจะถูกจัดให้อยู่ในระดับถัดไป กลไกนี้ช่วยป้องกันการจัดระดับที่ไม่สมดุล เช่น ผู้ที่สร้างต้นแบบได้แต่ขาดความเข้าใจพื้นฐานเรื่อง hallucination จะถูกจัดไว้ที่ระดับล่างเพื่อเสริมพื้นฐานก่อน
+การคำนวณผลใช้กลไก **cumulative placement** ที่กำหนดว่าผู้ใช้ต้องผ่านระดับล่างก่อน (คะแนน ≥ 65%) จึงจะถูกจัดให้อยู่ในระดับถัดไป กลไกนี้ช่วยป้องกันการจัดระดับที่ไม่สมดุล เช่น ผู้ที่สร้างต้นแบบได้แต่ขาดความเข้าใจพื้นฐานเรื่อง hallucination จะถูกจัดไว้ที่ระดับล่างเพื่อเสริมพื้นฐานก่อน
 
 ### 3.2 แกนความสัมพันธ์กับ AI (Partnership Axis)
 
@@ -126,7 +126,7 @@ quadrant **ผู้ใช้โหมดอัตโนมัติ** เป็
 
 ### 4.3 อัลกอริทึมการให้คะแนน
 
-ฟังก์ชันการให้คะแนนหลัก 4 ฟังก์ชัน ได้แก่ (1) `levelPercentages` คำนวณเปอร์เซ็นต์รายระดับทักษะ, (2) `cumulativePlacement` หา placement สะสมโดยหยุดที่ระดับแรกที่ต่ำกว่า 70%, (3) `partnershipSubtraitScores` คำนวณคะแนนรายมิติย่อยโดยจัดการ reverse-scored item, และ (4) `quadrantPlacement` กำหนด quadrant จาก skill level และ Partnership composite ทุกฟังก์ชันออกแบบให้ pure function และครอบคลุมด้วย unit test ใน Node.js เพื่อให้กลไกการคำนวณตรวจสอบได้แยกจาก UI
+ฟังก์ชันการให้คะแนนหลัก 4 ฟังก์ชัน ได้แก่ (1) `levelPercentages` คำนวณเปอร์เซ็นต์รายระดับทักษะ, (2) `cumulativePlacement` หา placement สะสมโดยหยุดที่ระดับแรกที่ต่ำกว่าเกณฑ์ (65%), (3) `partnershipSubtraitScores` คำนวณคะแนนรายมิติย่อยโดยจัดการ reverse-scored item, และ (4) `quadrantPlacement` กำหนด quadrant จาก skill level และ Partnership composite ทุกฟังก์ชันออกแบบให้ pure function และครอบคลุมด้วย unit test ใน Node.js เพื่อให้กลไกการคำนวณตรวจสอบได้แยกจาก UI
 
 ### 4.4 โครงสร้างพื้นฐานสองภาษา
 
@@ -278,7 +278,7 @@ quadrant นี้มีคุณค่าทางการศึกษาเ�
 
 ```
 SkillLevelPct(L) = sum(answers in L) / (count × maxScore) × 100
-CumulativePlacement = highest L where SkillLevelPct(1..L) ≥ 70
+CumulativePlacement = highest L where SkillLevelPct(1..L) ≥ 65
 PartnershipSubScore(s) = sum(adjusted answers in s) / (count × maxScore) × 100
   where adjusted = (maxScore − v) for reverse-scored items
 PartnershipComposite = mean(PartnershipSubScore over all subtraits)

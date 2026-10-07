@@ -48,6 +48,11 @@ function validateContent(content) {
     }
   }
 
+  if (typeof content.skillThreshold !== 'number' ||
+      content.skillThreshold < 0 || content.skillThreshold > 100) {
+    errors.push('skillThreshold must be a number between 0 and 100');
+  }
+
   if (!Array.isArray(content.levels) || !content.levels.length) {
     errors.push('levels must be a non-empty array');
   } else {

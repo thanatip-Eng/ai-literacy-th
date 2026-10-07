@@ -103,13 +103,15 @@ v4, 30 = v5 core, 36 = v5 core + field block).
 
 1. `levelPercentages(ASSESSABLE, skillAnswers)` → % per level (answers 0–4,
    4 items × max 4)
-2. `cumulativePlacement(pcts, 70)` → skill level = highest unbroken chain
-   from L1 at ≥70%. Failing L1 places the user at 0 regardless of L2/L3
+2. `cumulativePlacement(pcts, SKILL_CUT)` → skill level = highest unbroken
+   chain from L1 at ≥ the cut. Failing L1 places the user at 0 regardless of
+   L2/L3. The cut is `content.skillThreshold` (65) — never a literal in
+   index.html; a test fails if one reappears
 3. `partnershipSubtraitScores` (handles reverse items) →
-   `partnershipComposite` (mean of 6 subtraits)
+   `partnershipComposite` (mean of all 9 subtraits)
 4. `quadrantPlacement(placement, composite, {partnershipCut})` → quadrant:
    high skill = placement ≥ 2, high partnership = composite ≥ 60
-5. `roleVerdict(pcts, userRole, 70)` → below_floor / on_track / role_fit /
+5. `roleVerdict(pcts, userRole, SKILL_CUT)` → below_floor / on_track / role_fit /
    above_ceiling / at_cap (drives the stretch card)
 
 ## Screens / flow
@@ -181,7 +183,7 @@ strings for a concise Canvas-facing tone without touching the public copy.
 |---|---|
 | Wording of a question / any UI string | `content/app-content.js` (or `npm run content:export` → edit `content.txt` → `npm run content:apply`) |
 | Likert labels | `content/app-content.js` → `scale` |
-| Skill threshold (70) | `THRESH` in `finish()` (index.html) |
+| Skill threshold (65) | `skillThreshold` in `content/app-content.js` |
 | Partnership cut (60) | `content.partnership.threshold` |
 | Quadrant skill cut (level ≥ 2) | `quadrantPlacement` default in `js/assessment-core.js` |
 | Roles / floors / ceilings | `content/app-content.js` → `roles` |

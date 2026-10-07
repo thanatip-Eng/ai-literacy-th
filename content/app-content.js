@@ -712,6 +712,12 @@
         ]
       }
     ],
+    // Percent a level must reach before the next one is even looked at, and the
+    // same cut roleVerdict reads. A level is 4 items x 0-4, so only 17 scores
+    // exist and nothing sits between 69% and 75%: any value from 64 to 69 means
+    // "11 of 16", i.e. three strong answers and one weak one still passes, while
+    // answering down the middle (8/16) still does not.
+    skillThreshold: 65,
     scale: [
       {v: 0, display: 1, lab: {th: "ไม่ตรงกับฉันเลย", en: "Not me at all"}, sub: {th: "ยังไม่เคยทำหรือทำไม่ได้", en: "Never done it or can't do it"}},
       {v: 1, display: 2, lab: {th: "ตรงกับฉันเล็กน้อย", en: "A little like me"}, sub: {th: "พอทำได้แต่ยังไม่คล่อง", en: "I can do it a bit, but not fluent"}},

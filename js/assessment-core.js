@@ -3,6 +3,9 @@
   if (typeof module === 'object' && module.exports) module.exports = api;
   root.AI_LITERACY_CORE = api;
 })(typeof globalThis !== 'undefined' ? globalThis : this, function() {
+  // The skill cut is policy, not arithmetic: content/app-content.js ->
+  // skillThreshold is the source of truth, and callers pass it in. These
+  // defaults only keep the module usable on its own; a test holds them equal.
   function buildQuestionList(levels) {
     return levels.flatMap((level, levelIndex) =>
       level.items.map((_, itemIndex) => ({levelIndex, itemIndex}))
@@ -21,7 +24,7 @@
     });
   }
 
-  function cumulativePlacement(percentages, threshold = 70) {
+  function cumulativePlacement(percentages, threshold = 65) {
     let placement = 0;
     for (let index = 0; index < percentages.length; index++) {
       if (percentages[index] < threshold) break;
@@ -30,7 +33,7 @@
     return placement;
   }
 
-  function highestPassingLevel(percentages, threshold = 70) {
+  function highestPassingLevel(percentages, threshold = 65) {
     let highest = 0;
     for (let index = 0; index < percentages.length; index++) {
       if (percentages[index] >= threshold) highest = index + 1;
@@ -38,7 +41,7 @@
     return highest;
   }
 
-  function roleVerdict(percentages, role, threshold = 70) {
+  function roleVerdict(percentages, role, threshold = 65) {
     if (!role) return {kind: 'agnostic'};
     const placement = cumulativePlacement(percentages, threshold);
     const practiceMax = highestPassingLevel(percentages, threshold);

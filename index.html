@@ -1517,6 +1517,7 @@ const OUTSIDE_VIEW = CONTENT.outsideView || {};
 const REFLECT_PROMPTS = CONTENT.reflectPrompts || {};
 const PARTNERSHIP = CONTENT.partnership;
 const PARTNERSHIP_CUT = (PARTNERSHIP && typeof PARTNERSHIP.threshold === 'number') ? PARTNERSHIP.threshold : 60;
+const SKILL_CUT = (typeof CONTENT.skillThreshold === 'number') ? CONTENT.skillThreshold : 65;
 
 Object.assign(LANG.th, {
   qPillTpl: n => "ระดับ " + n,
@@ -1603,7 +1604,7 @@ function applyI18n(){
   if(document.getElementById('role').classList.contains('active')) renderRoleOptions();
   if(document.getElementById('quiz').classList.contains('active')) renderQ();
   if(document.getElementById('result').classList.contains('active') && window.__res){
-    renderResult(window.__res.pcts, window.__res.placement, 70, window.__res.partnership);
+    renderResult(window.__res.pcts, window.__res.placement, SKILL_CUT, window.__res.partnership);
   }
   updateToggleUI();
 }
@@ -2031,7 +2032,7 @@ function finish(){
   const skillAnswers = answers.slice(0, SKILL_COUNT);
   const partnershipAnswers = answers.slice(SKILL_COUNT, CORE_COUNT);
   const pcts = CORE.levelPercentages(ASSESSABLE, skillAnswers);
-  const THRESH = 70;
+  const THRESH = SKILL_CUT;
   const placement = CORE.cumulativePlacement(pcts, THRESH);
   const partnershipScores = CORE.partnershipSubtraitScores(PARTNERSHIP, partnershipAnswers);
   const partnershipComposite = CORE.partnershipComposite(partnershipScores);
@@ -3133,9 +3134,9 @@ function copyResult(){
   if(userName || finishedAt) lines.push("");
   lines.push(LANG[currentLang].copyOverallTpl(placement, placementName));
   if(placement < MAX_ASSESSABLE){
-    lines.push(LANG[currentLang].placementBlockedTpl(placement + 1, pcts[placement], 70));
+    lines.push(LANG[currentLang].placementBlockedTpl(placement + 1, pcts[placement], SKILL_CUT));
   } else {
-    lines.push(LANG[currentLang].placementCompleteTpl(70));
+    lines.push(LANG[currentLang].placementCompleteTpl(SKILL_CUT));
   }
   if(partnership && PARTNERSHIP){
     const q = PARTNERSHIP.quadrants[partnership.quadrant];
@@ -3143,7 +3144,7 @@ function copyResult(){
     lines.push(LANG[currentLang].copyPartnershipTpl(partnership.composite, tx(q.name)));
   }
   if(userRole){
-    const verdict = CORE.roleVerdict(pcts, userRole, 70);
+    const verdict = CORE.roleVerdict(pcts, userRole, SKILL_CUT);
     const roleName = tx(userRole.label);
     lines.push("");
     lines.push(t('verdictRoleLineTpl').replace('{role}', roleName).replace('{ceiling}', userRole.ceiling));
@@ -3548,7 +3549,7 @@ async function generateResultImage(lang){
         ctx.fillText(truncateToWidth(ctx, fieldLine, IMG_W - PAD*2), IMG_W/2, 748);
       }
     } else if(userRole){
-      const verdict = CORE.roleVerdict((window.__res && window.__res.pcts) || [], userRole, 70);
+      const verdict = CORE.roleVerdict((window.__res && window.__res.pcts) || [], userRole, SKILL_CUT);
       if(verdict.kind !== 'agnostic'){
         let msg = '';
         if(verdict.kind === 'below_floor') msg = L18.verdictBelowFloor;
