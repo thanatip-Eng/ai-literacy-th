@@ -148,6 +148,18 @@ test('the answer scale is a single horizontal row that keeps its keyboard path',
   assert.match(html, /!typing && !answerLocked && \/\^\[1-5\]\$\/\.test\(e\.key\)/);
 });
 
+test('the result disclaimer frames the numbers instead of following them', () => {
+  assert.match(html, /id="rDisclaimer" data-i18n="resultDisclaimer"/);
+  // Order is the whole point. A disclaimer under the last chart is a disclaimer
+  // nobody reads, so assert position, not presence.
+  const hero = html.indexOf('id="rQuadrantHero"');
+  const note = html.indexOf('id="rDisclaimer"');
+  const first = html.indexOf('id="rInsightCard"');
+  assert.ok(hero > -1 && note > -1 && first > -1, 'all three blocks must exist');
+  assert.ok(hero < note, 'the disclaimer belongs under the quadrant hero');
+  assert.ok(note < first, 'the disclaimer must come before the first card of numbers');
+});
+
 test('the without-AI card is rendered from its own two subtraits', () => {
   assert.match(html, /id="rWithoutAI" hidden/);
   assert.match(html, /const WITHOUT_AI_KEYS = \['self_reliance', 'effort', 'self_trust'\];/);
