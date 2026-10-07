@@ -506,36 +506,36 @@
         color: "#0E6E63",
         items: [
           {th: "เมื่อมีคนถามว่า AI อย่าง ChatGPT ทำงานอย่างไร ฉันอธิบายได้ว่ามันสร้างคำตอบจากรูปแบบในข้อมูล ไม่ได้ \"คิดหรือเข้าใจ\" แบบมนุษย์", en: "When someone asks how an AI like ChatGPT works, I can explain that it generates answers from patterns in data — it doesn't \"think\" or \"understand\" like a human", examples: {
-              health: {th: "อธิบายให้เพื่อนร่วมวอร์ดฟังว่าทำไม AI ตอบเรื่องยาผิดได้", en: "explaining to a ward-mate why AI can get a drug fact wrong"},
-              engtech: {th: "อธิบายว่าทำไมโมเดลถึงแต่งชื่อฟังก์ชันที่ไม่มีอยู่จริงขึ้นมา", en: "explaining why a model invents functions that don't exist"},
-              scienat: {th: "อธิบายว่าทำไม AI ถึงให้ค่าคงที่หรือสูตรที่ดูถูกแต่ผิด", en: "explaining why AI gives constants or formulas that look right but aren't"},
-              bizpol: {th: "อธิบายว่าทำไม AI ถึงอ้างเลขคดีหรือสถิติที่ไม่มีอยู่จริง", en: "explaining why AI cites case numbers or statistics that don't exist"},
-              humsoc: {th: "อธิบายว่าทำไม AI ถึงอ้างชื่อหนังสือหรืองานวิจัยที่ไม่มีจริง", en: "explaining why AI cites books or studies that don't exist"},
-              artdes: {th: "อธิบายว่าทำไมภาพที่ AI สร้างถึงมีนิ้วเกินหรือโครงสร้างที่เป็นไปไม่ได้", en: "explaining why AI images come out with extra fingers or impossible structures"}
+              health: {th: "เพื่อนร่วมวอร์ดเจอ AI ตอบขนาดยาผิด ฉันอธิบายได้ว่าทำไมมันถึงตอบผิดแบบนั้น", en: "A ward-mate gets a wrong dose out of AI, and I can explain why that happens"},
+              engtech: {th: "AI เขียนโค้ดเรียกฟังก์ชันที่ไม่มีอยู่จริง ฉันอธิบายได้ว่าทำไมมันถึงแต่งขึ้นมา", en: "AI writes code calling a function that doesn't exist, and I can explain why it invented one"},
+              scienat: {th: "AI ให้ค่าคงที่ที่ดูถูกแต่ผิดมา ฉันอธิบายได้ว่าทำไมมันถึงมั่นใจทั้งที่ผิด", en: "AI gives a constant that looks right but isn't, and I can explain why it sounded so sure"},
+              bizpol: {th: "AI อ้างเลขคดีที่ไม่มีอยู่จริง ฉันอธิบายให้เพื่อนในกลุ่มฟังได้ว่ามันมาจากไหน", en: "AI cites a case number that doesn't exist, and I can tell my group where it came from"},
+              humsoc: {th: "AI อ้างงานวิจัยที่ตามหาต้นฉบับไม่เจอ ฉันอธิบายได้ว่าทำไมมันถึงแต่งชื่อขึ้นมา", en: "AI cites a study I can't trace, and I can explain why it made the title up"},
+              artdes: {th: "ภาพที่ AI สร้างมีนิ้วเกินมา ฉันอธิบายได้ว่าทำไมโมเดลถึงวาดออกมาแบบนั้น", en: "An AI image comes out with extra fingers, and I can explain why the model draws that way"}
             }},
           {th: "เมื่อมีงานเข้ามา ฉันมักเลือกได้ว่างานไหนลองให้ AI ช่วยน่าจะได้ผลดี และงานไหนควรทำเอง", en: "When a task comes up, I can usually tell which ones to try with AI and which to handle myself", examples: {
-              health: {th: "ให้ช่วยสรุปงานวิจัยทางคลินิกได้ แต่การประเมินผู้ป่วยต้องทำเอง", en: "summarizing clinical papers, but assessing a patient yourself"},
-              engtech: {th: "ให้ช่วยร่างโค้ดต้นแบบได้ แต่ตรรกะหลักของระบบต้องคิดเอง", en: "drafting prototype code, but designing the core logic yourself"},
-              scienat: {th: "ให้ช่วยเขียนสคริปต์วิเคราะห์ได้ แต่การออกแบบการทดลองต้องคิดเอง", en: "writing an analysis script, but designing the experiment yourself"},
-              bizpol: {th: "ให้ช่วยร่างสรุปประชุมได้ แต่ข้อเสนอเชิงนโยบายต้องคิดเอง", en: "drafting meeting notes, but forming the recommendation yourself"},
-              humsoc: {th: "ให้ช่วยระดมประเด็นสัมภาษณ์ได้ แต่การตีความคำให้การต้องทำเอง", en: "brainstorming interview angles, but interpreting testimony yourself"},
-              artdes: {th: "ให้ช่วยหา reference ได้ แต่คอนเซ็ปต์ของงานต้องเป็นของคุณ", en: "finding references, but the concept has to be yours"}
+              health: {th: "ได้เคสมาหนึ่งเคส ฉันให้ AI ช่วยสรุปงานวิจัยที่เกี่ยวข้อง แต่ประเมินผู้ป่วยเอง", en: "A case comes in: I let AI summarize the relevant papers, but I assess the patient myself"},
+              engtech: {th: "เริ่มโปรเจกต์ใหม่ ฉันให้ AI ร่างโค้ดต้นแบบ แต่ออกแบบตรรกะหลักของระบบเอง", en: "Starting a project, I let AI draft prototype code but design the core logic myself"},
+              scienat: {th: "จะเริ่มการทดลอง ฉันให้ AI ช่วยเขียนสคริปต์วิเคราะห์ แต่ออกแบบการทดลองเอง", en: "Before an experiment, I let AI write the analysis script but design the experiment myself"},
+              bizpol: {th: "ประชุมจบ ฉันให้ AI ร่างสรุปให้ แต่ข้อเสนอเชิงนโยบายฉันคิดเอง", en: "A meeting ends: I let AI draft the notes, but the recommendation is mine"},
+              humsoc: {th: "ก่อนลงพื้นที่ ฉันให้ AI ช่วยระดมประเด็นสัมภาษณ์ แต่ตีความคำให้การเอง", en: "Before fieldwork, I let AI brainstorm interview angles but interpret the testimony myself"},
+              artdes: {th: "รับโจทย์ใหม่ ฉันให้ AI ช่วยหา reference แต่คอนเซ็ปต์ของงานฉันคิดเอง", en: "A new brief arrives: I let AI find references, but the concept is mine"}
             }},
           {th: "ฉันรู้ว่าฟีดโซเชียลและระบบแนะนำที่ใช้อยู่ทุกวันขับเคลื่อนด้วย AI ซึ่งเลือกและจัดลำดับสิ่งที่ฉันเห็น — และอาจสะท้อนอคติจากข้อมูลที่ใช้ฝึก", en: "I know the social feeds and recommendation systems I use daily are driven by AI that selects and ranks what I see — and can reflect biases in its training data", examples: {
-              health: {th: "ข้อมูลสุขภาพที่ฟีดดันขึ้นมา อาจไม่ใช่สิ่งที่มีหลักฐานรองรับ", en: "the health advice your feed pushes may not be evidence-based"},
-              engtech: {th: "ผลค้นหาโค้ดและคำแนะนำเครื่องมือก็ถูกจัดอันดับด้วยอัลกอริทึม", en: "code search results and tool recommendations are ranked by algorithms too"},
-              scienat: {th: "งานวิจัยที่ขึ้นก่อนในผลค้นหา ไม่ได้แปลว่าเป็นงานที่ดีที่สุด", en: "the papers that rank first are not the best papers"},
-              bizpol: {th: "ข่าวเศรษฐกิจและการเมืองที่คุณเห็น ต่างจากที่คนอื่นเห็นคนละชุด", en: "the economic and political news you see differs from what others see"},
-              humsoc: {th: "ฟีดข่าวหรือประเด็นสังคมที่คุณเห็น ถูกคัดมาให้คุณโดยเฉพาะ", en: "the news and social issues in your feed were selected for you specifically"},
-              artdes: {th: "งานออกแบบที่ฟีดดันขึ้นมา ค่อย ๆ หล่อหลอมรสนิยมของคุณโดยไม่รู้ตัว", en: "the design work your feed pushes quietly shapes your taste"}
+              health: {th: "ฉันเลื่อนฟีดเจอคำแนะนำสุขภาพที่ดูน่าเชื่อ แล้วนึกได้ว่าอัลกอริทึมเลือกมาให้ ไม่ใช่หลักฐาน", en: "I scroll past convincing health advice and remember an algorithm chose it, not the evidence"},
+              engtech: {th: "ฉันค้นวิธีแก้โค้ด แล้วนึกได้ว่าผลที่ขึ้นก่อนถูกจัดอันดับมา ไม่ได้แปลว่าดีที่สุด", en: "I search for a fix and remember the top result was ranked there, not proven best"},
+              scienat: {th: "ฉันค้นงานวิจัย แล้วนึกได้ว่าเปเปอร์ที่ขึ้นก่อนไม่ได้แปลว่าเป็นงานที่ดีที่สุด", en: "I search for papers and remember the first hit is not the best paper"},
+              bizpol: {th: "ฉันอ่านข่าวเศรษฐกิจในฟีด แล้วนึกได้ว่าเพื่อนอีกคนเห็นข่าวคนละชุดกับฉัน", en: "I read economic news in my feed and remember a classmate sees a different set entirely"},
+              humsoc: {th: "ฉันเห็นประเด็นสังคมเดือดในฟีด แล้วนึกได้ว่ามันถูกคัดมาให้ฉันโดยเฉพาะ", en: "A social issue blows up in my feed and I remember it was selected for me specifically"},
+              artdes: {th: "ฉันดูงานออกแบบในฟีดทุกวัน แล้วนึกได้ว่ามันกำลังหล่อหลอมรสนิยมฉันอยู่", en: "I scroll design work every day and notice it is quietly shaping my taste"}
             }},
           {th: "ก่อนจะวางข้อมูลงานหรือข้อมูลส่วนตัวลงในแชต AI ฉันมักหยุดคิดก่อนว่าอะไรแชร์ได้หรือไม่ได้", en: "Before pasting work or personal information into an AI chat, I tend to pause and consider what is and isn't OK to share", examples: {
-              health: {th: "ข้อมูลผู้ป่วยจากการฝึกปฏิบัติ แม้ตัดชื่อออกแล้วก็ยังอ่อนไหว", en: "patient data from clinical practice stays sensitive even de-identified"},
-              engtech: {th: "โค้ดของที่ฝึกงาน หรือคีย์ API ที่ติดมากับไฟล์ตั้งค่า", en: "your internship employer's code, or API keys in a config file"},
-              scienat: {th: "ข้อมูลดิบของแล็บหรือแปลงทดลองที่ยังไม่ตีพิมพ์", en: "unpublished raw data from the lab or the field trial"},
-              bizpol: {th: "งบการเงินหรือสัญญาของบริษัทที่ฝึกงาน", en: "financial statements or contracts from your internship"},
-              humsoc: {th: "บทถอดเทปสัมภาษณ์ หรือข้อมูลผู้ให้ข้อมูลในงานวิจัย", en: "interview transcripts, or informants' details in your research"},
-              artdes: {th: "ไฟล์งานของลูกค้าหรือแบบที่ยังไม่เปิดเผย", en: "a client's files or a design that hasn't been released"}
+              health: {th: "ก่อนวางเคสจากการฝึกปฏิบัติลงแชต ฉันหยุดคิดว่าตัดชื่อแล้วก็ยังอ่อนไหวอยู่ดี", en: "Before pasting a case from my rotation, I stop: even de-identified it is still sensitive"},
+              engtech: {th: "ก่อนวางไฟล์ตั้งค่าของที่ฝึกงาน ฉันหยุดดูว่ามีคีย์ API ติดมาด้วยหรือเปล่า", en: "Before pasting a config file from my internship, I stop to check for API keys"},
+              scienat: {th: "ก่อนวางข้อมูลดิบของแล็บลงแชต ฉันหยุดคิดว่ามันยังไม่ตีพิมพ์", en: "Before pasting raw lab data into a chat, I stop: it hasn't been published yet"},
+              bizpol: {th: "ก่อนวางงบการเงินของบริษัทที่ฝึกงาน ฉันหยุดคิดว่านี่เป็นข้อมูลภายใน", en: "Before pasting my internship's financials, I stop: this is internal"},
+              humsoc: {th: "ก่อนวางบทถอดเทปสัมภาษณ์ ฉันหยุดคิดว่าในนั้นมีคนจริงที่ระบุตัวได้", en: "Before pasting an interview transcript, I stop: real, identifiable people are in it"},
+              artdes: {th: "ก่อนอัปไฟล์งานของลูกค้า ฉันหยุดคิดว่ามันยังไม่เปิดตัว", en: "Before uploading a client's files, I stop: it hasn't launched yet"}
             }}
         ],
         blurb: {th: "คุณมีพื้นฐานความเข้าใจ AI ที่ดี รู้ว่า AI ทำอะไรได้และมีข้อจำกัดอย่างไร พร้อมก้าวสู่การลงมือใช้จริง", en: "You have a solid foundation in AI — you know what it can do and where its limits lie, and you're ready to start applying it."},
@@ -560,36 +560,36 @@
         color: "#15827A",
         items: [
           {th: "เมื่อคำตอบแรกจาก AI ยังไม่ตรงใจ ฉันมักปรับ prompt (เพิ่มบริบท บทบาท ตัวอย่าง) แล้วลองใหม่จนได้ผลดีขึ้น", en: "When AI's first answer isn't quite right, I usually adjust my prompt (add context, role, examples) and try again until it improves", examples: {
-              health: {th: "ระบุว่าเป็นผู้ป่วยกลุ่มไหน เพื่อให้คำอธิบายตรงกรณี", en: "naming the patient group so the explanation fits the case"},
-              engtech: {th: "แปะข้อความ error จริงและเวอร์ชันไลบรารีไปให้ด้วย", en: "pasting the actual error and the library version"},
-              scienat: {th: "บอกชนิดข้อมูลและสมมติฐานทางสถิติที่ใช้", en: "stating the data type and the statistical assumptions"},
-              bizpol: {th: "บอกกรอบกฎหมายหรือบริบทตลาดที่กำลังพูดถึง", en: "naming the legal framework or the market context in play"},
-              humsoc: {th: "บอกกรอบทฤษฎีที่ใช้และกลุ่มผู้อ่านที่ต้องการ", en: "naming the theoretical frame and the audience you write for"},
-              artdes: {th: "บอกสไตล์ สัดส่วน และข้อจำกัดของวัสดุที่ใช้จริง", en: "naming the style, the proportions and the real material limits"}
+              health: {th: "คำตอบแรกกว้างเกินไป ฉันเพิ่มว่าเป็นผู้ป่วยกลุ่มไหน แล้วถามใหม่", en: "The first answer is too general, so I name the patient group and ask again"},
+              engtech: {th: "คำตอบแรกแก้บั๊กไม่ได้ ฉันแปะ error จริงกับเวอร์ชันไลบรารีไปด้วย แล้วถามใหม่", en: "The first answer doesn't fix the bug, so I paste the real error and library version and ask again"},
+              scienat: {th: "คำตอบแรกใช้กับข้อมูลฉันไม่ได้ ฉันบอกชนิดข้อมูลและสมมติฐานที่ใช้ แล้วถามใหม่", en: "The first answer doesn't fit my data, so I state the data type and assumptions and ask again"},
+              bizpol: {th: "คำตอบแรกไม่ตรงบริบทไทย ฉันบอกกรอบกฎหมายที่ใช้จริง แล้วถามใหม่", en: "The first answer misses the Thai context, so I name the legal framework and ask again"},
+              humsoc: {th: "คำตอบแรกตื้นเกินไป ฉันบอกกรอบทฤษฎีและกลุ่มผู้อ่าน แล้วถามใหม่", en: "The first answer is too shallow, so I name the theoretical frame and the audience and ask again"},
+              artdes: {th: "ภาพแรกไม่ตรงโจทย์ ฉันบอกสไตล์ สัดส่วน และข้อจำกัดของวัสดุ แล้วลองใหม่", en: "The first image misses the brief, so I name the style, proportions and material limits and try again"}
             }},
           {th: "ในเดือนที่ผ่านมา ฉันใช้ AI ช่วยงานหลายแบบ เช่น ร่างอีเมล สรุปเอกสารยาว ๆ ระดมไอเดีย หรือช่วยวิเคราะห์ข้อมูล", en: "In the past month, I've used AI for several different things — drafting emails, summarizing long documents, brainstorming, or analyzing data", examples: {
-              health: {th: "สรุปเปเปอร์ ทำสไลด์ journal club ซ้อมตอบคำถามก่อนสอบ", en: "summarizing papers, journal-club slides, rehearsing exam questions"},
-              engtech: {th: "ดีบักโค้ด เขียนสคริปต์ ร่างเอกสารของโปรเจกต์", en: "debugging code, writing scripts, drafting project documentation"},
-              scienat: {th: "สรุปงานวิจัย เขียนสคริปต์วิเคราะห์ ร่างรายงานแล็บ", en: "summarizing studies, writing analysis scripts, drafting lab reports"},
-              bizpol: {th: "สรุปเคส ทำสไลด์นำเสนอ ร่างบทวิเคราะห์ตลาด", en: "summarizing cases, building slides, drafting a market brief"},
-              humsoc: {th: "ร่างแนวคำถามสัมภาษณ์ สรุปเอกสารชั้นต้น ทำสไลด์นำเสนอ", en: "drafting interview guides, summarizing primary sources, building slides"},
-              artdes: {th: "ทำ mood board ร่างคำอธิบายผลงาน ลองหลายแนวทางออกแบบ", en: "mood boards, artist statements, trying several design directions"}
+              health: {th: "เดือนนี้ฉันใช้ AI สรุปเปเปอร์ ทำสไลด์ journal club และซ้อมตอบคำถามก่อนสอบ", en: "This month I used AI to summarize papers, build journal-club slides and rehearse exam questions"},
+              engtech: {th: "เดือนนี้ฉันใช้ AI ดีบักโค้ด เขียนสคริปต์ และร่างเอกสารของโปรเจกต์", en: "This month I used AI to debug code, write scripts and draft project documentation"},
+              scienat: {th: "เดือนนี้ฉันใช้ AI สรุปงานวิจัย เขียนสคริปต์วิเคราะห์ และร่างรายงานแล็บ", en: "This month I used AI to summarize studies, write analysis scripts and draft lab reports"},
+              bizpol: {th: "เดือนนี้ฉันใช้ AI สรุปเคส ทำสไลด์นำเสนอ และร่างบทวิเคราะห์ตลาด", en: "This month I used AI to summarize cases, build slides and draft a market brief"},
+              humsoc: {th: "เดือนนี้ฉันใช้ AI ร่างแนวคำถามสัมภาษณ์ สรุปเอกสารชั้นต้น และทำสไลด์นำเสนอ", en: "This month I used AI to draft interview guides, summarize primary sources and build slides"},
+              artdes: {th: "เดือนนี้ฉันใช้ AI ทำ mood board ร่างคำอธิบายผลงาน และลองหลายแนวทางออกแบบ", en: "This month I used AI for mood boards, an artist statement and several design directions"}
             }},
           {th: "เมื่อได้ผลลัพธ์จาก AI ฉันมักปรับแต่งให้เข้ากับบริบท น้ำเสียง และผู้รับของงานจริง ไม่ใช้แบบดิบ ๆ", en: "When I get output from AI, I usually adapt it to the real task's context, tone and audience rather than using it raw", examples: {
-              health: {th: "ปรับคำอธิบายโรคให้ผู้ป่วยเข้าใจ ไม่ใช่ภาษาแบบในตำรา", en: "rewording a diagnosis so a patient understands, not textbook language"},
-              engtech: {th: "ปรับโค้ดที่ได้ให้เข้ากับโครงสร้างและสไตล์ของโปรเจกต์", en: "reshaping generated code to your project's structure and style"},
-              scienat: {th: "ปรับกราฟและคำอธิบายผลให้ตรงกับข้อมูลจริงของคุณ", en: "reworking charts and captions to match your actual data"},
-              bizpol: {th: "ปรับภาษาให้เหมาะกับผู้บริหาร ไม่ใช่สำนวนวิชาการ", en: "shifting the language for decision-makers, not an academic reader"},
-              humsoc: {th: "ปรับสำนวนให้เข้ากับรูปแบบอ้างอิงและน้ำเสียงทางวิชาการของสาขา", en: "matching your field's citation style and academic voice"},
-              artdes: {th: "ปรับงานที่ได้ให้เข้ากับลายเส้นและทิศทางของโปรเจกต์", en: "reworking the output to fit your line and the project's direction"}
+              health: {th: "AI ร่างคำอธิบายโรคมาเป็นภาษาตำรา ฉันเขียนใหม่ให้ผู้ป่วยฟังแล้วเข้าใจ", en: "AI drafts a textbook-style explanation, and I rewrite it so the patient understands"},
+              engtech: {th: "AI ให้โค้ดที่ใช้ได้มา ฉันปรับให้เข้ากับโครงสร้างและสไตล์ของโปรเจกต์ก่อนใช้", en: "AI gives me working code, and I reshape it to my project's structure and style before using it"},
+              scienat: {th: "AI สร้างกราฟกับคำอธิบายผลมาให้ ฉันแก้ให้ตรงกับข้อมูลจริงของฉันก่อนส่ง", en: "AI produces a chart and caption, and I rework them to match my actual data before handing in"},
+              bizpol: {th: "AI ร่างบทวิเคราะห์มาเป็นภาษาวิชาการ ฉันเขียนใหม่ให้ผู้บริหารอ่านรู้เรื่อง", en: "AI drafts in academic language, and I rewrite it for a decision-maker"},
+              humsoc: {th: "AI ร่างย่อหน้ามาให้ ฉันปรับสำนวนและรูปแบบอ้างอิงให้ตรงกับสาขาก่อนส่ง", en: "AI drafts a paragraph, and I adjust the voice and citation style to my field before handing in"},
+              artdes: {th: "AI สร้างงานมาให้ ฉันปรับให้เข้ากับลายเส้นและทิศทางของโปรเจกต์ก่อนส่ง", en: "AI produces a piece, and I rework it to my own line and the project's direction before submitting"}
             }},
           {th: "ฉันเลือกใช้เครื่องมือ AI ให้เหมาะกับงานแต่ละประเภท แทนที่จะใช้เครื่องมือเดียวสำหรับทุกงาน", en: "I pick the right AI tool for each kind of task instead of using one tool for everything", examples: {
-              health: {th: "ใช้ตัวที่อ้างอิงแหล่งได้เวลาต้องหาหลักฐานทางคลินิก", en: "using a tool that cites sources when you need clinical evidence"},
-              engtech: {th: "ใช้ผู้ช่วยในเอดิเตอร์ตอนเขียนโค้ด แยกจากแชตตอนคิดโครงสร้าง", en: "an in-editor assistant for code, a chat for design thinking"},
-              scienat: {th: "ใช้ตัวที่รันโค้ดได้ตอนวิเคราะห์ข้อมูลจริง", en: "using a tool that can run code when you actually analyze data"},
-              bizpol: {th: "ใช้ตัวที่ค้นข้อมูลปัจจุบันได้เวลาต้องอ้างตัวเลขล่าสุด", en: "using a tool that can look things up when you need current figures"},
-              humsoc: {th: "ใช้ตัวที่อ่านไฟล์ยาว ๆ ได้ตอนทำงานกับเอกสารชั้นต้น", en: "using a long-document tool when working with primary sources"},
-              artdes: {th: "ใช้เครื่องมือสร้างภาพกับงานคิด และโปรแกรมออกแบบจริงกับงานส่ง", en: "image tools for ideation, your real design software for the deliverable"}
+              health: {th: "ต้องหาหลักฐานทางคลินิก ฉันเลือกใช้ตัวที่อ้างอิงแหล่งได้ ไม่ใช่แชตทั่วไป", en: "I need clinical evidence, so I pick a tool that cites sources, not a general chat"},
+              engtech: {th: "ตอนเขียนโค้ดฉันใช้ผู้ช่วยในเอดิเตอร์ แต่ตอนคิดโครงสร้างระบบฉันย้ายไปใช้แชต", en: "I use an in-editor assistant to write code, but move to a chat to think about architecture"},
+              scienat: {th: "ต้องวิเคราะห์ข้อมูลจริง ฉันเลือกตัวที่รันโค้ดได้ ไม่ใช่ตัวที่เดาผลลัพธ์ให้", en: "I need real analysis, so I pick a tool that runs code rather than one that guesses the output"},
+              bizpol: {th: "ต้องอ้างตัวเลขล่าสุด ฉันเลือกใช้ตัวที่ค้นข้อมูลปัจจุบันได้", en: "I need current figures, so I pick a tool that can look things up"},
+              humsoc: {th: "ต้องทำงานกับเอกสารชั้นต้นยาว ๆ ฉันเลือกใช้ตัวที่อ่านไฟล์ยาวได้", en: "Working with long primary sources, I pick a tool that can read long documents"},
+              artdes: {th: "ตอนคิดงานฉันใช้เครื่องมือสร้างภาพ แต่งานที่ส่งจริงฉันทำในโปรแกรมออกแบบ", en: "I use image tools to think, but build the actual deliverable in my design software"}
             }}
         ],
         blurb: {th: "คุณใช้ AI เป็นผู้ช่วยในงานประจำวันได้คล่อง และรู้วิธีสื่อสารกับ AI ให้ได้ผลลัพธ์ที่มีคุณภาพ", en: "You use AI fluently as an everyday assistant and know how to communicate with it to get quality results."},
@@ -614,36 +614,36 @@
         color: "#1E8E63",
         items: [
           {th: "เมื่อเจอปัญหางานซ้ำ ๆ ฉันมักวางแผนได้ว่าจะออกแบบ workflow ที่ให้ AI ทำงานหลายขั้นต่อเนื่องเพื่อแก้ปัญหานั้นอย่างไร", en: "When I hit a repetitive problem, I can usually map out a multi-step workflow where AI handles several stages to solve it", examples: {
-              health: {th: "วางขั้นตอนคัดกรองงานวิจัยสำหรับการทบทวนวรรณกรรม", en: "a screening pipeline for a systematic literature review"},
-              engtech: {th: "ต่อขั้นตอนดึงข้อมูล → ทำความสะอาด → สรุปผล ให้ทำงานต่อกัน", en: "chaining fetch → clean → summarize into one flow"},
-              scienat: {th: "วางขั้นตอนข้อมูลดิบ → ตรวจคุณภาพ → วิเคราะห์ ให้ทำซ้ำได้", en: "raw data → quality check → analysis, as a repeatable chain"},
-              bizpol: {th: "วางขั้นตอนรวบรวมข่าว → สรุปประเด็น → ร่างบทวิเคราะห์", en: "gather sources → extract the issues → draft the brief"},
-              humsoc: {th: "วางขั้นตอนถอดเทป → ให้รหัส → สรุปธีม ของข้อมูลสัมภาษณ์", en: "transcribe → code → theme-summarize your interview data"},
-              artdes: {th: "วางขั้นตอนคอนเซ็ปต์ → ร่างหลายแบบ → จัดชุดนำเสนอ", en: "concept → variations → presentation set"}
+              health: {th: "ต้องทบทวนวรรณกรรมเป็นร้อยเปเปอร์ ฉันวางขั้นตอนคัดกรองให้ AI ทำต่อกันเป็นชุด", en: "Facing hundreds of papers, I design a screening pipeline AI runs as one chain"},
+              engtech: {th: "งานเดิมซ้ำทุกสัปดาห์ ฉันต่อขั้นตอนดึงข้อมูล ทำความสะอาด สรุปผล ให้ทำงานต่อกัน", en: "Facing the same job every week, I chain fetch, clean and summarize into one flow"},
+              scienat: {th: "ข้อมูลเข้ามาทุกสัปดาห์ ฉันวางขั้นตอนข้อมูลดิบ ตรวจคุณภาพ วิเคราะห์ ให้ทำซ้ำได้", en: "With data arriving every week, I build a repeatable raw, quality-check, analysis chain"},
+              bizpol: {th: "ต้องออกบทวิเคราะห์ทุกเดือน ฉันวางขั้นตอนรวบรวมข่าว สรุปประเด็น ร่างบทวิเคราะห์", en: "With a brief due every month, I design a gather, extract, draft chain"},
+              humsoc: {th: "มีเทปสัมภาษณ์หลายสิบชั่วโมง ฉันวางขั้นตอนถอดเทป ให้รหัส สรุปธีม ให้ทำต่อกัน", en: "With dozens of hours of interviews, I chain transcribe, code and theme-summarize"},
+              artdes: {th: "ต้องส่งงานหลายแบบในรอบเดียว ฉันวางขั้นตอนคอนเซ็ปต์ ร่างหลายแบบ จัดชุดนำเสนอ", en: "With several variations due at once, I chain concept, variations and presentation set"}
             }},
           {th: "ฉันสามารถเชื่อมต่อ AI เข้ากับแอปหรือระบบผ่าน API ได้ด้วยตนเอง", en: "I can connect AI to an app or system via API on my own", examples: {
-              health: {th: "ต่อ AI เข้ากับชุดข้อมูลสุขภาพเพื่อสรุปผลอัตโนมัติ", en: "wiring AI to a health dataset to summarize it automatically"},
-              engtech: {th: "เรียก API ของโมเดลจากโค้ดที่เขียนเอง", en: "calling a model's API from code you wrote yourself"},
-              scienat: {th: "เรียกโมเดลจากสคริปต์เพื่อประมวลผลข้อมูลทีละชุด", en: "calling a model from a script to process data in batches"},
-              bizpol: {th: "ต่อ AI เข้ากับข้อมูลยอดขายหรือข้อมูลเปิดของภาครัฐ", en: "wiring AI to sales figures or open government data"},
-              humsoc: {th: "ต่อ AI เข้ากับข้อมูลแบบสอบถามเพื่อจัดกลุ่มคำตอบปลายเปิด", en: "connecting AI to survey data to cluster open-ended answers"},
-              artdes: {th: "เรียกโมเดลสร้างภาพจากสคริปต์เพื่อลองหลายแบบพร้อมกัน", en: "calling an image model from a script to try many variations at once"}
+              health: {th: "ฉันเขียนโค้ดเรียก AI ให้สรุปชุดข้อมูลสุขภาพทีละชุดโดยอัตโนมัติ", en: "I write code that calls AI to summarize health datasets automatically"},
+              engtech: {th: "ฉันเรียก API ของโมเดลจากโค้ดที่เขียนเอง ไม่ใช่นั่งพิมพ์ทีละครั้งในหน้าแชต", en: "I call the model's API from my own code instead of typing in a chat window"},
+              scienat: {th: "ฉันเขียนสคริปต์เรียกโมเดลให้ประมวลผลข้อมูลทีละชุดจนครบ", en: "I write a script that calls a model to process my data batch by batch"},
+              bizpol: {th: "ฉันต่อ AI เข้ากับข้อมูลยอดขายหรือข้อมูลเปิดของภาครัฐด้วยตัวเอง", en: "I wire AI to sales figures or open government data myself"},
+              humsoc: {th: "ฉันต่อ AI เข้ากับข้อมูลแบบสอบถาม เพื่อจัดกลุ่มคำตอบปลายเปิดเป็นร้อยข้อ", en: "I connect AI to survey data to cluster hundreds of open-ended answers"},
+              artdes: {th: "ฉันเขียนสคริปต์เรียกโมเดลสร้างภาพ ให้ลองหลายแบบพร้อมกันในรอบเดียว", en: "I script an image model to try many variations in one run"}
             }},
           {th: "ฉันสามารถสร้างต้นแบบของแอปหรือระบบที่ใช้งานได้จริง ด้วยวิธีใดวิธีหนึ่ง — ให้ AI ช่วยวางแผน/เขียนโค้ด หรือใช้เครื่องมือ no-code/low-code", en: "I can build a working prototype of an app or system in at least one way — using AI to help plan or code, or with no-code/low-code tools", examples: {
-              health: {th: "ต้นแบบแอปเตือนกินยา หรือแบบคัดกรองอาการเบื้องต้น", en: "a medication-reminder prototype or a basic symptom screener"},
-              engtech: {th: "ต้นแบบเว็บหรือเครื่องมือที่รันได้จริง ไม่ใช่แค่สไลด์", en: "a web app or tool prototype that actually runs, not just slides"},
-              scienat: {th: "ต้นแบบเครื่องมือคำนวณหรือแดชบอร์ดข้อมูลของแล็บ", en: "a calculator or a lab data dashboard that works"},
-              bizpol: {th: "ต้นแบบเครื่องมือประเมินความเสี่ยงหรือแดชบอร์ดผู้บริหาร", en: "a risk-scoring tool or an executive dashboard prototype"},
-              humsoc: {th: "ต้นแบบเว็บเก็บแบบสอบถาม หรือสื่อการสอนที่ใช้ได้จริง", en: "a survey site or teaching material that actually works"},
-              artdes: {th: "ต้นแบบเว็บจัดนิทรรศการ หรือแบบจำลองที่ผู้ชมลองใช้ได้", en: "an online exhibition or a model people can actually try"}
+              health: {th: "ฉันทำต้นแบบแอปเตือนกินยาที่กดใช้ได้จริง ไม่ใช่แค่ภาพในสไลด์", en: "I build a medication-reminder prototype people can actually tap, not a slide mock-up"},
+              engtech: {th: "ฉันทำต้นแบบเว็บหรือเครื่องมือที่เปิดแล้วรันได้จริง ไม่ใช่แค่สไลด์", en: "I build a web app or tool that actually runs, not just slides"},
+              scienat: {th: "ฉันทำต้นแบบเครื่องมือคำนวณหรือแดชบอร์ดของแล็บที่กดใช้ได้จริง", en: "I build a calculator or a lab dashboard that actually works"},
+              bizpol: {th: "ฉันทำต้นแบบเครื่องมือประเมินความเสี่ยงที่กรอกข้อมูลแล้วได้ผลออกมาจริง", en: "I build a risk-scoring tool that gives a real answer when I feed it data"},
+              humsoc: {th: "ฉันทำต้นแบบเว็บเก็บแบบสอบถามหรือสื่อการสอนที่คนเข้าไปใช้ได้จริง", en: "I build a survey site or teaching material people can actually use"},
+              artdes: {th: "ฉันทำต้นแบบเว็บจัดนิทรรศการที่ผู้ชมเข้าไปคลิกดูได้จริง", en: "I build an online exhibition visitors can actually click through"}
             }},
           {th: "ฉันเคยใช้ AI เป็นส่วนหนึ่งของการพัฒนาผลงานหรือระบบที่มีผู้อื่นได้ทดลองหรือใช้งานจริง (เช่น เพื่อน เพื่อนร่วมงาน หรือลูกค้ากลุ่มเล็ก ๆ)", en: "I've used AI as part of building something that other people — friends, colleagues, or a small group of users — have actually tried or used", examples: {
-              health: {th: "สื่อให้ความรู้ผู้ป่วยที่มีคนได้ใช้จริงในหอผู้ป่วยหรือชุมชน", en: "patient-education material actually used on a ward or in a community"},
-              engtech: {th: "โปรเจกต์ที่มีผู้ใช้จริงได้ลองใช้ ไม่ใช่แค่ส่งอาจารย์", en: "a project real users tried, not just one handed in"},
-              scienat: {th: "เครื่องมือหรือชุดข้อมูลที่คนในแล็บได้เอาไปใช้ต่อ", en: "a tool or dataset others in the lab went on to use"},
-              bizpol: {th: "ข้อเสนอหรือเครื่องมือที่องค์กรหรือชุมชนได้นำไปใช้จริง", en: "a proposal or tool an organization or community actually adopted"},
-              humsoc: {th: "กิจกรรมหรือสื่อรณรงค์ที่กลุ่มเป้าหมายได้ใช้จริง", en: "an event or campaign material your target audience actually used"},
-              artdes: {th: "งานที่ถูกจัดแสดง ตีพิมพ์ หรือส่งมอบให้ลูกค้าจริง", en: "work that was exhibited, published or delivered to a real client"}
+              health: {th: "สื่อให้ความรู้ผู้ป่วยที่ฉันทำ ถูกเอาไปใช้จริงในหอผู้ป่วยหรือในชุมชน", en: "Patient-education material I made was actually used on a ward or in a community"},
+              engtech: {th: "โปรเจกต์ที่ฉันทำมีคนอื่นเอาไปลองใช้จริง ไม่ใช่แค่ส่งอาจารย์แล้วจบ", en: "A project I built was tried by real users, not just handed in and done"},
+              scienat: {th: "เครื่องมือหรือชุดข้อมูลที่ฉันทำ มีคนในแล็บเอาไปใช้ต่อ", en: "A tool or dataset I made was picked up and used by others in the lab"},
+              bizpol: {th: "ข้อเสนอหรือเครื่องมือที่ฉันทำ ถูกองค์กรหรือชุมชนนำไปใช้จริง", en: "A proposal or tool I made was actually adopted by an organization or community"},
+              humsoc: {th: "กิจกรรมหรือสื่อรณรงค์ที่ฉันทำ กลุ่มเป้าหมายได้ใช้จริง", en: "An event or campaign material I made was actually used by my target audience"},
+              artdes: {th: "งานที่ฉันทำถูกจัดแสดง ตีพิมพ์ หรือส่งมอบให้ลูกค้าจริง", en: "Work I made was exhibited, published or delivered to a real client"}
             }}
         ],
         blurb: {th: "คุณไม่ได้แค่ใช้ AI แต่สร้างสิ่งใหม่ด้วย AI ได้ ทั้งเวิร์กโฟลว์ ต้นแบบ และการเชื่อมต่อระบบ", en: "You don't just use AI — you build new things with it: workflows, prototypes, and integrations."},
@@ -1162,20 +1162,20 @@
           desc: {th: "ตรวจสอบผลของ AI และรับผิดชอบในผลงานของตัวเอง", en: "Check AI output and take responsibility for your work"},
           items: [
             {th: "ฉันเคยจับได้ว่า AI ตอบอย่างมั่นใจแต่ผิด เพราะฉันตรวจสอบกับแหล่งอื่นก่อนนำไปใช้", en: "I've caught AI being confidently wrong — because I checked against another source before using its answer", reverse: false, examples: {
-                health: {th: "ขนาดยาหรือค่าอ้างอิงที่ไปเช็คกับแนวทางเวชปฏิบัติแล้วไม่ตรง", en: "a dose or reference range that didn't match the clinical guideline"},
-                engtech: {th: "ฟังก์ชันที่ AI อ้างว่ามีในไลบรารี แต่เปิดเอกสารแล้วไม่มี", en: "a library function it claimed exists but the docs don't have"},
-                scienat: {th: "ค่าคงที่หรือหน่วยที่ผิด ซึ่งจับได้ตอนคำนวณซ้ำเอง", en: "a wrong constant or unit you caught by redoing the calculation"},
-                bizpol: {th: "ตัวเลขหรือมาตรากฎหมายที่อ้าง แล้วตามไปดูต้นฉบับไม่ตรง", en: "a figure or a statute it cited that the source didn't support"},
-                humsoc: {th: "ชื่อผู้แต่งหรือปีที่อ้าง แล้วตามหาต้นฉบับจริงไม่เจอ", en: "an author or year it cited that you couldn't trace to a source"},
-                artdes: {th: "ชื่อศิลปินหรือยุคสมัยที่ AI อ้าง แล้วค้นจริงแล้วไม่ตรง", en: "an artist or period it named that didn't check out"}
+                health: {th: "AI บอกขนาดยามาอย่างมั่นใจ ฉันไปเปิดแนวทางเวชปฏิบัติแล้วพบว่าไม่ตรง", en: "AI states a dose confidently, I open the clinical guideline, and it doesn't match"},
+                engtech: {th: "AI อ้างว่าไลบรารีมีฟังก์ชันนี้ ฉันเปิดเอกสารแล้วไม่เจอ", en: "AI claims the library has this function, I open the docs, and it isn't there"},
+                scienat: {th: "AI ให้ค่าคงที่มา ฉันคำนวณซ้ำเองแล้วพบว่าหน่วยผิด", en: "AI gives me a constant, I redo the calculation, and the unit is wrong"},
+                bizpol: {th: "AI อ้างมาตรากฎหมายมา ฉันตามไปเปิดตัวบทจริงแล้วไม่ตรงกับที่มันบอก", en: "AI cites a statute, I go to the actual text, and it doesn't say that"},
+                humsoc: {th: "AI อ้างชื่อผู้แต่งกับปีมา ฉันตามหาต้นฉบับแล้วไม่มีงานชิ้นนั้นอยู่จริง", en: "AI cites an author and year, I go looking, and the work doesn't exist"},
+                artdes: {th: "AI บอกชื่อศิลปินกับยุคสมัยมา ฉันค้นจริงแล้วพบว่าไม่ตรง", en: "AI names an artist and period, I look it up, and it doesn't check out"}
               }},
             {th: "ถ้า AI ตอบเร็วและฟังดูสมเหตุสมผล ฉันมักนำไปใช้ทันที", en: "When AI answers quickly and sounds reasonable, I usually use it as-is", reverse: true, examples: {
-                health: {th: "คำอธิบายกลไกของโรคที่ฟังดูเข้าท่า", en: "a plausible-sounding explanation of a disease mechanism"},
-                engtech: {th: "โค้ดที่คอมไพล์ผ่านก็ถือว่าใช้ได้เลย", en: "code that compiles, so you take it as correct"},
-                scienat: {th: "ผลวิเคราะห์ที่กราฟออกมาสวยก็ถือว่าถูก", en: "an analysis whose chart looks clean, so you call it right"},
-                bizpol: {th: "บทวิเคราะห์ที่อ่านแล้วดูเป็นมืออาชีพ", en: "an analysis that reads professionally enough"},
-                humsoc: {th: "ย่อหน้าวิเคราะห์ที่สำนวนดีจนดูน่าเชื่อ", en: "an analysis paragraph that reads well enough to trust"},
-                artdes: {th: "ภาพที่ออกมาสวยจนไม่ได้ดูว่าตรงโจทย์หรือเปล่า", en: "an image so good-looking you never check it against the brief"}
+                health: {th: "AI อธิบายกลไกของโรคมาฟังดูเข้าท่า ฉันใส่ลงรายงานเลยโดยไม่ได้เช็ค", en: "AI explains a disease mechanism plausibly, and I put it in the report without checking"},
+                engtech: {th: "โค้ดที่ AI ให้มาคอมไพล์ผ่าน ฉันก็ถือว่าใช้ได้แล้วส่งเลย", en: "The code AI gave me compiles, so I take it as correct and ship it"},
+                scienat: {th: "กราฟที่ได้ออกมาสวย ฉันก็ถือว่าผลถูกแล้วใส่ลงรายงาน", en: "The chart comes out clean, so I call the result right and put it in the report"},
+                bizpol: {th: "บทวิเคราะห์ที่ AI ร่างมาอ่านแล้วดูเป็นมืออาชีพ ฉันส่งต่อเลย", en: "The analysis AI drafted reads professionally, so I pass it straight on"},
+                humsoc: {th: "ย่อหน้าวิเคราะห์ที่ได้มาสำนวนดี ฉันก็เชื่อแล้ววางลงเปเปอร์เลย", en: "The analysis paragraph reads well, so I trust it and drop it into my paper"},
+                artdes: {th: "ภาพที่ได้ออกมาสวยมาก ฉันส่งเลยโดยไม่ได้ย้อนดูว่าตรงโจทย์ไหม", en: "The image comes out beautiful, so I submit it without checking it against the brief"}
               }}
           ]
         },
@@ -1185,20 +1185,20 @@
           desc: {th: "รู้ว่าเมื่อใดควรใช้ AI และเมื่อใดควรลงมือเอง", en: "Know when to use AI and when to do it yourself"},
           items: [
             {th: "มีบางงานที่ฉันเลือกทำเองโดยไม่เปิด AI เพราะอยากให้ออกมาเป็นแบบที่ฉันคิดจริง ๆ", en: "There are tasks I choose to do without AI because I want the result to truly reflect my own thinking", reverse: false, examples: {
-                health: {th: "เขียนบันทึกสะท้อนคิดหลังออกฝึกปฏิบัติ", en: "writing your own reflection after clinical practice"},
-                engtech: {th: "แก้โจทย์อัลกอริทึมเองเพื่อให้เข้าใจจริง ๆ", en: "solving an algorithm problem yourself to really learn it"},
-                scienat: {th: "ไล่คำนวณหรือพิสูจน์ด้วยมือเองจนจบ", en: "working a calculation or a proof through by hand"},
-                bizpol: {th: "คิดข้อเสนอและเหตุผลของตัวเองก่อนเปิด AI", en: "forming your own recommendation before opening AI"},
-                humsoc: {th: "เขียนเรียงความที่แสดงจุดยืนของตัวเอง", en: "writing an essay that argues your own position"},
-                artdes: {th: "ร่างงานด้วยมือเองเพื่อรักษาลายเส้นของตัวเอง", en: "sketching by hand to keep your own line"}
+                health: {th: "ถึงเวลาเขียนบันทึกสะท้อนคิดหลังออกฝึก ฉันเลือกเขียนเองโดยไม่เปิด AI", en: "Time to write my post-rotation reflection, and I choose to write it without opening AI"},
+                engtech: {th: "เจอโจทย์อัลกอริทึม ฉันเลือกแก้เองโดยไม่เปิด AI เพราะอยากเข้าใจจริง ๆ", en: "Faced with an algorithm problem, I solve it without AI because I want to really understand it"},
+                scienat: {th: "เจอโจทย์พิสูจน์ ฉันเลือกไล่ด้วยมือเองจนจบโดยไม่เปิด AI", en: "Faced with a proof, I work it through by hand without opening AI"},
+                bizpol: {th: "ได้เคสมาใหม่ ฉันคิดข้อเสนอและเหตุผลของตัวเองให้เสร็จก่อน ค่อยเปิด AI", en: "Given a new case, I form my own recommendation and reasons before opening AI"},
+                humsoc: {th: "ต้องเขียนเรียงความแสดงจุดยืน ฉันเลือกเขียนเอง เพราะอยากให้เป็นความคิดฉันจริง ๆ", en: "Writing an essay that takes a position, I write it myself so the view is genuinely mine"},
+                artdes: {th: "เริ่มงานใหม่ ฉันเลือกร่างด้วยมือเองก่อน เพื่อรักษาลายเส้นของตัวเอง", en: "Starting a new piece, I sketch by hand first to keep my own line"}
               }},
             {th: "ช่วงหลัง ๆ แทบทุกงานฉันจะเปิด AI ก่อนเป็นอย่างแรก แม้แต่งานที่ฉันทำเองได้เร็วกว่า", en: "Lately I open AI first for almost every task — even ones I could do faster myself", reverse: true, examples: {
-                health: {th: "แม้แต่สรุปเลกเชอร์ที่จดเองได้เร็วกว่า", en: "even summarizing a lecture you could note faster yourself"},
-                engtech: {th: "แม้แต่โค้ดสั้น ๆ ที่เขียนเองได้ในห้านาที", en: "even a snippet you could write yourself in five minutes"},
-                scienat: {th: "แม้แต่การคำนวณง่าย ๆ ที่กดเครื่องคิดเลขก็เสร็จ", en: "even arithmetic a calculator would finish"},
-                bizpol: {th: "แม้แต่ร่างอีเมลสั้น ๆ ถึงลูกค้าหรืออาจารย์", en: "even a short email to a client or a lecturer"},
-                humsoc: {th: "แม้แต่ร่างข้อความสั้น ๆ ถึงอาจารย์หรือเพื่อนร่วมทีม", en: "even a short message to a lecturer or a teammate"},
-                artdes: {th: "แม้แต่ไอเดียแรกของงาน ที่เมื่อก่อนคิดเองได้", en: "even the first idea, which you used to come up with yourself"}
+                health: {th: "เลกเชอร์เพิ่งจบ ฉันเปิด AI ให้สรุปทันที ทั้งที่จดเองก็เร็วกว่า", en: "The lecture just ended and I open AI to summarize it, though noting it myself is faster"},
+                engtech: {th: "ต้องเขียนโค้ดสั้น ๆ ที่ทำเองได้ในห้านาที ฉันก็ยังเปิด AI ก่อน", en: "For a snippet I could write in five minutes, I still open AI first"},
+                scienat: {th: "ต้องคำนวณเลขง่าย ๆ ที่กดเครื่องคิดเลขก็เสร็จ ฉันก็ยังไปถาม AI", en: "For arithmetic a calculator would finish, I still go and ask AI"},
+                bizpol: {th: "ต้องร่างอีเมลสั้น ๆ ถึงอาจารย์ ฉันก็ยังเปิด AI ให้ร่างให้ก่อน", en: "For a short email to a lecturer, I still have AI draft it first"},
+                humsoc: {th: "ต้องพิมพ์ข้อความสั้น ๆ ถึงเพื่อนร่วมทีม ฉันก็ยังให้ AI ร่างให้ก่อน", en: "For a short message to a teammate, I still have AI draft it first"},
+                artdes: {th: "ได้โจทย์ใหม่มา ฉันเปิด AI หาไอเดียแรกทันที ทั้งที่เมื่อก่อนคิดเองได้", en: "A new brief arrives and I open AI for the first idea, though I used to find it myself"}
               }}
           ]
         },
@@ -1208,20 +1208,20 @@
           desc: {th: "ใช้ empathy ความคิดสร้างสรรค์ และวิจารณญาณของตัวเองเป็นแกน AI เป็นตัวช่วย", en: "Lead with empathy, creativity, and judgment — AI assists"},
           items: [
             {th: "เวลาคุยกับลูกค้า/เพื่อนร่วมงาน/ผู้ใช้ ฉันใช้การฟังและการสังเกตของตัวเองเป็นหลักในการทำความเข้าใจ ไม่ใช่ให้ AI สรุปแทน", en: "When talking with customers/colleagues/users, I rely on my own listening and observation to understand them — not on AI summaries", reverse: false, examples: {
-                health: {th: "ซักประวัติและสังเกตอาการผู้ป่วยด้วยตัวเอง", en: "taking a history and observing the patient yourself"},
-                engtech: {th: "คุยกับผู้ใช้จริงเองก่อนออกแบบฟีเจอร์", en: "talking to real users yourself before designing a feature"},
-                scienat: {th: "ลงแปลงหรือเข้าแล็บสังเกตด้วยตาตัวเอง", en: "going to the plot or the bench and observing it yourself"},
-                bizpol: {th: "คุยกับลูกค้าหรือผู้มีส่วนได้ส่วนเสียด้วยตัวเอง", en: "talking to clients or stakeholders yourself"},
-                humsoc: {th: "ลงพื้นที่ฟังผู้ให้ข้อมูลด้วยตัวเอง", en: "going into the field and listening to informants yourself"},
-                artdes: {th: "ฟังโจทย์และดูพื้นที่จริงด้วยตัวเองก่อนออกแบบ", en: "hearing the brief and seeing the real space yourself first"}
+                health: {th: "ก่อนจะสรุปอาการ ฉันซักประวัติและสังเกตผู้ป่วยด้วยตัวเองก่อนเสมอ", en: "Before forming a picture, I take the history and observe the patient myself"},
+                engtech: {th: "ก่อนออกแบบฟีเจอร์ ฉันไปนั่งคุยกับผู้ใช้จริงด้วยตัวเอง", en: "Before designing a feature, I go and talk to real users myself"},
+                scienat: {th: "ก่อนสรุปผล ฉันลงแปลงหรือเข้าแล็บไปดูด้วยตาตัวเองก่อน", en: "Before drawing a conclusion, I go to the plot or the bench and look myself"},
+                bizpol: {th: "ก่อนเขียนข้อเสนอ ฉันไปคุยกับลูกค้าหรือผู้มีส่วนได้ส่วนเสียด้วยตัวเอง", en: "Before writing a recommendation, I talk to the clients or stakeholders myself"},
+                humsoc: {th: "ก่อนวิเคราะห์ ฉันลงพื้นที่ไปฟังผู้ให้ข้อมูลด้วยตัวเองก่อน", en: "Before analyzing, I go into the field and listen to my informants myself"},
+                artdes: {th: "ก่อนเริ่มออกแบบ ฉันไปฟังโจทย์และดูพื้นที่จริงด้วยตัวเอง", en: "Before designing, I hear the brief and see the real space myself"}
               }},
             {th: "หลายครั้งงานที่ฉันส่งออกไป แนวคิดหลักมาจาก AI มากกว่ามาจากตัวฉันเอง", en: "Often, the core ideas in work I hand in come more from AI than from me", reverse: true, examples: {
-                health: {th: "กรณีศึกษาหรือแผนการดูแลผู้ป่วยที่ส่ง", en: "the case study or care plan you hand in"},
-                engtech: {th: "แนวทางออกแบบระบบในโปรเจกต์ที่ส่ง", en: "the system design in the project you submit"},
-                scienat: {th: "สมมติฐานหรือวิธีวิเคราะห์ในรายงานที่ส่ง", en: "the hypothesis or method in the report you hand in"},
-                bizpol: {th: "ข้อเสนอเชิงนโยบายหรือกลยุทธ์ในงานที่ส่ง", en: "the policy or strategy recommendation in your submission"},
-                humsoc: {th: "ประเด็นหลักในเปเปอร์หรือข้อเสนอโครงการ", en: "the central argument in your paper or proposal"},
-                artdes: {th: "คอนเซ็ปต์ของงานที่ส่งเข้าคริติก", en: "the concept behind the piece you bring to crit"}
+                health: {th: "แผนการดูแลผู้ป่วยที่ฉันส่ง แนวคิดหลักมาจาก AI มากกว่ามาจากที่ฉันตรวจมาเอง", en: "In the care plan I hand in, the thinking is more AI's than what I observed myself"},
+                engtech: {th: "แนวทางออกแบบระบบในโปรเจกต์ที่ฉันส่ง มาจาก AI มากกว่ามาจากที่ฉันคิดเอง", en: "In the project I submit, the system design is more AI's than mine"},
+                scienat: {th: "สมมติฐานกับวิธีวิเคราะห์ในรายงานที่ฉันส่ง มาจาก AI มากกว่ามาจากข้อมูลที่ฉันเห็น", en: "In the report I hand in, the hypothesis and method came from AI more than from my data"},
+                bizpol: {th: "ข้อเสนอเชิงนโยบายในงานที่ฉันส่ง มาจาก AI มากกว่ามาจากที่ฉันอ่านมาเอง", en: "In what I hand in, the recommendation came from AI more than from my own reading"},
+                humsoc: {th: "ประเด็นหลักในเปเปอร์ที่ฉันส่ง มาจาก AI มากกว่ามาจากที่ฉันตีความเอง", en: "In the paper I hand in, the central argument is AI's more than my own reading"},
+                artdes: {th: "คอนเซ็ปต์ของงานที่ฉันเอาเข้าคริติก มาจาก AI มากกว่ามาจากตัวฉันเอง", en: "The concept of the piece I bring to crit came from AI more than from me"}
               }}
           ]
         },
@@ -1231,20 +1231,20 @@
           desc: {th: "คุณนำ AI ไม่ใช่ AI นำคุณ", en: "You steer AI, not AI steers you"},
           items: [
             {th: "ก่อนถาม AI ฉันมักประเมินก่อนว่าตอนนี้ตัวเองรู้อะไรและยังไม่รู้อะไร แล้วเลือกวิธีใช้ให้เหมาะ — สั่งงานตรง ๆ ให้ช่วยระดมไอเดีย หรือให้ช่วยค้นเปิดมุมใหม่", en: "Before asking AI, I usually assess what I already know and don't know, then choose how to use it — direct instructions, brainstorming help, or open-ended research", reverse: false, examples: {
-                health: {th: "รู้ว่าตัวเองติดตรงกลไกของโรค ไม่ใช่ตรงชื่อยา", en: "knowing you're stuck on the mechanism, not the drug name"},
-                engtech: {th: "รู้ว่าตัวเองติดตรงตรรกะ ไม่ใช่ตรงไวยากรณ์ของภาษา", en: "knowing you're stuck on the logic, not the syntax"},
-                scienat: {th: "รู้ว่าติดตรงการเลือกวิธีวิเคราะห์ ไม่ใช่ตรงการคำนวณ", en: "knowing you're stuck on choosing the method, not the arithmetic"},
-                bizpol: {th: "รู้ว่าติดตรงการตีความข้อกฎหมาย ไม่ใช่ตรงข้อเท็จจริง", en: "knowing you're stuck on interpreting the rule, not the facts"},
-                humsoc: {th: "รู้ว่าตัวเองติดตรงกรอบวิเคราะห์ ไม่ใช่ตรงตัวข้อมูล", en: "knowing you're stuck on the framework, not the data"},
-                artdes: {th: "รู้ว่าติดตรงคอนเซ็ปต์ ไม่ใช่ตรงเทคนิคการทำงาน", en: "knowing you're stuck on the concept, not the technique"}
+                health: {th: "ก่อนถาม AI ฉันรู้ตัวว่าติดตรงกลไกของโรค ไม่ใช่ตรงชื่อยา แล้วถามให้ตรงจุดนั้น", en: "Before asking, I know I'm stuck on the mechanism, not the drug name, and ask about that"},
+                engtech: {th: "ก่อนถาม AI ฉันรู้ตัวว่าติดตรงตรรกะ ไม่ใช่ตรงไวยากรณ์ แล้วถามให้ตรงจุดนั้น", en: "Before asking, I know I'm stuck on the logic, not the syntax, and ask about that"},
+                scienat: {th: "ก่อนถาม AI ฉันรู้ตัวว่าติดตรงการเลือกวิธี ไม่ใช่ตรงการคำนวณ แล้วถามให้ตรงจุดนั้น", en: "Before asking, I know I'm stuck on choosing the method, not the arithmetic, and ask about that"},
+                bizpol: {th: "ก่อนถาม AI ฉันรู้ตัวว่าติดตรงการตีความข้อกฎหมาย ไม่ใช่ตรงข้อเท็จจริง แล้วถามให้ตรงจุด", en: "Before asking, I know I'm stuck on interpreting the rule, not the facts, and ask about that"},
+                humsoc: {th: "ก่อนถาม AI ฉันรู้ตัวว่าติดตรงกรอบวิเคราะห์ ไม่ใช่ตรงตัวข้อมูล แล้วถามให้ตรงจุดนั้น", en: "Before asking, I know I'm stuck on the framework, not the data, and ask about that"},
+                artdes: {th: "ก่อนถาม AI ฉันรู้ตัวว่าติดตรงคอนเซ็ปต์ ไม่ใช่ตรงเทคนิค แล้วถามให้ตรงจุดนั้น", en: "Before asking, I know I'm stuck on the concept, not the technique, and ask about that"}
               }},
             {th: "ฉันมักพิมพ์ถาม AI ก่อน แล้วค่อยคิดตามแนวทางที่มันเสนอมา", en: "I usually ask AI first, then shape my thinking around whatever it suggests", reverse: true, examples: {
-                health: {th: "ให้ AI ไล่การวินิจฉัยแยกโรคก่อนที่จะคิดเอง", en: "letting AI list differentials before thinking of your own"},
-                engtech: {th: "ให้ AI เสนอวิธีแก้ก่อนที่จะไล่หาสาเหตุเอง", en: "letting AI propose a fix before tracing the cause yourself"},
-                scienat: {th: "ให้ AI เลือกวิธีวิเคราะห์ก่อนที่จะคิดเองว่าข้อมูลเหมาะกับอะไร", en: "letting AI pick the analysis before you think about what your data allows"},
-                bizpol: {th: "ให้ AI ตั้งข้อเสนอก่อนที่จะอ่านข้อมูลเอง", en: "letting AI form the recommendation before you read the evidence"},
-                humsoc: {th: "ให้ AI ตั้งประเด็นของเปเปอร์ก่อนที่จะคิดเอง", en: "letting AI frame your paper's thesis before you do"},
-                artdes: {th: "ให้ AI เสนอคอนเซ็ปต์ก่อนที่จะร่างเอง", en: "letting AI propose the concept before you sketch"}
+                health: {th: "ได้เคสมา ฉันให้ AI ไล่การวินิจฉัยแยกโรคก่อน แล้วค่อยคิดตามที่มันเสนอ", en: "A case arrives and I have AI list the differentials first, then think along its lines"},
+                engtech: {th: "เจอบั๊ก ฉันให้ AI เสนอวิธีแก้ก่อน แล้วค่อยคิดตามที่มันเสนอ", en: "A bug appears and I have AI propose a fix first, then think along its lines"},
+                scienat: {th: "ได้ข้อมูลมา ฉันให้ AI เลือกวิธีวิเคราะห์ก่อน แล้วค่อยคิดตามที่มันเสนอ", en: "Data arrives and I let AI pick the analysis first, then think along its lines"},
+                bizpol: {th: "ได้เคสมา ฉันให้ AI ตั้งข้อเสนอก่อน แล้วค่อยอ่านข้อมูลตามกรอบที่มันให้", en: "A case arrives and I let AI form the recommendation first, then read the evidence its way"},
+                humsoc: {th: "เริ่มเปเปอร์ ฉันให้ AI ตั้งประเด็นก่อน แล้วค่อยคิดตามกรอบที่มันให้", en: "Starting a paper, I let AI frame the thesis first, then think inside its frame"},
+                artdes: {th: "ได้โจทย์มา ฉันให้ AI เสนอคอนเซ็ปต์ก่อน แล้วค่อยร่างตามที่มันให้", en: "A brief arrives and I let AI propose the concept first, then sketch along its lines"}
               }}
           ]
         },
@@ -1254,20 +1254,20 @@
           desc: {th: "ใช้ AI เป็นติวเตอร์ที่ทำให้เข้าใจมากขึ้น ไม่ใช่คนทำงานแทน", en: "Use AI as a tutor that deepens understanding — not a stand-in that does the work"},
           items: [
             {th: "เวลาใช้ AI กับเรื่องที่ต้องเรียนรู้ ฉันมักให้มันช่วยอธิบายและถามต่อ จนตัวเองเข้าใจพอที่จะอธิบายเองได้", en: "When I use AI on something I need to learn, I usually have it explain and take follow-up questions until I understand well enough to explain it myself", reverse: false, examples: {
-                health: {th: "ถามจนอธิบายกลไกของยาให้คนอื่นฟังได้", en: "asking until you can explain a drug's mechanism to someone"},
-                engtech: {th: "ถามจนอธิบายได้ว่าโค้ดแต่ละบรรทัดทำอะไร", en: "asking until you can explain what each line of code does"},
-                scienat: {th: "ถามจนอธิบายได้ว่าทำไมวิธีนี้ถึงเหมาะกับข้อมูลชุดนี้", en: "asking until you can say why this method fits this data"},
-                bizpol: {th: "ถามจนอธิบายเหตุผลเบื้องหลังข้อเสนอได้ด้วยตัวเอง", en: "asking until you can defend the reasoning behind the recommendation"},
-                humsoc: {th: "ถามจนอธิบายทฤษฎีด้วยคำของตัวเองได้", en: "asking until you can explain the theory in your own words"},
-                artdes: {th: "ถามจนอธิบายได้ว่าทำไมองค์ประกอบนี้ถึงทำงาน", en: "asking until you can say why the composition works"}
+                health: {th: "ไม่เข้าใจกลไกของยา ฉันถาม AI ต่อไปเรื่อย ๆ จนอธิบายให้เพื่อนฟังเองได้", en: "I don't follow a drug's mechanism, so I keep asking until I can explain it to a friend"},
+                engtech: {th: "ไม่เข้าใจโค้ดที่ได้มา ฉันถามต่อไปเรื่อย ๆ จนอธิบายได้ว่าแต่ละบรรทัดทำอะไร", en: "I don't follow the code I got, so I keep asking until I can explain every line"},
+                scienat: {th: "ไม่แน่ใจว่าทำไมต้องใช้วิธีนี้ ฉันถามต่อจนอธิบายได้ว่ามันเหมาะกับข้อมูลชุดนี้อย่างไร", en: "Unsure why this method, I keep asking until I can say why it fits this data"},
+                bizpol: {th: "ไม่เข้าใจที่มาของข้อเสนอ ฉันถามต่อจนอธิบายเหตุผลเบื้องหลังได้ด้วยตัวเอง", en: "Unclear where a recommendation came from, I keep asking until I can defend its reasoning"},
+                humsoc: {th: "อ่านทฤษฎีแล้วยังงง ฉันถามต่อจนอธิบายมันด้วยคำของตัวเองได้", en: "Still lost in a theory, I keep asking until I can explain it in my own words"},
+                artdes: {th: "ไม่รู้ว่าทำไมองค์ประกอบนี้ถึงเวิร์ก ฉันถามต่อจนอธิบายได้ด้วยตัวเอง", en: "Unsure why a composition works, I keep asking until I can say why myself"}
               }},
             {th: "หลายครั้งฉันส่งงานที่ AI ทำให้ ทั้งที่ยังอธิบายเองไม่ได้ว่าเนื้อหาในนั้นถูกต้องหรือมาได้อย่างไร", en: "I often hand in work AI produced even though I couldn't yet explain whether its content is right or how it got there", reverse: true, examples: {
-                health: {th: "รายงานกรณีศึกษาที่อธิบายเหตุผลทางคลินิกเองไม่ได้", en: "a case report whose clinical reasoning you can't explain"},
-                engtech: {th: "โค้ดที่รันผ่าน แต่อธิบายไม่ได้ว่ามันทำงานอย่างไร", en: "code that runs but you can't say how it works"},
-                scienat: {th: "ผลวิเคราะห์ที่อธิบายไม่ได้ว่าได้ตัวเลขนี้มาอย่างไร", en: "results you can't say how you arrived at"},
-                bizpol: {th: "บทวิเคราะห์ที่ตอบคำถามเจาะลึกของอาจารย์ไม่ได้", en: "an analysis you can't defend under questioning"},
-                humsoc: {th: "บทวิเคราะห์ที่อ้างทฤษฎีซึ่งตัวเองยังไม่เข้าใจ", en: "an analysis citing theory you don't yet understand"},
-                artdes: {th: "ผลงานที่อธิบายเหตุผลของทุกการตัดสินใจไม่ได้", en: "a piece whose decisions you can't account for"}
+                health: {th: "ฉันส่งรายงานกรณีศึกษาไปแล้ว ทั้งที่อธิบายเหตุผลทางคลินิกในนั้นเองไม่ได้", en: "I hand in a case report whose clinical reasoning I can't explain"},
+                engtech: {th: "ฉันส่งโค้ดที่รันผ่านไปแล้ว ทั้งที่อธิบายไม่ได้ว่ามันทำงานอย่างไร", en: "I hand in code that runs, though I can't say how it works"},
+                scienat: {th: "ฉันส่งผลวิเคราะห์ไปแล้ว ทั้งที่อธิบายไม่ได้ว่าได้ตัวเลขนี้มาอย่างไร", en: "I hand in results I can't say how I arrived at"},
+                bizpol: {th: "ฉันส่งบทวิเคราะห์ไปแล้ว ทั้งที่ถ้าอาจารย์ถามเจาะลึกก็ตอบไม่ได้", en: "I hand in an analysis I couldn't defend if my lecturer pushed"},
+                humsoc: {th: "ฉันส่งบทวิเคราะห์ที่อ้างทฤษฎีไปแล้ว ทั้งที่ตัวเองยังไม่เข้าใจทฤษฎีนั้น", en: "I hand in an analysis citing theory I don't yet understand"},
+                artdes: {th: "ฉันเอาผลงานเข้าคริติกไปแล้ว ทั้งที่อธิบายเหตุผลของการตัดสินใจไม่ได้", en: "I bring a piece to crit whose decisions I can't account for"}
               }}
           ]
         },
@@ -1277,20 +1277,20 @@
           desc: {th: "รู้ว่าข้อมูลไหนไม่ควรป้อนให้ AI และปกป้องข้อมูลของตัวเองและผู้อื่น", en: "Know what should never go into AI — and protect your own and others' data"},
           items: [
             {th: "ก่อนป้อนอะไรให้ AI ฉันเช็คก่อนว่าไม่มีข้อมูลส่วนตัวของตัวเองหรือผู้อื่น หรือข้อมูลลับของงาน/องค์กร ปนอยู่ในนั้น", en: "Before feeding anything into AI, I check that it contains no personal data — mine or other people's — and no confidential work or organizational information", reverse: false, examples: {
-                health: {th: "ตัดชื่อ เลขประจำตัวผู้ป่วย และรายละเอียดที่ระบุตัวได้ออกก่อน", en: "stripping names, hospital numbers and identifying details first"},
-                engtech: {th: "เอาคีย์ API และข้อมูลผู้ใช้จริงออกจากโค้ดก่อนแปะ", en: "removing API keys and real user data from code before pasting"},
-                scienat: {th: "ตรวจว่าข้อมูลดิบที่ยังไม่ตีพิมพ์ไม่หลุดไปอยู่ในแชต", en: "making sure unpublished raw data doesn't end up in a chat"},
-                bizpol: {th: "ตรวจว่าไม่มีข้อมูลลูกค้าหรือตัวเลขภายในองค์กรปนอยู่", en: "checking no client data or internal figures are mixed in"},
-                humsoc: {th: "ปกปิดชื่อผู้ให้สัมภาษณ์ก่อนให้ AI ช่วยวิเคราะห์", en: "anonymizing interviewees before asking AI to analyze"},
-                artdes: {th: "ตรวจว่างานของลูกค้าที่ยังไม่เผยแพร่ไม่ถูกอัปโหลดขึ้นไป", en: "checking an unreleased client project isn't being uploaded"}
+                health: {th: "ก่อนให้ AI ช่วยสรุปเคส ฉันตัดชื่อ เลขประจำตัวผู้ป่วย และรายละเอียดที่ระบุตัวได้ออกก่อน", en: "Before asking AI to summarize a case, I strip names, hospital numbers and identifying details"},
+                engtech: {th: "ก่อนแปะโค้ดให้ AI ดู ฉันเอาคีย์ API และข้อมูลผู้ใช้จริงออกก่อน", en: "Before pasting code for AI, I remove API keys and real user data"},
+                scienat: {th: "ก่อนให้ AI ช่วยวิเคราะห์ ฉันตรวจว่าข้อมูลดิบที่ยังไม่ตีพิมพ์ไม่หลุดไปอยู่ในแชต", en: "Before asking AI to analyze, I check that unpublished raw data isn't going into the chat"},
+                bizpol: {th: "ก่อนให้ AI ช่วยร่าง ฉันตรวจว่าไม่มีข้อมูลลูกค้าหรือตัวเลขภายในองค์กรปนอยู่", en: "Before asking AI to draft, I check that no client data or internal figures are mixed in"},
+                humsoc: {th: "ก่อนให้ AI ช่วยวิเคราะห์บทสัมภาษณ์ ฉันปกปิดชื่อผู้ให้สัมภาษณ์ก่อน", en: "Before asking AI to analyze interviews, I anonymize the interviewees first"},
+                artdes: {th: "ก่อนอัปไฟล์ให้ AI ดู ฉันตรวจว่างานลูกค้าที่ยังไม่เปิดตัวไม่ติดไปด้วย", en: "Before uploading files for AI, I check that an unreleased client project isn't going with them"}
               }},
             {th: "ฉันเคยวางข้อความหรือไฟล์งานจริงลงในแชต AI โดยไม่ได้หยุดคิดว่าในนั้นมีข้อมูลส่วนตัวหรือข้อมูลลับหรือเปล่า", en: "I've pasted real work text or files into an AI chat without stopping to think whether they contained personal or confidential information", reverse: true, examples: {
-                health: {th: "ภาพหรือบันทึกที่ได้มาจากการฝึกปฏิบัติบนหอผู้ป่วย", en: "images or notes from a ward rotation"},
-                engtech: {th: "ไฟล์โปรเจกต์ของที่ฝึกงานทั้งไฟล์", en: "a whole project file from your internship"},
-                scienat: {th: "ไฟล์ข้อมูลดิบของแล็บทั้งไฟล์", en: "a whole raw data file from the lab"},
-                bizpol: {th: "ไฟล์สัญญาหรืองบการเงินทั้งไฟล์", en: "a whole contract or financial statement"},
-                humsoc: {th: "ไฟล์ถอดเทป หรือรายชื่อผู้เข้าร่วมวิจัย", en: "a transcript file or a list of research participants"},
-                artdes: {th: "ไฟล์งานออกแบบของลูกค้าที่ยังไม่เปิดตัว", en: "a client's unreleased design files"}
+                health: {th: "ฉันเคยวางภาพหรือบันทึกจากหอผู้ป่วยลงแชต โดยไม่ได้หยุดคิดว่ามีข้อมูลผู้ป่วยอยู่ในนั้น", en: "I once pasted ward images or notes into a chat without stopping to think whose data was in them"},
+                engtech: {th: "ฉันเคยวางไฟล์โปรเจกต์ของที่ฝึกงานทั้งไฟล์ลงแชต โดยไม่ได้ดูว่ามีอะไรอยู่ในนั้น", en: "I once pasted a whole internship project file into a chat without looking at what was inside"},
+                scienat: {th: "ฉันเคยวางไฟล์ข้อมูลดิบของแล็บทั้งไฟล์ลงแชต โดยไม่ได้คิดว่ามันยังไม่ตีพิมพ์", en: "I once pasted a whole raw lab file into a chat without thinking that it was unpublished"},
+                bizpol: {th: "ฉันเคยวางไฟล์สัญญาหรืองบการเงินทั้งไฟล์ลงแชต โดยไม่ได้คิดว่าเป็นข้อมูลภายใน", en: "I once pasted a whole contract or financial statement into a chat without thinking it was internal"},
+                humsoc: {th: "ฉันเคยวางไฟล์ถอดเทปหรือรายชื่อผู้เข้าร่วมวิจัยลงแชต โดยไม่ได้หยุดคิดก่อน", en: "I once pasted a transcript or a participant list into a chat without stopping to think"},
+                artdes: {th: "ฉันเคยอัปไฟล์งานออกแบบของลูกค้าที่ยังไม่เปิดตัว โดยไม่ได้คิดว่าทำได้หรือเปล่า", en: "I once uploaded a client's unreleased design files without asking whether I could"}
               }}
           ]
         },
@@ -1300,20 +1300,20 @@
           desc: {th: "ถ้าวันนี้ไม่มี AI คุณยังทำงานและสอบได้ด้วยตัวเอง", en: "With AI switched off, you can still do the work and sit the exam"},
           items: [
             {th: "ถ้าพรุ่งนี้ต้องสอบโดยไม่ให้ใช้ AI ฉันมั่นใจว่าทำเรื่องที่เคยให้ AI ช่วยได้ด้วยตัวเอง", en: "If tomorrow's exam banned AI, I'm confident I could do the things I usually get AI's help with", reverse: false, examples: {
-                  health: {th: "ตอบข้อสอบปฏิบัติหรือซักประวัติจริงโดยไม่มีตัวช่วย", en: "handling a practical exam or a real history-taking with no help"},
-                  engtech: {th: "เขียนโค้ดในห้องสอบโดยไม่มี autocomplete หรือผู้ช่วย", en: "writing code in an exam with no autocomplete and no assistant"},
-                  scienat: {th: "คำนวณและแปลผลการทดลองด้วยตัวเองในห้องสอบ", en: "doing the calculation and interpreting the result yourself in an exam"},
-                  bizpol: {th: "วิเคราะห์เคสสดในห้องสอบภายในเวลาที่จำกัด", en: "analyzing a case live, under time, in an exam"},
-                  humsoc: {th: "เขียนเรียงความวิเคราะห์สดในห้องสอบ", en: "writing an analytical essay live in an exam"},
-                  artdes: {th: "ร่างแบบหรือวาดสดต่อหน้าคณะกรรมการ", en: "sketching or drafting live in front of a jury"}
+                  health: {th: "ถ้าพรุ่งนี้ต้องซักประวัติผู้ป่วยจริงโดยไม่มีตัวช่วย ฉันมั่นใจว่าทำได้", en: "If tomorrow I had to take a real patient history with no help, I am confident I could"},
+                  engtech: {th: "ถ้าพรุ่งนี้ต้องเขียนโค้ดในห้องสอบโดยไม่มี autocomplete ฉันมั่นใจว่าทำได้", en: "If tomorrow I had to code in an exam with no autocomplete, I am confident I could"},
+                  scienat: {th: "ถ้าพรุ่งนี้ต้องคำนวณและแปลผลการทดลองเองในห้องสอบ ฉันมั่นใจว่าทำได้", en: "If tomorrow I had to calculate and interpret a result in an exam, I am confident I could"},
+                  bizpol: {th: "ถ้าพรุ่งนี้ต้องวิเคราะห์เคสสดในเวลาที่จำกัด ฉันมั่นใจว่าทำได้", en: "If tomorrow I had to analyze a case live under time, I am confident I could"},
+                  humsoc: {th: "ถ้าพรุ่งนี้ต้องเขียนเรียงความวิเคราะห์สดในห้องสอบ ฉันมั่นใจว่าทำได้", en: "If tomorrow I had to write an analytical essay live in an exam, I am confident I could"},
+                  artdes: {th: "ถ้าพรุ่งนี้ต้องร่างแบบหรือวาดสดต่อหน้าคณะกรรมการ ฉันมั่นใจว่าทำได้", en: "If tomorrow I had to sketch live in front of a jury, I am confident I could"}
                 }},
             {th: "มีงานที่ฉันส่งผ่านมาได้เพราะ AI แต่ถ้าต้องทำสดในห้องสอบคงทำไม่ได้", en: "There is work I got through because of AI that I could not produce on my own in an exam room", reverse: true, examples: {
-                  health: {th: "งานนำเสนอเคสที่พอถูกถามรายละเอียดแล้วตอบไม่ได้", en: "a case presentation you couldn't answer questions about"},
-                  engtech: {th: "สไลด์โปรเจกต์ที่อธิบายสถาปัตยกรรมในสไลด์ของตัวเองไม่ได้", en: "project slides whose architecture you couldn't explain"},
-                  scienat: {th: "สไลด์ผลการทดลองที่อธิบายวิธีวิเคราะห์ในนั้นไม่ได้", en: "result slides whose method you couldn't explain"},
-                  bizpol: {th: "สไลด์วิเคราะห์ที่พอถูกถามที่มาของตัวเลขแล้วตอบไม่ได้", en: "an analysis deck whose numbers you couldn't account for"},
-                  humsoc: {th: "สไลด์ที่อ้างทฤษฎีซึ่งตอบคำถามอาจารย์ไม่ได้", en: "slides citing theory you couldn't answer questions on"},
-                  artdes: {th: "งานที่ส่งคริติกแล้วอธิบายเหตุผลของการออกแบบไม่ได้", en: "a piece whose design decisions you couldn't justify in crit"}
+                  health: {th: "ฉันนำเสนอเคสผ่านมาได้ แต่พอถูกถามรายละเอียดก็ตอบไม่ได้", en: "I got through a case presentation, but couldn't answer when asked for details"},
+                  engtech: {th: "สไลด์โปรเจกต์ของฉันผ่านมาได้ แต่ฉันอธิบายสถาปัตยกรรมในสไลด์ตัวเองไม่ได้", en: "My project slides passed, but I couldn't explain the architecture on my own slide"},
+                  scienat: {th: "สไลด์ผลการทดลองของฉันผ่านมาได้ แต่ฉันอธิบายวิธีวิเคราะห์ในนั้นไม่ได้", en: "My result slides passed, but I couldn't explain the method on them"},
+                  bizpol: {th: "สไลด์วิเคราะห์ของฉันผ่านมาได้ แต่พอถูกถามที่มาของตัวเลขก็ตอบไม่ได้", en: "My analysis deck passed, but I couldn't account for the numbers when asked"},
+                  humsoc: {th: "สไลด์ที่ฉันอ้างทฤษฎีผ่านมาได้ แต่ตอบคำถามอาจารย์เรื่องทฤษฎีนั้นไม่ได้", en: "My slides citing theory passed, but I couldn't answer questions on the theory"},
+                  artdes: {th: "งานของฉันผ่านคริติกมาได้ แต่ฉันอธิบายเหตุผลของการออกแบบไม่ได้", en: "My piece got through crit, but I couldn't justify the design decisions"}
                 }}
           ]
         },
@@ -1323,20 +1323,20 @@
           desc: {th: "ยอมใช้เวลาและความยาก เพื่อให้ทักษะเป็นของตัวเองจริง ๆ", en: "You accept time and difficulty so the skill becomes genuinely yours"},
           items: [
             {th: "ฉันยอมใช้เวลานานขึ้นทำเอง ในเรื่องที่รู้ว่าตัวเองต้องเก่งให้ได้", en: "I take the slower route and do it myself on the things I know I need to be good at", reverse: false, examples: {
-                  health: {th: "ทำความเข้าใจกลไกของโรคด้วยตัวเองแม้จะช้ากว่า", en: "working out a disease mechanism yourself even though it is slower"},
-                  engtech: {th: "ไล่ดีบักเองจนเจอสาเหตุ แทนที่จะให้ AI แก้ให้", en: "debugging until you find the cause instead of letting AI patch it"},
-                  scienat: {th: "ไล่คำนวณหรือพิสูจน์เองจนจบแม้จะใช้เวลานาน", en: "working a calculation or a proof through yourself however long it takes"},
-                  bizpol: {th: "อ่านตัวบทหรืองบการเงินเองทั้งฉบับ", en: "reading the statute or the financial statement yourself, in full"},
-                  humsoc: {th: "อ่านต้นฉบับเองทั้งเล่มแทนการอ่านฉบับย่อ", en: "reading the original in full instead of a summary"},
-                  artdes: {th: "ฝึกวาดหรือเขียนแบบเองซ้ำ ๆ จนมือขึ้น", en: "drawing or drafting again and again until your hand knows it"}
+                  health: {th: "ฉันนั่งทำความเข้าใจกลไกของโรคเองจนเข้าใจ ทั้งที่ถาม AI แล้วจบในนาทีเดียว", en: "I work out a disease mechanism myself, though asking AI would end it in a minute"},
+                  engtech: {th: "ฉันไล่ดีบักเองจนเจอสาเหตุ ทั้งที่โยนให้ AI แก้ก็จบไปแล้ว", en: "I debug until I find the cause, though handing it to AI would have ended it"},
+                  scienat: {th: "ฉันไล่คำนวณหรือพิสูจน์เองจนจบ ทั้งที่ให้ AI ทำก็เสร็จเร็วกว่า", en: "I work a calculation or proof through myself, though AI would finish it faster"},
+                  bizpol: {th: "ฉันอ่านตัวบทหรืองบการเงินเองทั้งฉบับ ทั้งที่ให้ AI สรุปให้ก็ได้", en: "I read the statute or the financial statement in full, though AI could summarize it"},
+                  humsoc: {th: "ฉันอ่านต้นฉบับเองทั้งเล่ม ทั้งที่อ่านฉบับย่อก็สอบผ่านแล้ว", en: "I read the original in full, though the summary would have got me through the exam"},
+                  artdes: {th: "ฉันฝึกวาดหรือเขียนแบบเองซ้ำ ๆ จนมือขึ้น ทั้งที่ให้ AI สร้างให้ก็ได้งานแล้ว", en: "I draw or draft again and again until my hand knows it, though AI could just make it"}
                 }},
             {th: "พอเริ่มรู้สึกยาก ฉันมักเปลี่ยนไปให้ AI ทำให้จบ ๆ", en: "As soon as it starts to feel hard, I tend to hand it to AI just to get it done", reverse: true, examples: {
-                  health: {th: "พอเจอเคสที่ซับซ้อนก็ให้ AI สรุปให้เลย", en: "as soon as a case gets complex, you have AI summarize it"},
-                  engtech: {th: "พอบั๊กหายากก็โยนโค้ดทั้งไฟล์ให้ AI แก้", en: "when a bug gets hard, you throw the whole file at AI"},
-                  scienat: {th: "พอสถิติเริ่มยากก็ให้ AI เลือกวิธีให้", en: "when the statistics get hard, you let AI pick the method"},
-                  bizpol: {th: "พอประเด็นกฎหมายเริ่มซับซ้อนก็ให้ AI ตอบให้", en: "when the legal issue gets tangled, you let AI answer it"},
-                  humsoc: {th: "พอทฤษฎีเริ่มยากก็ให้ AI สรุปแทนการอ่านเอง", en: "when the theory gets hard, you let AI summarize instead of reading"},
-                  artdes: {th: "พอร่างไม่ออกก็ให้ AI สร้างภาพให้แล้วใช้เลย", en: "when the sketch will not come, you have AI generate one and use it"}
+                  health: {th: "พอเจอเคสที่ซับซ้อนจนเริ่มงง ฉันก็เปลี่ยนไปให้ AI สรุปให้เลย", en: "As soon as a case gets complex enough to confuse me, I switch to letting AI summarize it"},
+                  engtech: {th: "พอบั๊กหายากจนเริ่มหงุดหงิด ฉันก็โยนโค้ดทั้งไฟล์ให้ AI แก้", en: "As soon as a bug gets frustrating, I throw the whole file at AI"},
+                  scienat: {th: "พอสถิติเริ่มยากจนไม่แน่ใจ ฉันก็ให้ AI เลือกวิธีให้เลย", en: "As soon as the statistics get uncertain, I let AI pick the method"},
+                  bizpol: {th: "พอประเด็นกฎหมายเริ่มซับซ้อนจนตามไม่ทัน ฉันก็ให้ AI ตอบให้เลย", en: "As soon as the legal issue gets tangled, I let AI answer it"},
+                  humsoc: {th: "พอทฤษฎีเริ่มยากจนอ่านไม่ไหว ฉันก็ให้ AI สรุปแทนการอ่านเอง", en: "As soon as the theory gets heavy, I let AI summarize instead of reading it"},
+                  artdes: {th: "พอร่างไม่ออกจนเริ่มท้อ ฉันก็ให้ AI สร้างภาพให้แล้วใช้เลย", en: "As soon as the sketch won't come, I have AI generate one and use it"}
                 }}
           ]
         },
@@ -1346,20 +1346,20 @@
           desc: {th: "เวลาที่คุณกับ AI เห็นไม่ตรงกัน คุณยังให้น้ำหนักกับความคิดตัวเอง", en: "When you and AI disagree, your own thinking still carries weight"},
           items: [
             {th: "เวลาที่ความเห็นของฉันต่างจาก AI ฉันหาข้อมูลเพิ่มก่อนตัดสิน ไม่ใช่เปลี่ยนตามมันทันที", en: "When my view differs from AI's, I look into it before deciding — I don't just switch to its answer", reverse: false, examples: {
-                  health: {th: "AI แนะนำต่างจากที่เรียนมา แล้วคุณไปเปิดแนวทางเวชปฏิบัติดูเอง", en: "AI suggests something different from what you were taught, so you check the guideline yourself"},
-                  engtech: {th: "AI บอกว่าโค้ดคุณผิด แต่คุณอ่านแล้วไม่เห็นด้วย เลยไล่ดูทีละขั้นเอง", en: "AI says your code is wrong, you don't agree, so you trace it yourself"},
-                  scienat: {th: "AI เสนอวิธีวิเคราะห์ที่คุณรู้สึกว่าไม่เหมาะกับข้อมูล เลยไปตรวจเงื่อนไขเอง", en: "AI proposes a method you doubt fits your data, so you check the assumptions yourself"},
-                  bizpol: {th: "AI สรุปข้อกฎหมายต่างจากที่คุณเข้าใจ เลยไปเปิดตัวบทอ่านเอง", en: "AI reads a provision differently from you, so you open the text yourself"},
-                  humsoc: {th: "AI ตีความข้อมูลต่างจากที่คุณเห็นในพื้นที่ เลยกลับไปดูบันทึกของตัวเอง", en: "AI reads your data differently from what you saw in the field, so you go back to your notes"},
-                  artdes: {th: "AI บอกว่างานควรไปอีกทาง แต่คุณเชื่อสายตาตัวเอง เลยลองทำทั้งสองแบบมาเทียบ", en: "AI says the piece should go another way; you trust your eye and try both to compare"}
+                  health: {th: "AI แนะนำต่างจากที่เรียนมา ฉันไม่เปลี่ยนตามทันที แต่ไปเปิดแนวทางเวชปฏิบัติดูเอง", en: "AI suggests something different from what I was taught; I don't switch, I check the guideline myself"},
+                  engtech: {th: "AI บอกว่าโค้ดฉันผิด ฉันไม่แก้ตามทันที แต่ไล่ดูทีละขั้นด้วยตัวเองก่อน", en: "AI says my code is wrong; I don't change it, I trace it myself first"},
+                  scienat: {th: "AI เสนอวิธีที่ฉันรู้สึกว่าไม่เหมาะกับข้อมูล ฉันไปตรวจเงื่อนไขเองก่อนตัดสิน", en: "AI proposes a method I doubt fits my data; I check the assumptions myself before deciding"},
+                  bizpol: {th: "AI สรุปข้อกฎหมายต่างจากที่ฉันเข้าใจ ฉันไปเปิดตัวบทอ่านเองก่อน", en: "AI reads a provision differently from me; I open the text and read it myself first"},
+                  humsoc: {th: "AI ตีความข้อมูลต่างจากที่ฉันเห็นในพื้นที่ ฉันกลับไปอ่านบันทึกของตัวเองก่อน", en: "AI reads my data differently from what I saw in the field; I go back to my own notes first"},
+                  artdes: {th: "AI บอกว่างานควรไปอีกทาง ฉันลองทำทั้งสองแบบมาเทียบก่อนตัดสิน", en: "AI says the piece should go another way; I make both and compare before deciding"}
                 }},
             {th: "ถึงจะรู้สึกว่าไม่น่าใช่ แต่สุดท้ายฉันก็มักเชื่อ AI เพราะคิดว่ามันเก่งกว่าฉัน", en: "Even when something feels off, I usually go with AI because I assume it knows better than me", reverse: true, examples: {
-                  health: {th: "รู้สึกว่าคำอธิบายไม่น่าใช่ แต่ก็ใช้ตามเพราะคิดว่า AI รู้มากกว่า", en: "It felt off, but you used it anyway because AI must know more"},
-                  engtech: {th: "คิดว่าวิธีของตัวเองน่าจะถูก แต่สุดท้ายก็แก้ตามที่ AI บอก", en: "You thought your own approach was right, but changed it to AI's anyway"},
-                  scienat: {th: "สงสัยในผลที่ได้ แต่ไม่กล้าค้าน เลยรายงานตามที่ AI สรุป", en: "You doubted the result but didn't push back, so you reported AI's conclusion"},
-                  bizpol: {th: "ไม่เห็นด้วยกับข้อสรุป แต่ก็ใส่ลงสไลด์ไปตามนั้น", en: "You disagreed with the conclusion but put it on the slide anyway"},
-                  humsoc: {th: "รู้สึกว่าการตีความไม่ตรงกับที่อ่านมา แต่ก็เขียนตาม AI", en: "The reading felt wrong against what you had read, but you wrote AI's version"},
-                  artdes: {th: "ไม่ชอบทิศทางที่ AI เสนอ แต่ก็ทำตามเพราะคิดว่ามันรู้ว่าอะไรดีกว่า", en: "You didn't like AI's direction but followed it, assuming it knew better"}
+                  health: {th: "ฉันรู้สึกว่าคำอธิบายไม่น่าใช่ แต่ก็ใช้ตาม เพราะคิดว่า AI รู้มากกว่าฉัน", en: "It felt off, but I used it anyway, because AI must know more than me"},
+                  engtech: {th: "ฉันคิดว่าวิธีของตัวเองถูก แต่สุดท้ายก็แก้ตามที่ AI บอก", en: "I thought my own approach was right, but changed it to AI's in the end"},
+                  scienat: {th: "ฉันสงสัยในผลที่ได้ แต่ไม่กล้าค้าน เลยรายงานตามที่ AI สรุปมา", en: "I doubted the result but didn't push back, so I reported AI's conclusion"},
+                  bizpol: {th: "ฉันไม่เห็นด้วยกับข้อสรุป แต่ก็ใส่ลงสไลด์ไปตามนั้น", en: "I disagreed with the conclusion but put it on the slide anyway"},
+                  humsoc: {th: "ฉันรู้สึกว่าการตีความไม่ตรงกับที่อ่านมา แต่ก็เขียนตาม AI", en: "The reading felt wrong against what I had read, but I wrote AI's version"},
+                  artdes: {th: "ฉันไม่ชอบทิศทางที่ AI เสนอ แต่ก็ทำตาม เพราะคิดว่ามันรู้ว่าอะไรดีกว่า", en: "I didn't like AI's direction but followed it, assuming it knew better"}
                 }}
           ]
         }
