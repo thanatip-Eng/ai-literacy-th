@@ -140,9 +140,10 @@ test('the answer scale is a single horizontal row that keeps its keyboard path',
   assert.match(html, /role="radiogroup"/);
   assert.match(html, /b\.className = 'step' \+ \(answers\[idx\] === s\.v \? ' sel' : ''\);/);
   assert.match(html, /\.scale-row\{display:grid;grid-template-columns:repeat\(5,1fr\)/);
-  // the full wording only appears while the pattern is still new
-  assert.match(html, /const SCALE_LEGEND_QS = 2;/);
-  assert.match(html, /if\(idx < SCALE_LEGEND_QS\)\{/);
+  // three anchors under the row — both ends and the middle, nothing else
+  assert.match(html, /\[SCALE\[0\], SCALE\[Math\.floor\(SCALE\.length \/ 2\)\], SCALE\[SCALE\.length - 1\]\]/);
+  assert.match(html, /\.scale-ends\{display:grid;grid-template-columns:1fr auto 1fr/);
+  assert.doesNotMatch(html, /scale-legend/, 'the five-line legend was removed');
   // typing 1-5 answers, but never while a text field has focus or mid-advance
   assert.match(html, /!typing && !answerLocked && \/\^\[1-5\]\$\/\.test\(e\.key\)/);
 });
