@@ -60,6 +60,17 @@ function step(n, s, t) {
       `<p style="margin:0 0 9px;color:#fff;font-weight:700;font-size:1.06em;line-height:1.5">&ldquo;${esc(t.bigqQ)}&rdquo;</p>` +
       `<p style="margin:0;color:#fff;line-height:1.65;font-size:.95em">${esc(t.bigqHow)}</p></div>`);
   }
+  /* Where a screenshot goes. Only this build renders it — assignment.html reads
+     the same copy and ignores `shot`, so students never see an empty frame.
+     No border-radius:50% in here: the step circles are counted by a test. */
+  if (s.shot) {
+    bits.push(
+      `<div style="border:2px dashed ${C.amber};border-radius:10px;background:${C.amberSoft};` +
+      `padding:18px 16px;margin:10px 0 7px;text-align:center">` +
+      `<p style="margin:0 0 4px;color:${C.warn};font-weight:700;font-size:.9em">` +
+      `&#128247; ${esc(t.shotLabel)}</p>` +
+      `<p style="margin:0;color:${C.warn};font-size:.9em;line-height:1.5">${esc(s.shot)}</p></div>`);
+  }
   if (s.note) bits.push(`<p style="${P};color:${C.muted};font-size:.95em">${rich(s.note)}</p>`);
   if (s.warn) bits.push(
     `<p style="margin:9px 0 0;background:${C.amberSoft};border-radius:8px;padding:9px 11px;color:${C.warn};line-height:1.6;font-size:.95em">&#9888;&#65039; ${rich(s.warn)}</p>`);
@@ -131,9 +142,13 @@ const file = `<!DOCTYPE html>
 ใน Canvas เปิด assignment &rarr; Edit &rarr; ในกล่องเขียนข้อความกดปุ่ม
 <b>&lt;/&gt;</b> (HTML Editor) ที่มุมขวาล่าง แล้ววางโค้ดในกรอบด้านล่างลงไป &rarr; Save
 </p>
-<p style="margin:0 0 22px;color:#B5642A;line-height:1.6">
+<p style="margin:0 0 10px;color:#B5642A;line-height:1.6">
 สร้างจาก assignment.html &mdash; ถ้าแก้ข้อความในหน้านั้น ให้สั่ง
 <code>node tools/canvas-snippet.js</code> ใหม่ ไม่ต้องแก้ไฟล์นี้ด้วยมือ
+</p>
+<p style="margin:0 0 22px;color:#0A4F47;line-height:1.6">
+📷 <b>กรอบเส้นประสีส้ม</b> คือจุดที่ควรใส่รูปหน้าจอ &mdash; หลังวางลง Canvas แล้ว
+คลิกในกรอบ กด <b>Insert &rarr; Image</b> แล้วลบข้อความในกรอบทิ้ง
 </p>
 
 <h2 style="margin:0 0 8px">ฉบับภาษาไทย &mdash; คัดลอกทั้งกล่อง</h2>
