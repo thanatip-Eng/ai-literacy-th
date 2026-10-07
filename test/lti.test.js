@@ -1,5 +1,7 @@
 const test = require('node:test');
 const assert = require('node:assert/strict');
+const fs = require('node:fs');
+const path = require('node:path');
 
 const oauth1 = require('../api/_lib/oauth1');
 const {signSession, verifySession, readSession, sessionCookie, COOKIE_NAME} = require('../api/_lib/session');
@@ -447,4 +449,90 @@ test('a form that answers on the first try is posted to only once', async () => 
   const payload = await run();
   assert.equal(payload.ok, true);
   assert.equal(calls.form, 1);
+});
+
+/* --- a broken nonce store must not take the assessment down --- */
+
+function withBrokenUpstash(run) {
+  const realFetch = global.fetch;
+  const realError = console.error;
+  const logged = [];
+  process.env.UPSTASH_REDIS_REST_URL = 'https://example.upstash.io';
+  process.env.UPSTASH_REDIS_REST_TOKEN = 'wrong-token';
+  global.fetch = async () => ({ok: false, status: 401, json: async () => ({})});
+  console.error = (...args) => logged.push(args.join(' '));
+  return Promise.resolve(run(logged)).finally(() => {
+    global.fetch = realFetch;
+    console.error = realError;
+    delete process.env.UPSTASH_REDIS_REST_URL;
+    delete process.env.UPSTASH_REDIS_REST_TOKEN;
+  });
+}
+
+test('nonce store falls back to memory when Upstash rejects the call', async () => {
+  clearMemoryStore();
+  await withBrokenUpstash(async logged => {
+    assert.equal(await nonceSeen('fallback-1', 60), false);
+    assert.equal(await nonceSeen('fallback-1', 60), true, 'the fallback still catches a replay');
+    assert.equal(await nonceSeen('fallback-2', 60), false);
+    assert.ok(logged.some(line => line.includes('Upstash unavailable')),
+      'the outage must be visible in the logs');
+  });
+});
+
+test('launch: a broken nonce store does not block a first launch', async () => {
+  baseEnv();
+  clearMemoryStore();
+  await withBrokenUpstash(async () => {
+    const res = mockRes();
+    await launch(mockReq({body: signedLaunchParams()}), res);
+    // the whole point: a misconfigured store used to 401 every student here
+    assert.equal(res.statusCode, 302);
+    assert.match(res.headers['set-cookie'], new RegExp(`^${COOKIE_NAME}=`));
+  });
+});
+
+test('launch: replays are still caught while the store is broken', async () => {
+  baseEnv();
+  clearMemoryStore();
+  await withBrokenUpstash(async () => {
+    const params = signedLaunchParams();
+    const first = mockRes();
+    await launch(mockReq({body: params}), first);
+    assert.equal(first.statusCode, 302);
+    const second = mockRes();
+    await launch(mockReq({body: params}), second);
+    assert.equal(second.statusCode, 401);
+  });
+});
+
+test('launch: a network failure to the store falls back too, not just an HTTP error', async () => {
+  baseEnv();
+  clearMemoryStore();
+  const realFetch = global.fetch;
+  const realError = console.error;
+  process.env.UPSTASH_REDIS_REST_URL = 'https://example.upstash.io';
+  process.env.UPSTASH_REDIS_REST_TOKEN = 'tok';
+  global.fetch = async () => { throw new Error('network down'); };
+  console.error = () => {};
+  try {
+    const res = mockRes();
+    await launch(mockReq({body: signedLaunchParams()}), res);
+    assert.equal(res.statusCode, 302);
+  } finally {
+    global.fetch = realFetch;
+    console.error = realError;
+    delete process.env.UPSTASH_REDIS_REST_URL;
+    delete process.env.UPSTASH_REDIS_REST_TOKEN;
+  }
+});
+
+test('the duplicate page offers a way on, and is not shown for store trouble', () => {
+  const src = fs.readFileSync(path.join(__dirname, '..', 'api', 'lti', 'launch.js'), 'utf8');
+  // the two failures must have different copy, or neither can be diagnosed
+  assert.match(src, /titleTh: 'คำขอซ้ำ'/);
+  assert.match(src, /titleTh: 'ตรวจสอบคำขอไม่ได้ชั่วคราว'/);
+  // and the dead end is gone: both give the student a link onward
+  assert.match(src, /linkHome: true/);
+  assert.match(src, /<a class="go" href="\/">/);
 });
