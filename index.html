@@ -2725,6 +2725,9 @@ function renderOutsideView(partnership){
    whichever dimensions actually came out low, so two students never take the
    same three questions away. */
 let reflectPromptTexts = [];
+/* The keys behind those three questions, in the order they were picked. Short
+   enough to travel in a prefill link — the questions themselves are not. */
+let reflectPromptKeys = [];
 function renderReflect(partnership){
   const box = document.getElementById('rReflect');
   const list = document.getElementById('rReflectList');
@@ -2743,10 +2746,8 @@ function renderReflect(partnership){
     .slice(0, 2)
     .map(entry => entry.prompt);
   const picked = (weak.length ? weak : ['strong']).concat('always');
-  reflectPromptTexts = picked
-    .map(key => REFLECT_PROMPTS[key])
-    .filter(Boolean)
-    .map(tx);
+  reflectPromptKeys = picked.filter(key => REFLECT_PROMPTS[key]);
+  reflectPromptTexts = reflectPromptKeys.map(key => tx(REFLECT_PROMPTS[key]));
   if(!reflectPromptTexts.length){ box.hidden = true; return; }
 
   list.innerHTML = '';
@@ -2789,6 +2790,11 @@ function buildReflectUrl(){
     quadrant: (window.__res && window.__res.partnership) ? window.__res.partnership.quadrant : '',
     placement: (window.__res && typeof window.__res.placement === 'number') ? String(window.__res.placement) : '',
     discipline: userDiscipline ? userDiscipline.code : '',
+    // Which three reflection questions this student was given. The full text
+    // cannot go in the link: three Thai prompts percent-encode to 2,400-3,000
+    // characters and Microsoft Forms stops honouring a prefill URL at roughly
+    // 2,000. The keys say the same thing in thirty.
+    promptKeys: reflectPromptKeys.join('+'),
     lang: currentLang
   };
   const params = [];
