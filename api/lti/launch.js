@@ -11,7 +11,7 @@ const {readFormBody} = require('../_lib/body');
 const TIMESTAMP_WINDOW_SECONDS = 300;
 const NONCE_TTL_SECONDS = 600;
 
-function htmlPage(res, status, {titleTh, titleEn, bodyTh, bodyEn}) {
+function htmlPage(res, status, {titleTh, titleEn, bodyTh, bodyEn, linkHome}) {
   res.statusCode = status;
   res.setHeader('Content-Type', 'text/html; charset=utf-8');
   res.setHeader('Cache-Control', 'no-store');
@@ -29,6 +29,8 @@ function htmlPage(res, status, {titleTh, titleEn, bodyTh, bodyEn}) {
   h1{font-size:1.2rem;color:#0A4F47;margin:0 0 10px}
   p{font-size:.95rem;line-height:1.65;margin:0 0 8px}
   .en{color:#736A5C;font-size:.85rem}
+  .go{display:inline-block;margin-top:14px;background:#0E6E63;color:#fff;text-decoration:none;
+    border-radius:999px;padding:9px 18px;font-size:.9rem;font-weight:600}
 </style>
 </head>
 <body>
@@ -36,6 +38,7 @@ function htmlPage(res, status, {titleTh, titleEn, bodyTh, bodyEn}) {
     <h1>${titleTh}</h1>
     <p>${bodyTh}</p>
     <p class="en"><b>${titleEn}</b> — ${bodyEn}</p>
+    ${linkHome ? '<a class="go" href="/">เปิดแบบประเมิน / Open the assessment</a>' : ''}
   </div>
 </body>
 </html>`);
@@ -106,18 +109,30 @@ module.exports = async (req, res) => {
     return;
   }
   const nonce = String(params.oauth_nonce || '');
-  let replayed = true;
+  let replayed;
   try {
     replayed = !nonce || (await nonceSeen(nonce, NONCE_TTL_SECONDS));
-  } catch {
-    replayed = true; // nonce store unavailable → fail closed
+  } catch (err) {
+    // Not the same thing as a replay, and must not be reported as one: telling
+    // a student their launch was "already used" when the check itself broke
+    // sends everyone hunting for a problem that is not theirs.
+    console.error(`[lti] nonce check failed: ${err && err.message}`);
+    htmlPage(res, 503, {
+      titleTh: 'ตรวจสอบคำขอไม่ได้ชั่วคราว',
+      titleEn: 'Could not verify this launch',
+      bodyTh: 'ระบบตรวจสอบคำขอมีปัญหาชั่วคราว ไม่ใช่ความผิดของคุณ — กรุณากดเปิดจาก Canvas อีกครั้ง ถ้ายังไม่ได้ให้แจ้งผู้สอน',
+      bodyEn: 'The launch check is temporarily unavailable — this is not something you did. Please open the link from Canvas again, and tell your instructor if it keeps happening.',
+      linkHome: true
+    });
+    return;
   }
   if (replayed) {
     htmlPage(res, 401, {
       titleTh: 'คำขอซ้ำ',
       titleEn: 'Duplicate launch',
-      bodyTh: 'คำขอนี้ถูกใช้ไปแล้ว กรุณากดเปิดจาก Canvas อีกครั้ง',
-      bodyEn: 'This launch was already used. Please open the link from Canvas again.'
+      bodyTh: 'คำขอนี้ถูกใช้ไปแล้ว — มักเกิดจากการกดย้อนกลับหรือรีเฟรชหน้า ถ้าคุณเพิ่งเข้ามาสำเร็จแล้ว กดปุ่มด้านล่างเพื่อทำต่อได้เลย',
+      bodyEn: 'This launch was already used — usually from going back or refreshing. If you already got in, the button below carries on where you were.',
+      linkHome: true
     });
     return;
   }
