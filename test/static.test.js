@@ -228,3 +228,50 @@ test('form mode mints its own receipt code so the two exports can be matched', (
   // and it must not be the empty string that used to be sent
   assert.doesNotMatch(html, /receiptInfo = \{receipt: '', stamp/);
 });
+
+/* --- assignment.html: the student-facing walkthrough --- */
+const assignmentHtml = fs.readFileSync(path.join(root, 'assignment.html'), 'utf8');
+
+function assignmentStrings(){
+  const body = assignmentHtml.match(/\nconst L = (\{[\s\S]*?\n\});\n/);
+  assert.ok(body, 'could not find the L dictionary in assignment.html');
+  return new Function('return ' + body[1])();
+}
+
+test('the assignment walkthrough says the same things in both languages', () => {
+  const L = assignmentStrings();
+  assert.deepEqual(Object.keys(L.th).sort(), Object.keys(L.en).sort());
+  // the steps are numbered continuously across the two parts, so a language
+  // that lost or gained one would renumber the other half
+  assert.equal(L.th.steps1.length, L.en.steps1.length);
+  assert.equal(L.th.steps2.length, L.en.steps2.length);
+  assert.equal(L.th.trouble.length, L.en.trouble.length);
+  for (const lang of ['th', 'en']) {
+    for (const step of [...L[lang].steps1, ...L[lang].steps2]) {
+      assert.ok(step.h && step.h.trim(), `${lang}: a step has no heading`);
+    }
+    for (const row of L[lang].trouble) {
+      assert.equal(row.length, 2, `${lang}: a troubleshooting row is not a pair`);
+    }
+  }
+});
+
+test('the walkthrough quotes button names that actually exist in the app', () => {
+  const L = assignmentStrings();
+  const content = require('../content/app-content.js');
+  // {ui:…} marks something the student has to find on screen — every one of
+  // these must still be a real string, or the instructions send them hunting
+  const quoted = new Set();
+  for (const lang of ['th', 'en']) {
+    const blob = JSON.stringify(L[lang]);
+    for (const m of blob.matchAll(/\{ui:([^}]+)\}/g)) quoted.add(m[1]);
+  }
+  const onScreen = new Set();
+  for (const lang of ['th', 'en']) {
+    for (const value of Object.values(content.lang[lang])) {
+      if (typeof value === 'string') onScreen.add(value.trim());
+    }
+  }
+  const missing = [...quoted].filter(q => ![...onScreen].some(s => s === q || s.startsWith(q)));
+  assert.deepEqual(missing, [], `not shown anywhere in the app: ${missing.join(' · ')}`);
+});
