@@ -163,14 +163,12 @@
   .step:active{transform:scale(.97)}
   .step:disabled{cursor:default}
   .step.sel{background:var(--teal);border-color:var(--teal);color:#fff}
-  .scale-ends{display:flex;justify-content:space-between;gap:10px;margin-top:9px;font-size:.78rem;color:var(--muted)}
+  /* three anchors, not five: 1fr auto 1fr puts the middle label dead centre,
+     which is where the 3 button sits in a five-column row */
+  .scale-ends{display:grid;grid-template-columns:1fr auto 1fr;gap:8px;margin-top:9px;
+    font-size:.78rem;line-height:1.4;color:var(--muted)}
+  .scale-ends span:nth-child(2){text-align:center}
   .scale-ends span:last-child{text-align:right}
-  .scale-legend{list-style:none;margin:14px 0 0;padding:0;display:grid;gap:6px;font-size:.85rem;color:var(--muted)}
-  .scale-legend li{display:flex;gap:9px;align-items:baseline}
-  .scale-legend .n{
-    flex:0 0 auto;width:20px;text-align:center;font-family:"Chakra Petch",sans-serif;
-    font-weight:700;color:var(--teal)
-  }
   .scale-pick{margin:12px 0 0;min-height:1.5em;font-size:.9rem;font-weight:500;color:var(--teal-deep)}
   @media (max-width:360px){
     /* claw back side padding so each step stays a 44px-wide tap target */
@@ -1635,8 +1633,6 @@ let userName = '';
 let userRole = null;
 // Students pick a field of study instead of a job role; the two never mix.
 let userDiscipline = null;
-// how many questions spell out all five answer labels before collapsing
-const SCALE_LEGEND_QS = 2;
 let finishedAt = null;
 
 /* connect-mode state (Canvas LTI / Google Form).
@@ -1932,9 +1928,9 @@ function renderQ(){
 }
 
 /* The answer scale is the same five steps on every question, so spelling all
-   five out each time is reading work with no payoff. The first two questions
-   show the full legend; after that it is a row of five taps with the ends
-   labelled, and the chosen step's wording appears underneath. */
+   five out each time is reading work with no payoff. It is a row of five taps
+   with the two ends and the middle labelled — enough to read the direction at a
+   glance — and the chosen step's full wording appears underneath. */
 function renderScale(){
   const sc = document.getElementById('qScale');
   if(!sc) return;
@@ -1957,26 +1953,12 @@ function renderScale(){
 
   const ends = document.createElement('div');
   ends.className = 'scale-ends';
-  const low = document.createElement('span');
-  low.textContent = tx(SCALE[0].lab);
-  const high = document.createElement('span');
-  high.textContent = tx(SCALE[SCALE.length - 1].lab);
-  ends.append(low, high);
+  [SCALE[0], SCALE[Math.floor(SCALE.length / 2)], SCALE[SCALE.length - 1]].forEach(s => {
+    const span = document.createElement('span');
+    span.textContent = tx(s.lab);
+    ends.appendChild(span);
+  });
   sc.appendChild(ends);
-
-  if(idx < SCALE_LEGEND_QS){
-    const legend = document.createElement('ul');
-    legend.className = 'scale-legend';
-    SCALE.forEach(s => {
-      const li = document.createElement('li');
-      const n = document.createElement('span');
-      n.className = 'n';
-      n.textContent = s.display;
-      li.append(n, document.createTextNode(tx(s.lab)));
-      legend.appendChild(li);
-    });
-    sc.appendChild(legend);
-  }
 
   const pick = document.createElement('p');
   pick.className = 'scale-pick';
