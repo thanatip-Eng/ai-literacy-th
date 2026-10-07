@@ -233,10 +233,13 @@ test('form mode mints its own receipt code so the two exports can be matched', (
 const assignmentHtml = fs.readFileSync(path.join(root, 'assignment.html'), 'utf8');
 
 function assignmentStrings(){
-  const body = assignmentHtml.match(/\nconst L = (\{[\s\S]*?\n\});\n/);
-  assert.ok(body, 'could not find the L dictionary in assignment.html');
-  return new Function('return ' + body[1])();
+  return require('../content/assignment-copy.js');
 }
+
+test('the assignment page loads its copy from content, not from its own markup', () => {
+  assert.match(assignmentHtml, /<script src="content\/assignment-copy\.js"><\/script>/);
+  assert.match(assignmentHtml, /const L = AISTYLE_ASSIGNMENT_COPY;/);
+});
 
 test('the assignment walkthrough says the same things in both languages', () => {
   const L = assignmentStrings();
@@ -274,4 +277,32 @@ test('the walkthrough quotes button names that actually exist in the app', () =>
   }
   const missing = [...quoted].filter(q => ![...onScreen].some(s => s === q || s.startsWith(q)));
   assert.deepEqual(missing, [], `not shown anywhere in the app: ${missing.join(' · ')}`);
+});
+
+/* --- the Canvas-pasteable build of that page --- */
+test('the Canvas snippet is a current build of assignment.html', () => {
+  const {execFileSync} = require('node:child_process');
+  const os = require('node:os');
+  const tmp = path.join(os.tmpdir(), `canvas-snippet-${process.pid}.html`);
+  execFileSync(process.execPath, [path.join(root, 'tools', 'canvas-snippet.js'), tmp]);
+  const fresh = fs.readFileSync(tmp, 'utf8');
+  fs.unlinkSync(tmp);
+  const committed = fs.readFileSync(path.join(root, 'docs', 'canvas-paste.html'), 'utf8');
+  assert.equal(fresh, committed,
+    'docs/canvas-paste.html is stale — run: node tools/canvas-snippet.js');
+});
+
+test('what gets pasted into Canvas survives its sanitizer', () => {
+  const file = fs.readFileSync(path.join(root, 'docs', 'canvas-paste.html'), 'utf8');
+  const boxes = [...file.matchAll(/<textarea[^>]*>([\s\S]*?)<\/textarea>/g)]
+    .map(m => m[1].replace(/&lt;/g, '<'));
+  assert.equal(boxes.length, 2, 'expected one copy box per language');
+  for (const box of boxes) {
+    // Canvas strips these outright, and the layout cannot fall back on them
+    assert.doesNotMatch(box, /<script/i);
+    assert.doesNotMatch(box, /<style/i);
+    assert.doesNotMatch(box, /\sclass=/i);
+    // the step numbers are real elements, not ::before circles
+    assert.equal((box.match(/border-radius:50%/g) || []).length, 13);
+  }
 });

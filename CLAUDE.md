@@ -40,8 +40,12 @@ v4, 30 = v5 core, 36 = v5 core + field block).
 - **`assignment.html`** — standalone bilingual walkthrough for students: the
   13 steps from opening the app through submitting the reflection in MS Forms.
   Linked from the Canvas assignment, not from `guide-nav` (different audience).
-  Button names it quotes are wrapped in `{ui:…}` and a test checks each one is
-  still a real string in `lang.th`/`lang.en`
+  Its copy lives in **`content/assignment-copy.js`**, not in the markup. Button
+  names it quotes are wrapped in `{ui:…}` and a test checks each one is still a
+  real string in `lang.th`/`lang.en`. `node tools/canvas-snippet.js` rebuilds
+  **`docs/canvas-paste.html`** from that same copy — the paste-into-Canvas
+  version, inline styles only (Canvas strips `<style>`, `<script>` and CSS-only
+  rules); a test fails if it is stale
 - **`tags-guide.html`** — standalone org-tag legend/guide page
 - **`roles-guide.html`** — standalone bilingual page explaining the per-role
   floor/ceiling rationale (incl. a CSS range chart) + design-hypothesis
@@ -187,6 +191,7 @@ strings for a concise Canvas-facing tone without touching the public copy.
 | Google Form / Canvas integration | `content/connect-config.js`, `api/`, `docs/connect-setup.md` |
 | Downloaded image layout | canvas code in index.html (~line 2000–2400) |
 | Validate everything | `npm test` |
+| Wording of the student walkthrough | `content/assignment-copy.js`, then `node tools/canvas-snippet.js` to rebuild the Canvas version |
 | Reword the result page with the owner | `node tools/copy-script-export.js out.csv` → upload as a Google Sheet → they fill the "แก้เป็น" column → `node tools/copy-script-apply.js edited.csv [--dry]` (patches strings in place by reference path; English still needs matching by hand) |
 
 ## Rules
