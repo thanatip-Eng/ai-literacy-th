@@ -129,6 +129,15 @@ test('field of study and job role never overwrite each other', () => {
   assert.match(html, /discipline: userDiscipline \? userDiscipline\.code : '',/);
 });
 
+test('a student cannot skip the field group, because skipping drops real content', () => {
+  assert.match(html, /id="roleSkipRow"/);
+  // Skipping empties fieldItemsFor(), which silently removes the six field
+  // items, every example line and both Sheet columns — while the walkthrough
+  // still promises 36 questions. A job role can genuinely be "none of these";
+  // a field of study cannot, so the row only hides for students.
+  assert.match(html, /const skipRow = document\.getElementById\('roleSkipRow'\);\s*\n\s*if\(skipRow\) skipRow\.hidden = student;/);
+});
+
 test('the per-field example line is gated on student mode', () => {
   assert.match(html, /id="qExample" hidden/);
   assert.match(html, /function renderQExample/);

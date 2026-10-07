@@ -1126,7 +1126,7 @@
       <p class="name-sub" data-i18n="roleSub">เลือก 1 ข้อที่ใกล้เคียงที่สุด เพื่อให้คำแนะนำตรงกับงานของคุณ ข้ามได้ถ้าไม่ต้องการ</p>
       <div class="role-grid" id="roleGrid"></div>
       <p class="mini" id="roleGuideLinkRow" style="margin-top:12px;text-align:center"><a href="roles-guide.html" target="_blank" rel="noopener" data-i18n="roleGuideLink">เพดานทักษะของแต่ละสายงานตั้งจากอะไร? →</a></p>
-      <div class="navrow" style="margin-top:18px">
+      <div class="navrow" id="roleSkipRow" style="margin-top:18px">
         <button class="btn ghost" type="button" onclick="skipRole()" data-i18n="roleSkip">ข้าม / ไม่ระบุ</button>
       </div>
     </div>
@@ -1808,6 +1808,13 @@ function renderRoleOptions(){
   // the ceiling rationale is about job roles — it has no meaning for a student
   const guideRow = document.getElementById('roleGuideLinkRow');
   if(guideRow) guideRow.hidden = student;
+  /* Skipping is a real answer for a job role: the nine options may genuinely
+     miss someone. The six field groups cover all 23 faculties, so for a student
+     there is nothing to opt out of — and opting out silently drops the six
+     field items, every example line, the two field cards and both Sheet
+     columns, while the walkthrough still promises 36 questions. */
+  const skipRow = document.getElementById('roleSkipRow');
+  if(skipRow) skipRow.hidden = student;
 
   box.innerHTML = '';
   const options = student ? DISCIPLINES : ROLES;
