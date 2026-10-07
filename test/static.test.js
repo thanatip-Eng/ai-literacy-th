@@ -325,7 +325,11 @@ test('what gets pasted into Canvas survives its sanitizer', () => {
     assert.doesNotMatch(box, /<script/i);
     assert.doesNotMatch(box, /<style/i);
     assert.doesNotMatch(box, /\sclass=/i);
-    // the step numbers are real elements, not ::before circles
-    assert.equal((box.match(/border-radius:50%/g) || []).length, 13);
+    // the step numbers are real elements, not ::before circles. The count comes
+    // from the copy so the test follows the walkthrough instead of pinning it to
+    // a number someone wrote down once.
+    const L = assignmentStrings();
+    const steps = L.th.steps1.length + L.th.steps2.length;
+    assert.equal((box.match(/border-radius:50%/g) || []).length, steps);
   }
 });
