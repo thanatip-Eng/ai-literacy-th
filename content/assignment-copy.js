@@ -74,8 +74,9 @@ th: {
      p: "ในช่อง “คำตอบของคุณต่อคำถามเหล่านั้น” วางสิ่งที่คัดลอกมาจากขั้น 6 แล้วพิมพ์ต่อท้ายคำว่า คำตอบ: ของแต่ละข้อ",
      note: "เขียนเท่าที่คุณคิดจริง ๆ สั้นแต่เฉพาะเจาะจง ดีกว่ายาวแต่กว้าง"},
     {h: "ตอบข้อสุดท้าย — หัวใจของงาน",
+     p2: "ไม่ต้องคิดขึ้นใหม่จากหน้าว่าง — ย้อนไปดูหน้าผลของคุณก่อน การ์ด {ui:🎓 ถ้าวันนี้ไม่มี AI} ด้านที่คะแนนต่ำสุดคือสิ่งที่ AI ทำแทนคุณไปแล้ว และการ์ด {ui:🎓 คำแนะนำสำหรับสายของคุณ} — <b>เลือกจากตรงนั้น ไม่ใช่จากสิ่งที่ฟังดูดี</b>",
      bigq: true,
-     note: "ให้เวลากับข้อนี้มากที่สุด"},
+     note: "ให้เวลากับข้อนี้มากที่สุด · ❌ ยังไม่ผ่าน: “จะฝึกคิดวิเคราะห์ให้มากขึ้น ไม่พึ่ง AI มากเกินไป” · ✅ ผ่าน: “วาดมือเปล่าจากของจริงสัปดาห์ละ 2 ครั้ง ครั้งละ 30 นาที ไม่ใช้ภาพอ้างอิงจาก AI · ทุกวันอังคารกับวันเสาร์ · รู้ว่าทำได้เมื่อวาดมือคนจากการมองจริงได้ใน 10 นาทีโดยสัดส่วนไม่เพี้ยน”"},
     {h: "กดส่งฟอร์ม",
      p: "เก็บหน้ายืนยันของฟอร์มไว้ด้วย"}
   ],
@@ -160,8 +161,9 @@ en: {
      p: "In the “Your answers to those questions” field: paste what you copied in step 6, then type after each “Answer:” line.",
      note: "Write what you actually think. Short and specific beats long and vague."},
     {h: "Answer the last question — the heart of the assignment",
+     p2: "You do not have to invent this from nothing — go back to your own result. The {ui:🎓 If AI were switched off today} card: the lowest bar is what AI has taken over for you. And the {ui:🎓 Guidance for your field} card. <b>Pick from there, not from what sounds impressive.</b>",
      bigq: true,
-     note: "Give this one the most time."},
+     note: "Give this one the most time. · ❌ Not enough: “I will practise critical thinking more and rely on AI less.” · ✅ Enough: “Draw from life by hand twice a week, 30 minutes, no AI reference images · Tuesdays and Saturdays · I will know when I can draw a human hand from observation in 10 minutes with the proportions right.”"},
     {h: "Submit the form",
      p: "Keep its confirmation page too."}
   ],

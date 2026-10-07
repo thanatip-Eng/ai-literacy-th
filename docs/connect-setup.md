@@ -145,6 +145,17 @@ Excel ได้ทันที (แถวละคน คอลัมน์ล�
 > อีกไม่กี่ปีตอนคุณเรียนจบ **อะไรคือสิ่งที่คุณทำได้ซึ่ง AI ทำแทนไม่ได้** — เขียนมาหนึ่งอย่าง
 > ที่คุณจะเริ่มสร้างในเทอมนี้ บอกให้ชัดว่าจะทำอะไร สัปดาห์ละกี่ครั้ง และจะรู้ได้อย่างไรว่า
 > คุณทำได้จริงแล้ว (ไม่ใช่แค่รู้สึกว่าทำได้)
+>
+> ไม่ต้องคิดขึ้นใหม่จากหน้าว่าง — ย้อนไปดูหน้าผลของคุณก่อน การ์ด **🎓 ถ้าวันนี้ไม่มี AI**
+> ด้านที่คะแนนต่ำสุด คือสิ่งที่ AI ทำแทนคุณไปแล้ว และการ์ด **🎓 คำแนะนำสำหรับสายของคุณ**
+> เลือกจากตรงนั้น ไม่ใช่จากสิ่งที่ฟังดูดี
+>
+> ❌ ยังไม่ผ่าน: *“จะฝึกคิดวิเคราะห์ให้มากขึ้น ไม่พึ่ง AI มากเกินไป”*
+>
+> ✅ ผ่าน: *“วาดมือเปล่าจากของจริงสัปดาห์ละ 2 ครั้ง ครั้งละ 30 นาที ไม่ใช้ภาพอ้างอิงจาก AI ·
+> ทุกวันอังคารกับวันเสาร์ · รู้ว่าทำได้เมื่อวาดมือคนจากการมองจริงได้ใน 10 นาทีโดยสัดส่วนไม่เพี้ยน”*
+>
+> (ตัวอย่างข้างบนมาจากสายวิจิตรศิลป์ — มีไว้ให้เห็นว่าคำตอบที่ใช้ได้หน้าตาเป็นอย่างไร ของคุณต้องมาจากสายคุณเอง)
 
 **ข้อ 7 — English version:**
 
@@ -157,6 +168,20 @@ Excel ได้ทันที (แถวละคน คอลัมน์ล�
 > do for you?** Name one thing you will start building this term: what exactly you
 > will do, how often, and how you will know you can actually do it — not just feel
 > that you can.
+>
+> You do not have to invent this from nothing — go back to your own result. On the
+> **🎓 If AI were switched off today** card, the lowest bar is what AI has taken over
+> for you; the **🎓 Guidance for your field** card is the other place to look. Pick
+> from there, not from what sounds impressive.
+>
+> ❌ Not enough: *“I will practise critical thinking more and rely on AI less.”*
+>
+> ✅ Enough: *“Draw from life by hand twice a week, 30 minutes, no AI reference
+> images · Tuesdays and Saturdays · I will know when I can draw a human hand from
+> observation in 10 minutes with the proportions right.”*
+>
+> (That example is from fine arts — it is there to show the shape of a usable
+> answer. Yours has to come from your own field.)
 
 ### ขั้นตอนตั้งค่า
 
