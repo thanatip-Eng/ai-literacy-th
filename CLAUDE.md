@@ -37,6 +37,11 @@ v4, 30 = v5 core, 36 = v5 core + field block).
   AI Thinking) plus CMU's institutional Gen AI policy (ประกาศ มช. 2566),
   with reference links + an AI-use transparency card (#ai-transparency);
   linked from the global footer
+- **`assignment.html`** — standalone bilingual walkthrough for students: the
+  13 steps from opening the app through submitting the reflection in MS Forms.
+  Linked from the Canvas assignment, not from `guide-nav` (different audience).
+  Button names it quotes are wrapped in `{ui:…}` and a test checks each one is
+  still a real string in `lang.th`/`lang.en`
 - **`tags-guide.html`** — standalone org-tag legend/guide page
 - **`roles-guide.html`** — standalone bilingual page explaining the per-role
   floor/ceiling rationale (incl. a CSS range chart) + design-hypothesis
