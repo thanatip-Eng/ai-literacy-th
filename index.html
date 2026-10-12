@@ -3472,7 +3472,15 @@ async function generateResultImage(lang){
     const ih = avatarImg.naturalHeight || avatarImg.height;
     const ratio = Math.min(avatarSize/iw, avatarSize/ih);
     const dw = iw*ratio, dh = ih*ratio;
+    /* the quadrant PNGs have no alpha channel — their corners carry a baked
+       checkerboard, which shows as a square patch on the paper unless the draw
+       is clipped. The page hides it with border-radius; the canvas must clip. */
+    ctx.save();
+    ctx.beginPath();
+    ctx.arc(IMG_W/2, avatarCy, avatarSize/2, 0, Math.PI*2);
+    ctx.clip();
     ctx.drawImage(avatarImg, IMG_W/2 - dw/2, avatarCy - dh/2, dw, dh);
+    ctx.restore();
   } else {
     ctx.fillStyle = color;
     ctx.beginPath();
