@@ -71,9 +71,9 @@ v4, 30 = v5 core, 36 = v5 core + field block).
   per subtrait, in second position). `self_reliance`, `effort` and `self_trust`
   are the answer to "they pass the homework and fail the exam": they ask what
   is left when AI is off, and whether a student defers to AI against their own
-  judgment (Microsoft/CMU 2025 found confidence in AI tracks *less* critical
-  thinking, confidence in oneself *more*). The three share the `#rWithoutAI`
-  card on the result page.
+  judgment (Microsoft Research + Carnegie Mellon 2025 found confidence in AI
+  tracks *less* critical thinking, confidence in oneself *more*). The three
+  share the `#rWithoutAI` card on the result page.
   `threshold` (60) is the quadrant partnership cut. `quadrants` holds the 4
   personas (`novice`, `coach`, `autopilot`, `director`) with `blurb`,
   `nudge`, `partnershipNext[]`, `persona{who,strengths,watchouts,workshops}`
@@ -205,6 +205,10 @@ strings for a concise Canvas-facing tone without touching the public copy.
 - Run `npm test` before every commit
 - License CC BY-NC-SA 4.0; don't use LinkedIn's imagery — the framework
   diagram is our own SVG
+- **CMU on its own always means Chiang Mai University (มช.)** — the owner's
+  institution. Any other CMU gets its full name: this project cites Carnegie
+  Mellon, and a bare "CMU" there reads as a Chiang Mai study to every Thai
+  reader
 
 ## Project log (Notion)
 
