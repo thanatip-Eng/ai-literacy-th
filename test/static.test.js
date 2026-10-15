@@ -87,9 +87,24 @@ test('successful submit invites the user to the feedback survey once', () => {
   assert.match(html, /feedbackModalShown = false/);
 });
 
-test('the org tag section is hidden for connect-mode audiences', () => {
-  assert.match(html, /id="orgTagSection"/);
+test('the org tag block is off for every audience, not just connect mode', () => {
+  // Switched off in Oct 2026: the block carries a "register your org" link and
+  // the owner is not ready to field those requests. Two locks, because the
+  // markup has to hold even if the script never runs.
+  assert.match(html, /id="orgTagSection" hidden/);
+  assert.match(html, /const ORG_TAGS_ENABLED = false;/);
+  assert.match(html, /if\(ORG_TAGS_ENABLED\) renderTags\(/);
+  // an empty tag block is also what keeps the tags out of the copy button
+  assert.match(html, /tagEl && tagEl\.textContent\.trim\(\)/);
   assert.match(html, /document\.getElementById\('orgTagSection'\)\.hidden = true/);
+});
+
+test('nothing links to the org tag guide while the block is off', () => {
+  for (const page of ['index.html', 'frameworks.html', 'workshops.html', 'roles-guide.html']) {
+    const src = fs.readFileSync(path.join(root, page), 'utf8');
+    assert.doesNotMatch(src, /href="tags-guide\.html"/,
+      page + ' still links to tags-guide.html');
+  }
 });
 
 test('results are submitted manually and produce a screenshot-able receipt', () => {

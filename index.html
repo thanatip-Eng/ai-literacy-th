@@ -1072,7 +1072,6 @@
         <a class="learn-link" href="frameworks.html"><span class="ll-icon" aria-hidden="true">📚</span><span class="ll-txt"><b data-i18n="learnLinkFw">แหล่งที่มา framework</b><small data-i18n="learnLinkFwSub">3 กรอบแนวคิด + นโยบาย Gen AI ของ มช.</small></span></a>
         <a class="learn-link" href="roles-guide.html"><span class="ll-icon" aria-hidden="true">🎯</span><span class="ll-txt"><b data-i18n="learnLinkRoles">เพดานทักษะรายสายงาน</b><small data-i18n="learnLinkRolesSub">หลักคิด floor/ceiling ของ 9 สายงาน</small></span></a>
         <a class="learn-link" href="workshops.html"><span class="ll-icon" aria-hidden="true">🛠</span><span class="ll-txt"><b data-i18n="learnLinkWs">รายการ workshop</b><small data-i18n="learnLinkWsSub">ทุกหัวข้อทั้งแทร็กทักษะและสไตล์</small></span></a>
-        <a class="learn-link" href="tags-guide.html"><span class="ll-icon" aria-hidden="true">🏷</span><span class="ll-txt"><b data-i18n="learnLinkTags">คู่มือแท็กองค์กร</b><small data-i18n="learnLinkTagsSub">สำหรับผู้สอน / ทีม L&amp;D</small></span></a>
         <a class="learn-link" href="frameworks.html#ai-transparency"><span class="ll-icon" aria-hidden="true">🤝</span><span class="ll-txt"><b data-i18n="learnLinkAiT">ความร่วมมือมนุษย์ × AI</b><small data-i18n="learnLinkAiTSub">ความโปร่งใสการใช้ AI สร้างระบบนี้</small></span></a>
         <a class="learn-link" href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank" rel="noopener noreferrer"><span class="ll-icon" aria-hidden="true">📄</span><span class="ll-txt"><b data-i18n="learnLinkCc">สัญญาอนุญาต CC BY-NC-SA 4.0</b><small data-i18n="learnLinkCcSub">เงื่อนไขการนำระบบไปใช้ต่อ</small></span></a>
       </div>
@@ -1383,7 +1382,10 @@
 
     <!-- org tag section: hidden in connect mode (students submit results
          directly, so the L&D tag workflow is irrelevant to them) -->
-    <div id="orgTagSection">
+    <!-- ปิดไว้ทั้งหมดตามคำขอของเจ้าของโปรเจกต์ (ต.ค. 2026): ยังไม่พร้อม
+         รับองค์กรที่ติดต่อเข้ามาขอใช้ · เปิดคืน = ตั้ง ORG_TAGS_ENABLED
+         เป็น true แล้วเอา hidden ออกจากบรรทัดถัดไป -->
+    <div id="orgTagSection" hidden>
       <details class="quadrants-details">
         <summary data-i18n="accTagsHead">🏷️ แท็กสำหรับองค์กร / ผู้สอน</summary>
         <div class="acc-body">
@@ -2646,7 +2648,7 @@ function renderResult(pcts, placement, THRESH, partnership){
   renderReflect(partnership);
   renderQuadrantGrid('resultQuadrantGrid', partnership ? partnership.quadrant : null);
   renderRoleVerdict(pcts, THRESH);
-  renderTags(pcts, placement, partnership);
+  if(ORG_TAGS_ENABLED) renderTags(pcts, placement, partnership);
   renderOrgGuide();
 }
 
@@ -2999,6 +3001,11 @@ function renderOrgGuide(){
     });
   }
 }
+
+/* Org tags are switched off project-wide for now — see #orgTagSection.
+   With the flag false the tag block is never populated, so the copy
+   button has nothing to append either. */
+const ORG_TAGS_ENABLED = false;
 
 function renderTags(pcts, placement, partnership){
   const block = document.getElementById('rTagBlock');
