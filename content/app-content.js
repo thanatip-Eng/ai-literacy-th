@@ -847,30 +847,105 @@
         subtraits: ["learning", "self_reliance", "effort", "self_trust"]
       }
     ],
+    /* Three audiences, resolved from the role the user picked:
+       student · work (the six job roles) · lead (leader + educator).
+       Each has its own three lenses, because "other people" is a teacher
+       for a student, a manager for an employee and a team for a lead. */
     outsideView: {
-      low: {
-        exam: {th: "สิ่งที่คุณส่งตลอดเทอม กับสิ่งที่คุณทำเองได้จริง ตอนนี้ยังห่างกันอยู่ — และวันสอบคือวันที่คุณจะเจอทุกเรื่องที่คุณยังทำเองไม่ได้พร้อมกัน", en: "What you can hand in all term and what you can do on your own are not the same thing yet — and exam day is when you meet everything you still can't do, all at once"},
-        teacher: {th: "งานที่ดีแต่เจ้าของงานอธิบายไม่ได้ เป็นสิ่งที่ผู้สอนดูออกตั้งแต่คำถามแรก เพราะเขาได้เห็นนักศึกษาหลากหลายระดับ และรู้ว่าใครลงมือทำจริง ใครเข้าใจทำได้จริง", en: "Work that outruns what its author can explain is clear to a teacher from the first question — they have taught students at every level and can tell who did the work and who actually understands it"},
-        hiring: {th: "ถ้าสิ่งที่คุณทำได้คือสิ่งที่ AI ทำได้อยู่แล้ว คำถามที่คนจ้างต้องตอบให้ได้คือ “แล้วทำไมเขาต้องจ้างคุณ” — ข่าวดีคือคุณยังมีเวลาทั้งหลักสูตรที่จะทำให้คำตอบนั้นชัด", en: "If what you can do is what AI already does, the person hiring has to answer “then why you?” — the good news is you still have a whole degree to make that answer obvious"}
+      student: {
+        labels: {
+          solo: {th: "ในห้องสอบ", en: "In an exam"},
+          peers: {th: "ในสายตาอาจารย์", en: "In your teacher's eyes"},
+          market: {th: "ตอนสมัครงาน", en: "When you apply for a job"}
+        },
+        low: {
+          solo: {th: "สิ่งที่คุณส่งตลอดเทอม กับสิ่งที่คุณทำเองได้จริง ตอนนี้ยังห่างกันอยู่ — และวันสอบคือวันที่คุณจะเจอทุกเรื่องที่คุณยังทำเองไม่ได้พร้อมกัน", en: "What you can hand in all term and what you can do on your own are not the same thing yet — and exam day is when you meet everything you still can't do, all at once"},
+          peers: {th: "งานที่ดีแต่เจ้าของงานอธิบายไม่ได้ เป็นสิ่งที่ผู้สอนดูออกตั้งแต่คำถามแรก เพราะเขาได้เห็นนักศึกษาหลากหลายระดับ และรู้ว่าใครลงมือทำจริง ใครเข้าใจทำได้จริง", en: "Work that outruns what its author can explain is clear to a teacher from the first question — they have taught students at every level and can tell who did the work and who actually understands it"},
+          market: {th: "ถ้าสิ่งที่คุณทำได้คือสิ่งที่ AI ทำได้อยู่แล้ว คำถามที่คนจ้างต้องตอบให้ได้คือ “แล้วทำไมเขาต้องจ้างคุณ” — ข่าวดีคือคุณยังมีเวลาทั้งหลักสูตรที่จะทำให้คำตอบนั้นชัด", en: "If what you can do is what AI already does, the person hiring has to answer “then why you?” — the good news is you still have a whole degree to make that answer obvious"}
+        },
+        mid: {
+          solo: {th: "หลายเรื่องคุณทำเองได้ แต่มีบางส่วนที่ยังไม่แน่ใจว่าทำได้ไหมถ้าไม่มี AI — ลองหาให้เจอว่าส่วนไหนให้ทันก่อนสอบ", en: "You can do plenty yourself, but some of it you are not sure about without AI — find which parts before an exam finds them for you"},
+          peers: {th: "ตอนนี้คุณยังอธิบายงานของตัวเองได้เป็นส่วนใหญ่ ซึ่งทำให้สิ่งที่คุณพูดในห้องน่าเชื่อถือ — ถ้ามีตรงไหนที่อธิบายไม่ได้ ให้กลับไปทำความเข้าใจส่วนนั้นใหม่", en: "You can still account for most of your work, which is what makes what you say in class worth hearing — if there is a part you can't account for, go back and work through it until you understand it"},
+          market: {th: "สิ่งที่ทำให้คุณต่างจากคนอื่นไม่ใช่การใช้ AI คล่อง เพราะอีกไม่นานทุกคนก็ใช้คล่องกันทั่วโลก แต่จุดเด่นของคุณคือการที่คุณวิเคราะห์และระบุได้ว่าตอนไหนที่ AI ทำผิดและไม่น่าเชื่อถือ", en: "What sets you apart won't be being fluent with AI, because soon everyone everywhere will be — it will be that you can work out and point to where AI got it wrong and cannot be trusted"}
+        },
+        high: {
+          solo: {th: "คุณไม่ต้องกลัวเรื่องไม่มี AI ใช้ เพราะสิ่งที่คุณทำได้เป็นทักษะของคุณจริง ๆ ไม่ได้ขึ้นกับใคร", en: "You have nothing to fear from a day without AI, because what you can do is genuinely your own skill and depends on no one else"},
+          peers: {th: "คนที่อธิบายงานของตัวเองได้ทุกบรรทัด คือคนที่อาจารย์นึกถึงเวลามีโอกาสดี ๆ เข้ามา", en: "The student who can account for every line of their work is the one a teacher thinks of when an opportunity comes up"},
+          market: {th: "บริษัท/ผู้จ้างงานอยากเลือกคุณเข้าทำงาน เพราะ \"คุณใช้ AI ได้โดยที่เหตุผลยังเป็นของตัวเอง\" ซึ่งเป็นทักษะที่ผู้จ้างงานต้องการมากจากนักศึกษา", en: "An employer wants to hire you because you use AI and the reasoning stays yours — which is exactly the skill they are looking for in graduates"}
+        }
       },
-      mid: {
-        exam: {th: "หลายเรื่องคุณทำเองได้ แต่มีบางส่วนที่ยังไม่แน่ใจว่าทำได้ไหมถ้าไม่มี AI — ลองหาให้เจอว่าส่วนไหนให้ทันก่อนสอบ", en: "You can do plenty yourself, but some of it you are not sure about without AI — find which parts before an exam finds them for you"},
-        teacher: {th: "ตอนนี้คุณยังอธิบายงานของตัวเองได้เป็นส่วนใหญ่ ซึ่งทำให้สิ่งที่คุณพูดในห้องน่าเชื่อถือ — ถ้ามีตรงไหนที่อธิบายไม่ได้ ให้กลับไปทำความเข้าใจส่วนนั้นใหม่", en: "You can still account for most of your work, which is what makes what you say in class worth hearing — if there is a part you can't account for, go back and work through it until you understand it"},
-        hiring: {th: "สิ่งที่ทำให้คุณต่างจากคนอื่นไม่ใช่การใช้ AI คล่อง เพราะอีกไม่นานทุกคนก็ใช้คล่องกันทั่วโลก แต่จุดเด่นของคุณคือการที่คุณวิเคราะห์และระบุได้ว่าตอนไหนที่ AI ทำผิดและไม่น่าเชื่อถือ", en: "What sets you apart won't be being fluent with AI, because soon everyone everywhere will be — it will be that you can work out and point to where AI got it wrong and cannot be trusted"}
+      work: {
+        labels: {
+          solo: {th: "เมื่อต้องทำสดหน้างาน", en: "When you have to do it live"},
+          peers: {th: "ในสายตาหัวหน้าและเพื่อนร่วมงาน", en: "In your manager's and colleagues' eyes"},
+          market: {th: "เมื่อย้ายงาน", en: "When you move jobs"}
+        },
+        low: {
+          solo: {th: "งานที่คุณส่งได้ กับงานที่คุณทำเองได้ ยังไม่ใช่เรื่องเดียวกัน — วันที่ระบบล่ม ลูกค้าเร่ง หรือต้องตอบสดในที่ประชุม คือวันที่ช่องว่างนั้นโผล่มาพร้อมกันทั้งหมด", en: "What you can deliver and what you can do unaided are not the same thing yet — the day a system is down, a client is waiting, or you have to answer live in a meeting is the day that gap shows up all at once"},
+          peers: {th: "งานที่ดีแต่เจ้าของงานอธิบายที่มาไม่ได้ หัวหน้าและเพื่อนร่วมงานจับได้เร็วกว่าที่คิด เพราะเขาเห็นงานของคนหลายระดับมาแล้ว และรู้ว่าใครเข้าใจจริง", en: "Work that outruns what its author can explain is spotted faster than you would think — your manager and your colleagues have seen work from people at every level and can tell who actually understands it"},
+          market: {th: "ถ้าสิ่งที่คุณทำได้คือสิ่งที่ AI ทำได้อยู่แล้ว คำถามที่คนจ้างคนต่อไปต้องตอบคือ “แล้วทำไมต้องเป็นคุณ” — ข่าวดีคือคำตอบนั้นสร้างได้ และเริ่มได้จากงานที่อยู่ตรงหน้า", en: "If what you can do is what AI already does, whoever hires next has to answer “then why you?” — the good news is that answer can be built, starting with the work in front of you"}
+        },
+        mid: {
+          solo: {th: "หลายเรื่องคุณทำเองได้ แต่มีบางส่วนที่ยังไม่แน่ใจว่าทำได้ไหมถ้าไม่มี AI — หาให้เจอว่าส่วนไหน ก่อนที่หน้างานจริงจะหาเจอแทนคุณ", en: "You can do plenty yourself, but some of it you are not sure about without AI — find which parts before a real deadline finds them for you"},
+          peers: {th: "ตอนนี้คุณยังอธิบายงานของตัวเองได้เป็นส่วนใหญ่ ซึ่งเป็นเหตุผลที่ความเห็นของคุณในที่ประชุมมีน้ำหนัก — ถ้ามีตรงไหนที่อธิบายไม่ได้ ให้กลับไปทำความเข้าใจส่วนนั้นก่อนมีคนถาม", en: "You can still account for most of your work, which is why your view carries weight in a room — if there is a part you can't account for, go back to it before someone asks"},
+          market: {th: "สิ่งที่ทำให้คุณต่างจากคนอื่นไม่ใช่การใช้ AI คล่อง เพราะอีกไม่นานทุกคนก็ใช้คล่องกันหมด แต่จุดเด่นของคุณคือการที่คุณระบุได้ว่าตอนไหนที่ AI ทำผิดและเชื่อไม่ได้", en: "What sets you apart won't be being fluent with AI, because soon everyone will be — it will be that you can point to where AI got it wrong and cannot be trusted"}
+        },
+        high: {
+          solo: {th: "คุณไม่ต้องกลัววันที่ไม่มี AI ใช้ เพราะสิ่งที่คุณทำได้เป็นทักษะของคุณจริง ๆ ไม่ได้ขึ้นกับเครื่องมือ", en: "You have nothing to fear from a day without AI, because what you can do is genuinely your own skill and does not depend on the tool"},
+          peers: {th: "คนที่อธิบายงานของตัวเองได้ทุกขั้น คือคนที่หัวหน้านึกถึงก่อน เวลามีงานสำคัญหรือโอกาสดี ๆ เข้ามา", en: "The person who can account for every step of their work is the one a manager thinks of first when something important comes up"},
+          market: {th: "ผู้จ้างงานอยากได้คุณเพราะ \"คุณใช้ AI ได้โดยที่เหตุผลยังเป็นของตัวเอง\" ซึ่งเป็นสิ่งที่หายากขึ้นเรื่อย ๆ ในตลาดที่ทุกคนใช้เครื่องมือเดียวกัน", en: "An employer wants you because you use AI and the reasoning stays yours — which gets rarer as everyone reaches for the same tools"}
+        }
       },
-      high: {
-        exam: {th: "คุณไม่ต้องกลัวเรื่องไม่มี AI ใช้ เพราะสิ่งที่คุณทำได้เป็นทักษะของคุณจริง ๆ ไม่ได้ขึ้นกับใคร", en: "You have nothing to fear from a day without AI, because what you can do is genuinely your own skill and depends on no one else"},
-        teacher: {th: "คนที่อธิบายงานของตัวเองได้ทุกบรรทัด คือคนที่อาจารย์นึกถึงเวลามีโอกาสดี ๆ เข้ามา", en: "The student who can account for every line of their work is the one a teacher thinks of when an opportunity comes up"},
-        hiring: {th: "บริษัท/ผู้จ้างงานอยากเลือกคุณเข้าทำงาน เพราะ \"คุณใช้ AI ได้โดยที่เหตุผลยังเป็นของตัวเอง\" ซึ่งเป็นทักษะที่ผู้จ้างงานต้องการมากจากนักศึกษา", en: "An employer wants to hire you because you use AI and the reasoning stays yours — which is exactly the skill they are looking for in graduates"}
+      lead: {
+        labels: {
+          solo: {th: "เมื่อต้องตัดสินใจเอง", en: "When the call is yours"},
+          peers: {th: "ในสายตาทีมและคนที่คุณสอน", en: "In your team's and learners' eyes"},
+          market: {th: "เมื่อองค์กรมองหาคนนำ", en: "When the organisation looks for someone to lead"}
+        },
+        low: {
+          solo: {th: "การตัดสินใจที่คุณเซ็นชื่อกำกับ กับการตัดสินใจที่คุณอธิบายที่มาได้เอง ตอนนี้ยังห่างกันอยู่ — และวันที่ต้องตอบว่า “ทำไมถึงเลือกทางนี้” คือวันที่ช่องว่างนั้นโผล่", en: "The decisions you put your name to and the decisions you can account for yourself are not the same thing yet — and the day someone asks “why this way?” is the day that gap shows"},
+          peers: {th: "ทีมและคนที่คุณสอน เรียนจากสิ่งที่คุณทำมากกว่าสิ่งที่คุณบอก ถ้าคุณส่งต่องานที่ตัวเองอธิบายไม่ได้ นั่นคือมาตรฐานที่เขาจะใช้ต่อ", en: "Your team and the people you teach learn from what you do, not what you say — pass on work you can't account for and that becomes the standard they keep"},
+          market: {th: "องค์กรไม่ได้มองหาคนที่ใช้ AI คล่องที่สุด แต่มองหาคนที่กล้ารับผิดชอบผลของมัน — ถ้ายังอธิบายที่มาไม่ได้ ก็ยังรับผิดชอบแทนทีมไม่ได้", en: "Organisations are not looking for whoever is most fluent with AI, but for someone who will own what it produces — you cannot own what you cannot account for"}
+        },
+        mid: {
+          solo: {th: "หลายเรื่องคุณตัดสินใจเองได้ แต่มีบางส่วนที่ยังไม่แน่ใจว่าทำได้ไหมถ้าไม่มี AI — หาให้เจอว่าส่วนไหน ก่อนที่เรื่องนั้นจะมาถึงโต๊ะคุณจริง", en: "You can make most calls yourself, but some you are not sure about without AI — find which ones before one of them actually lands on your desk"},
+          peers: {th: "ตอนนี้คุณยังอธิบายเหตุผลเบื้องหลังงานของตัวเองได้เป็นส่วนใหญ่ ซึ่งเป็นสิ่งที่ทำให้ทีมเชื่อถือสิ่งที่คุณบอก — ตรงไหนที่อธิบายไม่ได้ อย่าเพิ่งส่งต่อเป็นแนวปฏิบัติ", en: "You can still explain the reasoning behind most of your work, which is what makes your team trust what you tell them — where you can't, don't pass it on as practice yet"},
+          market: {th: "สิ่งที่ทำให้คุณต่างจากผู้นำคนอื่นไม่ใช่การใช้ AI คล่อง แต่คือการที่คุณบอกได้ว่าตรงไหนที่ไม่ควรให้ AI ตัดสิน และยืนยันเหตุผลนั้นได้", en: "What sets you apart from other leaders won't be fluency with AI — it will be that you can say where AI should not be deciding, and stand behind that reasoning"}
+        },
+        high: {
+          solo: {th: "คุณไม่ต้องกลัววันที่ไม่มี AI ใช้ เพราะวิจารณญาณที่คุณใช้ตัดสินใจเป็นของคุณเอง ไม่ได้ยืมมาจากเครื่องมือ", en: "You have nothing to fear from a day without AI, because the judgement behind your decisions is your own and not borrowed from a tool"},
+          peers: {th: "ผู้นำที่อธิบายได้ว่าทำไมถึงเลือกทางนี้ คือคนที่ทีมกล้าเถียงด้วย และนั่นคือทีมที่จับความผิดพลาดได้เร็วที่สุด", en: "A leader who can explain why they chose this way is a leader the team dares to argue with — and that is the team that catches mistakes soonest"},
+          market: {th: "องค์กรอยากได้คุณเพราะ \"คุณใช้ AI ได้โดยที่การตัดสินใจยังเป็นของคนจริง ๆ\" ซึ่งเป็นสิ่งที่องค์กรต้องการมากขึ้นเรื่อย ๆ เมื่อทุกที่เริ่มใช้เครื่องมือเดียวกัน", en: "Organisations want you because you use AI and the decisions stay human — something they need more of as everyone adopts the same tools"}
+        }
       }
     },
+    /* Same three audiences. The prompt set is identical in shape so the
+       result page can pick by key without knowing who is reading. */
     reflectPrompts: {
-      selfReliance: {th: "นึกถึงงานชิ้นล่าสุดที่คุณให้ AI ช่วยมากที่สุด ถ้าต้องทำใหม่ในห้องสอบโดยไม่มี AI คุณจะติดตรงไหน และจะฝึกตรงนั้นอย่างไรภายในสองสัปดาห์นี้", en: "Think of the last piece of work you leaned on AI for most. If you had to redo it in an exam room with no AI, where would you get stuck — and how will you practise that part in the next two weeks?"},
-      selfTrust: {th: "เล่าครั้งที่คุณไม่เห็นด้วยกับ AI แต่สุดท้ายก็เชื่อมัน ตอนนั้นคุณคิดอะไรอยู่ และถ้าย้อนกลับไปได้จะทำต่างออกไปอย่างไร", en: "Describe a time you disagreed with AI and went along with it anyway. What were you thinking at that moment, and what would you do differently now?"},
-      verify: {th: "ยกตัวอย่างสิ่งที่ AI ให้คุณมาแล้วคุณใช้ต่อโดยไม่ได้ตรวจ ถ้ามันผิดขึ้นมา ผลจะตกอยู่กับใครบ้าง", en: "Give an example of something AI gave you that you used without checking. If it had been wrong, who would have carried the consequences?"},
-      effort: {th: "มีเรื่องไหนที่คุณรู้ว่าต้องเก่งให้ได้ในสายของคุณ แต่ทุกครั้งที่มันยากคุณก็ส่งต่อให้ AI — เลือกมาหนึ่งเรื่อง แล้วบอกว่าจะเริ่มฝึกเองอย่างไร", en: "Name something you know you need to be good at in your field but hand to AI whenever it gets hard. Pick one, and say how you will start practising it yourself."},
-      strong: {th: "สิ่งที่คุณทำอยู่ตอนนี้ — ตรวจสอบ ตั้งคำถาม และลงมือเองในส่วนที่สำคัญ — มาจากนิสัยหรือวิธีคิดแบบไหน และคุณจะส่งต่อให้เพื่อนในกลุ่มได้อย่างไร", en: "What you already do — checking, questioning, doing the important parts yourself — comes from some habit or way of thinking. What is it, and how could you pass it on to your group?"},
-      always: {th: "มีอะไรในผลนี้ที่ตรงกับตัวคุณจนสะดุดไหม และเทอมนี้คุณจะเปลี่ยนอะไรหนึ่งอย่าง", en: "Was there anything in this result that landed a little too close? And what is the one thing you will change this term?"}
+      student: {
+        selfReliance: {th: "นึกถึงงานชิ้นล่าสุดที่คุณให้ AI ช่วยมากที่สุด ถ้าต้องทำใหม่ในห้องสอบโดยไม่มี AI คุณจะติดตรงไหน และจะฝึกตรงนั้นอย่างไรภายในสองสัปดาห์นี้", en: "Think of the last piece of work you leaned on AI for most. If you had to redo it in an exam room with no AI, where would you get stuck — and how will you practise that part in the next two weeks?"},
+        selfTrust: {th: "เล่าครั้งที่คุณไม่เห็นด้วยกับ AI แต่สุดท้ายก็เชื่อมัน ตอนนั้นคุณคิดอะไรอยู่ และถ้าย้อนกลับไปได้จะทำต่างออกไปอย่างไร", en: "Describe a time you disagreed with AI and went along with it anyway. What were you thinking at that moment, and what would you do differently now?"},
+        verify: {th: "ยกตัวอย่างสิ่งที่ AI ให้คุณมาแล้วคุณใช้ต่อโดยไม่ได้ตรวจ ถ้ามันผิดขึ้นมา ผลจะตกอยู่กับใครบ้าง", en: "Give an example of something AI gave you that you used without checking. If it had been wrong, who would have carried the consequences?"},
+        effort: {th: "มีเรื่องไหนที่คุณรู้ว่าต้องเก่งให้ได้ในสายของคุณ แต่ทุกครั้งที่มันยากคุณก็ส่งต่อให้ AI — เลือกมาหนึ่งเรื่อง แล้วบอกว่าจะเริ่มฝึกเองอย่างไร", en: "Name something you know you need to be good at in your field but hand to AI whenever it gets hard. Pick one, and say how you will start practising it yourself."},
+        strong: {th: "สิ่งที่คุณทำอยู่ตอนนี้ — ตรวจสอบ ตั้งคำถาม และลงมือเองในส่วนที่สำคัญ — มาจากนิสัยหรือวิธีคิดแบบไหน และคุณจะส่งต่อให้เพื่อนในกลุ่มได้อย่างไร", en: "What you already do — checking, questioning, doing the important parts yourself — comes from some habit or way of thinking. What is it, and how could you pass it on to your group?"},
+        always: {th: "มีอะไรในผลนี้ที่ตรงกับตัวคุณจนสะดุดไหม และเทอมนี้คุณจะเปลี่ยนอะไรหนึ่งอย่าง", en: "Was there anything in this result that landed a little too close? And what is the one thing you will change this term?"}
+      },
+      work: {
+        selfReliance: {th: "นึกถึงงานชิ้นล่าสุดที่คุณให้ AI ช่วยมากที่สุด ถ้าต้องทำใหม่โดยไม่มี AI และมีเดดไลน์จริง คุณจะติดตรงไหน และจะฝึกตรงนั้นอย่างไรภายในสองสัปดาห์นี้", en: "Think of the last piece of work you leaned on AI for most. If you had to redo it with no AI and a real deadline, where would you get stuck — and how will you practise that part in the next two weeks?"},
+        selfTrust: {th: "เล่าครั้งที่คุณไม่เห็นด้วยกับ AI แต่สุดท้ายก็เชื่อมัน ตอนนั้นคุณคิดอะไรอยู่ และถ้าย้อนกลับไปได้จะทำต่างออกไปอย่างไร", en: "Describe a time you disagreed with AI and went along with it anyway. What were you thinking at that moment, and what would you do differently now?"},
+        verify: {th: "ยกตัวอย่างสิ่งที่ AI ให้คุณมาแล้วคุณใช้ต่อโดยไม่ได้ตรวจ ถ้ามันผิดขึ้นมา ผลจะตกอยู่กับใครบ้าง — ลูกค้าหรือเพื่อนร่วมงานอยู่ในนั้นด้วยไหม", en: "Give an example of something AI gave you that you used without checking. If it had been wrong, who would have carried the consequences — were clients or colleagues among them?"},
+        effort: {th: "มีเรื่องไหนที่คุณรู้ว่าต้องเก่งให้ได้ในงานของคุณ แต่ทุกครั้งที่มันยากคุณก็ส่งต่อให้ AI — เลือกมาหนึ่งเรื่อง แล้วบอกว่าจะเริ่มฝึกเองอย่างไร", en: "Name something you know you need to be good at in your job but hand to AI whenever it gets hard. Pick one, and say how you will start practising it yourself."},
+        strong: {th: "สิ่งที่คุณทำอยู่ตอนนี้ — ตรวจสอบ ตั้งคำถาม และลงมือเองในส่วนที่สำคัญ — มาจากนิสัยหรือวิธีคิดแบบไหน และคุณจะส่งต่อให้เพื่อนร่วมงานได้อย่างไร", en: "What you already do — checking, questioning, doing the important parts yourself — comes from some habit or way of thinking. What is it, and how could you pass it on to the people you work with?"},
+        always: {th: "มีอะไรในผลนี้ที่ตรงกับตัวคุณจนสะดุดไหม และในเดือนนี้คุณจะเปลี่ยนอะไรหนึ่งอย่าง", en: "Was there anything in this result that landed a little too close? And what is the one thing you will change this month?"}
+      },
+      lead: {
+        selfReliance: {th: "นึกถึงการตัดสินใจล่าสุดที่คุณให้ AI ช่วยมากที่สุด ถ้าต้องตัดสินใจใหม่โดยไม่มี AI คุณจะติดตรงไหน และจะฝึกตรงนั้นอย่างไรภายในสองสัปดาห์นี้", en: "Think of the last decision you leaned on AI for most. If you had to make it again with no AI, where would you get stuck — and how will you practise that part in the next two weeks?"},
+        selfTrust: {th: "เล่าครั้งที่คุณไม่เห็นด้วยกับ AI แต่สุดท้ายก็เชื่อมัน ตอนนั้นคุณคิดอะไรอยู่ และถ้าย้อนกลับไปได้จะทำต่างออกไปอย่างไร", en: "Describe a time you disagreed with AI and went along with it anyway. What were you thinking at that moment, and what would you do differently now?"},
+        verify: {th: "ยกตัวอย่างสิ่งที่ AI ให้คุณมาแล้วคุณใช้ต่อโดยไม่ได้ตรวจ ถ้ามันผิดขึ้นมา ผลจะตกอยู่กับใครบ้าง — ทีมของคุณอยู่ในนั้นด้วยไหม", en: "Give an example of something AI gave you that you used without checking. If it had been wrong, who would have carried the consequences — was your team among them?"},
+        effort: {th: "มีเรื่องไหนที่คุณรู้ว่าคนในตำแหน่งของคุณต้องทำเองให้ได้ แต่ทุกครั้งที่มันยากคุณก็ส่งต่อให้ AI — เลือกมาหนึ่งเรื่อง แล้วบอกว่าจะเริ่มฝึกเองอย่างไร", en: "Name something you know someone in your position has to be able to do unaided but hand to AI whenever it gets hard. Pick one, and say how you will start practising it yourself."},
+        strong: {th: "สิ่งที่คุณทำอยู่ตอนนี้ — ตรวจสอบ ตั้งคำถาม และลงมือเองในส่วนที่สำคัญ — มาจากนิสัยหรือวิธีคิดแบบไหน และคุณจะทำให้มันเป็นมาตรฐานของทีมได้อย่างไร", en: "What you already do — checking, questioning, doing the important parts yourself — comes from some habit or way of thinking. What is it, and how could you make it the standard for your team?"},
+        always: {th: "มีอะไรในผลนี้ที่ตรงกับตัวคุณจนสะดุดไหม และในเดือนนี้คุณจะเปลี่ยนอะไรหนึ่งอย่าง", en: "Was there anything in this result that landed a little too close? And what is the one thing you will change this month?"}
+      }
     },
     disciplines: [
       {

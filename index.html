@@ -1225,9 +1225,9 @@
       <h4 class="without-ai-head" data-i18n="outsideViewHead">🪞 คนอื่นเห็นอะไร</h4>
       <p class="without-ai-intro" data-i18n="outsideViewIntro">ผลแบบนี้ เวลาคนอื่นมองเข้ามา เขาอ่านออกมาเป็นแบบนี้</p>
       <div class="ov-rows">
-        <div class="ov-row"><span class="ov-label" data-i18n="outsideExamLabel">ในห้องสอบ</span><p id="rOvExam"></p></div>
-        <div class="ov-row"><span class="ov-label" data-i18n="outsideTeacherLabel">ในสายตาอาจารย์</span><p id="rOvTeacher"></p></div>
-        <div class="ov-row"><span class="ov-label" data-i18n="outsideHiringLabel">ตอนสมัครงาน</span><p id="rOvHiring"></p></div>
+        <div class="ov-row"><span class="ov-label" id="rOvExamLabel" data-i18n="outsideExamLabel">ในห้องสอบ</span><p id="rOvExam"></p></div>
+        <div class="ov-row"><span class="ov-label" id="rOvTeacherLabel" data-i18n="outsideTeacherLabel">ในสายตาอาจารย์</span><p id="rOvTeacher"></p></div>
+        <div class="ov-row"><span class="ov-label" id="rOvHiringLabel" data-i18n="outsideHiringLabel">ตอนสมัครงาน</span><p id="rOvHiring"></p></div>
       </div>
       <p class="ov-evidence">
         <span data-i18n="evidenceLine">งานวิจัยปี 2025 กับผู้ทำงาน 319 คน พบว่า ยิ่งเชื่อมั่นใน AI มาก ยิ่งคิดวิเคราะห์น้อยลง — ส่วนคนที่มั่นใจในความสามารถของตัวเอง กลับคิดวิเคราะห์มากขึ้น</span>
@@ -1517,6 +1517,19 @@ const FIELD_VERDICT = CONTENT.fieldVerdict || {};
 const PARTNERSHIP_GROUPS = CONTENT.partnershipGroups || [];
 const OUTSIDE_VIEW = CONTENT.outsideView || {};
 const REFLECT_PROMPTS = CONTENT.reflectPrompts || {};
+/* Which set of copy this reader gets. "Other people" is a teacher for a
+   student, a manager for an employee and a team for someone who leads or
+   teaches — so the outside view and the reflection prompts branch here.
+   Canvas students never pick a job role, hence the studentMode() first.
+   Someone who skipped the role question falls to 'work', the most neutral
+   of the three. */
+function audienceKey(){
+  if(studentMode()) return 'student';
+  const code = userRole && userRole.code;
+  if(code === 'student') return 'student';
+  if(code === 'leader' || code === 'educator') return 'lead';
+  return 'work';
+}
 const PARTNERSHIP = CONTENT.partnership;
 const PARTNERSHIP_CUT = (PARTNERSHIP && typeof PARTNERSHIP.threshold === 'number') ? PARTNERSHIP.threshold : 60;
 const SKILL_CUT = (typeof CONTENT.skillThreshold === 'number') ? CONTENT.skillThreshold : 65;
@@ -2712,11 +2725,18 @@ function renderOutsideView(partnership){
   if(!scores.length){ box.hidden = true; return; }
   const mean = Math.round(scores.reduce((sum, v) => sum + v, 0) / scores.length);
   const tier = mean < 40 ? 'low' : (mean < 70 ? 'mid' : 'high');
-  const copy = OUTSIDE_VIEW[tier];
-  if(!copy){ box.hidden = true; return; }
-  document.getElementById('rOvExam').textContent = tx(copy.exam);
-  document.getElementById('rOvTeacher').textContent = tx(copy.teacher);
-  document.getElementById('rOvHiring').textContent = tx(copy.hiring);
+  const set = OUTSIDE_VIEW[audienceKey()];
+  const copy = set && set[tier];
+  if(!copy || !set.labels){ box.hidden = true; return; }
+  // the lenses are named by the audience too, so the labels come from content
+  // rather than from a fixed i18n key
+  [['rOvExam', 'rOvExamLabel', 'solo'],
+   ['rOvTeacher', 'rOvTeacherLabel', 'peers'],
+   ['rOvHiring', 'rOvHiringLabel', 'market']].forEach(([textId, labelId, slot]) => {
+    document.getElementById(textId).textContent = tx(copy[slot]);
+    const label = document.getElementById(labelId);
+    if(label){ label.removeAttribute('data-i18n'); label.textContent = tx(set.labels[slot]); }
+  });
   box.hidden = false;
 }
 
@@ -2745,8 +2765,9 @@ function renderReflect(partnership){
     .slice(0, 2)
     .map(entry => entry.prompt);
   const picked = (weak.length ? weak : ['strong']).concat('always');
-  reflectPromptKeys = picked.filter(key => REFLECT_PROMPTS[key]);
-  reflectPromptTexts = reflectPromptKeys.map(key => tx(REFLECT_PROMPTS[key]));
+  const prompts = REFLECT_PROMPTS[audienceKey()] || {};
+  reflectPromptKeys = picked.filter(key => prompts[key]);
+  reflectPromptTexts = reflectPromptKeys.map(key => tx(prompts[key]));
   if(!reflectPromptTexts.length){ box.hidden = true; return; }
 
   list.innerHTML = '';
@@ -2755,6 +2776,11 @@ function renderReflect(partnership){
     li.textContent = text;
     list.appendChild(li);
   });
+
+  // the copy button exists to paste into the Canvas reflection form; on a
+  // public visit there is no form to paste into, so it has no job there
+  const copyBtn = document.getElementById('reflectCopyBtn');
+  if(copyBtn) copyBtn.hidden = !canvasView();
 
   box.hidden = false;
 }

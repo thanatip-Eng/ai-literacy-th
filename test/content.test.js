@@ -231,16 +231,40 @@ test('field scenarios never become part of the scored core', () => {
   }
 });
 
-test('the outside view reads the same result at three levels, in both languages', () => {
+test('the outside view reads the same result at three levels, for three audiences', () => {
   const view = content.outsideView;
   assert.ok(view, 'outsideView block is required');
-  assert.deepEqual(Object.keys(view), ['low', 'mid', 'high']);
-  for (const [tier, rows] of Object.entries(view)) {
-    assert.deepEqual(Object.keys(rows), ['exam', 'teacher', 'hiring'],
-      `${tier} must cover the exam room, the teacher and the hiring decision`);
-    for (const [where, text] of Object.entries(rows)) {
-      for (const lang of ['th', 'en']) {
-        assert.ok(text[lang] && text[lang].trim(), `outsideView.${tier}.${where}.${lang}`);
+  // "other people" is a teacher for a student, a manager for an employee and
+  // a team for someone who leads or teaches — each audience gets its own set
+  assert.deepEqual(Object.keys(view), ['student', 'work', 'lead']);
+  const slots = ['solo', 'peers', 'market'];
+  for (const [aud, set] of Object.entries(view)) {
+    assert.deepEqual(Object.keys(set), ['labels', 'low', 'mid', 'high'],
+      `${aud} needs its own lens labels and all three tiers`);
+    for (const [group, rows] of Object.entries(set)) {
+      assert.deepEqual(Object.keys(rows), slots,
+        `outsideView.${aud}.${group} must cover all three lenses`);
+      for (const [slot, text] of Object.entries(rows)) {
+        for (const lang of ['th', 'en']) {
+          assert.ok(text[lang] && text[lang].trim(),
+            `outsideView.${aud}.${group}.${slot}.${lang}`);
+        }
+      }
+    }
+  }
+});
+
+test('no audience is left reading another audience\'s world', () => {
+  const view = content.outsideView;
+  // the words that gave the student version away when everyone shared it
+  const schoolOnly = ['ห้องสอบ', 'เทอม', 'อาจารย์', 'หลักสูตร', 'นักศึกษา'];
+  for (const aud of ['work', 'lead']) {
+    for (const group of ['labels', 'low', 'mid', 'high']) {
+      for (const [slot, text] of Object.entries(view[aud][group])) {
+        for (const word of schoolOnly) {
+          assert.ok(!text.th.includes(word),
+            `outsideView.${aud}.${group}.${slot} still says "${word}"`);
+        }
       }
     }
   }
@@ -249,12 +273,16 @@ test('the outside view reads the same result at three levels, in both languages'
 test('reflection prompts cover every trigger the result page can pick', () => {
   const prompts = content.reflectPrompts;
   assert.ok(prompts, 'reflectPrompts block is required');
+  assert.deepEqual(Object.keys(prompts), ['student', 'work', 'lead']);
   // the four weak-dimension triggers, the one for a strong result, and the
-  // closing question everyone gets
-  for (const key of ['selfReliance', 'selfTrust', 'verify', 'effort', 'strong', 'always']) {
-    for (const lang of ['th', 'en']) {
-      assert.ok(prompts[key] && prompts[key][lang] && prompts[key][lang].trim(),
-        `reflectPrompts.${key}.${lang}`);
+  // closing question everyone gets — the same shape for every audience, so
+  // the result page can pick by key without knowing who is reading
+  for (const [aud, set] of Object.entries(prompts)) {
+    for (const key of ['selfReliance', 'selfTrust', 'verify', 'effort', 'strong', 'always']) {
+      for (const lang of ['th', 'en']) {
+        assert.ok(set[key] && set[key][lang] && set[key][lang].trim(),
+          `reflectPrompts.${aud}.${key}.${lang}`);
+      }
     }
   }
 });

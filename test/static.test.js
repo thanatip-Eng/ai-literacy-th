@@ -248,6 +248,23 @@ test('the open-ended comment is a labelled question and never blocks submitting'
   assert.match(html, /const ok = \(mfbRating > 0 && mfbFit > 0 && mfbUseful > 0\) \|\| mfbSent;/);
 });
 
+test('the outside view and the prompts are picked for who is reading', () => {
+  // a student is told about the exam room, an employee about the next deadline
+  // and a lead about their team — one resolver decides which set is used
+  assert.match(html, /function audienceKey\(\)\{/);
+  assert.match(html, /if\(studentMode\(\)\) return 'student';/);
+  assert.match(html, /code === 'leader' \|\| code === 'educator'/);
+  assert.match(html, /OUTSIDE_VIEW\[audienceKey\(\)\]/);
+  assert.match(html, /REFLECT_PROMPTS\[audienceKey\(\)\]/);
+  // the lens labels travel with the copy, so they cannot say "teacher" to
+  // someone who picked a job role
+  assert.match(html, /label\.removeAttribute\('data-i18n'\)/);
+});
+
+test('the copy-the-prompts button only exists where there is a form to paste into', () => {
+  assert.match(html, /copyBtn\.hidden = !canvasView\(\)/);
+});
+
 test('the outside view and the reflection prompts come from the result', () => {
   assert.match(html, /id="rOutsideView" hidden/);
   assert.match(html, /const keys = \['self_reliance', 'effort', 'self_trust', 'verify'\];/);
