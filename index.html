@@ -1524,7 +1524,7 @@ const REFLECT_PROMPTS = CONTENT.reflectPrompts || {};
    Someone who skipped the role question falls to 'work', the most neutral
    of the three. */
 function audienceKey(){
-  if(studentMode()) return 'student';
+  if(studentMode() || userDiscipline) return 'student';
   const code = userRole && userRole.code;
   if(code === 'student') return 'student';
   if(code === 'leader' || code === 'educator') return 'lead';
@@ -1656,6 +1656,12 @@ let userName = '';
 let userRole = null;
 // Students pick a field of study instead of a job role; the two never mix.
 let userDiscipline = null;
+/* Public side only: the role screen has two steps for a student. Picking
+   "student" does not answer the question, it moves to the six field groups —
+   which is why userRole stays null and the two variables still never hold a
+   value at the same time. */
+let askingDiscipline = false;
+function disciplineStep(){ return studentMode() || askingDiscipline; }
 let finishedAt = null;
 
 /* connect-mode state (Canvas LTI / Google Form).
@@ -1798,7 +1804,7 @@ function fieldItemsFor(discipline){
   return (discipline && FIELD_ITEMS[discipline.code]) || [];
 }
 function rebuildQuestionList(){
-  const extra = fieldItemsFor(studentMode() ? userDiscipline : null)
+  const extra = fieldItemsFor(userDiscipline)
     .map((item, i) => ({kind: 'field', itemIndex: i}));
   QS = CORE_QS.concat(extra);
   TOTAL = QS.length;
@@ -1809,7 +1815,7 @@ function rebuildQuestionList(){
 function renderRoleOptions(){
   const box = document.getElementById('roleGrid');
   if(!box) return;
-  const student = studentMode();
+  const student = disciplineStep();
   const section = document.getElementById('role');
   const setKey = (sel, key) => {
     const el = section && section.querySelector(sel);
@@ -1829,7 +1835,15 @@ function renderRoleOptions(){
      field items, every example line, the two field cards and both Sheet
      columns, while the walkthrough still promises 36 questions. */
   const skipRow = document.getElementById('roleSkipRow');
-  if(skipRow) skipRow.hidden = student;
+  // on the public second step the same row goes back to the nine roles, so
+  // picking "student" by mistake is not a dead end
+  const skipBtn = skipRow && skipRow.querySelector('button');
+  if(skipRow) skipRow.hidden = studentMode();
+  if(skipBtn){
+    const key = askingDiscipline ? 'disciplineBack' : 'roleSkip';
+    skipBtn.dataset.i18n = key;
+    skipBtn.textContent = t(key);
+  }
 
   box.innerHTML = '';
   const options = student ? DISCIPLINES : ROLES;
@@ -1849,9 +1863,19 @@ function renderRoleOptions(){
   });
 }
 function pickRole(code){
-  if(studentMode()){
+  if(disciplineStep()){
     userDiscipline = DISCIPLINES.find(d => d.code === code) || null;
     userRole = null;
+    askingDiscipline = false;
+  } else if(code === 'student'){
+    /* A student needs the field of study, not the job role: the example under
+       every question and the advice on the result page are written per field,
+       and a role ceiling would tell someone who is still studying that they
+       have outgrown being a student. */
+    askingDiscipline = true;
+    renderRoleOptions();
+    window.scrollTo(0, 0);
+    return;
   } else {
     userRole = ROLES.find(r => r.code === code) || null;
     userDiscipline = null;
@@ -1860,6 +1884,12 @@ function pickRole(code){
   startQuizFlow();
 }
 function skipRole(){
+  if(askingDiscipline){
+    askingDiscipline = false;
+    renderRoleOptions();
+    window.scrollTo(0, 0);
+    return;
+  }
   userRole = null;
   userDiscipline = null;
   rebuildQuestionList();
@@ -1883,6 +1913,7 @@ function restart(){
   userName = '';
   userRole = null;
   userDiscipline = null;
+  askingDiscipline = false;
   rebuildQuestionList();
   finishedAt = null;
   connectPayload = null;
@@ -1908,7 +1939,7 @@ function restart(){
 function renderQExample(itemObj){
   const box = document.getElementById('qExample');
   if(!box) return;
-  const set = studentMode() && userDiscipline && itemObj && itemObj.examples
+  const set = userDiscipline && itemObj && itemObj.examples
     ? itemObj.examples[userDiscipline.code]
     : null;
   if(!set){ box.hidden = true; box.textContent = ''; return; }
@@ -3092,9 +3123,10 @@ function renderRoleVerdict(pcts, THRESH){
   if(!insightRow) return;
   const fieldBox = document.getElementById('rFieldAdvice');
   const ceilingLink = document.getElementById('rRoleInsightLink');
-  // Students get field guidance instead of a role ceiling: they are still
-  // studying, so "you have outgrown your role" is the wrong thing to say.
-  if(studentMode()){
+  // Anyone who picked a field of study is studying, on Canvas or not — a role
+  // ceiling saying "you have outgrown your role" is the wrong thing to tell
+  // them, so they get the field guidance instead.
+  if(userDiscipline){
     if(stretchBox) stretchBox.hidden = true;
     if(ceilingLink) ceilingLink.hidden = true;
     renderDisciplineAdvice();

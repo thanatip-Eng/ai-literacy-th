@@ -127,14 +127,26 @@ test('editor draft restore only merges known keys with matching types', () => {
   assert.doesNotMatch(html, /function deepMerge/);
 });
 
-test('the student path is gated on student mode and drops the role ceiling', () => {
+test('the field screen is reached from Canvas or by picking "student", and drops the role ceiling', () => {
   assert.match(html, /function studentMode\(\)\{ return !!CONNECT_MODE \|\| demoCanvas\(\); \}/);
+  // Canvas goes straight to the field groups; on a public host the nine roles
+  // come first and "student" opens the same screen as a second step
+  assert.match(html, /function disciplineStep\(\)\{ return studentMode\(\) \|\| askingDiscipline; \}/);
   // the field screen reuses #role, so both halves must stay behind the gate
+  assert.match(html, /const student = disciplineStep\(\);/);
   assert.match(html, /const options = student \? DISCIPLINES : ROLES;/);
   assert.match(html, /if\(guideRow\) guideRow\.hidden = student;/);
-  // students never see the "you outgrew your role" card or the ceiling link
-  assert.match(html, /if\(studentMode\(\)\)\{\s*if\(stretchBox\) stretchBox\.hidden = true;\s*if\(ceilingLink\) ceilingLink\.hidden = true;\s*renderDisciplineAdvice\(\);\s*return;/);
+  // the ceiling card follows the field of study, not the host: whoever is
+  // studying never reads "you outgrew your role"
+  assert.match(html, /if\(userDiscipline\)\{\s*if\(stretchBox\) stretchBox\.hidden = true;\s*if\(ceilingLink\) ceilingLink\.hidden = true;\s*renderDisciplineAdvice\(\);\s*return;/);
   assert.match(html, /id="rFieldAdvice" hidden/);
+});
+
+test('picking "student" opens the field step instead of answering the role question', () => {
+  // userRole must stay null here, or both variables would hold a value at once
+  assert.match(html, /\}\s*else if\(code === 'student'\)\{[\s\S]{0,420}?askingDiscipline = true;\s*renderRoleOptions\(\);\s*window\.scrollTo\(0, 0\);\s*return;\s*\}/);
+  assert.match(html, /if\(disciplineStep\(\)\)\{\s*userDiscipline = DISCIPLINES\.find/);
+  assert.match(html, /function restart\(\)[\s\S]{0,600}?askingDiscipline = false;/);
 });
 
 test('field of study and job role never overwrite each other', () => {
@@ -150,13 +162,18 @@ test('a student cannot skip the field group, because skipping drops real content
   // items, every example line and both Sheet columns — while the walkthrough
   // still promises 36 questions. A job role can genuinely be "none of these";
   // a field of study cannot, so the row only hides for students.
-  assert.match(html, /const skipRow = document\.getElementById\('roleSkipRow'\);\s*\n\s*if\(skipRow\) skipRow\.hidden = student;/);
+  assert.match(html, /const skipRow = document\.getElementById\('roleSkipRow'\);/);
+  assert.match(html, /if\(skipRow\) skipRow\.hidden = studentMode\(\);/);
+  // on the public second step the same row is a way back to the nine roles,
+  // so picking "student" by mistake is not a dead end
+  assert.match(html, /const key = askingDiscipline \? 'disciplineBack' : 'roleSkip';/);
+  assert.match(html, /function skipRole\(\)\{\s*if\(askingDiscipline\)\{\s*askingDiscipline = false;\s*renderRoleOptions\(\);/);
 });
 
-test('the per-field example line is gated on student mode', () => {
+test('the per-field example line follows the field of study, not the host', () => {
   assert.match(html, /id="qExample" hidden/);
   assert.match(html, /function renderQExample/);
-  assert.match(html, /studentMode\(\) && userDiscipline && itemObj && itemObj\.examples/);
+  assert.match(html, /const set = userDiscipline && itemObj && itemObj\.examples/);
   assert.match(html, /if\(!set\)\{ box\.hidden = true; box\.textContent = ''; return; \}/);
 });
 
@@ -252,7 +269,8 @@ test('the outside view and the prompts are picked for who is reading', () => {
   // a student is told about the exam room, an employee about the next deadline
   // and a lead about their team — one resolver decides which set is used
   assert.match(html, /function audienceKey\(\)\{/);
-  assert.match(html, /if\(studentMode\(\)\) return 'student';/);
+  // a field of study means the reader is studying, Canvas or not
+  assert.match(html, /if\(studentMode\(\) \|\| userDiscipline\) return 'student';/);
   assert.match(html, /code === 'leader' \|\| code === 'educator'/);
   assert.match(html, /OUTSIDE_VIEW\[audienceKey\(\)\]/);
   assert.match(html, /REFLECT_PROMPTS\[audienceKey\(\)\]/);
